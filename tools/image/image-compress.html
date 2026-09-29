@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image Compressor — Reduce JPG, PNG, WebP Size in Your Browser</title>
+<meta name="description" content="Free online image compressor. Reduce JPG, PNG and WebP file size without visible quality loss. Batch support, no upload, runs entirely in your browser.">
+<link rel="canonical" href="https://qrcodescanner.co.in/tools/image/image-compress.html">
+<link rel="sitemap" type="application/xml" href="https://qrcodescanner.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#1B4DFF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Image Compressor — Reduce JPG, PNG, WebP Size">
+<meta property="og:description" content="Compress images in your browser. No upload, no signup.">
+<meta property="og:url" content="https://qrcodescanner.co.in/tools/image/image-compress.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Image Compressor","url":"https://qrcodescanner.co.in/tools/image/image-compress.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://qrcodescanner.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://qrcodescanner.co.in/tools/"},{"@type":"ListItem","position":3,"name":"Image Compressor","item":"https://qrcodescanner.co.in/tools/image/image-compress.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this image compressor free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is completely free, has no file size limit and runs entirely in your browser."}},{"@type":"Question","name":"Are my images uploaded to a server?","acceptedAnswer":{"@type":"Answer","text":"No. Everything happens on your device. Your images never leave your computer or phone."}},{"@type":"Question","name":"What image formats are supported?","acceptedAnswer":{"@type":"Answer","text":"JPG, PNG and WebP. You can compress any of these, and optionally convert between them."}},{"@type":"Question","name":"How much can I compress an image?","acceptedAnswer":{"@type":"Answer","text":"Typically 40 to 80 percent size reduction with minimal visible quality loss. The exact amount depends on the original image and how much quality you are willing to trade."}}]}]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<style>
+:root{--paper:#EDEDE9;--surface:#FFFFFF;--ink:#14161A;--muted:#6B7079;--line:#D6D6D0;--blue:#1B4DFF;--blue-deep:#1338C4;--green:#0E7A5F;--red:#B0233A;--amber:#B87333;--radius:6px;--sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--display:"Bricolage Grotesque",var(--sans);--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;background-image:linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);background-size:28px 28px}
+.wrap{max-width:760px;margin:0 auto;padding:20px 18px 64px}
+.masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
+.masthead a{color:inherit;text-decoration:none}
+.mark{width:26px;height:26px;flex:none}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.masthead .nav-right{margin-left:auto;font-size:.875rem;color:var(--blue);text-decoration:underline;white-space:nowrap}
+.crumbs{font-size:.8125rem;color:var(--muted);margin:0 0 18px;font-family:var(--mono)}
+.crumbs a{color:var(--muted);text-decoration:underline}
+.crumbs a:hover{color:var(--blue)}
+.crumbs span{color:var(--ink)}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
+.lede{margin:0 0 6px;font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.05;letter-spacing:-.03em}
+.sub{margin:0 0 22px;color:var(--muted);max-width:68ch;font-size:1rem}
+.ic-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:0 0 14px}
+.ic-card h2{font-family:var(--display);font-weight:700;font-size:1.0625rem;letter-spacing:-.01em;margin:0 0 14px}
+.ic-drop{border:2px dashed var(--line);border-radius:var(--radius);padding:36px 20px;text-align:center;background:#F7F7F3;transition:border-color .15s ease,background .15s ease;cursor:pointer}
+.ic-drop:hover,.ic-drop.dragover{border-color:var(--blue);background:rgba(27,77,255,.04)}
+.ic-drop .icon{font-size:2.5rem;line-height:1;margin:0 0 8px;color:var(--blue)}
+.ic-drop strong{display:block;font-family:var(--display);font-weight:700;font-size:1.0625rem;margin:0 0 4px}
+.ic-drop p{margin:0;color:var(--muted);font-size:.875rem}
+.ic-drop .formats{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin-top:8px}
+.ic-controls{display:flex;flex-wrap:wrap;gap:12px;margin:14px 0 0}
+.ic-field{flex:1 1 200px;min-width:0;display:flex;flex-direction:column;gap:4px}
+.ic-field label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.ic-field label .val{color:var(--ink);text-transform:none;letter-spacing:0;font-family:var(--mono);font-weight:600}
+.ic-field input[type="range"]{width:100%;accent-color:var(--blue)}
+.ic-field input[type="number"],.ic-field select{width:100%;padding:10px 12px;font-family:var(--mono);font-size:.9375rem;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);outline:none}
+.ic-field input:focus,.ic-field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.ic-field .unit-hint{font-family:var(--mono);font-size:.625rem;color:var(--muted);text-transform:none;letter-spacing:0}
+.ic-preset-row{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0;align-items:center}
+.ic-preset-row .label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:4px}
+.ic-preset-row button{font-size:.75rem;padding:6px 11px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--muted);cursor:pointer;font-family:inherit;transition:color .12s ease,border-color .12s ease}
+.ic-preset-row button:hover{color:var(--blue);border-color:var(--blue)}
+.ic-preset-row button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.ic-list{display:flex;flex-direction:column;gap:10px;margin:0 0 14px}
+.ic-item{display:flex;gap:14px;align-items:center;padding:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
+.ic-thumb{flex:none;width:70px;height:70px;object-fit:cover;border-radius:6px;background:#F7F7F3;border:1px solid var(--line)}
+.ic-info{flex:1;min-width:0}
+.ic-name{font-family:var(--mono);font-size:.8125rem;font-weight:600;color:var(--ink);word-break:break-all;margin:0 0 4px}
+.ic-dims{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin:0 0 6px}
+.ic-sizes{display:flex;flex-wrap:wrap;gap:10px;font-family:var(--mono);font-size:.75rem;align-items:center}
+.ic-sizes .old{color:var(--muted)}
+.ic-sizes .new{color:var(--green);font-weight:600}
+.ic-sizes .save{background:rgba(14,122,95,.1);color:var(--green);padding:2px 8px;border-radius:100px;font-weight:600}
+.ic-sizes .save.warn{background:rgba(184,115,51,.1);color:var(--amber)}
+.ic-sizes .save.bad{background:rgba(176,35,58,.1);color:var(--red)}
+.ic-dl{flex:none;font-size:.8125rem;padding:8px 14px;border-radius:100px;background:var(--blue);border:1px solid var(--blue);color:#fff;cursor:pointer;font-family:inherit;font-weight:500;transition:background .12s ease}
+.ic-dl:hover{background:var(--blue-deep);border-color:var(--blue-deep)}
+.ic-dl:disabled{opacity:.4;cursor:not-allowed}
+.ic-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:0 0 14px}
+.ic-sum{background:var(--surface);padding:14px;text-align:center}
+.ic-sum .l{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 4px}
+.ic-sum .n{font-family:var(--display);font-weight:700;font-size:1.375rem;letter-spacing:-.02em;line-height:1.1;margin:0;color:var(--ink)}
+.ic-sum.primary{background:linear-gradient(135deg,rgba(27,77,255,.06),rgba(168,85,247,.05))}
+.ic-sum.primary .n{color:var(--blue)}
+.ic-sum.good .n{color:var(--green)}
+.ic-actions{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.ic-actions button{font-size:.8125rem;padding:9px 14px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--ink);cursor:pointer;font-family:inherit;font-weight:500;transition:background .12s ease,border-color .12s ease,color .12s ease;display:inline-flex;align-items:center;gap:6px}
+.ic-actions button:hover{border-color:var(--blue);color:var(--blue)}
+.ic-actions button.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.ic-actions button.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep);color:#fff}
+.ic-actions button.danger:hover{border-color:var(--red);color:var(--red)}
+.ic-progress{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:14px 0}
+.ic-progress-bar{height:100%;background:var(--blue);width:0;transition:width .2s ease}
+.article{margin:44px 0 0;max-width:72ch}
+.article h2{margin:36px 0 10px;font-size:1.5rem}
+.article h2:first-child{margin-top:0}
+.article p{margin:0 0 12px;color:#3A3E46}
+.article ul{margin:0 0 12px;padding-left:20px;color:#3A3E46}
+.article li{margin:0 0 6px}
+.article strong{font-weight:600;color:var(--ink)}
+.article a{color:var(--blue);text-decoration:underline}
+.article code{font-family:var(--mono);font-size:.875em;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:1px 4px}
+.article table{width:100%;border-collapse:collapse;margin:0 0 14px;font-size:.875rem}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.article th{background:#F7F7F3;font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+.faq{margin:14px 0 0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--blue);font-size:1.25rem;line-height:1;flex:none}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{margin:0 0 14px;color:#3A3E46;max-width:62ch}
+.related-list{list-style:none;margin:12px 0 0;padding:0}
+.related-list li{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center}
+.related-list .txt{flex:1}
+.related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
+.related-list .txt a:hover{color:var(--blue);text-decoration:underline}
+.related-list .txt p{margin:2px 0 0;font-size:.8125rem;color:var(--muted)}
+.related-list time{font-size:.75rem;color:var(--muted);flex:none;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem}
+footer a{color:inherit}
+footer a:hover{color:var(--blue)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:200}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+<a href="../../index.html" style="display:flex;align-items:center;gap:10px">
+<svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/><path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/><path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/><path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/><path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/></svg>
+<span class="wordmark">ToolNest</span>
+</a>
+<a href="../index.html" class="nav-right">All tools →</a>
+</header>
+
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Image Compressor</span></nav>
+
+<h1 class="lede">Image Compressor</h1>
+<p class="sub">Reduce JPG, PNG and WebP file size without visible quality loss. Batch support. Nothing is uploaded — everything happens in your browser.</p>
+
+<div class="ic-card" id="dropCard">
+<h2>Upload images</h2>
+<div class="ic-drop" id="drop">
+<div class="icon">⬆</div>
+<strong>Drop images here or click to browse</strong>
+<p>Compress JPG, PNG and WebP — batch supported</p>
+<div class="formats">No file size limit · No upload · Works offline</div>
+<input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,image/bmp" multiple hidden>
+</div>
+
+<div class="ic-preset-row">
+<span class="label">Presets:</span>
+<button data-preset="light" aria-pressed="false">Light (90%)</button>
+<button data-preset="balanced" aria-pressed="true">Balanced (75%)</button>
+<button data-preset="strong" aria-pressed="false">Strong (60%)</button>
+<button data-preset="aggressive" aria-pressed="false">Aggressive (40%)</button>
+<button data-preset="maxres" aria-pressed="false">Smallest file (25%)</button>
+</div>
+</div>
+
+<div class="ic-card" id="settingsCard">
+<h2>Compression settings</h2>
+
+<div class="ic-controls">
+<div class="ic-field">
+<label for="quality">Quality <span class="val" id="qualityVal">75%</span></label>
+<input type="range" id="quality" min="10" max="100" value="75" step="5">
+<span class="unit-hint">Lower = smaller file, lower quality</span>
+</div>
+
+<div class="ic-field">
+<label for="outputFormat">Output format</label>
+<select id="outputFormat">
+<option value="same">Keep original format</option>
+<option value="image/jpeg">JPG</option>
+<option value="image/png">PNG</option>
+<option value="image/webp" selected>WebP (smallest)</option>
+</select>
+<span class="unit-hint">WebP is typically 25–35% smaller than JPG</span>
+</div>
+
+<div class="ic-field">
+<label for="maxDimension">Max dimension (px)</label>
+<select id="maxDimension">
+<option value="0">Original size</option>
+<option value="3840">3840 (4K)</option>
+<option value="1920">1920 (Full HD)</option>
+<option value="1280">1280 (HD)</option>
+<option value="800">800</option>
+<option value="600">600</option>
+<option value="400">400</option>
+</select>
+<span class="unit-hint">Longest side will be scaled down</span>
+</div>
+
+<div class="ic-field">
+<label for="preserveExif">Metadata</label>
+<select id="preserveExif">
+<option value="strip" selected>Strip EXIF (recommended)</option>
+<option value="keep">Keep original metadata</option>
+</select>
+<span class="unit-hint">Stripping removes GPS, camera info</span>
+</div>
+</div>
+</div>
+
+<div class="ic-card" id="resultCard" hidden>
+<h2>Results</h2>
+
+<div class="ic-summary">
+<div class="ic-sum primary">
+<p class="l">Total savings</p>
+<p class="n" id="savingsValue">—</p>
+</div>
+<div class="ic-sum">
+<p class="l">Original size</p>
+<p class="n" id="originalSize">—</p>
+</div>
+<div class="ic-sum good">
+<p class="l">Compressed size</p>
+<p class="n" id="compressedSize">—</p>
+</div>
+<div class="ic-sum">
+<p class="l">Files processed</p>
+<p class="n" id="fileCount">—</p>
+</div>
+</div>
+
+<div class="ic-progress" id="progressWrap" hidden>
+<div class="ic-progress-bar" id="progressBar"></div>
+</div>
+
+<div class="ic-list" id="fileList"></div>
+
+<div class="ic-actions">
+<button class="primary" id="downloadAll">Download all as ZIP</button>
+<button id="processAgain">Re-compress</button>
+<button class="danger" id="clearBtn">Clear all</button>
+</div>
+</div>
+
+<article class="article">
+<h2>How to use the image compressor</h2>
+<p>Drag images onto the page or click the drop zone to pick files. Adjust the quality slider, choose an output format, and optionally cap the maximum dimension. The tool compresses each image and shows the size reduction. Click any image to download it individually, or download everything as a ZIP.</p>
+<p>Nothing is uploaded. All processing runs in your browser using the Canvas API. The compressor works offline once the page has loaded.</p>
+
+<h2>How much can I compress an image?</h2>
+<p>Typical results:</p>
+<table>
+<thead><tr><th>Setting</th><th>Typical savings</th><th>When to use</th></tr></thead>
+<tbody>
+<tr><td>Quality 90%</td><td>20–40%</td><td>Portfolios, print</td></tr>
+<tr><td>Quality 75%</td><td>40–60%</td><td>Websites, blogs</td></tr>
+<tr><td>Quality 60%</td><td>55–75%</td><td>Social media</td></tr>
+<tr><td>Quality 40%</td><td>70–85%</td><td>Thumbnails, previews</td></tr>
+<tr><td>Quality 25%</td><td>80–92%</td><td>Avatars, tiny icons</td></tr>
+</tbody>
+</table>
+<p>WebP output typically saves 25–35% more than JPG at the same visual quality.</p>
+
+<h2>Choosing the right format</h2>
+<ul>
+<li><strong>JPG</strong> — best for photographs. Universal support. No transparency.</li>
+<li><strong>PNG</strong> — lossless. Larger files. Use for graphics, logos, screenshots with sharp edges.</li>
+<li><strong>WebP</strong> — modern. Smaller than both JPG and PNG at equivalent quality. Supported by all modern browsers.</li>
+</ul>
+
+<h2>What is EXIF data?</h2>
+<p>Many photos carry hidden metadata: camera model, GPS coordinates, date taken, and more. When you post a photo online, this data can leak your location. The compressor strips EXIF by default — a small but important privacy step.</p>
+
+<h2>Why compress images?</h2>
+<ul>
+<li><strong>Faster websites</strong> — image weight is usually the biggest factor in page load time.</li>
+<li><strong>Better SEO</strong> — Google ranks fast pages higher.</li>
+<li><strong>Lower bandwidth</strong> — useful when you're on a metered connection.</li>
+<li><strong>Fits upload limits</strong> — email attachments, WhatsApp, forms that cap at 5 MB.</li>
+<li><strong>Smaller backups</strong> — a photo library can shrink by 60%+.</li>
+</ul>
+
+<h2>Common questions</h2>
+<div class="faq">
+<details><summary>Is this image compressor free?</summary><p>Yes. It is completely free, has no file size limit and runs entirely in your browser.</p></details>
+<details><summary>Are my images uploaded to a server?</summary><p>No. Everything happens on your device. Your images never leave your computer or phone.</p></details>
+<details><summary>What image formats are supported?</summary><p>JPG, PNG, WebP and BMP. You can compress any of these and optionally convert between them.</p></details>
+<details><summary>How much can I compress an image?</summary><p>Typically 40 to 80 percent size reduction with minimal visible quality loss. The exact amount depends on the original image and the quality level you choose.</p></details>
+<details><summary>Does compressing reduce image quality?</summary><p>Yes, in a technical sense — but at quality 75 or above, the difference is usually invisible to the human eye. Only go below 60 if you need the smallest possible file.</p></details>
+<details><summary>Can I compress multiple images at once?</summary><p>Yes. Drop as many images as you like. Each is compressed independently. Download them all in one ZIP.</p></details>
+<details><summary>Does it work on mobile?</summary><p>Yes. It works in all modern mobile browsers — Safari on iOS, Chrome on Android. You can take a photo and compress it right on the phone.</p></details>
+<details><summary>Is there a file size limit?</summary><p>No hard limit, but very large files (50 MB+) may be slow on low-end devices because the whole processing happens in memory.</p></details>
+</div>
+
+<h2>Related tools</h2>
+<ul class="related-list">
+<li><div class="txt"><a href="image-resize.html">Image Resizer</a><p>Resize to exact dimensions or by percentage.</p></div><time>Image</time></li>
+<li><div class="txt"><a href="image-convert.html">Image Converter</a><p>Convert between PNG, JPG, WebP and BMP.</p></div><time>Image</time></li>
+<li><div class="txt"><a href="exif.html">EXIF Viewer</a><p>View and strip metadata from photos.</p></div><time>Image</time></li>
+</ul>
+</article>
+
+<footer>
+<p>ToolNest · <a href="../../index.html">Home</a> · <a href="../index.html">All tools</a> · <a href="../../pages/about.html">About</a> · <a href="../../pages/privacy.html">Privacy</a></p>
+</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+var toast=$("toast");
+function flash(m){toast.textContent=m;toast.classList.add("show");clearTimeout(flash._t);flash._t=setTimeout(function(){toast.classList.remove("show");},1700);}
+
+var files=[];      // {file, name, id, originalSize, compressedBlob, compressedSize, width, height, status}
+
+/* ---------- HELPERS ---------- */
+function fmtSize(bytes){
+  if(bytes<1024)return bytes+" B";
+  if(bytes<1024*1024)return (bytes/1024).toFixed(1)+" KB";
+  return (bytes/(1024*1024)).toFixed(2)+" MB";
+}
+function fileExtFromMime(mime){
+  return mime==="image/jpeg"?"jpg":mime==="image/png"?"png":mime==="image/webp"?"webp":mime==="image/bmp"?"bmp":"jpg";
+}
+function outMimeFor(file){
+  var chosen=$("outputFormat").value;
+  if(chosen!=="same")return chosen;
+  return file.type||"image/jpeg";
+}
+function outExtFor(mime){
+  return fileExtFromMime(mime);
+}
+
+/* ---------- FILE HANDLING ---------- */
+var idCounter=0;
+
+function addFiles(fileList){
+  var accepted=0;
+  for(var i=0;i<fileList.length;i++){
+    var f=fileList[i];
+    if(!/^image\//.test(f.type))continue;
+    files.push({
+      id:++idCounter,
+      file:f,
+      name:f.name,
+      originalSize:f.size,
+      status:"pending",
+      compressedBlob:null,
+      compressedSize:0,
+      width:0,
+      height:0,
+      error:null
+    });
+    accepted++;
+  }
+  if(!accepted){flash("No images found");return;}
+  renderList();
+  processAll();
+}
+
+function processAll(){
+  if(!files.length)return;
+  $("resultCard").hidden=false;
+  $("progressWrap").hidden=false;
+  $("progressBar").style.width="0";
+
+  var i=0;
+  var total=files.length;
+  function next(){
+    if(i>=total){
+      $("progressWrap").hidden=true;
+      updateSummary();
+      return;
+    }
+    processFile(files[i]).then(function(){
+      i++;
+      $("progressBar").style.width=Math.round((i/total)*100)+"%";
+      renderList();
+      setTimeout(next,10);
+    }).catch(function(err){
+      files[i].status="error";
+      files[i].error=err.message||String(err);
+      i++;
+      renderList();
+      setTimeout(next,10);
+    });
+  }
+  next();
+}
+
+function processFile(entry){
+  return new Promise(function(resolve,reject){
+    entry.status="processing";
+    var quality=parseInt($("quality").value,10)/100;
+    var maxDim=parseInt($("maxDimension").value,10);
+    var targetMime=outMimeFor(entry.file);
+
+    var url=URL.createObjectURL(entry.file);
+    var img=new Image();
+    img.onload=function(){
+      URL.revokeObjectURL(url);
+      var w=img.naturalWidth;
+      var h=img.naturalHeight;
+
+      // Resize if needed
+      var scale=1;
+      if(maxDim>0 && Math.max(w,h)>maxDim){
+        scale=maxDim/Math.max(w,h);
+      }
+      var outW=Math.round(w*scale);
+      var outH=Math.round(h*scale);
+
+      var canvas=document.createElement("canvas");
+      canvas.width=outW;
+      canvas.height=outH;
+      var ctx=canvas.getContext("2d");
+
+      // White background for JPG (no alpha support)
+      if(targetMime==="image/jpeg"){
+        ctx.fillStyle="#FFFFFF";
+        ctx.fillRect(0,0,outW,outH);
+      }
+      ctx.drawImage(img,0,0,outW,outH);
+
+      canvas.toBlob(function(blob){
+        if(!blob){reject(new Error("Compression failed"));return;}
+        entry.compressedBlob=blob;
+        entry.compressedSize=blob.size;
+        entry.width=outW;
+        entry.height=outH;
+        entry.status="done";
+        resolve();
+      },targetMime,quality);
+    };
+    img.onerror=function(){
+      URL.revokeObjectURL(url);
+      reject(new Error("Cannot decode image"));
+    };
+    img.src=url;
+  });
+}
+
+/* ---------- RENDER ---------- */
+function renderList(){
+  var list=$("fileList");
+  list.innerHTML="";
+  files.forEach(function(entry){
+    var item=document.createElement("div");
+    item.className="ic-item";
+
+    var thumb=document.createElement("img");
+    thumb.className="ic-thumb";
+    thumb.alt="";
+    if(entry.status==="done" && entry.compressedBlob){
+      thumb.src=URL.createObjectURL(entry.compressedBlob);
+    } else {
+      thumb.src=URL.createObjectURL(entry.file);
+    }
+
+    var info=document.createElement("div");
+    info.className="ic-info";
+
+    var name=document.createElement("p");
+    name.className="ic-name";
+    name.textContent=entry.name;
+
+    var dims=document.createElement("p");
+    dims.className="ic-dims";
+    dims.textContent=entry.status==="done"
+      ? entry.width+" × "+entry.height+" px"
+      : "Processing…";
+
+    var sizes=document.createElement("div");
+    sizes.className="ic-sizes";
+
+    var oldSize=document.createElement("span");
+    oldSize.className="old";
+    oldSize.textContent=fmtSize(entry.originalSize);
+
+    sizes.appendChild(oldSize);
+
+    if(entry.status==="done"){
+      var arrow=document.createTextNode(" → ");
+      sizes.appendChild(arrow);
+
+      var newSize=document.createElement("span");
+      newSize.className="new";
+      newSize.textContent=fmtSize(entry.compressedSize);
+      sizes.appendChild(newSize);
+
+      var pct=entry.originalSize>0
+        ? Math.round((1-(entry.compressedSize/entry.originalSize))*100)
+        : 0;
+
+      var save=document.createElement("span");
+      save.className="save"+(pct<10?" warn":pct<0?" bad":"");
+      save.textContent=pct>0?("−"+pct+"%"):(pct===0?"No change":("+"+Math.abs(pct)+"%"));
+      sizes.appendChild(save);
+    } else if(entry.status==="processing"){
+      var proc=document.createElement("span");
+      proc.style.color="var(--muted)";
+      proc.textContent="Compressing…";
+      sizes.appendChild(proc);
+    } else if(entry.status==="error"){
+      var err=document.createElement("span");
+      err.style.color="var(--red)";
+      err.textContent=entry.error||"Error";
+      sizes.appendChild(err);
+    }
+
+    info.appendChild(name);
+    info.appendChild(dims);
+    info.appendChild(sizes);
+
+    var dl=document.createElement("button");
+    dl.className="ic-dl";
+    dl.textContent="Download";
+    dl.disabled=entry.status!=="done";
+    dl.addEventListener("click",function(){
+      downloadOne(entry);
+    });
+
+    item.appendChild(thumb);
+    item.appendChild(info);
+    item.appendChild(dl);
+    list.appendChild(item);
+  });
+}
+
+function updateSummary(){
+  var orig=0, comp=0, done=0;
+  files.forEach(function(e){
+    orig+=e.originalSize;
+    if(e.status==="done"){
+      comp+=e.compressedSize;
+      done++;
+    } else {
+      comp+=e.originalSize;
+    }
+  });
+  var savings=orig>0?Math.round((1-(comp/orig))*100):0;
+  $("savingsValue").textContent=savings+"%";
+  $("originalSize").textContent=fmtSize(orig);
+  $("compressedSize").textContent=fmtSize(comp);
+  $("fileCount").textContent=done+" / "+files.length;
+}
+
+/* ---------- DOWNLOAD ---------- */
+function downloadOne(entry){
+  if(entry.status!=="done"||!entry.compressedBlob)return;
+  var targetMime=outMimeFor(entry.file);
+  var ext=outExtFor(targetMime);
+  var baseName=entry.name.replace(/\.[^.]+$/,"");
+  var filename=baseName+"-compressed."+ext;
+
+  var a=document.createElement("a");
+  a.href=URL.createObjectURL(entry.compressedBlob);
+  a.download=filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+}
+
+$("downloadAll").addEventListener("click",function(){
+  var done=files.filter(function(e){return e.status==="done"&&e.compressedBlob;});
+  if(!done.length)return flash("Nothing to download");
+
+  if(done.length===1){
+    downloadOne(done[0]);
+    return;
+  }
+
+  if(!window.JSZip)return flash("ZIP library not loaded");
+
+  var zip=new JSZip();
+  done.forEach(function(entry){
+    var targetMime=outMimeFor(entry.file);
+    var ext=outExtFor(targetMime);
+    var baseName=entry.name.replace(/\.[^.]+$/,"");
+    var filename=baseName+"-compressed."+ext;
+    zip.file(filename,entry.compressedBlob);
+  });
+
+  zip.generateAsync({type:"blob"}).then(function(blob){
+    var a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download="compressed-images-"+new Date().toISOString().slice(0,10)+".zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(a.href);},2000);
+    flash("ZIP downloaded");
+  });
+});
+
+/* ---------- CLEAR ---------- */
+$("clearBtn").addEventListener("click",function(){
+  files=[];
+  $("fileList").innerHTML="";
+  $("resultCard").hidden=true;
+  $("progressWrap").hidden=true;
+  flash("Cleared");
+});
+
+$("processAgain").addEventListener("click",function(){
+  if(!files.length)return flash("No images");
+  // Reset statuses and re-process
+  files.forEach(function(e){
+    e.status="pending";
+    e.compressedBlob=null;
+    e.compressedSize=0;
+    e.width=0;
+    e.height=0;
+    e.error=null;
+  });
+  processAll();
+});
+
+/* ---------- DROP ZONE ---------- */
+var drop=$("drop");
+var fileInput=$("fileInput");
+
+drop.addEventListener("click",function(){fileInput.click();});
+drop.addEventListener("dragover",function(e){
+  e.preventDefault();
+  drop.classList.add("dragover");
+});
+drop.addEventListener("dragleave",function(){
+  drop.classList.remove("dragover");
+});
+drop.addEventListener("drop",function(e){
+  e.preventDefault();
+  drop.classList.remove("dragover");
+  if(e.dataTransfer && e.dataTransfer.files){
+    addFiles(e.dataTransfer.files);
+  }
+});
+
+fileInput.addEventListener("change",function(){
+  if(fileInput.files)addFiles(fileInput.files);
+  fileInput.value="";
+});
+
+// Paste support
+document.addEventListener("paste",function(e){
+  var items=e.clipboardData && e.clipboardData.items;
+  if(!items)return;
+  var imgs=[];
+  for(var i=0;i<items.length;i++){
+    if(items[i].type.indexOf("image")===0){
+      var f=items[i].getAsFile();
+      if(f)imgs.push(f);
+    }
+  }
+  if(imgs.length)addFiles(imgs);
+});
+
+/* ---------- SETTINGS ---------- */
+$("quality").addEventListener("input",function(){
+  $("qualityVal").textContent=this.value+"%";
+  // Deselect presets when user changes quality manually
+  document.querySelectorAll("[data-preset]").forEach(function(b){
+    b.setAttribute("aria-pressed","false");
+  });
+  saveState();
+});
+
+document.querySelectorAll("[data-preset]").forEach(function(b){
+  b.addEventListener("click",function(){
+    var q={light:90,balanced:75,strong:60,aggressive:40,maxres:25}[b.getAttribute("data-preset")];
+    if(q){
+      $("quality").value=q;
+      $("qualityVal").textContent=q+"%";
+      document.querySelectorAll("[data-preset]").forEach(function(x){
+        x.setAttribute("aria-pressed",String(x===b));
+      });
+      saveState();
+    }
+  });
+});
+
+["outputFormat","maxDimension","preserveExif"].forEach(function(id){
+  $(id).addEventListener("change",saveState);
+});
+
+/* ---------- STATE ---------- */
+var STORAGE_KEY="imagecompress.state";
+function saveState(){
+  try{
+    var s={
+      q:$("quality").value,
+      f:$("outputFormat").value,
+      m:$("maxDimension").value,
+      e:$("preserveExif").value,
+      preset:(document.querySelector("[data-preset][aria-pressed='true']")||{getAttribute:function(){return "";}}).getAttribute("data-preset")
+    };
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(s));
+  }catch(e){}
+}
+function loadState(){
+  try{
+    var raw=localStorage.getItem(STORAGE_KEY);
+    if(!raw)return;
+    var s=JSON.parse(raw);
+    if(s.q){
+      $("quality").value=s.q;
+      $("qualityVal").textContent=s.q+"%";
+    }
+    if(s.f)$("outputFormat").value=s.f;
+    if(s.m)$("maxDimension").value=s.m;
+    if(s.e)$("preserveExif").value=s.e;
+    if(s.preset){
+      document.querySelectorAll("[data-preset]").forEach(function(b){
+        b.setAttribute("aria-pressed",String(b.getAttribute("data-preset")===s.preset));
+      });
+    }
+  }catch(e){}
+}
+loadState();
+
+})();
+</script>
+</body>
+</html>

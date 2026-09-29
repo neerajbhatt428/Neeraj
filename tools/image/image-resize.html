@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image Resizer — Resize Images to Exact Dimensions or Percentage</title>
+<meta name="description" content="Free online image resizer. Resize JPG, PNG and WebP to exact pixels, percentage, or common presets. Batch support, aspect ratio lock, no upload. Runs in your browser.">
+<link rel="canonical" href="https://qrcodescanner.co.in/tools/image/image-resize.html">
+<link rel="sitemap" type="application/xml" href="https://qrcodescanner.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#1B4DFF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Image Resizer — Exact Dimensions or Percentage">
+<meta property="og:description" content="Resize images in your browser. Batch supported, aspect ratio lock, no upload.">
+<meta property="og:url" content="https://qrcodescanner.co.in/tools/image/image-resize.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Image Resizer","url":"https://qrcodescanner.co.in/tools/image/image-resize.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://qrcodescanner.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://qrcodescanner.co.in/tools/"},{"@type":"ListItem","position":3,"name":"Image Resizer","item":"https://qrcodescanner.co.in/tools/image/image-resize.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this image resizer free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is free, has no file size limit and runs entirely in your browser."}},{"@type":"Question","name":"Are my images uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. Everything happens on your device. Your images never leave your computer or phone."}},{"@type":"Question","name":"What is the difference between resizing and compressing?","acceptedAnswer":{"@type":"Answer","text":"Resizing changes the pixel dimensions of an image. Compressing reduces file size by lowering quality while keeping the same dimensions. Often you want both."}},{"@type":"Question","name":"Can I resize multiple images at once?","acceptedAnswer":{"@type":"Answer","text":"Yes. Drop as many as you like. Each is resized to the same target and you can download them all in one ZIP."}}]}]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<style>
+:root{--paper:#EDEDE9;--surface:#FFFFFF;--ink:#14161A;--muted:#6B7079;--line:#D6D6D0;--blue:#1B4DFF;--blue-deep:#1338C4;--green:#0E7A5F;--red:#B0233A;--amber:#B87333;--radius:6px;--sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--display:"Bricolage Grotesque",var(--sans);--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;background-image:linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);background-size:28px 28px}
+.wrap{max-width:760px;margin:0 auto;padding:20px 18px 64px}
+.masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
+.masthead a{color:inherit;text-decoration:none}
+.mark{width:26px;height:26px;flex:none}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.masthead .nav-right{margin-left:auto;font-size:.875rem;color:var(--blue);text-decoration:underline;white-space:nowrap}
+.crumbs{font-size:.8125rem;color:var(--muted);margin:0 0 18px;font-family:var(--mono)}
+.crumbs a{color:var(--muted);text-decoration:underline}
+.crumbs a:hover{color:var(--blue)}
+.crumbs span{color:var(--ink)}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
+.lede{margin:0 0 6px;font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.05;letter-spacing:-.03em}
+.sub{margin:0 0 22px;color:var(--muted);max-width:68ch;font-size:1rem}
+.ir-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:0 0 14px}
+.ir-card h2{font-family:var(--display);font-weight:700;font-size:1.0625rem;letter-spacing:-.01em;margin:0 0 14px}
+.ir-drop{border:2px dashed var(--line);border-radius:var(--radius);padding:36px 20px;text-align:center;background:#F7F7F3;transition:border-color .15s ease,background .15s ease;cursor:pointer}
+.ir-drop:hover,.ir-drop.dragover{border-color:var(--blue);background:rgba(27,77,255,.04)}
+.ir-drop .icon{font-size:2.5rem;line-height:1;margin:0 0 8px;color:var(--blue)}
+.ir-drop strong{display:block;font-family:var(--display);font-weight:700;font-size:1.0625rem;margin:0 0 4px}
+.ir-drop p{margin:0;color:var(--muted);font-size:.875rem}
+.ir-drop .formats{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin-top:8px}
+.ir-tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;background:#DCDCD6;border:1px solid var(--line);padding:4px;border-radius:var(--radius);margin:0 0 14px}
+@media(max-width:520px){.ir-tabs{grid-template-columns:1fr}}
+.ir-tabs button{border:0;background:transparent;padding:10px 8px;justify-content:center;font-weight:600;font-size:.75rem;font-family:inherit;cursor:pointer;color:var(--ink);border-radius:4px;transition:background .12s ease,color .12s ease;display:inline-flex;align-items:center;text-align:center;line-height:1.2}
+.ir-tabs button:hover:not([aria-selected="true"]){background:rgba(0,0,0,.05)}
+.ir-tabs button[aria-selected="true"]{background:var(--ink);color:#fff}
+.ir-controls{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 12px}
+.ir-field{flex:1 1 150px;min-width:0;display:flex;flex-direction:column;gap:4px}
+.ir-field label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.ir-field input[type="number"],.ir-field input[type="text"],.ir-field select{width:100%;padding:10px 12px;font-family:var(--mono);font-size:.9375rem;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);outline:none;transition:border-color .15s ease,box-shadow .15s ease}
+.ir-field input:focus,.ir-field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.ir-field .unit-hint{font-family:var(--mono);font-size:.625rem;color:var(--muted);text-transform:none;letter-spacing:0}
+.ir-check-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:10px 0 0;padding:10px 12px;background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius);font-size:.8125rem;color:var(--ink)}
+.ir-check{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none}
+.ir-check input{accent-color:var(--blue);cursor:pointer}
+.ir-preset-row{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 0;align-items:center}
+.ir-preset-row .label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:4px}
+.ir-preset-row button{font-size:.75rem;padding:6px 11px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--muted);cursor:pointer;font-family:inherit;transition:color .12s ease,border-color .12s ease}
+.ir-preset-row button:hover{color:var(--blue);border-color:var(--blue)}
+.ir-preset-row button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.ir-list{display:flex;flex-direction:column;gap:10px;margin:0 0 14px}
+.ir-item{display:flex;gap:14px;align-items:center;padding:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
+.ir-thumb{flex:none;width:70px;height:70px;object-fit:cover;border-radius:6px;background:#F7F7F3;border:1px solid var(--line)}
+.ir-info{flex:1;min-width:0}
+.ir-name{font-family:var(--mono);font-size:.8125rem;font-weight:600;color:var(--ink);word-break:break-all;margin:0 0 4px}
+.ir-dims{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin:0 0 6px}
+.ir-dims .arrow{color:var(--blue)}
+.ir-sizes{display:flex;flex-wrap:wrap;gap:10px;font-family:var(--mono);font-size:.75rem;align-items:center}
+.ir-sizes .old{color:var(--muted)}
+.ir-sizes .new{color:var(--ink);font-weight:600}
+.ir-sizes .save{background:rgba(14,122,95,.1);color:var(--green);padding:2px 8px;border-radius:100px;font-weight:600}
+.ir-sizes .save.up{background:rgba(184,115,51,.1);color:var(--amber)}
+.ir-dl{flex:none;font-size:.8125rem;padding:8px 14px;border-radius:100px;background:var(--blue);border:1px solid var(--blue);color:#fff;cursor:pointer;font-family:inherit;font-weight:500;transition:background .12s ease}
+.ir-dl:hover{background:var(--blue-deep);border-color:var(--blue-deep)}
+.ir-dl:disabled{opacity:.4;cursor:not-allowed}
+.ir-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:0 0 14px}
+.ir-sum{background:var(--surface);padding:14px;text-align:center}
+.ir-sum .l{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 4px}
+.ir-sum .n{font-family:var(--display);font-weight:700;font-size:1.375rem;letter-spacing:-.02em;line-height:1.1;margin:0;color:var(--ink)}
+.ir-sum.primary{background:linear-gradient(135deg,rgba(27,77,255,.06),rgba(168,85,247,.05))}
+.ir-sum.primary .n{color:var(--blue)}
+.ir-actions{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.ir-actions button{font-size:.8125rem;padding:9px 14px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--ink);cursor:pointer;font-family:inherit;font-weight:500;transition:background .12s ease,border-color .12s ease,color .12s ease;display:inline-flex;align-items:center;gap:6px}
+.ir-actions button:hover{border-color:var(--blue);color:var(--blue)}
+.ir-actions button.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.ir-actions button.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep);color:#fff}
+.ir-actions button.danger:hover{border-color:var(--red);color:var(--red)}
+.ir-progress{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:14px 0}
+.ir-progress-bar{height:100%;background:var(--blue);width:0;transition:width .2s ease}
+.ir-bg-row{display:flex;gap:6px;align-items:center;margin:0}
+.ir-bg-row input[type="color"]{width:44px;height:38px;padding:2px;border:1px solid var(--line);border-radius:var(--radius);cursor:pointer;background:#fff}
+.article{margin:44px 0 0;max-width:72ch}
+.article h2{margin:36px 0 10px;font-size:1.5rem}
+.article h2:first-child{margin-top:0}
+.article p{margin:0 0 12px;color:#3A3E46}
+.article ul{margin:0 0 12px;padding-left:20px;color:#3A3E46}
+.article li{margin:0 0 6px}
+.article strong{font-weight:600;color:var(--ink)}
+.article a{color:var(--blue);text-decoration:underline}
+.article code{font-family:var(--mono);font-size:.875em;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:1px 4px}
+.article table{width:100%;border-collapse:collapse;margin:0 0 14px;font-size:.875rem}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.article th{background:#F7F7F3;font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+.faq{margin:14px 0 0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--blue);font-size:1.25rem;line-height:1;flex:none}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{margin:0 0 14px;color:#3A3E46;max-width:62ch}
+.related-list{list-style:none;margin:12px 0 0;padding:0}
+.related-list li{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center}
+.related-list .txt{flex:1}
+.related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
+.related-list .txt a:hover{color:var(--blue);text-decoration:underline}
+.related-list .txt p{margin:2px 0 0;font-size:.8125rem;color:var(--muted)}
+.related-list time{font-size:.75rem;color:var(--muted);flex:none;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem}
+footer a{color:inherit}
+footer a:hover{color:var(--blue)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:200}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+<a href="../../index.html" style="display:flex;align-items:center;gap:10px">
+<svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/><path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/><path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/><path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/><path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/></svg>
+<span class="wordmark">ToolNest</span>
+</a>
+<a href="../index.html" class="nav-right">All tools →</a>
+</header>
+
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Image Resizer</span></nav>
+
+<h1 class="lede">Image Resizer</h1>
+<p class="sub">Resize JPG, PNG and WebP images to exact pixels, a percentage, or a common preset. Batch support, aspect ratio lock, no upload. Everything runs in your browser.</p>
+
+<div class="ir-card" id="dropCard">
+<h2>Upload images</h2>
+<div class="ir-drop" id="drop">
+<div class="icon">⬆</div>
+<strong>Drop images here or click to browse</strong>
+<p>Resize JPG, PNG and WebP — batch supported</p>
+<div class="formats">No file size limit · No upload · Works offline</div>
+<input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,image/bmp" multiple hidden>
+</div>
+</div>
+
+<div class="ir-card" id="settingsCard">
+<h2>Resize settings</h2>
+
+<div class="ir-tabs" role="tablist" aria-label="Resize mode">
+<button id="tabPixels" role="tab" aria-selected="true">Exact pixels</button>
+<button id="tabPercent" role="tab" aria-selected="false">Percentage</button>
+<button id="tabPresets" role="tab" aria-selected="false">Presets</button>
+</div>
+
+<!-- Pixel mode -->
+<div id="panelPixels">
+<div class="ir-controls">
+<div class="ir-field">
+<label for="widthPx">Width (px)</label>
+<input type="number" id="widthPx" min="1" max="20000" step="1" value="800">
+</div>
+<div class="ir-field">
+<label for="heightPx">Height (px)</label>
+<input type="number" id="heightPx" min="1" max="20000" step="1" value="600">
+</div>
+</div>
+</div>
+
+<!-- Percent mode -->
+<div id="panelPercent" hidden>
+<div class="ir-controls">
+<div class="ir-field">
+<label for="percent">Scale by</label>
+<select id="percent">
+<option value="10">10%</option>
+<option value="25">25%</option>
+<option value="33">33%</option>
+<option value="50">50%</option>
+<option value="66">66%</option>
+<option value="75" selected>75%</option>
+<option value="100">100% (no change)</option>
+<option value="150">150%</option>
+<option value="200">200% (upscale)</option>
+</select>
+<span class="unit-hint">Applied to both dimensions</span>
+</div>
+<div class="ir-field">
+<label for="percentCustom">Or custom %</label>
+<input type="number" id="percentCustom" min="1" max="500" step="1" placeholder="e.g. 40">
+</div>
+</div>
+</div>
+
+<!-- Presets mode -->
+<div id="panelPresets" hidden>
+<div class="ir-preset-row">
+<span class="label">Social &amp; web:</span>
+<button data-preset="instagram-square" aria-pressed="false">IG Square 1080</button>
+<button data-preset="instagram-story" aria-pressed="false">IG Story 1080×1920</button>
+<button data-preset="facebook-post" aria-pressed="false">FB Post 1200×630</button>
+<button data-preset="twitter-post" aria-pressed="false">Twitter 1600×900</button>
+<button data-preset="youtube-thumb" aria-pressed="false">YT Thumb 1280×720</button>
+</div>
+<div class="ir-preset-row">
+<span class="label">Web:</span>
+<button data-preset="full-hd" aria-pressed="false">Full HD 1920</button>
+<button data-preset="hd" aria-pressed="false">HD 1280</button>
+<button data-preset="md" aria-pressed="false">Medium 800</button>
+<button data-preset="sm" aria-pressed="false">Small 400</button>
+<button data-preset="xs" aria-pressed="false">Thumb 200</button>
+</div>
+<div class="ir-preset-row">
+<span class="label">Avatars:</span>
+<button data-preset="avatar-lg" aria-pressed="false">Avatar 512</button>
+<button data-preset="avatar-md" aria-pressed="false">Avatar 256</button>
+<button data-preset="avatar-sm" aria-pressed="false">Avatar 128</button>
+<button data-preset="avatar-xs" aria-pressed="false">Avatar 64</button>
+</div>
+</div>
+
+<!-- Shared options -->
+<div class="ir-check-row">
+<label class="ir-check">
+<input type="checkbox" id="lockAspect" checked>
+Lock aspect ratio
+</label>
+<label class="ir-check">
+<input type="checkbox" id="noEnlarge">
+Don't enlarge small images
+</label>
+<label class="ir-check">
+<input type="checkbox" id="highQuality" checked>
+High-quality resampling
+</label>
+</div>
+
+<div class="ir-controls" style="margin-top:14px">
+<div class="ir-field">
+<label for="outputFormat">Output format</label>
+<select id="outputFormat">
+<option value="same" selected>Keep original format</option>
+<option value="image/jpeg">JPG</option>
+<option value="image/png">PNG</option>
+<option value="image/webp">WebP</option>
+</select>
+<span class="unit-hint">Resizing does not change file type unless you pick one</span>
+</div>
+<div class="ir-field">
+<label for="quality">JPG / WebP quality</label>
+<select id="quality">
+<option value="1">100% (best)</option>
+<option value="0.95">95%</option>
+<option value="0.85" selected>85% (recommended)</option>
+<option value="0.75">75%</option>
+<option value="0.6">60%</option>
+</select>
+<span class="unit-hint">Only affects lossy formats</span>
+</div>
+<div class="ir-field">
+<label>Background (for transparency)</label>
+<div class="ir-bg-row">
+<input type="color" id="bgColor" value="#FFFFFF">
+<select id="bgMode">
+<option value="white" selected>White</option>
+<option value="custom">Custom color</option>
+<option value="keep">Keep transparent (PNG/WebP only)</option>
+</select>
+</div>
+<span class="unit-hint">When converting PNG to JPG, transparency becomes the color above</span>
+</div>
+</div>
+</div>
+
+<div class="ir-card" id="resultCard" hidden>
+<h2>Results</h2>
+
+<div class="ir-summary">
+<div class="ir-sum primary">
+<p class="l">Files resized</p>
+<p class="n" id="fileCount">—</p>
+</div>
+<div class="ir-sum">
+<p class="l">Original total size</p>
+<p class="n" id="originalSize">—</p>
+</div>
+<div class="ir-sum">
+<p class="l">New total size</p>
+<p class="n" id="newSize">—</p>
+</div>
+<div class="ir-sum" id="savingsCell">
+<p class="l">Change</p>
+<p class="n" id="savingsValue">—</p>
+</div>
+</div>
+
+<div class="ir-progress" id="progressWrap" hidden>
+<div class="ir-progress-bar" id="progressBar"></div>
+</div>
+
+<div class="ir-list" id="fileList"></div>
+
+<div class="ir-actions">
+<button class="primary" id="downloadAll">Download all as ZIP</button>
+<button id="processAgain">Re-apply settings</button>
+<button class="danger" id="clearBtn">Clear all</button>
+</div>
+</div>
+
+<article class="article">
+<h2>How to use the image resizer</h2>
+<p>Drop images onto the page or click to browse. Choose how you want to resize — exact pixels, a percentage, or a preset — and everything updates as you type. Each image is resized independently. Download them one at a time, or all together as a ZIP.</p>
+<p>Nothing is uploaded. Everything happens on your device using the browser's Canvas API.</p>
+
+<h2>Three resize modes</h2>
+
+<h3>Exact pixels</h3>
+<p>Enter a specific width and height. With <strong>Lock aspect ratio</strong> on, changing one dimension updates the other to match the original image's proportions. Turn it off to force an exact size — useful for avatars that must be square.</p>
+
+<h3>Percentage</h3>
+<p>Scale the image up or down by a percentage. 50% halves both dimensions. 200% doubles them. Simple when you just want "half the size."</p>
+
+<h3>Presets</h3>
+<p>Common targets for social media, web publishing and avatars:</p>
+<table>
+<thead><tr><th>Preset</th><th>Dimensions</th><th>Use</th></tr></thead>
+<tbody>
+<tr><td>Instagram Square</td><td>1080 × 1080</td><td>IG feed</td></tr>
+<tr><td>Instagram Story</td><td>1080 × 1920</td><td>IG Story, TikTok</td></tr>
+<tr><td>Facebook Post</td><td>1200 × 630</td><td>FB link preview, OG image</td></tr>
+<tr><td>Twitter</td><td>1600 × 900</td><td>Twitter card</td></tr>
+<tr><td>YouTube Thumbnail</td><td>1280 × 720</td><td>YT thumbnail</td></tr>
+<tr><td>Full HD</td><td>1920 on longest side</td><td>Web hero image</td></tr>
+<tr><td>Avatar 512</td><td>512 × 512</td><td>Google, Slack</td></tr>
+</tbody>
+</table>
+
+<h2>Lock aspect ratio</h2>
+<p>When on, entering a new width automatically adjusts height to keep the original proportions. When off, you can stretch or squash — usually a bad idea for photos, but sometimes needed for fixed-size slots.</p>
+
+<h2>Don't enlarge small images</h2>
+<p>If you set a width larger than the original, some tools upscale by inventing pixels — which looks blurry. Turn this on to leave images smaller than the target untouched. Or leave it off to force the target size.</p>
+
+<h2>Resize vs compress</h2>
+<p>Resizing changes the pixel dimensions. Compressing reduces file size by lowering quality. They're independent — you can resize without changing quality, or compress without resizing. Often you want both: resize to the display size, then compress lightly. Use the <a href="image-compress.html">Image Compressor</a> for the compression step.</p>
+
+<h2>Common questions</h2>
+<div class="faq">
+<details><summary>Is this image resizer free?</summary><p>Yes. It is free, has no file size limit and runs entirely in your browser.</p></details>
+<details><summary>Are my images uploaded?</summary><p>No. Everything happens on your device. Your images never leave your computer or phone.</p></details>
+<details><summary>What is the difference between resizing and compressing?</summary><p>Resizing changes the pixel dimensions. Compressing reduces file size by lowering quality while keeping the same dimensions. Often you want both.</p></details>
+<details><summary>Can I resize multiple images at once?</summary><p>Yes. Drop as many as you like. Each is resized to the same target and you can download them all in one ZIP.</p></details>
+<details><summary>Will resizing reduce image quality?</summary><p>Downsizing usually improves apparent sharpness because you're discarding pixels the screen can't display anyway. Upsizing always softens an image. Stick to downsizing when possible.</p></details>
+<details><summary>What happens to PNG transparency when I convert to JPG?</summary><p>JPG doesn't support transparency. Any transparent areas become the background color you choose (white by default). Keep PNG or WebP if you need transparency preserved.</p></details>
+<details><summary>Does it work on iPhone photos?</summary><p>Yes. HEIC files are not directly supported by all browsers, so if you're on iPhone you may need to convert to JPG first — iOS does this automatically when sharing to most apps.</p></details>
+<details><summary>Is there a file size limit?</summary><p>No hard limit, but very large files (50 MB+) may be slow on low-end devices because processing happens in memory.</p></details>
+</div>
+
+<h2>Related tools</h2>
+<ul class="related-list">
+<li><div class="txt"><a href="image-compress.html">Image Compressor</a><p>Reduce file size without changing dimensions.</p></div><time>Image</time></li>
+<li><div class="txt"><a href="image-convert.html">Image Converter</a><p>Convert between PNG, JPG, WebP and BMP.</p></div><time>Image</time></li>
+<li><div class="txt"><a href="image-crop.html">Image Cropper</a><p>Crop to any aspect ratio.</p></div><time>Image</time></li>
+</ul>
+</article>
+
+<footer>
+<p>ToolNest · <a href="../../index.html">Home</a> · <a href="../index.html">All tools</a> · <a href="../../pages/about.html">About</a> · <a href="../../pages/privacy.html">Privacy</a></p>
+</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+var toast=$("toast");
+function flash(m){toast.textContent=m;toast.classList.add("show");clearTimeout(flash._t);flash._t=setTimeout(function(){toast.classList.remove("show");},1700);}
+
+var mode="pixels";
+var files=[];      // {id, file, name, originalSize, originalW, originalH, outBlob, outSize, outW, outH, status, error}
+var idCounter=0;
+
+/* ---------- PRESETS ---------- */
+var PRESETS={
+  "instagram-square":{w:1080,h:1080},
+  "instagram-story":{w:1080,h:1920},
+  "facebook-post":{w:1200,h:630},
+  "twitter-post":{w:1600,h:900},
+  "youtube-thumb":{w:1280,h:720},
+  "full-hd":{w:1920,h:0},
+  "hd":{w:1280,h:0},
+  "md":{w:800,h:0},
+  "sm":{w:400,h:0},
+  "xs":{w:200,h:0},
+  "avatar-lg":{w:512,h:512},
+  "avatar-md":{w:256,h:256},
+  "avatar-sm":{w:128,h:128},
+  "avatar-xs":{w:64,h:64}
+};
+var activePreset=null;
+
+/* ---------- HELPERS ---------- */
+function fmtSize(bytes){
+  if(bytes<1024)return bytes+" B";
+  if(bytes<1024*1024)return (bytes/1024).toFixed(1)+" KB";
+  return (bytes/(1024*1024)).toFixed(2)+" MB";
+}
+function fileExtFromMime(mime){
+  return mime==="image/jpeg"?"jpg":mime==="image/png"?"png":mime==="image/webp"?"webp":mime==="image/bmp"?"bmp":"jpg";
+}
+function outMimeFor(file){
+  var chosen=$("outputFormat").value;
+  if(chosen!=="same")return chosen;
+  return file.type||"image/jpeg";
+}
+function round(n){return Math.round(n);}
+
+/* ---------- TARGET SIZE CALC ---------- */
+function computeTarget(origW,origH){
+  var noEnlarge=$("noEnlarge").checked;
+  var target={w:origW,h:origH};
+
+  if(mode==="pixels"){
+    var w=parseInt($("widthPx").value,10)||0;
+    var h=parseInt($("heightPx").value,10)||0;
+    if($("lockAspect").checked){
+      if(w&&!h){h=round(origH*(w/origW));}
+      else if(h&&!w){w=round(origW*(h/origH));}
+      else if(w&&h){
+        // Both provided — decide which one to respect by preserving AR
+        var ar=origW/origH;
+        var targetAr=w/h;
+        if(Math.abs(ar-targetAr)>0.01){
+          // Adjust height to match orig AR
+          h=round(w/ar);
+        }
+      }
+    }
+    if(w)target.w=w;
+    if(h)target.h=h;
+  }
+  else if(mode==="percent"){
+    var pctVal=parseFloat($("percentCustom").value);
+    if(isNaN(pctVal)||pctVal<=0)pctVal=parseFloat($("percent").value);
+    var s=pctVal/100;
+    target.w=Math.max(1,round(origW*s));
+    target.h=Math.max(1,round(origH*s));
+  }
+  else if(mode==="presets"&&activePreset){
+    var p=PRESETS[activePreset];
+    if(p.h===0){
+      // Scale longest side to p.w
+      var longest=Math.max(origW,origH);
+      var ratio=p.w/longest;
+      target.w=Math.max(1,round(origW*ratio));
+      target.h=Math.max(1,round(origH*ratio));
+    } else {
+      target.w=p.w;
+      target.h=p.h;
+    }
+  }
+
+  if(noEnlarge && mode!=="pixels"){
+    if(target.w>origW&&target.h>origH){
+      target.w=origW;
+      target.h=origH;
+    }
+  }
+
+  return target;
+}
+
+/* ---------- FILE HANDLING ---------- */
+function addFiles(fileList){
+  var accepted=0;
+  for(var i=0;i<fileList.length;i++){
+    var f=fileList[i];
+    if(!/^image\//.test(f.type))continue;
+    files.push({
+      id:++idCounter,
+      file:f,
+      name:f.name,
+      originalSize:f.size,
+      originalW:0,
+      originalH:0,
+      outBlob:null,
+      outSize:0,
+      outW:0,
+      outH:0,
+      status:"pending",
+      error:null
+    });
+    accepted++;
+  }
+  if(!accepted){flash("No images found");return;}
+  renderList();
+  processAll();
+}
+
+function processAll(){
+  if(!files.length)return;
+  $("resultCard").hidden=false;
+  $("progressWrap").hidden=false;
+  $("progressBar").style.width="0";
+
+  var i=0;
+  var total=files.length;
+
+  function next(){
+    if(i>=total){
+      $("progressWrap").hidden=true;
+      updateSummary();
+      return;
+    }
+    processFile(files[i]).then(function(){
+      i++;
+      $("progressBar").style.width=Math.round((i/total)*100)+"%";
+      renderList();
+      setTimeout(next,10);
+    }).catch(function(err){
+      files[i].status="error";
+      files[i].error=err.message||String(err);
+      i++;
+      renderList();
+      setTimeout(next,10);
+    });
+  }
+  next();
+}
+
+function processFile(entry){
+  return new Promise(function(resolve,reject){
+    entry.status="processing";
+    var quality=parseFloat($("quality").value);
+    var targetMime=outMimeFor(entry.file);
+    var hq=$("highQuality").checked;
+    var bgMode=$("bgMode").value;
+    var bgColor=$("bgColor").value;
+
+    var url=URL.createObjectURL(entry.file);
+    var img=new Image();
+    img.onload=function(){
+      URL.revokeObjectURL(url);
+      var origW=img.naturalWidth;
+      var origH=img.naturalHeight;
+      entry.originalW=origW;
+      entry.originalH=origH;
+
+      var target=computeTarget(origW,origH);
+
+      var canvas=document.createElement("canvas");
+      canvas.width=target.w;
+      canvas.height=target.h;
+      var ctx=canvas.getContext("2d");
+
+      // Fill background if needed
+      var needsFill=false;
+      if(targetMime==="image/jpeg"){
+        needsFill=true; // JPG doesn't support transparency
+      } else if(bgMode!=="keep" && targetMime!=="image/webp" && targetMime!=="image/png"){
+        needsFill=true;
+      }
+      if(needsFill){
+        ctx.fillStyle=bgMode==="custom"?bgColor:"#FFFFFF";
+        ctx.fillRect(0,0,target.w,target.h);
+      }
+
+      ctx.imageSmoothingEnabled=hq;
+      ctx.imageSmoothingQuality=hq?"high":"low";
+      ctx.drawImage(img,0,0,target.w,target.h);
+
+      canvas.toBlob(function(blob){
+        if(!blob){reject(new Error("Resize failed"));return;}
+        entry.outBlob=blob;
+        entry.outSize=blob.size;
+        entry.outW=target.w;
+        entry.outH=target.h;
+        entry.status="done";
+        resolve();
+      },targetMime,quality);
+    };
+    img.onerror=function(){
+      URL.revokeObjectURL(url);
+      reject(new Error("Cannot decode image"));
+    };
+    img.src=url;
+  });
+}
+
+/* ---------- RENDER ---------- */
+function renderList(){
+  var list=$("fileList");
+  list.innerHTML="";
+  files.forEach(function(entry){
+    var item=document.createElement("div");
+    item.className="ir-item";
+
+    var thumb=document.createElement("img");
+    thumb.className="ir-thumb";
+    thumb.alt="";
+    if(entry.status==="done"&&entry.outBlob){
+      thumb.src=URL.createObjectURL(entry.outBlob);
+    } else {
+      thumb.src=URL.createObjectURL(entry.file);
+    }
+
+    var info=document.createElement("div");
+    info.className="ir-info";
+
+    var name=document.createElement("p");
+    name.className="ir-name";
+    name.textContent=entry.name;
+
+    var dims=document.createElement("p");
+    dims.className="ir-dims";
+    if(entry.status==="done"&&entry.originalW){
+      dims.innerHTML=entry.originalW+" × "+entry.originalH+
+        ' <span class="arrow">→</span> '+
+        entry.outW+" × "+entry.outH+" px";
+    } else if(entry.status==="processing"){
+      dims.textContent="Resizing…";
+    } else if(entry.status==="error"){
+      dims.textContent=entry.error||"Error";
+      dims.style.color="var(--red)";
+    } else {
+      dims.textContent="Pending";
+    }
+
+    var sizes=document.createElement("div");
+    sizes.className="ir-sizes";
+    var oldSize=document.createElement("span");
+    oldSize.className="old";
+    oldSize.textContent=fmtSize(entry.originalSize);
+    sizes.appendChild(oldSize);
+    if(entry.status==="done"){
+      sizes.appendChild(document.createTextNode(" → "));
+      var newSize=document.createElement("span");
+      newSize.className="new";
+      newSize.textContent=fmtSize(entry.outSize);
+      sizes.appendChild(newSize);
+      var pct=entry.originalSize>0?Math.round((1-(entry.outSize/entry.originalSize))*100):0;
+      var save=document.createElement("span");
+      save.className="save"+(pct<0?" up":"");
+      save.textContent=pct>0?("−"+pct+"%"):(pct===0?"No change":("+"+Math.abs(pct)+"%"));
+      sizes.appendChild(save);
+    }
+
+    info.appendChild(name);
+    info.appendChild(dims);
+    info.appendChild(sizes);
+
+    var dl=document.createElement("button");
+    dl.className="ir-dl";
+    dl.textContent="Download";
+    dl.disabled=entry.status!=="done";
+    dl.addEventListener("click",function(){downloadOne(entry);});
+
+    item.appendChild(thumb);
+    item.appendChild(info);
+    item.appendChild(dl);
+    list.appendChild(item);
+  });
+}
+
+function updateSummary(){
+  var orig=0,out=0,done=0;
+  files.forEach(function(e){
+    orig+=e.originalSize;
+    if(e.status==="done"){out+=e.outSize;done++;}else{out+=e.originalSize;}
+  });
+  var pct=orig>0?Math.round((1-(out/orig))*100):0;
+  $("fileCount").textContent=done+" / "+files.length;
+  $("originalSize").textContent=fmtSize(orig);
+  $("newSize").textContent=fmtSize(out);
+  $("savingsValue").textContent=(pct>0?"−"+pct+"%":(pct===0?"0%":("+"+Math.abs(pct)+"%")));
+}
+
+/* ---------- DOWNLOAD ---------- */
+function downloadOne(entry){
+  if(entry.status!=="done"||!entry.outBlob)return;
+  var targetMime=outMimeFor(entry.file);
+  var ext=fileExtFromMime(targetMime);
+  var baseName=entry.name.replace(/\.[^.]+$/,"");
+  var filename=baseName+"-"+entry.outW+"x"+entry.outH+"."+ext;
+
+  var a=document.createElement("a");
+  a.href=URL.createObjectURL(entry.outBlob);
+  a.download=filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+}
+
+$("downloadAll").addEventListener("click",function(){
+  var done=files.filter(function(e){return e.status==="done"&&e.outBlob;});
+  if(!done.length)return flash("Nothing to download");
+
+  if(done.length===1){downloadOne(done[0]);return;}
+  if(!window.JSZip)return flash("ZIP library not loaded");
+
+  var zip=new JSZip();
+  done.forEach(function(entry){
+    var targetMime=outMimeFor(entry.file);
+    var ext=fileExtFromMime(targetMime);
+    var baseName=entry.name.replace(/\.[^.]+$/,"");
+    var filename=baseName+"-"+entry.outW+"x"+entry.outH+"."+ext;
+    zip.file(filename,entry.outBlob);
+  });
+
+  zip.generateAsync({type:"blob"}).then(function(blob){
+    var a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download="resized-images-"+new Date().toISOString().slice(0,10)+".zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(a.href);},2000);
+    flash("ZIP downloaded");
+  });
+});
+
+$("clearBtn").addEventListener("click",function(){
+  files=[];
+  $("fileList").innerHTML="";
+  $("resultCard").hidden=true;
+  $("progressWrap").hidden=true;
+  flash("Cleared");
+});
+
+$("processAgain").addEventListener("click",function(){
+  if(!files.length)return flash("No images");
+  files.forEach(function(e){
+    e.status="pending";
+    e.outBlob=null;
+    e.outSize=0;
+    e.outW=0;
+    e.outH=0;
+    e.error=null;
+  });
+  processAll();
+});
+
+/* ---------- DROP ZONE ---------- */
+var drop=$("drop");
+var fileInput=$("fileInput");
+drop.addEventListener("click",function(){fileInput.click();});
+drop.addEventListener("dragover",function(e){e.preventDefault();drop.classList.add("dragover");});
+drop.addEventListener("dragleave",function(){drop.classList.remove("dragover");});
+drop.addEventListener("drop",function(e){
+  e.preventDefault();
+  drop.classList.remove("dragover");
+  if(e.dataTransfer&&e.dataTransfer.files)addFiles(e.dataTransfer.files);
+});
+fileInput.addEventListener("change",function(){
+  if(fileInput.files)addFiles(fileInput.files);
+  fileInput.value="";
+});
+document.addEventListener("paste",function(e){
+  var items=e.clipboardData&&e.clipboardData.items;
+  if(!items)return;
+  var imgs=[];
+  for(var i=0;i<items.length;i++){
+    if(items[i].type.indexOf("image")===0){
+      var f=items[i].getAsFile();
+      if(f)imgs.push(f);
+    }
+  }
+  if(imgs.length)addFiles(imgs);
+});
+
+/* ---------- MODE TABS ---------- */
+function setMode(m){
+  mode=m;
+  ["pixels","percent","presets"].forEach(function(x){
+    $("tab"+x.charAt(0).toUpperCase()+x.slice(1)).setAttribute("aria-selected",String(x===m));
+    $("panel"+x.charAt(0).toUpperCase()+x.slice(1)).hidden=(x!==m);
+  });
+  saveState();
+}
+$("tabPixels").addEventListener("click",function(){setMode("pixels");});
+$("tabPercent").addEventListener("click",function(){setMode("percent");});
+$("tabPresets").addEventListener("click",function(){setMode("presets");});
+
+/* ---------- ASPECT RATIO LOCK ---------- */
+var lastAspectRatio=1;
+$("widthPx").addEventListener("input",function(){
+  if(!$("lockAspect").checked)return;
+  var w=parseFloat($("widthPx").value);
+  if(!isNaN(w)&&w>0&&lastAspectRatio>0){
+    $("heightPx").value=Math.round(w/lastAspectRatio);
+  }
+  saveState();
+});
+$("heightPx").addEventListener("input",function(){
+  if(!$("lockAspect").checked)return;
+  var h=parseFloat($("heightPx").value);
+  if(!isNaN(h)&&h>0&&lastAspectRatio>0){
+    $("widthPx").value=Math.round(h*lastAspectRatio);
+  }
+  saveState();
+});
+
+/* ---------- PRESETS ---------- */
+document.querySelectorAll("[data-preset]").forEach(function(b){
+  b.addEventListener("click",function(){
+    activePreset=b.getAttribute("data-preset");
+    document.querySelectorAll("[data-preset]").forEach(function(x){
+      x.setAttribute("aria-pressed",String(x===b));
+    });
+    // Update pixel fields to reflect the preset for feedback
+    if(PRESETS[activePreset]){
+      var p=PRESETS[activePreset];
+      if(p.h===0){
+        $("widthPx").value=p.w;
+        $("heightPx").value="";
+      } else {
+        $("widthPx").value=p.w;
+        $("heightPx").value=p.h;
+      }
+    }
+    saveState();
+  });
+});
+
+/* ---------- SETTINGS SAVING ---------- */
+["outputFormat","quality","bgMode","bgColor","lockAspect","noEnlarge","highQuality","percent","percentCustom"].forEach(function(id){
+  var el=$(id);
+  if(el){
+    el.addEventListener("change",saveState);
+    el.addEventListener("input",saveState);
+  }
+});
+
+/* ---------- STATE ---------- */
+var STORAGE_KEY="imageresize.state";
+function saveState(){
+  try{
+    var s={
+      mode:mode,
+      w:$("widthPx").value,
+      h:$("heightPx").value,
+      pct:$("percent").value,
+      pctCustom:$("percentCustom").value,
+      preset:activePreset,
+      fmt:$("outputFormat").value,
+      q:$("quality").value,
+      bg:$("bgMode").value,
+      bgc:$("bgColor").value,
+      lock:$("lockAspect").checked,
+      noenl:$("noEnlarge").checked,
+      hq:$("highQuality").checked
+    };
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(s));
+  }catch(e){}
+}
+function loadState(){
+  try{
+    var raw=localStorage.getItem(STORAGE_KEY);
+    if(!raw)return;
+    var s=JSON.parse(raw);
+    if(s.w)$("widthPx").value=s.w;
+    if(s.h)$("heightPx").value=s.h;
+    if(s.pct)$("percent").value=s.pct;
+    if(s.pctCustom)$("percentCustom").value=s.pctCustom;
+    if(s.preset){
+      activePreset=s.preset;
+      document.querySelectorAll("[data-preset]").forEach(function(b){
+        b.setAttribute("aria-pressed",String(b.getAttribute("data-preset")===s.preset));
+      });
+    }
+    if(s.fmt)$("outputFormat").value=s.fmt;
+    if(s.q)$("quality").value=s.q;
+    if(s.bg)$("bgMode").value=s.bg;
+    if(s.bgc)$("bgColor").value=s.bgc;
+    if(s.lock!==undefined)$("lockAspect").checked=!!s.lock;
+    if(s.noenl!==undefined)$("noEnlarge").checked=!!s.noenl;
+    if(s.hq!==undefined)$("highQuality").checked=!!s.hq;
+    if(s.mode&&s.mode!=="pixels")setMode(s.mode);
+  }catch(e){}
+}
+loadState();
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image Converter — HEIC, PNG, JPG, WebP, BMP to Any Format</title>
+<meta name="description" content="Free online image converter with HEIC support. Convert iPhone HEIC photos to JPG, PNG or WebP, plus conversion between PNG, JPG, WebP and BMP. Batch supported, no upload.">
+<link rel="canonical" href="https://qrcodescanner.co.in/tools/image/image-convert.html">
+<link rel="sitemap" type="application/xml" href="https://qrcodescanner.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#1B4DFF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Image Converter — HEIC, PNG, JPG, WebP, BMP">
+<meta property="og:description" content="Convert HEIC, PNG, JPG, WebP and BMP in your browser. No upload.">
+<meta property="og:url" content="https://qrcodescanner.co.in/tools/image/image-convert.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Image Converter","url":"https://qrcodescanner.co.in/tools/image/image-convert.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://qrcodescanner.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://qrcodescanner.co.in/tools/"},{"@type":"ListItem","position":3,"name":"Image Converter","item":"https://qrcodescanner.co.in/tools/image/image-convert.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I convert HEIC files from my iPhone?","acceptedAnswer":{"@type":"Answer","text":"Yes. Drop a .heic or .heif file and the tool decodes it in your browser, then converts it to JPG, PNG, WebP or BMP. The file never leaves your device."}},{"@type":"Question","name":"Which image formats are supported?","acceptedAnswer":{"@type":"Answer","text":"Input: HEIC, HEIF, PNG, JPG, WebP, BMP, GIF. Output: PNG, JPG, WebP, BMP."}},{"@type":"Question","name":"Will converting reduce image quality?","acceptedAnswer":{"@type":"Answer","text":"JPG and WebP are lossy, so converting to them at low quality reduces quality. PNG and BMP are lossless. HEIC decoding is lossless to the underlying pixels."}},{"@type":"Question","name":"Is my data uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. Everything happens in your browser. Your images never leave your device."}}]}]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<style>
+:root{--paper:#EDEDE9;--surface:#FFFFFF;--ink:#14161A;--muted:#6B7079;--line:#D6D6D0;--blue:#1B4DFF;--blue-deep:#1338C4;--green:#0E7A5F;--red:#B0233A;--amber:#B87333;--radius:6px;--sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--display:"Bricolage Grotesque",var(--sans);--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;background-image:linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);background-size:28px 28px}
+.wrap{max-width:760px;margin:0 auto;padding:20px 18px 64px}
+.masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
+.masthead a{color:inherit;text-decoration:none}
+.mark{width:26px;height:26px;flex:none}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.masthead .nav-right{margin-left:auto;font-size:.875rem;color:var(--blue);text-decoration:underline;white-space:nowrap}
+.crumbs{font-size:.8125rem;color:var(--muted);margin:0 0 18px;font-family:var(--mono)}
+.crumbs a{color:var(--muted);text-decoration:underline}
+.crumbs a:hover{color:var(--blue)}
+.crumbs span{color:var(--ink)}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
+.lede{margin:0 0 6px;font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.05;letter-spacing:-.03em}
+.sub{margin:0 0 22px;color:var(--muted);max-width:68ch;font-size:1rem}
+.ic-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:0 0 14px}
+.ic-card h2{font-family:var(--display);font-weight:700;font-size:1.0625rem;letter-spacing:-.01em;margin:0 0 14px}
+.ic-drop{border:2px dashed var(--line);border-radius:var(--radius);padding:36px 20px;text-align:center;background:#F7F7F3;transition:border-color .15s ease,background .15s ease;cursor:pointer}
+.ic-drop:hover,.ic-drop.dragover{border-color:var(--blue);background:rgba(27,77,255,.04)}
+.ic-drop .icon{font-size:2.5rem;line-height:1;margin:0 0 8px;color:var(--blue)}
+.ic-drop strong{display:block;font-family:var(--display);font-weight:700;font-size:1.0625rem;margin:0 0 4px}
+.ic-drop p{margin:0;color:var(--muted);font-size:.875rem}
+.ic-drop .formats{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin-top:8px}
+.ic-controls{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 12px}
+.ic-field{flex:1 1 150px;min-width:0;display:flex;flex-direction:column;gap:4px}
+.ic-field label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.ic-field input,.ic-field select{width:100%;padding:10px 12px;font-family:var(--mono);font-size:.9375rem;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);outline:none;transition:border-color .15s ease,box-shadow .15s ease}
+.ic-field input:focus,.ic-field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.ic-field .unit-hint{font-family:var(--mono);font-size:.625rem;color:var(--muted);text-transform:none;letter-spacing:0}
+.ic-target-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 14px}
+@media(max-width:560px){.ic-target-row{grid-template-columns:repeat(2,1fr)}}
+.ic-target{border:2px solid var(--line);background:#fff;border-radius:var(--radius);padding:14px 8px;cursor:pointer;text-align:center;transition:border-color .15s ease,background .15s ease}
+.ic-target:hover{border-color:var(--blue);background:rgba(27,77,255,.03)}
+.ic-target[aria-pressed="true"]{border-color:var(--blue);background:rgba(27,77,255,.06)}
+.ic-target .fmt{font-family:var(--mono);font-weight:700;font-size:.9375rem;color:var(--ink);display:block;margin:0 0 4px}
+.ic-target .note{font-family:var(--mono);font-size:.625rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.ic-bg-row{display:flex;align-items:center;gap:8px}
+.ic-bg-row input[type="color"]{width:44px;height:38px;padding:2px;border:1px solid var(--line);border-radius:var(--radius);cursor:pointer;background:#fff}
+.ic-bg-row select{flex:1;min-width:0}
+.ic-check-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:10px 0 0;padding:10px 12px;background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius);font-size:.8125rem;color:var(--ink)}
+.ic-check{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none}
+.ic-check input{accent-color:var(--blue);cursor:pointer}
+.ic-bmp-warn{margin:0 0 12px;padding:10px 12px;background:rgba(184,115,51,.08);border:1px solid rgba(184,115,51,.28);border-left:3px solid var(--amber);border-radius:var(--radius);font-family:var(--mono);font-size:.75rem;color:#7A4A15;line-height:1.5}
+.ic-bmp-warn strong{font-weight:600}
+.ic-list{display:flex;flex-direction:column;gap:10px;margin:0 0 14px}
+.ic-item{display:flex;gap:14px;align-items:center;padding:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
+.ic-thumb{flex:none;width:70px;height:70px;object-fit:cover;border-radius:6px;background:#F7F7F3;border:1px solid var(--line)}
+.ic-info{flex:1;min-width:0}
+.ic-name{font-family:var(--mono);font-size:.8125rem;font-weight:600;color:var(--ink);word-break:break-all;margin:0 0 4px}
+.ic-dims{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin:0 0 6px}
+.ic-sizes{display:flex;flex-wrap:wrap;gap:10px;font-family:var(--mono);font-size:.75rem;align-items:center}
+.ic-sizes .old{color:var(--muted)}
+.ic-sizes .new{color:var(--ink);font-weight:600}
+.ic-sizes .save{background:rgba(14,122,95,.1);color:var(--green);padding:2px 8px;border-radius:100px;font-weight:600}
+.ic-sizes .save.up{background:rgba(184,115,51,.1);color:var(--amber)}
+.ic-dl{flex:none;font-size:.8125rem;padding:8px 14px;border-radius:100px;background:var(--blue);border:1px solid var(--blue);color:#fff;cursor:pointer;font-family:inherit;font-weight:500;transition:background .12s ease}
+.ic-dl:hover{background:var(--blue-deep);border-color:var(--blue-deep)}
+.ic-dl:disabled{opacity:.4;cursor:not-allowed}
+.ic-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:0 0 14px}
+.ic-sum{background:var(--surface);padding:14px;text-align:center}
+.ic-sum .l{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 4px}
+.ic-sum .n{font-family:var(--display);font-weight:700;font-size:1.375rem;letter-spacing:-.02em;line-height:1.1;margin:0;color:var(--ink)}
+.ic-sum.primary{background:linear-gradient(135deg,rgba(27,77,255,.06),rgba(168,85,247,.05))}
+.ic-sum.primary .n{color:var(--blue)}
+.ic-actions{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.ic-actions button{font-size:.8125rem;padding:9px 14px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--ink);cursor:pointer;font-family:inherit;font-weight:500;transition:background .12s ease,border-color .12s ease,color .12s ease;display:inline-flex;align-items:center;gap:6px}
+.ic-actions button:hover{border-color:var(--blue);color:var(--blue)}
+.ic-actions button.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.ic-actions button.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep);color:#fff}
+.ic-actions button.danger:hover{border-color:var(--red);color:var(--red)}
+.ic-progress{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:14px 0}
+.ic-progress-bar{height:100%;background:var(--blue);width:0;transition:width .2s ease}
+.article{margin:44px 0 0;max-width:72ch}
+.article h2{margin:36px 0 10px;font-size:1.5rem}
+.article h2:first-child{margin-top:0}
+.article p{margin:0 0 12px;color:#3A3E46}
+.article ul{margin:0 0 12px;padding-left:20px;color:#3A3E46}
+.article li{margin:0 0 6px}
+.article strong{font-weight:600;color:var(--ink)}
+.article a{color:var(--blue);text-decoration:underline}
+.article code{font-family:var(--mono);font-size:.875em;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:1px 4px}
+.article table{width:100%;border-collapse:collapse;margin:0 0 14px;font-size:.875rem}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.article th{background:#F7F7F3;font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+.faq{margin:14px 0 0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--blue);font-size:1.25rem;line-height:1;flex:none}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{margin:0 0 14px;color:#3A3E46;max-width:62ch}
+.related-list{list-style:none;margin:12px 0 0;padding:0}
+.related-list li{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center}
+.related-list .txt{flex:1}
+.related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
+.related-list .txt a:hover{color:var(--blue);text-decoration:underline}
+.related-list .txt p{margin:2px 0 0;font-size:.8125rem;color:var(--muted)}
+.related-list time{font-size:.75rem;color:var(--muted);flex:none;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem}
+footer a{color:inherit}
+footer a:hover{color:var(--blue)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:200}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+<a href="../../index.html" style="display:flex;align-items:center;gap:10px">
+<svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/><path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/><path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/><path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/><path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/></svg>
+<span class="wordmark">ToolNest</span>
+</a>
+<a href="../index.html" class="nav-right">All tools →</a>
+</header>
+
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Image Converter</span></nav>
+
+<h1 class="lede">Image Converter</h1>
+<p class="sub">Convert HEIC, PNG, JPG, WebP and BMP — batch supported. Drop an iPhone HEIC photo and get a JPG back. Nothing is uploaded.</p>
+
+<div class="ic-card" id="dropCard">
+<h2>Upload images</h2>
+<div class="ic-drop" id="drop">
+<div class="icon">⬆</div>
+<strong>Drop images here or click to browse</strong>
+<p>Supports HEIC, HEIF, PNG, JPG, WebP, BMP, GIF — batch supported</p>
+<div class="formats">HEIC files are decoded in-browser · No upload · Works offline</div>
+<input type="file" id="fileInput" accept="image/*,.heic,.heif" multiple hidden>
+</div>
+</div>
+
+<div class="ic-card" id="settingsCard">
+<h2>Conversion settings</h2>
+
+<label style="font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;display:block;margin:0 0 8px">Target format</label>
+<div class="ic-target-row" id="targetRow">
+<button class="ic-target" data-target="image/png" aria-pressed="false">
+<span class="fmt">PNG</span>
+<span class="note">Lossless · Transparency</span>
+</button>
+<button class="ic-target" data-target="image/jpeg" aria-pressed="true">
+<span class="fmt">JPG</span>
+<span class="note">Small · Universal</span>
+</button>
+<button class="ic-target" data-target="image/webp" aria-pressed="false">
+<span class="fmt">WebP</span>
+<span class="note">Smallest · Modern</span>
+</button>
+<button class="ic-target" data-target="image/bmp" aria-pressed="false">
+<span class="fmt">BMP</span>
+<span class="note">Uncompressed · Huge</span>
+</button>
+</div>
+
+<div class="ic-controls">
+<div class="ic-field">
+<label for="quality">JPG / WebP quality</label>
+<select id="quality">
+<option value="1">100% (best, largest)</option>
+<option value="0.95">95%</option>
+<option value="0.9" selected>90% (high)</option>
+<option value="0.85">85%</option>
+<option value="0.75">75% (web standard)</option>
+<option value="0.6">60% (small)</option>
+<option value="0.5">50% (tiny)</option>
+</select>
+<span class="unit-hint">Ignored for PNG and BMP</span>
+</div>
+
+<div class="ic-field">
+<label>Background for transparency</label>
+<div class="ic-bg-row">
+<input type="color" id="bgColor" value="#FFFFFF">
+<select id="bgMode">
+<option value="white" selected>White</option>
+<option value="black">Black</option>
+<option value="custom">Custom color</option>
+<option value="keep">Keep transparent (PNG/WebP only)</option>
+</select>
+</div>
+<span class="unit-hint">Used only when target doesn't support transparency</span>
+</div>
+</div>
+
+<div id="bmpWarning" class="ic-bmp-warn" hidden>
+<strong>Heads up:</strong> BMP is an uncompressed format. Converting a photo to BMP will increase the file size roughly 5–10×. Consider PNG or WebP instead unless you specifically need BMP.
+</div>
+
+<div class="ic-check-row">
+<label class="ic-check">
+<input type="checkbox" id="stripMeta" checked>
+Strip metadata (recommended)
+</label>
+<label class="ic-check">
+<input type="checkbox" id="keepDims" checked>
+Keep original dimensions
+</label>
+<label class="ic-check">
+<input type="checkbox" id="highQuality">
+High-quality resampling
+</label>
+</div>
+</div>
+
+<div class="ic-card" id="resultCard" hidden>
+<h2>Results</h2>
+
+<div class="ic-summary">
+<div class="ic-sum primary">
+<p class="l">Files converted</p>
+<p class="n" id="fileCount">—</p>
+</div>
+<div class="ic-sum">
+<p class="l">Original total</p>
+<p class="n" id="originalSize">—</p>
+</div>
+<div class="ic-sum">
+<p class="l">Converted total</p>
+<p class="n" id="newSize">—</p>
+</div>
+<div class="ic-sum" id="savingsCell">
+<p class="l">Change</p>
+<p class="n" id="savingsValue">—</p>
+</div>
+</div>
+
+<div class="ic-progress" id="progressWrap" hidden>
+<div class="ic-progress-bar" id="progressBar"></div>
+</div>
+
+<div class="ic-list" id="fileList"></div>
+
+<div class="ic-actions">
+<button class="primary" id="downloadAll">Download all as ZIP</button>
+<button id="processAgain">Re-apply settings</button>
+<button class="danger" id="clearBtn">Clear all</button>
+</div>
+</div>
+
+<article class="article">
+<h2>How to use the image converter</h2>
+<p>Drop images onto the page, choose the target format, and each file is converted. HEIC files from iPhone are decoded in the browser before conversion. Download individually or all together as a ZIP.</p>
+<p>Nothing is uploaded. Everything runs in your browser.</p>
+
+<h2>HEIC support</h2>
+<p>iPhones shoot photos in HEIC format by default since iOS 11. It saves storage space (roughly 40% smaller than JPG at the same quality) but most desktop browsers can't display HEIC. This converter decodes HEIC using the <code>heic2any</code> library — a WebAssembly build of libheif that runs entirely in your browser.</p>
+<p>The decoder is loaded only when you drop a HEIC file, so the tool stays fast for regular JPG/PNG conversions.</p>
+
+<h2>Choosing the right format</h2>
+<table>
+<thead><tr><th>Format</th><th>Best for</th><th>Trade-off</th></tr></thead>
+<tbody>
+<tr><td><strong>PNG</strong></td><td>Screenshots, logos, graphics with sharp edges, anything with transparency</td><td>Large file sizes, especially on photographs</td></tr>
+<tr><td><strong>JPG</strong></td><td>Photographs, imagery with smooth gradients, universal sharing</td><td>No transparency, lossy — quality drops at low settings</td></tr>
+<tr><td><strong>WebP</strong></td><td>Everything modern. Smaller than JPG and PNG at equivalent quality</td><td>Not supported by very old browsers (all modern ones are fine)</td></tr>
+<tr><td><strong>BMP</strong></td><td>Legacy systems, specific software that needs raw bitmaps</td><td>Huge file sizes — typically 10× larger than JPG</td></tr>
+</tbody>
+</table>
+
+<h2>When to choose WebP</h2>
+<p>WebP is almost always the right answer for the web in 2026. It supports:</p>
+<ul>
+<li><strong>Lossy compression</strong> — 25–35% smaller than JPG at the same visual quality</li>
+<li><strong>Lossless compression</strong> — 25% smaller than PNG</li>
+<li><strong>Transparency</strong> — like PNG, unlike JPG</li>
+<li><strong>Animation</strong> — like GIF, at a fraction of the size</li>
+</ul>
+
+<h2>Format comparison at a glance</h2>
+<table>
+<thead><tr><th></th><th>PNG</th><th>JPG</th><th>WebP</th><th>BMP</th></tr></thead>
+<tbody>
+<tr><td>Transparency</td><td>✅</td><td>❌</td><td>✅</td><td>❌</td></tr>
+<tr><td>Lossless option</td><td>✅</td><td>❌</td><td>✅</td><td>✅</td></tr>
+<tr><td>Animation</td><td>❌</td><td>❌</td><td>✅</td><td>❌</td></tr>
+<tr><td>Typical size (photo)</td><td>Large</td><td>Medium</td><td>Small</td><td>Huge</td></tr>
+<tr><td>Browser support</td><td>All</td><td>All</td><td>All modern</td><td>All</td></tr>
+</tbody>
+</table>
+
+<h2>Transparency and background color</h2>
+<p>If you convert a PNG with transparency to JPG or BMP, the transparent areas must become something. Choose <strong>White</strong> (default), <strong>Black</strong>, or a custom color. When the target format supports transparency (PNG or WebP), you can keep the transparency by selecting <strong>Keep transparent</strong>.</p>
+
+<h2>Quality settings for JPG and WebP</h2>
+<ul>
+<li><strong>90–100%</strong> — print, portfolio, wherever quality matters more than size</li>
+<li><strong>80–85%</strong> — the sweet spot for websites and email</li>
+<li><strong>60–75%</strong> — social media, thumbnails</li>
+<li><strong>Below 60%</strong> — noticeable artifacts, use only for tiny previews</li>
+</ul>
+
+<h2>What happens to GIF?</h2>
+<p>GIF input works, but animated GIFs convert to a single frame — the first one. Canvas doesn't decode animation. For animated output, use WebP.</p>
+
+<h2>Common questions</h2>
+<div class="faq">
+<details><summary>Can I convert HEIC files from my iPhone?</summary><p>Yes. Drop a <code>.heic</code> or <code>.heif</code> file and the tool decodes it in your browser, then converts it to JPG, PNG, WebP or BMP. The file never leaves your device.</p></details>
+<details><summary>Which image formats are supported?</summary><p>Input: HEIC, HEIF, PNG, JPG, WebP, BMP, GIF. Output: PNG, JPG, WebP, BMP.</p></details>
+<details><summary>Will converting reduce image quality?</summary><p>JPG and WebP are lossy, so converting to them at low quality reduces quality. PNG and BMP are lossless. HEIC decoding is lossless to the underlying pixels.</p></details>
+<details><summary>What happens to transparency when I convert PNG to JPG?</summary><p>JPG does not support transparency. Any transparent areas become the background color you choose, white by default.</p></details>
+<details><summary>Is my data uploaded?</summary><p>No. Everything happens in your browser. Your images never leave your device.</p></details>
+<details><summary>Why is my converted file larger than the original?</summary><p>Compression settings matter. A high-quality JPG of a photo can be larger than a heavily-optimised PNG of the same photo. Try lowering the quality, or choose WebP for the smallest result. BMP will always be much larger than the source.</p></details>
+<details><summary>Does converting strip EXIF metadata?</summary><p>Yes, by default. This tool strips metadata unless you uncheck "Strip metadata". Stripping removes GPS, camera model, and date-taken. Recommended for anything you'll share publicly.</p></details>
+<details><summary>Can I batch convert?</summary><p>Yes. Drop as many images as you like. All convert to the same target format and settings. Download individually or as a ZIP.</p></details>
+</div>
+
+<h2>Related tools</h2>
+<ul class="related-list">
+<li><div class="txt"><a href="image-compress.html">Image Compressor</a><p>Reduce file size at the same format.</p></div><time>Image</time></li>
+<li><div class="txt"><a href="image-resize.html">Image Resizer</a><p>Change dimensions without changing format.</p></div><time>Image</time></li>
+<li><div class="txt"><a href="exif.html">EXIF Viewer</a><p>See and remove metadata from photos.</p></div><time>Image</time></li>
+</ul>
+</article>
+
+<footer>
+<p>ToolNest · <a href="../../index.html">Home</a> · <a href="../index.html">All tools</a> · <a href="../../pages/about.html">About</a> · <a href="../../pages/privacy.html">Privacy</a></p>
+</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js" defer></script>
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+var toast=$("toast");
+function flash(m){toast.textContent=m;toast.classList.add("show");clearTimeout(flash._t);flash._t=setTimeout(function(){toast.classList.remove("show");},1700);}
+
+var files=[];
+var idCounter=0;
+var targetMime="image/jpeg";
+var heicReady=false;
+
+/* ---------- HELPERS ---------- */
+function fmtSize(bytes){
+  if(bytes<1024)return bytes+" B";
+  if(bytes<1024*1024)return (bytes/1024).toFixed(1)+" KB";
+  return (bytes/(1024*1024)).toFixed(2)+" MB";
+}
+function extFromMime(mime){
+  return mime==="image/jpeg"?"jpg":mime==="image/png"?"png":mime==="image/webp"?"webp":mime==="image/bmp"?"bmp":"bin";
+}
+function isHeic(file){
+  var n=(file.name||"").toLowerCase();
+  var t=(file.type||"").toLowerCase();
+  return n.endsWith(".heic")||n.endsWith(".heif")||t==="image/heic"||t==="image/heif";
+}
+
+/* ---------- WAIT FOR heic2any (deferred script) ---------- */
+function waitForHeic2Any(){
+  if(window.heic2any){heicReady=true;return Promise.resolve();}
+  return new Promise(function(resolve,reject){
+    var tries=0;
+    var iv=setInterval(function(){
+      tries++;
+      if(window.heic2any){
+        clearInterval(iv);
+        heicReady=true;
+        resolve();
+      } else if(tries>100){
+        clearInterval(iv);
+        reject(new Error("HEIC decoder failed to load — check your internet connection"));
+      }
+    },50);
+  });
+}
+
+/* ---------- DECODE HEIC → PNG blob ---------- */
+function decodeHeic(file){
+  return waitForHeic2Any().then(function(){
+    return window.heic2any({
+      blob:file,
+      toType:"image/png",
+      quality:0.95
+    });
+  }).then(function(result){
+    var blob=Array.isArray(result)?result[0]:result;
+    if(!blob)throw new Error("HEIC decode returned no data");
+    return loadImageFromBlob(blob).then(function(img){
+      return {
+        blob:blob,
+        width:img.naturalWidth,
+        height:img.naturalHeight
+      };
+    });
+  });
+}
+
+function loadImageFromBlob(blob){
+  return new Promise(function(res,rej){
+    var url=URL.createObjectURL(blob);
+    var img=new Image();
+    img.onload=function(){URL.revokeObjectURL(url);res(img);};
+    img.onerror=function(){URL.revokeObjectURL(url);rej(new Error("Image decode failed"));};
+    img.src=url;
+  });
+}
+
+/* ---------- CANVAS → BMP ---------- */
+function canvasToBMP(ctx,w,h){
+  var imageData=ctx.getImageData(0,0,w,h);
+  var data=imageData.data;
+  var rowSize=Math.floor((24*w+31)/32)*4;
+  var pixelArraySize=rowSize*h;
+  var fileSize=54+pixelArraySize;
+  var buffer=new ArrayBuffer(fileSize);
+  var view=new DataView(buffer);
+
+  view.setUint8(0,0x42);view.setUint8(1,0x4D);
+  view.setUint32(2,fileSize,true);
+  view.setUint32(6,0,true);
+  view.setUint32(10,54,true);
+  view.setUint32(14,40,true);
+  view.setInt32(18,w,true);
+  view.setInt32(22,h,true);
+  view.setUint16(26,1,true);
+  view.setUint16(28,24,true);
+  view.setUint32(30,0,true);
+  view.setUint32(34,pixelArraySize,true);
+  view.setInt32(38,2835,true);
+  view.setInt32(42,2835,true);
+  view.setUint32(46,0,true);
+  view.setUint32(50,0,true);
+
+  var offset=54;
+  for(var y=h-1;y>=0;y--){
+    for(var x=0;x<w;x++){
+      var i=(y*w+x)*4;
+      view.setUint8(offset++,data[i+2]);
+      view.setUint8(offset++,data[i+1]);
+      view.setUint8(offset++,data[i]);
+    }
+    for(var p=w*3;p<rowSize;p++)view.setUint8(offset++,0);
+  }
+  return buffer;
+}
+
+/* ---------- FILE HANDLING ---------- */
+function addFiles(fileList){
+  var accepted=0;
+  for(var i=0;i<fileList.length;i++){
+    var f=fileList[i];
+    var heic=isHeic(f);
+    var isImage=/^image\//.test(f.type)||heic;
+    if(!isImage)continue;
+    files.push({
+      id:++idCounter,
+      file:f,
+      name:f.name,
+      originalSize:f.size,
+      originalType:f.type||(heic?"image/heic":""),
+      isHeic:heic,
+      originalW:0,
+      originalH:0,
+      outBlob:null,
+      outSize:0,
+      status:"pending",
+      error:null
+    });
+    accepted++;
+  }
+  if(!accepted){flash("No images found");return;}
+  renderList();
+  updateBmpWarning();
+  processAll();
+}
+
+function processAll(){
+  if(!files.length)return;
+  $("resultCard").hidden=false;
+  $("progressWrap").hidden=false;
+  $("progressBar").style.width="0";
+
+  var i=0,total=files.length;
+  function next(){
+    if(i>=total){
+      $("progressWrap").hidden=true;
+      updateSummary();
+      return;
+    }
+    processFile(files[i]).then(function(){
+      i++;
+      $("progressBar").style.width=Math.round((i/total)*100)+"%";
+      renderList();
+      setTimeout(next,10);
+    }).catch(function(err){
+      files[i].status="error";
+      files[i].error=err.message||String(err);
+      i++;
+      renderList();
+      setTimeout(next,10);
+    });
+  }
+  next();
+}
+
+function processFile(entry){
+  return new Promise(function(resolve,reject){
+    entry.status="processing";
+    var quality=parseFloat($("quality").value);
+    var hq=$("highQuality").checked;
+    var bgMode=$("bgMode").value;
+    var bgColor=$("bgColor").value;
+
+    var sourcePromise;
+
+    if(entry.isHeic){
+      sourcePromise=decodeHeic(entry.file).then(function(decoded){
+        entry.originalW=decoded.width;
+        entry.originalH=decoded.height;
+        return loadImageFromBlob(decoded.blob);
+      });
+    } else {
+      sourcePromise=new Promise(function(res,rej){
+        var url=URL.createObjectURL(entry.file);
+        var img=new Image();
+        img.onload=function(){
+          URL.revokeObjectURL(url);
+          entry.originalW=img.naturalWidth;
+          entry.originalH=img.naturalHeight;
+          res(img);
+        };
+        img.onerror=function(){
+          URL.revokeObjectURL(url);
+          rej(new Error("Cannot decode image"));
+        };
+        img.src=url;
+      });
+    }
+
+    sourcePromise.then(function(img){
+      var origW=img.naturalWidth||entry.originalW;
+      var origH=img.naturalHeight||entry.originalH;
+
+      var MAX=16000;
+      var scale=1;
+      if(Math.max(origW,origH)>MAX)scale=MAX/Math.max(origW,origH);
+      var outW=Math.round(origW*scale);
+      var outH=Math.round(origH*scale);
+
+      var canvas=document.createElement("canvas");
+      canvas.width=outW;
+      canvas.height=outH;
+      var ctx=canvas.getContext("2d");
+
+      if(targetMime==="image/bmp"){
+        ctx.fillStyle=bgMode==="custom"?bgColor:bgMode==="black"?"#000000":"#FFFFFF";
+        ctx.fillRect(0,0,outW,outH);
+        ctx.imageSmoothingEnabled=hq;
+        ctx.imageSmoothingQuality=hq?"high":"low";
+        ctx.drawImage(img,0,0,outW,outH);
+        try{
+          var bmp=canvasToBMP(ctx,outW,outH);
+          var blob=new Blob([bmp],{type:"image/bmp"});
+          entry.outBlob=blob;
+          entry.outSize=blob.size;
+          entry.status="done";
+          resolve();
+        }catch(e){
+          reject(new Error("BMP export failed"));
+        }
+        return;
+      }
+
+      var needsFill=(targetMime==="image/jpeg");
+      if(needsFill){
+        ctx.fillStyle=bgMode==="custom"?bgColor:bgMode==="black"?"#000000":"#FFFFFF";
+        ctx.fillRect(0,0,outW,outH);
+      }
+      ctx.imageSmoothingEnabled=hq;
+      ctx.imageSmoothingQuality=hq?"high":"low";
+      ctx.drawImage(img,0,0,outW,outH);
+
+      canvas.toBlob(function(blob){
+        if(!blob){reject(new Error("Convert failed"));return;}
+        entry.outBlob=blob;
+        entry.outSize=blob.size;
+        entry.status="done";
+        resolve();
+      },targetMime,quality);
+    }).catch(function(err){
+      reject(err);
+    });
+  });
+}
+
+/* ---------- RENDER ---------- */
+function renderList(){
+  var list=$("fileList");
+  list.innerHTML="";
+  files.forEach(function(entry){
+    var item=document.createElement("div");
+    item.className="ic-item";
+
+    var thumb=document.createElement("img");
+    thumb.className="ic-thumb";
+    thumb.alt="";
+    if(entry.status==="done"&&entry.outBlob){
+      thumb.src=URL.createObjectURL(entry.outBlob);
+    } else if(entry.isHeic){
+      // HEIC can't preview natively — use a generic placeholder look
+      thumb.style.background="#F7F7F3";
+      thumb.style.display="flex";
+      thumb.style.alignItems="center";
+      thumb.style.justifyContent="center";
+      thumb.style.fontFamily="var(--mono)";
+      thumb.style.fontSize="11px";
+      thumb.style.color="var(--muted)";
+      thumb.removeAttribute("src");
+      thumb.alt="HEIC";
+      // Use a wrapper span since img can't hold text
+      var wrap=document.createElement("div");
+      wrap.className="ic-thumb";
+      wrap.style.display="flex";
+      wrap.style.alignItems="center";
+      wrap.style.justifyContent="center";
+      wrap.style.fontSize="11px";
+      wrap.style.color="var(--muted)";
+      wrap.textContent="HEIC";
+      thumb=wrap;
+    } else {
+      thumb.src=URL.createObjectURL(entry.file);
+    }
+
+    var info=document.createElement("div");
+    info.className="ic-info";
+
+    var name=document.createElement("p");
+    name.className="ic-name";
+    name.textContent=entry.name;
+
+    var dims=document.createElement("p");
+    dims.className="ic-dims";
+    if(entry.status==="done"&&entry.originalW){
+      var fromExt=entry.isHeic?"HEIC":(entry.name.split(".").pop()||"").toUpperCase();
+      var toExt=extFromMime(targetMime).toUpperCase();
+      dims.textContent=entry.originalW+" × "+entry.originalH+" px · "+fromExt+" → "+toExt;
+    } else if(entry.status==="processing"){
+      dims.textContent=entry.isHeic?"Decoding HEIC…":"Converting…";
+    } else if(entry.status==="error"){
+      dims.textContent=entry.error||"Error";
+      dims.style.color="var(--red)";
+    } else {
+      dims.textContent="Pending";
+    }
+
+    var sizes=document.createElement("div");
+    sizes.className="ic-sizes";
+    var oldSize=document.createElement("span");
+    oldSize.className="old";
+    oldSize.textContent=fmtSize(entry.originalSize);
+    sizes.appendChild(oldSize);
+
+    if(entry.status==="done"){
+      sizes.appendChild(document.createTextNode(" → "));
+      var newSize=document.createElement("span");
+      newSize.className="new";
+      newSize.textContent=fmtSize(entry.outSize);
+      sizes.appendChild(newSize);
+      var pct=entry.originalSize>0?Math.round((1-(entry.outSize/entry.originalSize))*100):0;
+      var save=document.createElement("span");
+      save.className="save"+(pct<0?" up":"");
+      if(pct>0)save.textContent="−"+pct+"%";
+      else if(pct===0)save.textContent="No change";
+      else save.textContent="+"+Math.abs(pct)+"%";
+      sizes.appendChild(save);
+    }
+
+    info.appendChild(name);
+    info.appendChild(dims);
+    info.appendChild(sizes);
+
+    var dl=document.createElement("button");
+    dl.className="ic-dl";
+    dl.textContent="Download";
+    dl.disabled=entry.status!=="done";
+    dl.addEventListener("click",function(){downloadOne(entry);});
+
+    item.appendChild(thumb);
+    item.appendChild(info);
+    item.appendChild(dl);
+    list.appendChild(item);
+  });
+}
+
+function updateSummary(){
+  var orig=0,out=0,done=0;
+  files.forEach(function(e){
+    orig+=e.originalSize;
+    if(e.status==="done"){out+=e.outSize;done++;}else{out+=e.originalSize;}
+  });
+  var pct=orig>0?Math.round((1-(out/orig))*100):0;
+  $("fileCount").textContent=done+" / "+files.length;
+  $("originalSize").textContent=fmtSize(orig);
+  $("newSize").textContent=fmtSize(out);
+  $("savingsValue").textContent=(pct>0?"−"+pct+"%":(pct===0?"0%":("+"+Math.abs(pct)+"%")));
+}
+
+/* ---------- DOWNLOAD ---------- */
+function downloadOne(entry){
+  if(entry.status!=="done"||!entry.outBlob)return;
+  var ext=extFromMime(targetMime);
+  var baseName=entry.name.replace(/\.[^.]+$/,"");
+  var filename=baseName+"."+ext;
+  var a=document.createElement("a");
+  a.href=URL.createObjectURL(entry.outBlob);
+  a.download=filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+}
+
+$("downloadAll").addEventListener("click",function(){
+  var done=files.filter(function(e){return e.status==="done"&&e.outBlob;});
+  if(!done.length)return flash("Nothing to download");
+  if(done.length===1){downloadOne(done[0]);return;}
+  if(!window.JSZip)return flash("ZIP library not loaded");
+
+  var zip=new JSZip();
+  done.forEach(function(entry){
+    var ext=extFromMime(targetMime);
+    var baseName=entry.name.replace(/\.[^.]+$/,"");
+    zip.file(baseName+"."+ext,entry.outBlob);
+  });
+
+  zip.generateAsync({type:"blob"}).then(function(blob){
+    var a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download="converted-images-"+new Date().toISOString().slice(0,10)+".zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(a.href);},2000);
+    flash("ZIP downloaded");
+  });
+});
+
+$("clearBtn").addEventListener("click",function(){
+  files=[];
+  $("fileList").innerHTML="";
+  $("resultCard").hidden=true;
+  $("progressWrap").hidden=true;
+  flash("Cleared");
+});
+
+$("processAgain").addEventListener("click",function(){
+  if(!files.length)return flash("No images");
+  files.forEach(function(e){
+    e.status="pending";
+    e.outBlob=null;
+    e.outSize=0;
+    e.error=null;
+  });
+  processAll();
+});
+
+/* ---------- DROP ZONE ---------- */
+var drop=$("drop");
+var fileInput=$("fileInput");
+drop.addEventListener("click",function(){fileInput.click();});
+drop.addEventListener("dragover",function(e){e.preventDefault();drop.classList.add("dragover");});
+drop.addEventListener("dragleave",function(){drop.classList.remove("dragover");});
+drop.addEventListener("drop",function(e){
+  e.preventDefault();
+  drop.classList.remove("dragover");
+  if(e.dataTransfer&&e.dataTransfer.files)addFiles(e.dataTransfer.files);
+});
+fileInput.addEventListener("change",function(){
+  if(fileInput.files)addFiles(fileInput.files);
+  fileInput.value="";
+});
+document.addEventListener("paste",function(e){
+  var items=e.clipboardData&&e.clipboardData.items;
+  if(!items)return;
+  var imgs=[];
+  for(var i=0;i<items.length;i++){
+    if(items[i].type.indexOf("image")===0){
+      var f=items[i].getAsFile();
+      if(f)imgs.push(f);
+    }
+  }
+  if(imgs.length)addFiles(imgs);
+});
+
+/* ---------- TARGET FORMAT ---------- */
+function updateBmpWarning(){
+  var w=$("bmpWarning");
+  var hasNonBmp=files.some(function(f){return f.originalType!=="image/bmp";});
+  if(targetMime==="image/bmp"&&hasNonBmp){
+    w.hidden=false;
+  } else {
+    w.hidden=true;
+  }
+}
+
+document.querySelectorAll(".ic-target").forEach(function(b){
+  b.addEventListener("click",function(){
+    targetMime=b.getAttribute("data-target");
+    document.querySelectorAll(".ic-target").forEach(function(x){
+      x.setAttribute("aria-pressed",String(x===b));
+    });
+    updateBmpWarning();
+    saveState();
+    if(files.length){
+      files.forEach(function(e){
+        if(e.status==="done"){
+          e.status="pending";
+          e.outBlob=null;
+          e.outSize=0;
+        }
+      });
+      processAll();
+    }
+  });
+});
+
+/* ---------- SETTINGS SAVING ---------- */
+["quality","bgMode","bgColor","stripMeta","keepDims","highQuality"].forEach(function(id){
+  var el=$(id);
+  if(el){
+    el.addEventListener("change",saveState);
+    el.addEventListener("input",saveState);
+  }
+});
+
+/* ---------- STATE ---------- */
+var STORAGE_KEY="imgconvert.state";
+function saveState(){
+  try{
+    var s={
+      t:targetMime,
+      q:$("quality").value,
+      bg:$("bgMode").value,
+      bgc:$("bgColor").value,
+      strip:$("stripMeta").checked,
+      keep:$("keepDims").checked,
+      hq:$("highQuality").checked
+    };
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(s));
+  }catch(e){}
+}
+function loadState(){
+  try{
+    var raw=localStorage.getItem(STORAGE_KEY);
+    if(!raw)return;
+    var s=JSON.parse(raw);
+    if(s.t){
+      targetMime=s.t;
+      document.querySelectorAll(".ic-target").forEach(function(x){
+        x.setAttribute("aria-pressed",String(x.getAttribute("data-target")===s.t));
+      });
+    }
+    if(s.q)$("quality").value=s.q;
+    if(s.bg)$("bgMode").value=s.bg;
+    if(s.bgc)$("bgColor").value=s.bgc;
+    if(s.strip!==undefined)$("stripMeta").checked=!!s.strip;
+    if(s.keep!==undefined)$("keepDims").checked=!!s.keep;
+    if(s.hq!==undefined)$("highQuality").checked=!!s.hq;
+  }catch(e){}
+}
+loadState();
+updateBmpWarning();
+
+})();
+</script>
+</body>
+</html>
