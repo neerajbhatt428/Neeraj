@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GST Calculator — Add or Remove GST at Any Rate with CGST/SGST/IGST Split</title>
+<meta name="description" content="Free GST calculator for India. Add GST to a base price or extract GST from an inclusive price. Auto-splits into CGST, SGST and IGST. Reverse GST, multiple rates, and export the breakdown.">
+<link rel="canonical" href="https://qrcodescanner.co.in/tools/calc/gst.html">
+<link rel="sitemap" type="application/xml" href="https://qrcodescanner.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#1B4DFF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GST Calculator — Add or Remove GST">
+<meta property="og:description" content="Add GST or extract GST from an inclusive price. Auto-splits into CGST, SGST, IGST.">
+<meta property="og:url" content="https://qrcodescanner.co.in/tools/calc/gst.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"GST Calculator","url":"https://qrcodescanner.co.in/tools/calc/gst.html","applicationCategory":"FinanceApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://qrcodescanner.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://qrcodescanner.co.in/tools/"},{"@type":"ListItem","position":3,"name":"GST Calculator","item":"https://qrcodescanner.co.in/tools/calc/gst.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I add GST to a price?","acceptedAnswer":{"@type":"Answer","text":"Multiply the base price by 1 plus the GST rate divided by 100. For 18% GST on ₹1,000, the total is ₹1,000 × 1.18 = ₹1,180."}},{"@type":"Question","name":"How do I remove GST from an inclusive price?","acceptedAnswer":{"@type":"Answer","text":"Divide the inclusive price by 1 plus the GST rate divided by 100. For an inclusive price of ₹1,180 with 18% GST, the base is ₹1,180 ÷ 1.18 = ₹1,000."}},{"@type":"Question","name":"When is IGST applied instead of CGST and SGST?","acceptedAnswer":{"@type":"Answer","text":"IGST is applied for inter-state transactions and imports. CGST and SGST apply to intra-state transactions. Together, CGST plus SGST equals the total GST rate."}},{"@type":"Question","name":"What are the common GST rates in India?","acceptedAnswer":{"@type":"Answer","text":"The main GST slabs are 0%, 5%, 12%, 18% and 28%. Some items have cess added on top of the highest slab."}}]}]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#EDEDE9;--surface:#FFFFFF;--ink:#14161A;--muted:#6B7079;--line:#D6D6D0;--blue:#1B4DFF;--blue-deep:#1338C4;--green:#0E7A5F;--red:#B0233A;--amber:#B87333;--radius:6px;--sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--display:"Bricolage Grotesque",var(--sans);--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;background-image:linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);background-size:28px 28px}
+.wrap{max-width:760px;margin:0 auto;padding:20px 18px 64px}
+.masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
+.masthead a{color:inherit;text-decoration:none}
+.mark{width:26px;height:26px;flex:none}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.masthead .nav-right{margin-left:auto;font-size:.875rem;color:var(--blue);text-decoration:underline;white-space:nowrap}
+.crumbs{font-size:.8125rem;color:var(--muted);margin:0 0 18px;font-family:var(--mono)}
+.crumbs a{color:var(--muted);text-decoration:underline}
+.crumbs a:hover{color:var(--blue)}
+.crumbs span{color:var(--ink)}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
+.lede{margin:0 0 6px;font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.05;letter-spacing:-.03em}
+.sub{margin:0 0 22px;color:var(--muted);max-width:68ch;font-size:1rem}
+.gst-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:0 0 14px}
+.gst-card h2{font-family:var(--display);font-weight:700;font-size:1.0625rem;letter-spacing:-.01em;margin:0 0 14px}
+.gst-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#DCDCD6;border:1px solid var(--line);padding:4px;border-radius:var(--radius);margin:0 0 14px}
+.gst-tabs button{border:0;background:transparent;padding:10px 12px;justify-content:center;font-weight:600;font-size:.8125rem;font-family:inherit;cursor:pointer;color:var(--ink);border-radius:4px;transition:background .12s ease,color .12s ease;display:inline-flex;align-items:center;text-align:center}
+.gst-tabs button:hover:not([aria-selected="true"]){background:rgba(0,0,0,.05)}
+.gst-tabs button[aria-selected="true"]{background:var(--ink);color:#fff}
+.gst-row{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 12px}
+.gst-field{flex:1 1 180px;min-width:0;display:flex;flex-direction:column;gap:4px}
+.gst-field label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.gst-field input,.gst-field select{width:100%;padding:11px 12px;font-family:var(--mono);font-size:.9375rem;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);outline:none;transition:border-color .15s ease,box-shadow .15s ease}
+.gst-field input:focus,.gst-field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.gst-field .unit-hint{font-family:var(--mono);font-size:.625rem;color:var(--muted);text-transform:none;letter-spacing:0}
+.gst-rate-row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px;align-items:center}
+.gst-rate-row .label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:4px}
+.gst-rate-row button{font-size:.8125rem;padding:7px 14px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--muted);cursor:pointer;font-family:var(--mono);font-weight:600;transition:color .12s ease,border-color .12s ease,background .12s ease}
+.gst-rate-row button:hover{color:var(--blue);border-color:var(--blue)}
+.gst-rate-row button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.gst-txn-row{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px;align-items:center}
+.gst-txn-row .label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:4px}
+.gst-txn-row button{font-size:.75rem;padding:6px 12px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--muted);cursor:pointer;font-family:inherit;transition:color .12s ease,border-color .12s ease}
+.gst-txn-row button:hover{color:var(--blue);border-color:var(--blue)}
+.gst-txn-row button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.gst-preview{margin:14px 0 0;padding:14px 16px;background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius);font-family:var(--mono);font-size:.75rem;color:var(--muted);line-height:1.6}
+.gst-preview strong{color:var(--ink);font-weight:600}
+.gst-result{margin:0 0 14px;padding:24px 18px;background:linear-gradient(135deg,rgba(27,77,255,.06),rgba(168,85,247,.05));border:1px solid rgba(27,77,255,.2);border-radius:var(--radius);text-align:center}
+.gst-result .lbl{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 6px}
+.gst-result .val{font-family:var(--display);font-weight:700;font-size:clamp(1.75rem,6vw,2.5rem);letter-spacing:-.04em;line-height:1.05;color:var(--ink);margin:0;word-break:break-word}
+.gst-result .sub{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin:8px 0 0}
+.gst-breakdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:0 0 14px}
+.gst-bd{background:var(--surface);padding:14px;text-align:center}
+.gst-bd .l{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 4px}
+.gst-bd .n{font-family:var(--display);font-weight:700;font-size:1.25rem;letter-spacing:-.02em;line-height:1.15;margin:0;color:var(--ink);word-break:break-word}
+.gst-bd.primary{background:linear-gradient(135deg,rgba(27,77,255,.06),rgba(168,85,247,.05))}
+.gst-bd.primary .n{color:var(--blue)}
+.gst-actions{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.gst-actions button{font-size:.8125rem;padding:9px 14px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--ink);cursor:pointer;font-family:inherit;font-weight:500;transition:background .12s ease,border-color .12s ease,color .12s ease;display:inline-flex;align-items:center;gap:6px}
+.gst-actions button:hover{border-color:var(--blue);color:var(--blue)}
+.gst-actions button.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.gst-actions button.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep);color:#fff}
+.gst-actions button.danger:hover{border-color:var(--red);color:var(--red)}
+.gst-invoice{margin:0 0 14px;padding:18px;background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius)}
+.gst-invoice h3{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 12px;font-weight:600}
+.gst-invoice-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:.8125rem}
+.gst-invoice-table td{padding:6px 0;border-bottom:1px dashed var(--line);color:var(--ink)}
+.gst-invoice-table tr:last-child td{border-bottom:0;font-weight:700;padding-top:10px;border-top:2px solid var(--line)}
+.gst-invoice-table td:last-child{text-align:right}
+.gst-invoice-table .lbl{color:var(--muted)}
+.article{margin:44px 0 0;max-width:72ch}
+.article h2{margin:36px 0 10px;font-size:1.5rem}
+.article h2:first-child{margin-top:0}
+.article p{margin:0 0 12px;color:#3A3E46}
+.article ul{margin:0 0 12px;padding-left:20px;color:#3A3E46}
+.article li{margin:0 0 6px}
+.article strong{font-weight:600;color:var(--ink)}
+.article a{color:var(--blue);text-decoration:underline}
+.article code{font-family:var(--mono);font-size:.875em;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:1px 4px}
+.article table{width:100%;border-collapse:collapse;margin:0 0 14px;font-size:.875rem}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.article th{background:#F7F7F3;font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+.faq{margin:14px 0 0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--blue);font-size:1.25rem;line-height:1;flex:none}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{margin:0 0 14px;color:#3A3E46;max-width:62ch}
+.related-list{list-style:none;margin:12px 0 0;padding:0}
+.related-list li{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center}
+.related-list .txt{flex:1}
+.related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
+.related-list .txt a:hover{color:var(--blue);text-decoration:underline}
+.related-list .txt p{margin:2px 0 0;font-size:.8125rem;color:var(--muted)}
+.related-list time{font-size:.75rem;color:var(--muted);flex:none;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem}
+footer a{color:inherit}
+footer a:hover{color:var(--blue)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:200}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+<a href="../../index.html" style="display:flex;align-items:center;gap:10px">
+<svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/><path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/><path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/><path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/><path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/></svg>
+<span class="wordmark">ToolNest</span>
+</a>
+<a href="../index.html" class="nav-right">All tools →</a>
+</header>
+
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>GST Calculator</span></nav>
+
+<h1 class="lede">GST Calculator</h1>
+<p class="sub">Add GST to a base price or extract GST from an inclusive price. Auto-split into CGST, SGST and IGST. Copy the breakdown or share it as a link.</p>
+
+<div class="gst-card">
+<h2>Calculate GST</h2>
+
+<div class="gst-tabs" role="tablist" aria-label="GST mode">
+<button id="tabAdd" role="tab" aria-selected="true">Add GST</button>
+<button id="tabRemove" role="tab" aria-selected="false">Remove GST</button>
+</div>
+
+<div class="gst-row">
+<div class="gst-field">
+<label for="amount" id="amountLabel">Base amount (before GST)</label>
+<input type="number" id="amount" value="10000" min="0" step="100">
+<span class="unit-hint" id="amountHint">The price before GST is applied</span>
+</div>
+<div class="gst-field">
+<label for="rateInput">GST rate (%)</label>
+<input type="number" id="rateInput" value="18" min="0" max="100" step="0.01">
+<span class="unit-hint">Or pick a common slab below</span>
+</div>
+</div>
+
+<div class="gst-rate-row" id="rateRow">
+<span class="label">Common rates:</span>
+<button data-rate="0" aria-pressed="false">0%</button>
+<button data-rate="0.25" aria-pressed="false">0.25%</button>
+<button data-rate="3" aria-pressed="false">3%</button>
+<button data-rate="5" aria-pressed="false">5%</button>
+<button data-rate="12" aria-pressed="false">12%</button>
+<button data-rate="18" aria-pressed="true">18%</button>
+<button data-rate="28" aria-pressed="false">28%</button>
+</div>
+
+<div class="gst-txn-row" id="txnRow">
+<span class="label">Transaction:</span>
+<button data-txn="intra" aria-pressed="true">Intra-state (CGST + SGST)</button>
+<button data-txn="inter" aria-pressed="false">Inter-state (IGST)</button>
+</div>
+
+<div class="gst-preview" id="preview">Enter details above.</div>
+</div>
+
+<div class="gst-card" id="resultCard" hidden>
+<h2>Result</h2>
+
+<div class="gst-result" id="resultBox">
+<p class="lbl" id="resultLabel">Total (with GST)</p>
+<p class="val" id="resultValue">—</p>
+<p class="sub" id="resultSub"></p>
+</div>
+
+<div class="gst-breakdown" id="breakdown">
+<div class="gst-bd primary"><p class="l" id="baseLabel">Base amount</p><p class="n" id="baseValue">—</p></div>
+<div class="gst-bd" id="cgstCell"><p class="l">CGST (half rate)</p><p class="n" id="cgstValue">—</p></div>
+<div class="gst-bd" id="sgstCell"><p class="l">SGST (half rate)</p><p class="n" id="sgstValue">—</p></div>
+<div class="gst-bd" id="igstCell" hidden><p class="l">IGST (full rate)</p><p class="n" id="igstValue">—</p></div>
+<div class="gst-bd"><p class="l">Total GST</p><p class="n" id="gstTotalValue">—</p></div>
+<div class="gst-bd"><p class="l" id="totalLabel">Total (with GST)</p><p class="n" id="totalValue">—</p></div>
+</div>
+
+<div class="gst-invoice" id="invoiceBox">
+<h3>Invoice-style breakdown</h3>
+<table class="gst-invoice-table" id="invoiceTable"></table>
+</div>
+
+<div class="gst-actions">
+<button class="primary" id="copySummary">Copy summary</button>
+<button id="copyInvoice">Copy invoice lines</button>
+<button id="copyJson">Copy as JSON</button>
+<button id="shareBtn">Share link</button>
+<button class="danger" id="clearBtn">Clear all</button>
+</div>
+</div>
+
+<article class="article">
+<h2>How to use the GST calculator</h2>
+<p>Pick <strong>Add GST</strong> if you have a base price and want to know the total after tax. Pick <strong>Remove GST</strong> if you have an inclusive price and want to extract the base and the tax portion. Enter the amount, choose a rate from the common slabs or type your own, and select intra-state or inter-state.</p>
+<p>The breakdown updates as you type. Use the copy buttons to grab the numbers in text, invoice-line, or JSON format.</p>
+
+<h2>GST rates in India</h2>
+<table>
+<thead><tr><th>Rate</th><th>Typical items</th></tr></thead>
+<tbody>
+<tr><td>0%</td><td>Fresh vegetables, unbranded flour, milk, education, healthcare services</td></tr>
+<tr><td>0.25%</td><td>Rough diamonds, precious stones</td></tr>
+<tr><td>3%</td><td>Gold, silver, jewellery</td></tr>
+<tr><td>5%</td><td>Packaged food, tea, coffee, medicines, economy flights, small restaurants</td></tr>
+<tr><td>12%</td><td>Butter, cheese, processed food, business-class flights, hotels</td></tr>
+<tr><td>18%</td><td>Most goods and services — soaps, electronics, professional services, IT services</td></tr>
+<tr><td>28%</td><td>Luxury cars, tobacco, aerated drinks, high-end hotels, plus applicable cess</td></tr>
+</tbody>
+</table>
+
+<h2>CGST, SGST and IGST</h2>
+<p>For an <strong>intra-state transaction</strong> (buyer and seller in the same state), the GST is split equally between the Central and State governments:</p>
+<ul>
+<li><strong>CGST</strong> — Central GST, half of the total rate</li>
+<li><strong>SGST</strong> — State GST, the other half</li>
+</ul>
+<p>For an <strong>inter-state transaction</strong> (buyer and seller in different states), a single tax applies:</p>
+<ul>
+<li><strong>IGST</strong> — Integrated GST, full rate, collected by the Centre and shared with the destination state</li>
+</ul>
+<p>For 18% GST: intra-state is CGST 9% + SGST 9%; inter-state is IGST 18%. The total is the same either way — the split is different.</p>
+
+<h2>Formulas</h2>
+<p><strong>Adding GST:</strong></p>
+<p><code>Total = Base × (1 + Rate ÷ 100)</code></p>
+<p><strong>Removing GST (reverse):</strong></p>
+<p><code>Base = Total ÷ (1 + Rate ÷ 100)</code></p>
+<p><code>GST = Total − Base</code></p>
+
+<h2>Common real-world uses</h2>
+<ul>
+<li><strong>Invoicing</strong> — add GST to a service or product price before sending the bill.</li>
+<li><strong>Expense tracking</strong> — from a receipt total, work out the base and the tax portion for accounting.</li>
+<li><strong>Quotations</strong> — showing a client the price with and without GST.</li>
+<li><strong>E-commerce</strong> — setting MRP and understanding what portion is tax.</li>
+<li><strong>Filing returns</strong> — computing output tax on sales, input tax on purchases.</li>
+</ul>
+
+<h2>Common questions</h2>
+<div class="faq">
+<details><summary>How do I add GST to a price?</summary><p>Multiply the base price by 1 plus the GST rate divided by 100. For 18% GST on ₹1,000, the total is ₹1,000 × 1.18 = ₹1,180.</p></details>
+<details><summary>How do I remove GST from an inclusive price?</summary><p>Divide the inclusive price by 1 plus the GST rate divided by 100. For an inclusive price of ₹1,180 with 18% GST, the base is ₹1,180 ÷ 1.18 = ₹1,000.</p></details>
+<details><summary>When is IGST applied instead of CGST and SGST?</summary><p>IGST is applied for inter-state transactions and imports. CGST and SGST apply to intra-state transactions.</p></details>
+<details><summary>What are the common GST rates in India?</summary><p>The main slabs are 0%, 5%, 12%, 18% and 28%. A few items fall at 0.25% (rough diamonds) or 3% (gold, silver). Some high-value items attract cess on top of 28%.</p></details>
+<details><summary>Is the total the same for intra-state and inter-state?</summary><p>Yes. CGST 9% + SGST 9% = IGST 18%. The total tax is identical; only the split between Central and State differs.</p></details>
+<details><summary>Does the calculator handle cess?</summary><p>Not directly — cess is only on specific items (tobacco, luxury cars, aerated drinks) and varies by item. If you need cess, add it as an additional rate on top of the GST slab.</p></details>
+<details><summary>Is my data saved?</summary><p>Your inputs are stored only in your browser's local storage. Nothing is sent to any server.</p></details>
+</div>
+
+<h2>Related tools</h2>
+<ul class="related-list">
+<li><div class="txt"><a href="percentage.html">Percentage Calculator</a><p>Six percentage questions in one tool.</p></div><time>Calc</time></li>
+<li><div class="txt"><a href="loan.html">Loan EMI Calculator</a><p>Monthly EMI and repayment schedule.</p></div><time>Calc</time></li>
+<li><div class="txt"><a href="compound.html">Compound Interest</a><p>Growth projections with contributions.</p></div><time>Calc</time></li>
+</ul>
+</article>
+
+<footer>
+<p>ToolNest · <a href="../../index.html">Home</a> · <a href="../index.html">All tools</a> · <a href="../../pages/about.html">About</a> · <a href="../../pages/privacy.html">Privacy</a></p>
+</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+var toast=$("toast");
+function flash(m){toast.textContent=m;toast.classList.add("show");clearTimeout(flash._t);flash._t=setTimeout(function(){toast.classList.remove("show");},1700);}
+
+var mode="add";
+var txnType="intra";
+
+function fmtINR(n){
+  if(!isFinite(n))return "—";
+  return "₹"+n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,",");
+}
+function fmtPlain(n){
+  if(!isFinite(n))return "—";
+  return n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,",");
+}
+function round2(n){return Math.round(n*100)/100;}
+
+var lastResult=null;
+
+function readInputs(){
+  var amount=parseFloat($("amount").value);
+  var rate=parseFloat($("rateInput").value);
+  if(isNaN(amount)||amount<0)return null;
+  if(isNaN(rate)||rate<0)return null;
+  return {amount:amount, rate:rate, mode:mode, txnType:txnType};
+}
+
+function compute(){
+  var inputs=readInputs();
+  if(!inputs){
+    $("resultCard").hidden=true;
+    $("preview").textContent="Enter details above.";
+    lastResult=null;
+    return;
+  }
+
+  var base, gst, total;
+  if(mode==="add"){
+    base=inputs.amount;
+    gst=base*(inputs.rate/100);
+    total=base+gst;
+  } else {
+    total=inputs.amount;
+    base=total/(1+inputs.rate/100);
+    gst=total-base;
+  }
+
+  var cgst=gst/2;
+  var sgst=gst/2;
+  var igst=gst;
+
+  var out={
+    inputs:inputs,
+    base:base,
+    gst:gst,
+    total:total,
+    cgst:cgst,
+    sgst:sgst,
+    igst:igst
+  };
+  lastResult=out;
+  render(out);
+}
+
+function render(out){
+  $("resultCard").hidden=false;
+
+  var inp=out.inputs;
+
+  // Main result card
+  if(inp.mode==="add"){
+    $("resultLabel").textContent="Total (with GST)";
+    $("resultValue").textContent=fmtINR(out.total);
+    $("resultSub").textContent="Base "+fmtINR(out.base)+" + GST "+fmtINR(out.gst)+" @ "+inp.rate+"%";
+  } else {
+    $("resultLabel").textContent="Base amount (before GST)";
+    $("resultValue").textContent=fmtINR(out.base);
+    $("resultSub").textContent="Inclusive "+fmtINR(out.total)+" − GST "+fmtINR(out.gst)+" @ "+inp.rate+"%";
+  }
+
+  // Breakdown cells
+  $("baseValue").textContent=fmtINR(out.base);
+  $("gstTotalValue").textContent=fmtINR(out.gst);
+  $("totalValue").textContent=fmtINR(out.total);
+
+  if(inp.txnType==="intra"){
+    $("cgstCell").hidden=false;
+    $("sgstCell").hidden=false;
+    $("igstCell").hidden=true;
+    $("cgstValue").textContent=fmtINR(out.cgst);
+    $("sgstValue").textContent=fmtINR(out.sgst);
+    $("resultBox").querySelector(".lbl").textContent=inp.mode==="add"?"Total (with GST)":"Base amount (before GST)";
+  } else {
+    $("cgstCell").hidden=true;
+    $("sgstCell").hidden=true;
+    $("igstCell").hidden=false;
+    $("igstValue").textContent=fmtINR(out.igst);
+  }
+
+  $("baseLabel").textContent=inp.mode==="add"?"Base amount":"Base (extracted)";
+  $("totalLabel").textContent="Total (with GST)";
+
+  // Preview
+  $("preview").innerHTML=
+    "Base: <strong>"+fmtINR(out.base)+"</strong> · "+
+    "GST: <strong>"+fmtINR(out.gst)+"</strong> · "+
+    "Total: <strong>"+fmtINR(out.total)+"</strong>";
+
+  // Invoice table
+  var rows=[];
+  rows.push(["Base amount","",fmtPlain(out.base)]);
+  if(inp.txnType==="intra"){
+    rows.push(["CGST @ "+(inp.rate/2).toFixed(2)+"%","",fmtPlain(out.cgst)]);
+    rows.push(["SGST @ "+(inp.rate/2).toFixed(2)+"%","",fmtPlain(out.sgst)]);
+  } else {
+    rows.push(["IGST @ "+inp.rate+"%","",fmtPlain(out.igst)]);
+  }
+  var html="";
+  rows.forEach(function(r){
+    html+='<tr><td class="lbl">'+r[0]+'</td><td>'+r[1]+'</td><td>₹'+r[2]+'</td></tr>';
+  });
+  html+='<tr><td>Total</td><td></td><td>₹'+fmtPlain(out.total)+'</td></tr>';
+  $("invoiceTable").innerHTML=html;
+}
+
+/* ---------- MODE TABS ---------- */
+$("tabAdd").addEventListener("click",function(){
+  mode="add";
+  $("tabAdd").setAttribute("aria-selected","true");
+  $("tabRemove").setAttribute("aria-selected","false");
+  $("amountLabel").textContent="Base amount (before GST)";
+  $("amountHint").textContent="The price before GST is applied";
+  compute();
+  saveState();
+});
+$("tabRemove").addEventListener("click",function(){
+  mode="remove";
+  $("tabAdd").setAttribute("aria-selected","false");
+  $("tabRemove").setAttribute("aria-selected","true");
+  $("amountLabel").textContent="Inclusive amount (with GST)";
+  $("amountHint").textContent="The price that already includes GST";
+  compute();
+  saveState();
+});
+
+/* ---------- RATE PRESETS ---------- */
+document.querySelectorAll("#rateRow button").forEach(function(b){
+  b.addEventListener("click",function(){
+    var r=b.getAttribute("data-rate");
+    $("rateInput").value=r;
+    document.querySelectorAll("#rateRow button").forEach(function(x){
+      x.setAttribute("aria-pressed",String(x===b));
+    });
+    compute();
+    saveState();
+  });
+});
+
+/* ---------- TXN TYPE ---------- */
+document.querySelectorAll("#txnRow button").forEach(function(b){
+  b.addEventListener("click",function(){
+    txnType=b.getAttribute("data-txn");
+    document.querySelectorAll("#txnRow button").forEach(function(x){
+      x.setAttribute("aria-pressed",String(x===b));
+    });
+    compute();
+    saveState();
+  });
+});
+
+/* ---------- INPUTS ---------- */
+["amount","rateInput"].forEach(function(id){
+  $(id).addEventListener("input",function(){
+    // Deselect rate presets if user types custom
+    if(id==="rateInput"){
+      var r=parseFloat($("rateInput").value);
+      document.querySelectorAll("#rateRow button").forEach(function(x){
+        x.setAttribute("aria-pressed",String(parseFloat(x.getAttribute("data-rate"))===r));
+      });
+    }
+    compute();
+    saveState();
+  });
+});
+
+/* ---------- COPY HELPERS ---------- */
+function copyText(t,msg){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(function(){flash(msg||"Copied");}).catch(function(){fbCopy(t,msg);});
+  } else fbCopy(t,msg);
+}
+function fbCopy(t,msg){
+  var ta=document.createElement("textarea");
+  ta.value=t;ta.style.position="fixed";ta.style.opacity="0";
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand("copy");flash(msg||"Copied");}catch(e){flash("Copy failed");}
+  document.body.removeChild(ta);
+}
+
+$("copySummary").addEventListener("click",function(){
+  if(!lastResult)return flash("Nothing to copy");
+  var o=lastResult;
+  var inp=o.inputs;
+  var lines=[
+    "GST Calculation — ToolNest",
+    "Generated: "+(new Date()).toLocaleString(),
+    "",
+    "Mode: "+(inp.mode==="add"?"Add GST":"Remove GST (reverse)"),
+    "Transaction: "+(inp.txnType==="intra"?"Intra-state (CGST + SGST)":"Inter-state (IGST)"),
+    "GST rate: "+inp.rate+"%",
+    "",
+    "Base amount: ₹"+fmtPlain(o.base),
+    "Total GST: ₹"+fmtPlain(o.gst)
+  ];
+  if(inp.txnType==="intra"){
+    lines.push("  CGST @"+(inp.rate/2).toFixed(2)+"%: ₹"+fmtPlain(o.cgst));
+    lines.push("  SGST @"+(inp.rate/2).toFixed(2)+"%: ₹"+fmtPlain(o.sgst));
+  } else {
+    lines.push("  IGST @"+inp.rate+"%: ₹"+fmtPlain(o.igst));
+  }
+  lines.push("Total (with GST): ₹"+fmtPlain(o.total));
+  copyText(lines.join("\n"),"Summary copied");
+});
+
+$("copyInvoice").addEventListener("click",function(){
+  if(!lastResult)return flash("Nothing to copy");
+  var o=lastResult;
+  var inp=o.inputs;
+  var lines=[];
+  lines.push("Base amount\t\t₹"+fmtPlain(o.base));
+  if(inp.txnType==="intra"){
+    lines.push("CGST @ "+(inp.rate/2).toFixed(2)+"%\t\t₹"+fmtPlain(o.cgst));
+    lines.push("SGST @ "+(inp.rate/2).toFixed(2)+"%\t\t₹"+fmtPlain(o.sgst));
+  } else {
+    lines.push("IGST @ "+inp.rate+"%\t\t₹"+fmtPlain(o.igst));
+  }
+  lines.push("Total\t\t₹"+fmtPlain(o.total));
+  copyText(lines.join("\n"),"Invoice lines copied");
+});
+
+$("copyJson").addEventListener("click",function(){
+  if(!lastResult)return flash("Nothing to copy");
+  var o=lastResult;
+  var inp=o.inputs;
+  var payload={
+    mode:inp.mode,
+    transaction:inp.txnType,
+    rate:inp.rate,
+    base:round2(o.base),
+    gst:round2(o.gst),
+    total:round2(o.total)
+  };
+  if(inp.txnType==="intra"){
+    payload.cgst=round2(o.cgst);
+    payload.sgst=round2(o.sgst);
+  } else {
+    payload.igst=round2(o.igst);
+  }
+  copyText(JSON.stringify(payload,null,2),"JSON copied");
+});
+
+$("shareBtn").addEventListener("click",function(){
+  if(!lastResult)return flash("Nothing to share");
+  var inp=lastResult.inputs;
+  var params=["amt="+inp.amount,"rate="+inp.rate,"m="+inp.mode,"txn="+inp.txnType];
+  copyText(location.origin+location.pathname+"?"+params.join("&"),"Share link copied");
+});
+
+$("clearBtn").addEventListener("click",function(){
+  $("amount").value="";
+  $("rateInput").value="";
+  document.querySelectorAll("#rateRow button").forEach(function(x){x.setAttribute("aria-pressed","false");});
+  $("resultCard").hidden=true;
+  $("preview").textContent="Enter details above.";
+  lastResult=null;
+  try{localStorage.removeItem("gst.state");}catch(e){}
+  flash("Cleared");
+});
+
+/* ---------- STATE ---------- */
+var STORAGE_KEY="gst.state";
+function saveState(){
+  try{
+    var s={
+      amt:$("amount").value,
+      rate:$("rateInput").value,
+      m:mode,
+      txn:txnType
+    };
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(s));
+  }catch(e){}
+}
+function loadState(){
+  try{
+    var raw=localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      var s=JSON.parse(raw);
+      if(s.amt)$("amount").value=s.amt;
+      if(s.rate)$("rateInput").value=s.rate;
+      if(s.m&&s.m!=="add"){
+        mode=s.m;
+        $("tabAdd").setAttribute("aria-selected","false");
+        $("tabRemove").setAttribute("aria-selected","true");
+        $("amountLabel").textContent="Inclusive amount (with GST)";
+        $("amountHint").textContent="The price that already includes GST";
+      }
+      if(s.txn&&s.txn!=="intra"){
+        txnType=s.txn;
+        document.querySelectorAll("#txnRow button").forEach(function(x){
+          x.setAttribute("aria-pressed",String(x.getAttribute("data-txn")===s.txn));
+        });
+      }
+      if(s.rate){
+        var r=parseFloat(s.rate);
+        document.querySelectorAll("#rateRow button").forEach(function(x){
+          x.setAttribute("aria-pressed",String(parseFloat(x.getAttribute("data-rate"))===r));
+        });
+      }
+    }
+  }catch(e){}
+  try{
+    var sp=new URLSearchParams(location.search);
+    if(sp.get("amt"))$("amount").value=sp.get("amt");
+    if(sp.get("rate"))$("rateInput").value=sp.get("rate");
+    if(sp.get("m")==="remove"){
+      mode="remove";
+      $("tabAdd").setAttribute("aria-selected","false");
+      $("tabRemove").setAttribute("aria-selected","true");
+      $("amountLabel").textContent="Inclusive amount (with GST)";
+      $("amountHint").textContent="The price that already includes GST";
+    }
+    if(sp.get("txn")==="inter"){
+      txnType="inter";
+      document.querySelectorAll("#txnRow button").forEach(function(x){
+        x.setAttribute("aria-pressed",String(x.getAttribute("data-txn")==="inter"));
+      });
+    }
+    if(sp.get("rate")){
+      var r2=parseFloat(sp.get("rate"));
+      document.querySelectorAll("#rateRow button").forEach(function(x){
+        x.setAttribute("aria-pressed",String(parseFloat(x.getAttribute("data-rate"))===r2));
+      });
+    }
+  }catch(e){}
+}
+
+loadState();
+compute();
+})();
+</script>
+</body>
+</html>

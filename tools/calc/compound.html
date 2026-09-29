@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compound Interest Calculator — With Monthly Contributions, Inflation & Tax Adjustment</title>
+<meta name="description" content="Free compound interest calculator with monthly, quarterly or yearly compounding. Add regular contributions, see inflation-adjusted and post-tax returns, and export the growth schedule.">
+<link rel="canonical" href="https://qrcodescanner.co.in/tools/calc/compound.html">
+<link rel="sitemap" type="application/xml" href="https://qrcodescanner.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#1B4DFF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Compound Interest Calculator">
+<meta property="og:description" content="Calculate compound interest with contributions, inflation and tax adjustments. Exportable.">
+<meta property="og:url" content="https://qrcodescanner.co.in/tools/calc/compound.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Compound Interest Calculator","url":"https://qrcodescanner.co.in/tools/calc/compound.html","applicationCategory":"FinanceApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://qrcodescanner.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://qrcodescanner.co.in/tools/"},{"@type":"ListItem","position":3,"name":"Compound Interest","item":"https://qrcodescanner.co.in/tools/calc/compound.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is compound interest?","acceptedAnswer":{"@type":"Answer","text":"Compound interest is interest earned on both your original principal and interest already accumulated. It grows exponentially over time."}},{"@type":"Question","name":"Why does inflation matter in compound interest?","acceptedAnswer":{"@type":"Answer","text":"A rupee today buys more than a rupee in 20 years. The real return is your nominal return minus inflation. A 10% return with 6% inflation gives a real return of roughly 4%."}},{"@type":"Question","name":"How does tax affect compound returns?","acceptedAnswer":{"@type":"Answer","text":"Interest is usually taxed as ordinary income. Post-tax returns show what you actually keep after the taxman takes his share."}},{"@type":"Question","name":"Can I calculate in months instead of years?","acceptedAnswer":{"@type":"Answer","text":"Yes. Switch the duration mode to Months and enter the number of months directly."}}]}]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<style>
+:root{--paper:#EDEDE9;--surface:#FFFFFF;--ink:#14161A;--muted:#6B7079;--line:#D6D6D0;--blue:#1B4DFF;--blue-deep:#1338C4;--green:#0E7A5F;--red:#B0233A;--amber:#B87333;--radius:6px;--sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--display:"Bricolage Grotesque",var(--sans);--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;background-image:linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);background-size:28px 28px}
+.wrap{max-width:900px;margin:0 auto;padding:20px 18px 64px}
+.masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
+.masthead a{color:inherit;text-decoration:none}
+.mark{width:26px;height:26px;flex:none}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.masthead .nav-right{margin-left:auto;font-size:.875rem;color:var(--blue);text-decoration:underline;white-space:nowrap}
+.crumbs{font-size:.8125rem;color:var(--muted);margin:0 0 18px;font-family:var(--mono)}
+.crumbs a{color:var(--muted);text-decoration:underline}
+.crumbs a:hover{color:var(--blue)}
+.crumbs span{color:var(--ink)}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
+.lede{margin:0 0 6px;font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.05;letter-spacing:-.03em}
+.sub{margin:0 0 22px;color:var(--muted);max-width:68ch;font-size:1rem}
+.ci-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:0 0 14px}
+.ci-card h2{font-family:var(--display);font-weight:700;font-size:1.0625rem;letter-spacing:-.01em;margin:0 0 14px}
+.ci-row{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 12px}
+.ci-field{flex:1 1 180px;min-width:0;display:flex;flex-direction:column;gap:4px}
+.ci-field label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.ci-field input,.ci-field select{width:100%;padding:11px 12px;font-family:var(--mono);font-size:.9375rem;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);outline:none;transition:border-color .15s ease,box-shadow .15s ease}
+.ci-field input:focus,.ci-field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.ci-field .unit-hint{font-family:var(--mono);font-size:.625rem;color:var(--muted);text-transform:none;letter-spacing:0}
+.ci-mode{display:flex;gap:6px;align-items:center;margin:0 0 8px}
+.ci-mode .label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:4px}
+.ci-mode button{font-size:.75rem;padding:5px 11px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--muted);cursor:pointer;font-family:inherit;transition:color .12s ease,border-color .12s ease}
+.ci-mode button:hover{color:var(--blue);border-color:var(--blue)}
+.ci-mode button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.ci-toggle-row{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0;align-items:center}
+.ci-toggle-row .label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:4px}
+.ci-toggle-row button{font-size:.75rem;padding:6px 11px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--muted);cursor:pointer;font-family:inherit;transition:color .12s ease,border-color .12s ease}
+.ci-toggle-row button:hover{color:var(--blue);border-color:var(--blue)}
+.ci-toggle-row button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.ci-preview{margin:14px 0 0;padding:14px 16px;background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius);font-family:var(--mono);font-size:.75rem;color:var(--muted);line-height:1.6}
+.ci-preview strong{color:var(--ink);font-weight:600}
+.ci-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:0 0 14px}
+.ci-sum{background:var(--surface);padding:16px;text-align:center}
+.ci-sum .l{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 4px}
+.ci-sum .n{font-family:var(--display);font-weight:700;font-size:1.375rem;letter-spacing:-.02em;line-height:1.1;margin:0;color:var(--ink);word-break:break-word}
+.ci-sum.primary{background:linear-gradient(135deg,rgba(27,77,255,.06),rgba(168,85,247,.05))}
+.ci-sum.primary .n{color:var(--blue)}
+.ci-sum.good .n{color:var(--green)}
+.ci-sum.warn .n{color:var(--amber)}
+.ci-actions{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.ci-actions button{font-size:.8125rem;padding:9px 14px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--ink);cursor:pointer;font-family:inherit;font-weight:500;transition:background .12s ease,border-color .12s ease,color .12s ease;display:inline-flex;align-items:center;gap:6px}
+.ci-actions button:hover{border-color:var(--blue);color:var(--blue)}
+.ci-actions button.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.ci-actions button.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep);color:#fff}
+.ci-actions button.danger:hover{border-color:var(--red);color:var(--red)}
+.ci-table-wrap{max-height:520px;overflow:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.ci-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:.75rem;white-space:nowrap}
+.ci-table thead th{position:sticky;top:0;background:#F7F7F3;z-index:2;font-family:var(--mono);font-size:.625rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;padding:10px 12px;text-align:right;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
+.ci-table thead th:first-child,.ci-table thead th:nth-child(2){text-align:left}
+.ci-table thead th:last-child{border-right:0}
+.ci-table tbody td{padding:8px 12px;text-align:right;border-bottom:1px solid var(--line);border-right:1px solid var(--line);color:var(--ink)}
+.ci-table tbody td:first-child,.ci-table tbody td:nth-child(2){text-align:left}
+.ci-table tbody td:last-child{border-right:0}
+.ci-table tbody tr:hover td{background:#FBFBF8}
+.ci-table tfoot td{padding:11px 12px;text-align:right;border-top:2px solid var(--ink);background:#F7F7F3;font-weight:700;color:var(--ink);font-family:var(--mono);font-size:.75rem;border-right:1px solid var(--line);position:sticky;bottom:0}
+.ci-table tfoot td:first-child,.ci-table tfoot td:nth-child(2){text-align:left}
+.ci-table tfoot td:last-child{border-right:0}
+.ci-bar{margin:0 0 14px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
+.ci-bar h3{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 10px;font-weight:600}
+.ci-bar-track{height:26px;border-radius:4px;overflow:hidden;display:flex;background:var(--line)}
+.ci-bar-seg{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.6875rem;font-weight:600;color:#fff;transition:width .3s ease;white-space:nowrap;overflow:hidden;padding:0 6px}
+.ci-bar-seg.principal{background:#1B4DFF}
+.ci-bar-seg.contrib{background:#A855F7}
+.ci-bar-seg.interest{background:#0E7A5F}
+.ci-bar-legend{display:flex;flex-wrap:wrap;gap:14px;margin:10px 0 0;font-family:var(--mono);font-size:.6875rem;color:var(--muted)}
+.ci-bar-legend .item{display:flex;align-items:center;gap:6px}
+.ci-bar-legend .swatch{display:inline-block;width:12px;height:12px;border-radius:3px;flex:none}
+.ci-milestones{margin:0 0 14px;padding:14px 16px;background:linear-gradient(135deg,rgba(14,122,95,.05),rgba(27,77,255,.04));border:1px solid rgba(14,122,95,.25);border-radius:var(--radius)}
+.ci-milestones h3{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 10px;font-weight:600}
+.ci-milestone-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.ci-ms{display:flex;flex-direction:column;gap:2px;padding-left:10px;border-left:2px solid var(--green)}
+.ci-ms .k{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.ci-ms .v{font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:-.01em;color:var(--ink)}
+.ci-goal{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin:0 0 14px}
+.ci-goal h3{font-family:var(--display);font-weight:700;font-size:1rem;margin:0 0 10px;letter-spacing:-.01em}
+.ci-goal-row{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin:0 0 12px}
+.ci-goal-row .ci-field{flex:1 1 140px}
+.ci-goal-result{padding:12px 14px;background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius);font-family:var(--mono);font-size:.8125rem;line-height:1.6}
+.ci-goal-result strong{color:var(--ink);font-family:var(--display);font-size:1.125rem;font-weight:700}
+.article{margin:44px 0 0;max-width:72ch}
+.article h2{margin:36px 0 10px;font-size:1.5rem}
+.article h2:first-child{margin-top:0}
+.article p{margin:0 0 12px;color:#3A3E46}
+.article ul{margin:0 0 12px;padding-left:20px;color:#3A3E46}
+.article li{margin:0 0 6px}
+.article strong{font-weight:600;color:var(--ink)}
+.article a{color:var(--blue);text-decoration:underline}
+.article code{font-family:var(--mono);font-size:.875em;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:1px 4px}
+.article table{width:100%;border-collapse:collapse;margin:0 0 14px;font-size:.875rem}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.article th{background:#F7F7F3;font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+.faq{margin:14px 0 0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--blue);font-size:1.25rem;line-height:1;flex:none}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{margin:0 0 14px;color:#3A3E46;max-width:62ch}
+.related-list{list-style:none;margin:12px 0 0;padding:0}
+.related-list li{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center}
+.related-list .txt{flex:1}
+.related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
+.related-list .txt a:hover{color:var(--blue);text-decoration:underline}
+.related-list .txt p{margin:2px 0 0;font-size:.8125rem;color:var(--muted)}
+.related-list time{font-size:.75rem;color:var(--muted);flex:none;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem}
+footer a{color:inherit}
+footer a:hover{color:var(--blue)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:200}
+.toast.show{opacity:1}
+@media(max-width:640px){
+  .ci-table{font-size:.6875rem}
+  .ci-table thead th,.ci-table tbody td,.ci-table tfoot td{padding:6px 8px}
+}
+@media print{
+  .masthead,.crumbs,.ci-actions,.toast,footer,.related-list,.faq,.article h2+p+p+p+p+p{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+<a href="../../index.html" style="display:flex;align-items:center;gap:10px">
+<svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/><path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/><path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/><path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/><path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/></svg>
+<span class="wordmark">ToolNest</span>
+</a>
+<a href="../index.html" class="nav-right">All tools →</a>
+</header>
+
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Compound Interest</span></nav>
+
+<h1 class="lede">Compound Interest Calculator</h1>
+<p class="sub">See how your money grows. Add regular contributions, adjust for inflation and tax, and see the real purchasing power. Export the full schedule to Excel or CSV.</p>
+
+<div class="ci-card">
+<h2>Your inputs</h2>
+
+<div class="ci-row">
+<div class="ci-field">
+<label for="principal">Initial principal</label>
+<input type="number" id="principal" value="100000" min="0" step="1000">
+<span class="unit-hint">Amount you start with</span>
+</div>
+<div class="ci-field">
+<label for="rate">Annual interest rate (%)</label>
+<input type="number" id="rate" value="10" min="0" max="100" step="0.01">
+<span class="unit-hint">Nominal annual rate</span>
+</div>
+</div>
+
+<div class="ci-row">
+<div class="ci-field">
+<label>Duration</label>
+<div class="ci-mode" id="durationMode">
+<button data-dmode="years" aria-pressed="true">Years</button>
+<button data-dmode="months" aria-pressed="false">Months</button>
+</div>
+<input type="number" id="durationInput" value="10" min="0.1" step="0.1">
+<span class="unit-hint" id="durationHint">= 120 months</span>
+</div>
+<div class="ci-field">
+<label for="compFreq">Compounding frequency</label>
+<select id="compFreq">
+<option value="12" selected>Monthly</option>
+<option value="4">Quarterly</option>
+<option value="2">Half-yearly</option>
+<option value="1">Yearly</option>
+<option value="365">Daily</option>
+</select>
+<span class="unit-hint">How often interest is added</span>
+</div>
+</div>
+
+<div class="ci-row">
+<div class="ci-field">
+<label for="contrib">Regular contribution</label>
+<input type="number" id="contrib" value="5000" min="0" step="500">
+<span class="unit-hint">Amount added each period</span>
+</div>
+<div class="ci-field">
+<label for="contribFreq">Contribution frequency</label>
+<select id="contribFreq">
+<option value="12" selected>Monthly</option>
+<option value="4">Quarterly</option>
+<option value="2">Half-yearly</option>
+<option value="1">Yearly</option>
+<option value="0">None</option>
+</select>
+</div>
+<div class="ci-field">
+<label for="contribTiming">Contribution timing</label>
+<select id="contribTiming">
+<option value="end" selected>End of period</option>
+<option value="start">Start of period</option>
+</select>
+</div>
+</div>
+
+<div class="ci-row">
+<div class="ci-field">
+<label for="inflation">Inflation rate (% p.a.)</label>
+<input type="number" id="inflation" value="6" min="0" max="30" step="0.1">
+<span class="unit-hint">For real return calculation</span>
+</div>
+<div class="ci-field">
+<label for="taxRate">Tax rate on interest (%)</label>
+<input type="number" id="taxRate" value="30" min="0" max="60" step="0.5">
+<span class="unit-hint">Your marginal tax slab</span>
+</div>
+</div>
+
+<div class="ci-toggle-row">
+<span class="label">Currency:</span>
+<button data-cur="₹" aria-pressed="true">₹ INR</button>
+<button data-cur="$" aria-pressed="false">$ USD</button>
+<button data-cur="€" aria-pressed="false">€ EUR</button>
+<button data-cur="£" aria-pressed="false">£ GBP</button>
+<button data-cur="none" aria-pressed="false">No symbol</button>
+</div>
+
+<div class="ci-preview" id="preview">Enter details above.</div>
+</div>
+
+<div class="ci-card" id="resultCard" hidden>
+<h2>Results</h2>
+
+<div class="ci-summary">
+<div class="ci-sum primary">
+<p class="l">Nominal maturity value</p>
+<p class="n" id="finalValue">—</p>
+</div>
+<div class="ci-sum">
+<p class="l">Total invested</p>
+<p class="n" id="investedValue">—</p>
+</div>
+<div class="ci-sum good">
+<p class="l">Interest earned</p>
+<p class="n" id="interestValue">—</p>
+</div>
+<div class="ci-sum warn">
+<p class="l">Post-tax value</p>
+<p class="n" id="postTaxValue">—</p>
+</div>
+<div class="ci-sum warn">
+<p class="l">Inflation-adjusted</p>
+<p class="n" id="realValue">—</p>
+</div>
+<div class="ci-sum">
+<p class="l">Effective annual rate</p>
+<p class="n" id="earValue">—</p>
+</div>
+</div>
+
+<div class="ci-bar">
+<h3>Where the money came from</h3>
+<div class="ci-bar-track" id="barTrack"></div>
+<div class="ci-bar-legend">
+<div class="item"><span class="swatch" style="background:#1B4DFF"></span> Initial principal</div>
+<div class="item"><span class="swatch" style="background:#A855F7"></span> Contributions</div>
+<div class="item"><span class="swatch" style="background:#0E7A5F"></span> Compound interest</div>
+</div>
+</div>
+
+<div class="ci-milestones" id="milestones">
+<h3>Growth milestones</h3>
+<div class="ci-milestone-list" id="milestoneList"></div>
+</div>
+
+<div class="ci-goal">
+<h3>Goal seek</h3>
+<p style="margin:0 0 12px;font-size:.875rem;color:var(--muted)">Want to reach a specific target? Find out what monthly contribution gets you there.</p>
+<div class="ci-goal-row">
+<div class="ci-field">
+<label for="goalTarget">Target amount</label>
+<input type="number" id="goalTarget" value="10000000" min="0" step="100000">
+</div>
+<div class="ci-field">
+<label for="goalYears">In years</label>
+<input type="number" id="goalYears" value="20" min="1" max="60" step="1">
+</div>
+</div>
+<div class="ci-goal-result" id="goalResult">Enter target and years.</div>
+</div>
+
+<div class="ci-actions">
+<button class="primary" id="exportXlsx">Export to Excel</button>
+<button id="exportCsv">Export to CSV</button>
+<button id="copySchedule">Copy schedule</button>
+<button id="copySummary">Copy summary</button>
+<button id="printBtn">Print</button>
+<button id="shareBtn">Share link</button>
+<button class="danger" id="clearBtn">Clear all</button>
+</div>
+
+<h2 style="margin-top:20px">Year-by-year growth</h2>
+<div class="ci-table-wrap" id="tableWrap">
+<table class="ci-table" id="scheduleTable">
+<thead>
+<tr>
+<th>Year</th>
+<th>Period</th>
+<th>Opening balance</th>
+<th>Contributed</th>
+<th>Interest earned</th>
+<th>Closing balance</th>
+</tr>
+</thead>
+<tbody id="scheduleBody"></tbody>
+<tfoot id="scheduleFoot"></tfoot>
+</table>
+</div>
+</div>
+
+<article class="article">
+<h2>How to use the compound interest calculator</h2>
+<p>Enter your starting principal, interest rate, and duration. Choose years or months for the duration. Add regular contributions if you plan to top up. Everything updates as you type.</p>
+<p>Optionally add inflation and tax rates to see your real, post-tax return. Use the <strong>Goal seek</strong> panel to work backwards from a target.</p>
+
+<h2>The compound interest formula</h2>
+<p><code>A = P × (1 + r/n)^(n×t)</code></p>
+<p>Where P is the principal, r is the annual rate (decimal), n is compounding periods per year, and t is time in years.</p>
+
+<h2>Why inflation-adjusted matters</h2>
+<p>A rupee today buys more than a rupee in 20 years. If you earn 10% and inflation is 6%, your real return is roughly 4% — not 10%. This calculator shows both the nominal and the inflation-adjusted value so you can see what your money will actually buy.</p>
+<p>Rule of thumb: <code>Real return ≈ Nominal return − Inflation rate</code>.</p>
+
+<h2>Why post-tax matters</h2>
+<p>Interest is usually taxed as ordinary income. If you're in the 30% tax bracket and earn 10%, you keep roughly 7% after tax. FDs and many debt investments fall in this category. Equity investments have different tax treatment — check the specific rules that apply.</p>
+
+<h2>Compounding frequency matters</h2>
+<table>
+<thead><tr><th>Frequency</th><th>Effective annual rate at 10% nominal</th></tr></thead>
+<tbody>
+<tr><td>Yearly</td><td>10.00%</td></tr>
+<tr><td>Half-yearly</td><td>10.25%</td></tr>
+<tr><td>Quarterly</td><td>10.38%</td></tr>
+<tr><td>Monthly</td><td>10.47%</td></tr>
+<tr><td>Daily</td><td>10.52%</td></tr>
+</tbody>
+</table>
+
+<h2>The rule of 72</h2>
+<p>Divide 72 by your interest rate to estimate how many years it takes to double. At 8%, money doubles in about 9 years. At 12%, in about 6 years.</p>
+
+<h2>Common questions</h2>
+<div class="faq">
+<details><summary>What is compound interest?</summary><p>Interest earned on principal plus previously accumulated interest. It grows exponentially over time.</p></details>
+<details><summary>Why does inflation matter in compound interest?</summary><p>A rupee today buys more than a rupee in 20 years. The real return is your nominal return minus inflation. A 10% return with 6% inflation gives a real return of roughly 4%.</p></details>
+<details><summary>How does tax affect compound returns?</summary><p>Interest is usually taxed as ordinary income. Post-tax returns show what you actually keep after tax.</p></details>
+<details><summary>Can I calculate in months instead of years?</summary><p>Yes. Switch the duration mode to Months and enter the number of months directly.</p></details>
+<details><summary>What is the goal seek feature?</summary><p>You give it a target amount and a number of years, and it works out the monthly contribution you need to reach it.</p></details>
+<details><summary>Is my data saved?</summary><p>Your inputs are stored only in your browser's local storage. Nothing is sent to any server.</p></details>
+</div>
+
+<h2>Related tools</h2>
+<ul class="related-list">
+<li><div class="txt"><a href="loan.html">Loan EMI Calculator</a><p>Calculate EMI and repayment schedule.</p></div><time>Calc</time></li>
+<li><div class="txt"><a href="percentage.html">Percentage Calculator</a><p>Six percentage questions in one tool.</p></div><time>Calc</time></li>
+<li><div class="txt"><a href="date-diff.html">Date Difference</a><p>Days, weeks and months between two dates.</p></div><time>Calc</time></li>
+</ul>
+</article>
+
+<footer>
+<p>ToolNest · <a href="../../index.html">Home</a> · <a href="../index.html">All tools</a> · <a href="../../pages/about.html">About</a> · <a href="../../pages/privacy.html">Privacy</a></p>
+</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+var toast=$("toast");
+function flash(m){toast.textContent=m;toast.classList.add("show");clearTimeout(flash._t);flash._t=setTimeout(function(){toast.classList.remove("show");},1700);}
+
+var currency="₹";
+var durationMode="years";
+
+function fmtMoney(n){
+  if(!isFinite(n))return "—";
+  var abs=Math.abs(n);
+  var sym=currency==="none"?"":currency;
+  if(abs>=1e7)return sym+(n/1e7).toFixed(2)+" Cr";
+  if(abs>=1e5)return sym+(n/1e5).toFixed(2)+" L";
+  return sym+n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,",");
+}
+function fmtFull(n){
+  if(!isFinite(n))return "—";
+  var sym=currency==="none"?"":currency;
+  return sym+n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,",");
+}
+function round2(n){return Math.round(n*100)/100;}
+function num(n){return n.toLocaleString();}
+
+var lastResult=null;
+
+function getDurationMonths(){
+  var v=parseFloat($("durationInput").value);
+  if(isNaN(v)||v<=0)return null;
+  return durationMode==="years"?Math.round(v*12):Math.round(v);
+}
+
+function readInputs(){
+  var principal=parseFloat($("principal").value);
+  var rate=parseFloat($("rate").value);
+  var totalMonths=getDurationMonths();
+  var compFreq=parseInt($("compFreq").value,10);
+  var contrib=parseFloat($("contrib").value);
+  var contribFreq=parseInt($("contribFreq").value,10);
+  var contribTiming=$("contribTiming").value;
+  var inflation=parseFloat($("inflation").value)||0;
+  var taxRate=parseFloat($("taxRate").value)||0;
+
+  if(isNaN(principal)||principal<0)return null;
+  if(isNaN(rate)||rate<0)return null;
+  if(totalMonths===null||totalMonths<=0)return null;
+  if(isNaN(contrib)||contrib<0)contrib=0;
+
+  return {
+    principal:principal,
+    rate:rate,
+    totalMonths:totalMonths,
+    compFreq:compFreq,
+    contrib:contrib,
+    contribFreq:contribFreq,
+    contribTiming:contribTiming,
+    inflation:inflation,
+    taxRate:taxRate
+  };
+}
+
+function compute(){
+  var inputs=readInputs();
+  if(!inputs){
+    $("resultCard").hidden=true;
+    $("preview").textContent="Enter details above.";
+    lastResult=null;
+    return;
+  }
+
+  var monthlyRate=Math.pow(1+inputs.rate/100/inputs.compFreq,inputs.compFreq/12)-1;
+  var totalMonths=inputs.totalMonths;
+
+  var balance=inputs.principal;
+  var totalContrib=0;
+  var totalInterest=0;
+
+  var years_=[];
+  var currentYear={
+    year:1,
+    openingBalance:balance,
+    contributed:0,
+    interest:0,
+    closingBalance:balance
+  };
+
+  var contribEveryMonths=inputs.contribFreq>0?Math.round(12/inputs.contribFreq):0;
+  var contribPerPeriod=inputs.contrib;
+
+  for(var m=0;m<totalMonths;m++){
+    if(contribEveryMonths>0 && m%contribEveryMonths===0 && inputs.contribTiming==="start"){
+      balance+=contribPerPeriod;
+      totalContrib+=contribPerPeriod;
+      currentYear.contributed+=contribPerPeriod;
+    }
+
+    var interest=balance*monthlyRate;
+    balance+=interest;
+    totalInterest+=interest;
+    currentYear.interest+=interest;
+
+    if(contribEveryMonths>0 && (m+1)%contribEveryMonths===0 && inputs.contribTiming==="end"){
+      balance+=contribPerPeriod;
+      totalContrib+=contribPerPeriod;
+      currentYear.contributed+=contribPerPeriod;
+    }
+
+    if((m+1)%12===0){
+      currentYear.closingBalance=balance;
+      currentYear.year=Math.floor((m+1)/12);
+      years_.push(currentYear);
+      if(m+1<totalMonths){
+        currentYear={
+          year:currentYear.year+1,
+          openingBalance:balance,
+          contributed:0,
+          interest:0,
+          closingBalance:balance
+        };
+      }
+    }
+  }
+
+  var leftoverMonths=totalMonths%12;
+  if(leftoverMonths>0){
+    currentYear.closingBalance=balance;
+    currentYear.year=(currentYear.year||1);
+    currentYear.partial=true;
+    currentYear.monthsInYear=leftoverMonths;
+    years_.push(currentYear);
+  }
+
+  // Effective annual rate
+  var ear=(Math.pow(1+monthlyRate,12)-1)*100;
+
+  // Total years (real number)
+  var totalYears=totalMonths/12;
+
+  // Post-tax value: tax applied to interest earned
+  // Two common approaches: (a) tax deducted annually, (b) tax on total interest at end
+  // We use (b) for simplicity — interest taxed as a lump at maturity
+  var taxAmount=totalInterest*(inputs.taxRate/100);
+  var postTaxValue=inputs.principal+totalContrib+totalInterest-taxAmount;
+
+  // Real (inflation-adjusted) value: nominal value discounted by inflation over the period
+  var realValue=inputs.principal+totalContrib;
+  if(inputs.inflation>0){
+    realValue=balance/Math.pow(1+inputs.inflation/100,totalYears);
+  } else {
+    realValue=balance;
+  }
+
+  var out={
+    inputs:inputs,
+    monthlyRate:monthlyRate,
+    totalMonths:totalMonths,
+    totalYears:totalYears,
+    finalBalance:balance,
+    totalContrib:totalContrib,
+    totalInterest:totalInterest,
+    initialPrincipal:inputs.principal,
+    investedTotal:inputs.principal+totalContrib,
+    ear:ear,
+    taxAmount:taxAmount,
+    postTaxValue:postTaxValue,
+    realValue:realValue,
+    yearsData:years_
+  };
+  lastResult=out;
+  render(out);
+}
+
+function render(out){
+  $("resultCard").hidden=false;
+
+  $("finalValue").textContent=fmtMoney(out.finalBalance);
+  $("investedValue").textContent=fmtMoney(out.investedTotal);
+  $("interestValue").textContent=fmtMoney(out.totalInterest);
+  $("postTaxValue").textContent=fmtMoney(out.postTaxValue);
+  $("realValue").textContent=fmtMoney(out.realValue);
+  $("earValue").textContent=out.ear.toFixed(2)+"%";
+
+  // Duration hint
+  var totalMonths=out.totalMonths;
+  var y=Math.floor(totalMonths/12);
+  var m=totalMonths%12;
+  var durStr=y+" year"+(y===1?"":"s");
+  if(m)durStr+=" " + m + " month"+(m===1?"":"s");
+  if(durationMode==="years"){
+    $("durationHint").textContent="= "+totalMonths+" months";
+  } else {
+    $("durationHint").textContent="= "+durStr;
+  }
+
+  // Preview
+  $("preview").innerHTML=
+    "Final value: <strong>"+fmtMoney(out.finalBalance)+"</strong> · "+
+    "Invested: <strong>"+fmtMoney(out.investedTotal)+"</strong> · "+
+    "Interest: <strong>"+fmtMoney(out.totalInterest)+"</strong> · "+
+    "Post-tax: <strong>"+fmtMoney(out.postTaxValue)+"</strong> · "+
+    "Real value: <strong>"+fmtMoney(out.realValue)+"</strong>";
+
+  // Bar chart
+  var total=out.finalBalance;
+  if(total>0){
+    var pPct=(out.initialPrincipal/total)*100;
+    var cPct=(out.totalContrib/total)*100;
+    var iPct=(out.totalInterest/total)*100;
+    $("barTrack").innerHTML=
+      '<div class="ci-bar-seg principal" style="width:'+pPct+'%">'+(pPct>8?pPct.toFixed(0)+"%":"")+'</div>'+
+      '<div class="ci-bar-seg contrib" style="width:'+cPct+'%">'+(cPct>8?cPct.toFixed(0)+"%":"")+'</div>'+
+      '<div class="ci-bar-seg interest" style="width:'+iPct+'%">'+(iPct>8?iPct.toFixed(0)+"%":"")+'</div>';
+  }
+
+  // Milestones: when did the balance double, triple, etc. relative to invested total
+  renderMilestones(out);
+
+  // Goal seek
+  renderGoalSeek();
+
+  // Table
+  var tbody=$("scheduleBody");
+  var tfoot=$("scheduleFoot");
+  tbody.innerHTML="";
+  tfoot.innerHTML="";
+
+  var totalContrib=0;
+  var totalInterest=0;
+  out.yearsData.forEach(function(yr){
+    var tr=document.createElement("tr");
+    var yrLabel=yr.partial?(yr.year+" (partial)"):yr.year;
+    var monthsInYear=yr.partial?(yr.monthsInYear||0):12;
+    tr.innerHTML=
+      "<td>"+yrLabel+"</td>"+
+      "<td>"+monthsInYear+" mo</td>"+
+      "<td>"+fmtFull(yr.openingBalance)+"</td>"+
+      "<td>"+fmtFull(yr.contributed)+"</td>"+
+      "<td>"+fmtFull(yr.interest)+"</td>"+
+      "<td>"+fmtFull(yr.closingBalance)+"</td>";
+    tbody.appendChild(tr);
+    totalContrib+=yr.contributed;
+    totalInterest+=yr.interest;
+  });
+
+  var totalRow=document.createElement("tr");
+  totalRow.innerHTML=
+    "<td colspan='2'>TOTAL</td>"+
+    "<td>"+fmtFull(out.initialPrincipal)+"</td>"+
+    "<td>"+fmtFull(totalContrib)+"</td>"+
+    "<td>"+fmtFull(totalInterest)+"</td>"+
+    "<td>"+fmtFull(out.finalBalance)+"</td>";
+  tfoot.appendChild(totalRow);
+}
+
+function renderMilestones(out){
+  var base=out.investedTotal;
+  var list=[];
+  var thresholds=[2,3,5,10];
+  // Walk through years to find when balance crosses threshold × invested
+  thresholds.forEach(function(k){
+    var target=base*k;
+    for(var i=0;i<out.yearsData.length;i++){
+      if(out.yearsData[i].closingBalance>=target){
+        list.push({label:"Money "+k+"x", years:out.yearsData[i].year});
+        return;
+      }
+    }
+  });
+  if(!list.length){
+    $("milestoneList").innerHTML='<p style="margin:0;color:var(--muted);font-size:.8125rem">No milestones reached in this duration. Increase duration or rate.</p>';
+    return;
+  }
+  $("milestoneList").innerHTML=list.map(function(m){
+    return '<div class="ci-ms"><span class="k">'+m.label+'</span><span class="v">Year '+m.years+'</span></div>';
+  }).join("");
+}
+
+function renderGoalSeek(){
+  var target=parseFloat($("goalTarget").value);
+  var years=parseFloat($("goalYears").value);
+  if(isNaN(target)||target<=0||isNaN(years)||years<=0){
+    $("goalResult").textContent="Enter target and years.";
+    return;
+  }
+  var inputs=readInputs();
+  if(!inputs){
+    $("goalResult").textContent="Enter main inputs first.";
+    return;
+  }
+  var months=Math.round(years*12);
+  var monthlyRate=Math.pow(1+inputs.rate/100/inputs.compFreq,inputs.compFreq/12)-1;
+  // FV of principal
+  var fvPrincipal=inputs.principal*Math.pow(1+monthlyRate,months);
+  // Required monthly contribution for the remaining gap
+  var gap=target-fvPrincipal;
+  var pmt=0;
+  if(gap>0){
+    if(monthlyRate===0){
+      pmt=gap/months;
+    } else {
+      pmt=gap*monthlyRate/(Math.pow(1+monthlyRate,months)-1);
+    }
+  }
+  var totalContributed=Math.max(0,pmt)*months;
+  var totalInvested=inputs.principal+totalContributed;
+  var interestEarned=target-totalInvested;
+
+  $("goalResult").innerHTML=
+    "You need to invest <strong>"+fmtMoney(Math.max(0,pmt))+"</strong> per month.<br>"+
+    "Over "+months+" months that's "+fmtMoney(totalContributed)+" in contributions.<br>"+
+    "Total invested: "+fmtMoney(totalInvested)+" · Interest earned: "+fmtMoney(interestEarned);
+}
+
+/* ---------- DURATION MODE ---------- */
+document.querySelectorAll("#durationMode button").forEach(function(b){
+  b.addEventListener("click",function(){
+    var newMode=b.getAttribute("data-dmode");
+    if(newMode===durationMode)return;
+    var curVal=parseFloat($("durationInput").value);
+    if(!isNaN(curVal)&&curVal>0){
+      if(durationMode==="years"&&newMode==="months"){
+        $("durationInput").value=Math.round(curVal*12);
+      } else if(durationMode==="months"&&newMode==="years"){
+        $("durationInput").value=round2(curVal/12);
+      }
+    }
+    durationMode=newMode;
+    document.querySelectorAll("#durationMode button").forEach(function(x){
+      x.setAttribute("aria-pressed",String(x===b));
+    });
+    compute();
+    saveState();
+  });
+});
+
+/* ---------- CURRENCY ---------- */
+document.querySelectorAll("[data-cur]").forEach(function(b){
+  b.addEventListener("click",function(){
+    currency=b.getAttribute("data-cur")==="none"?"none":b.getAttribute("data-cur");
+    document.querySelectorAll("[data-cur]").forEach(function(x){
+      x.setAttribute("aria-pressed",String(x===b));
+    });
+    if(lastResult)render(lastResult);
+    saveState();
+  });
+});
+
+/* ---------- EVENTS ---------- */
+["principal","rate","durationInput","contrib","inflation","taxRate"].forEach(function(id){
+  $(id).addEventListener("input",function(){compute();saveState();});
+});
+["compFreq","contribFreq","contribTiming"].forEach(function(id){
+  $(id).addEventListener("change",function(){compute();saveState();});
+});
+["goalTarget","goalYears"].forEach(function(id){
+  $(id).addEventListener("input",function(){renderGoalSeek();saveState();});
+});
+
+/* ---------- EXPORT XLSX ---------- */
+$("exportXlsx").addEventListener("click",function(){
+  if(!lastResult)return flash("Nothing to export");
+  if(!window.XLSX)return flash("Excel library not loaded");
+  var inputs=lastResult.inputs;
+  var out=lastResult;
+  var aoa=[];
+  aoa.push(["Compound Interest Growth Schedule"]);
+  aoa.push(["Generated",(new Date()).toLocaleString()]);
+  aoa.push([]);
+  aoa.push(["Inputs"]);
+  aoa.push(["Initial Principal",inputs.principal]);
+  aoa.push(["Annual Interest Rate (%)",inputs.rate]);
+  aoa.push(["Duration (months)",inputs.totalMonths]);
+  aoa.push(["Compounding Frequency",compFreqLabel(inputs.compFreq)]);
+  aoa.push(["Regular Contribution",inputs.contrib]);
+  aoa.push(["Contribution Frequency",contribFreqLabel(inputs.contribFreq)]);
+  aoa.push(["Contribution Timing",inputs.contribTiming==="start"?"Start of period":"End of period"]);
+  aoa.push(["Inflation Rate (%)",inputs.inflation]);
+  aoa.push(["Tax Rate (%)",inputs.taxRate]);
+  aoa.push(["Currency",currency==="none"?"none":currency]);
+  aoa.push([]);
+  aoa.push(["Summary"]);
+  aoa.push(["Total Invested",round2(out.investedTotal)]);
+  aoa.push(["Total Contributions",round2(out.totalContrib)]);
+  aoa.push(["Total Interest",round2(out.totalInterest)]);
+  aoa.push(["Nominal Final Value",round2(out.finalBalance)]);
+  aoa.push(["Tax on Interest",round2(out.taxAmount)]);
+  aoa.push(["Post-Tax Value",round2(out.postTaxValue)]);
+  aoa.push(["Inflation-Adjusted Value",round2(out.realValue)]);
+  aoa.push(["Effective Annual Rate (%)",round2(out.ear)]);
+  aoa.push([]);
+  aoa.push([]);
+  aoa.push(["Year","Period","Opening Balance","Contributed","Interest Earned","Closing Balance"]);
+  out.yearsData.forEach(function(yr){
+    var monthsInYear=yr.partial?(yr.monthsInYear||0):12;
+    aoa.push([
+      yr.partial?(yr.year+" (partial)"):yr.year,
+      monthsInYear+" mo",
+      round2(yr.openingBalance),
+      round2(yr.contributed),
+      round2(yr.interest),
+      round2(yr.closingBalance)
+    ]);
+  });
+  var sumContrib=0, sumInterest=0;
+  out.yearsData.forEach(function(yr){sumContrib+=yr.contributed;sumInterest+=yr.interest;});
+  aoa.push([]);
+  aoa.push(["TOTAL","",round2(out.initialPrincipal),round2(sumContrib),round2(sumInterest),round2(out.finalBalance)]);
+  var ws=XLSX.utils.aoa_to_sheet(aoa);
+  ws["!cols"]=[{wch:16},{wch:12},{wch:20},{wch:18},{wch:18},{wch:20}];
+  var wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws,"Growth");
+  XLSX.writeFile(wb,"compound-interest-"+new Date().toISOString().slice(0,10)+".xlsx");
+  flash("Exported");
+});
+
+function compFreqLabel(n){return n===12?"Monthly":n===4?"Quarterly":n===2?"Half-yearly":n===1?"Yearly":n===365?"Daily":n+"x/year";}
+function contribFreqLabel(n){if(n===0)return "None";return n===12?"Monthly":n===4?"Quarterly":n===2?"Half-yearly":n===1?"Yearly":n+"x/year";}
+
+/* ---------- EXPORT CSV ---------- */
+$("exportCsv").addEventListener("click",function(){
+  if(!lastResult)return flash("Nothing to export");
+  var out=lastResult;
+  var lines=["Year,Period,Opening Balance,Contributed,Interest Earned,Closing Balance"];
+  out.yearsData.forEach(function(yr){
+    var monthsInYear=yr.partial?(yr.monthsInYear||0):12;
+    lines.push([
+      '"'+(yr.partial?(yr.year+" (partial)"):yr.year)+'"',
+      '"'+monthsInYear+' mo"',
+      round2(yr.openingBalance).toFixed(2),
+      round2(yr.contributed).toFixed(2),
+      round2(yr.interest).toFixed(2),
+      round2(yr.closingBalance).toFixed(2)
+    ].join(","));
+  });
+  var csv=lines.join("\n");
+  var blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
+  var a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="compound-interest-"+new Date().toISOString().slice(0,10)+".csv";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+  flash("CSV exported");
+});
+
+/* ---------- COPY SCHEDULE ---------- */
+$("copySchedule").addEventListener("click",function(){
+  if(!lastResult)return flash("Nothing to copy");
+  var out=lastResult;
+  var lines=["Year\tPeriod\tOpening\tContributed\tInterest\tClosing"];
+  out.yearsData.forEach(function(yr){
+    var monthsInYear=yr.partial?(yr.monthsInYear||0):12;
+    lines.push([
+      yr.partial?(yr.year+" (partial)"):yr.year,
+      monthsInYear+" mo",
+      round2(yr.openingBalance).toFixed(2),
+      round2(yr.contributed).toFixed(2),
+      round2(yr.interest).toFixed(2),
+      round2(yr.closingBalance).toFixed(2)
+    ].join("\t"));
+  });
+  copyText(lines.join("\n"),"Schedule copied (TSV)");
+});
+
+/* ---------- COPY SUMMARY ---------- */
+$("copySummary").addEventListener("click",function(){
+  if(!lastResult)return flash("Nothing to copy");
+  var out=lastResult;
+  var inp=out.inputs;
+  var lines=[
+    "Compound Interest Summary — ToolNest",
+    "Generated: "+(new Date()).toLocaleString(),
+    "",
+    "Inputs",
+    "  Initial principal: "+fmtMoney(inp.principal),
+    "  Annual rate: "+inp.rate+"%",
+    "  Duration: "+out.totalMonths+" months",
+    "  Compounding: "+compFreqLabel(inp.compFreq),
+    "  Regular contribution: "+fmtMoney(inp.contrib)+" "+contribFreqLabel(inp.contribFreq),
+    "  Inflation: "+inp.inflation+"%",
+    "  Tax on interest: "+inp.taxRate+"%",
+    "",
+    "Results",
+    "  Total invested: "+fmtMoney(out.investedTotal),
+    "  Interest earned: "+fmtMoney(out.totalInterest),
+    "  Nominal final value: "+fmtMoney(out.finalBalance),
+    "  Tax on interest: "+fmtMoney(out.taxAmount),
+    "  Post-tax value: "+fmtMoney(out.postTaxValue),
+    "  Inflation-adjusted value: "+fmtMoney(out.realValue),
+    "  Effective annual rate: "+out.ear.toFixed(2)+"%"
+  ];
+  copyText(lines.join("\n"),"Summary copied");
+});
+
+/* ---------- PRINT ---------- */
+$("printBtn").addEventListener("click",function(){
+  window.print();
+});
+
+/* ---------- SHARE ---------- */
+$("shareBtn").addEventListener("click",function(){
+  if(!lastResult)return flash("Nothing to share");
+  var inp=lastResult.inputs;
+  var params=[
+    "p="+inp.principal,
+    "r="+inp.rate,
+    "n="+inp.totalMonths,
+    "cf="+inp.compFreq,
+    "c="+inp.contrib,
+    "ccf="+inp.contribFreq,
+    "ct="+inp.contribTiming,
+    "inf="+inp.inflation,
+    "tax="+inp.taxRate,
+    "cur="+encodeURIComponent(currency)
+  ];
+  copyText(location.origin+location.pathname+"?"+params.join("&"),"Share link copied");
+});
+
+/* ---------- CLEAR ---------- */
+$("clearBtn").addEventListener("click",function(){
+  ["principal","rate","durationInput","contrib","inflation","taxRate","goalTarget","goalYears"].forEach(function(id){$(id).value="";});
+  $("compFreq").value="12";
+  $("contribFreq").value="12";
+  $("contribTiming").value="end";
+  $("resultCard").hidden=true;
+  $("preview").textContent="Enter details above.";
+  $("scheduleBody").innerHTML="";
+  $("scheduleFoot").innerHTML="";
+  lastResult=null;
+  try{localStorage.removeItem("compound.state");}catch(e){}
+  flash("Cleared");
+});
+
+/* ---------- COPY ---------- */
+function copyText(t,msg){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(function(){flash(msg||"Copied");}).catch(function(){fbCopy(t,msg);});
+  } else fbCopy(t,msg);
+}
+function fbCopy(t,msg){
+  var ta=document.createElement("textarea");
+  ta.value=t;ta.style.position="fixed";ta.style.opacity="0";
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand("copy");flash(msg||"Copied");}catch(e){flash("Copy failed");}
+  document.body.removeChild(ta);
+}
+
+/* ---------- STATE ---------- */
+var STORAGE_KEY="compound.state";
+function saveState(){
+  try{
+    var s={
+      p:$("principal").value,
+      r:$("rate").value,
+      dv:$("durationInput").value,
+      dm:durationMode,
+      cf:$("compFreq").value,
+      c:$("contrib").value,
+      ccf:$("contribFreq").value,
+      ct:$("contribTiming").value,
+      inf:$("inflation").value,
+      tax:$("taxRate").value,
+      gt:$("goalTarget").value,
+      gy:$("goalYears").value,
+      cur:currency
+    };
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(s));
+  }catch(e){}
+}
+function loadState(){
+  try{
+    var raw=localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      var s=JSON.parse(raw);
+      if(s.p)$("principal").value=s.p;
+      if(s.r)$("rate").value=s.r;
+      if(s.dv)$("durationInput").value=s.dv;
+      if(s.dm)durationMode=s.dm;
+      if(s.cf)$("compFreq").value=s.cf;
+      if(s.c)$("contrib").value=s.c;
+      if(s.ccf)$("contribFreq").value=s.ccf;
+      if(s.ct)$("contribTiming").value=s.ct;
+      if(s.inf)$("inflation").value=s.inf;
+      if(s.tax)$("taxRate").value=s.tax;
+      if(s.gt)$("goalTarget").value=s.gt;
+      if(s.gy)$("goalYears").value=s.gy;
+      if(s.cur)currency=s.cur;
+    }
+  }catch(e){}
+  try{
+    var sp=new URLSearchParams(location.search);
+    if(sp.get("p"))$("principal").value=sp.get("p");
+    if(sp.get("r"))$("rate").value=sp.get("r");
+    if(sp.get("n")){
+      var nm=parseFloat(sp.get("n"));
+      if(!isNaN(nm)){
+        durationMode="months";
+        $("durationInput").value=nm;
+      }
+    }
+    if(sp.get("cf"))$("compFreq").value=sp.get("cf");
+    if(sp.get("c"))$("contrib").value=sp.get("c");
+    if(sp.get("ccf"))$("contribFreq").value=sp.get("ccf");
+    if(sp.get("ct"))$("contribTiming").value=sp.get("ct");
+    if(sp.get("inf"))$("inflation").value=sp.get("inf");
+    if(sp.get("tax"))$("taxRate").value=sp.get("tax");
+    if(sp.get("cur"))currency=decodeURIComponent(sp.get("cur"));
+  }catch(e){}
+
+  // Sync UI to loaded state
+  document.querySelectorAll("#durationMode button").forEach(function(x){
+    x.setAttribute("aria-pressed",String(x.getAttribute("data-dmode")===durationMode));
+  });
+  document.querySelectorAll("[data-cur]").forEach(function(x){
+    x.setAttribute("aria-pressed",String(x.getAttribute("data-cur")===currency));
+  });
+}
+
+loadState();
+compute();
+})();
+</script>
+</body>
+</html>

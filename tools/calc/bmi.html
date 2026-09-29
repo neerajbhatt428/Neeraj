@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BMI Calculator — Body Mass Index with Healthy Weight Range</title>
+<meta name="description" content="Free BMI calculator with metric and imperial units. Auto-converts kg ↔ lb and cm ↔ ft ↔ in. Find your BMI, healthy weight range, ideal weight, BMI Prime and Ponderal Index.">
+<link rel="canonical" href="https://qrcodescanner.co.in/tools/calc/bmi.html">
+<link rel="sitemap" type="application/xml" href="https://qrcodescanner.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#1B4DFF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="BMI Calculator — Body Mass Index with Healthy Weight Range">
+<meta property="og:description" content="Find your BMI, healthy weight range, ideal weight and category. Auto-converts metric and imperial.">
+<meta property="og:url" content="https://qrcodescanner.co.in/tools/calc/bmi.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"BMI Calculator","url":"https://qrcodescanner.co.in/tools/calc/bmi.html","applicationCategory":"HealthApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://qrcodescanner.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://qrcodescanner.co.in/tools/"},{"@type":"ListItem","position":3,"name":"BMI Calculator","item":"https://qrcodescanner.co.in/tools/calc/bmi.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is BMI?","acceptedAnswer":{"@type":"Answer","text":"Body Mass Index is a measure of body fat based on height and weight. It is calculated as weight in kilograms divided by height in metres squared."}},{"@type":"Question","name":"What is a healthy BMI?","acceptedAnswer":{"@type":"Answer","text":"For most adults, a BMI between 18.5 and 24.9 is considered healthy. Below 18.5 is underweight, 25 to 29.9 is overweight, and 30 or above is obese."}},{"@type":"Question","name":"Does BMI work for everyone?","acceptedAnswer":{"@type":"Answer","text":"No. BMI does not distinguish muscle from fat, so athletes may show as overweight. It is not accurate for children, pregnant women, or the elderly. Different thresholds apply for people of Asian descent."}}]}]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#EDEDE9;--surface:#FFFFFF;--ink:#14161A;--muted:#6B7079;--line:#D6D6D0;--blue:#1B4DFF;--blue-deep:#1338C4;--green:#0E7A5F;--red:#B0233A;--amber:#B87333;--radius:6px;--sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--display:"Bricolage Grotesque",var(--sans);--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;background-image:linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);background-size:28px 28px}
+.wrap{max-width:660px;margin:0 auto;padding:20px 18px 64px}
+.masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
+.masthead a{color:inherit;text-decoration:none}
+.mark{width:26px;height:26px;flex:none}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.masthead .nav-right{margin-left:auto;font-size:.875rem;color:var(--blue);text-decoration:underline;white-space:nowrap}
+.crumbs{font-size:.8125rem;color:var(--muted);margin:0 0 18px;font-family:var(--mono)}
+.crumbs a{color:var(--muted);text-decoration:underline}
+.crumbs a:hover{color:var(--blue)}
+.crumbs span{color:var(--ink)}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
+.lede{margin:0 0 6px;font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.05;letter-spacing:-.03em}
+.sub{margin:0 0 22px;color:var(--muted);max-width:68ch;font-size:1rem}
+.bmi-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:0 0 14px}
+.bmi-card h2{font-family:var(--display);font-weight:700;font-size:1.0625rem;letter-spacing:-.01em;margin:0 0 14px}
+.bmi-row{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 12px}
+.bmi-field{flex:1 1 140px;min-width:0;display:flex;flex-direction:column;gap:4px}
+.bmi-field label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.bmi-field input,.bmi-field select{width:100%;padding:11px 12px;font-family:var(--mono);font-size:.9375rem;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);outline:none;transition:border-color .15s ease,box-shadow .15s ease}
+.bmi-field input:focus,.bmi-field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.bmi-field input.auto-filled{background:#F7F7F3;color:#3A3E46}
+.bmi-hint{font-size:.8125rem;color:var(--muted);margin:0 0 12px}
+.bmi-hint:last-child{margin-bottom:0}
+.bmi-std-row{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px;align-items:center}
+.bmi-std-row .label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:4px}
+.bmi-std-row button{font-size:.75rem;padding:6px 11px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--muted);cursor:pointer;font-family:inherit;transition:color .12s ease,border-color .12s ease}
+.bmi-std-row button:hover{color:var(--blue);border-color:var(--blue)}
+.bmi-std-row button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.bmi-result{margin:0 0 14px;padding:20px;background:linear-gradient(135deg,rgba(27,77,255,.06),rgba(168,85,247,.05));border:1px solid rgba(27,77,255,.2);border-radius:var(--radius);text-align:center;transition:border-color .2s ease,background .2s ease}
+.bmi-result.under{background:linear-gradient(135deg,rgba(184,115,51,.08),rgba(184,115,51,.04));border-color:rgba(184,115,51,.35)}
+.bmi-result.healthy{background:linear-gradient(135deg,rgba(14,122,95,.08),rgba(14,122,95,.04));border-color:rgba(14,122,95,.35)}
+.bmi-result.over{background:linear-gradient(135deg,rgba(184,115,51,.08),rgba(184,115,51,.04));border-color:rgba(184,115,51,.35)}
+.bmi-result.obese{background:linear-gradient(135deg,rgba(176,35,58,.08),rgba(176,35,58,.04));border-color:rgba(176,35,58,.35)}
+.bmi-result .lbl{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 6px}
+.bmi-result .val{font-family:var(--display);font-weight:700;font-size:clamp(2rem,7vw,3rem);letter-spacing:-.04em;line-height:1;color:var(--ink);margin:0 0 6px}
+.bmi-result .cat{font-family:var(--display);font-weight:700;font-size:1.125rem;letter-spacing:-.01em;color:var(--ink);margin:0 0 4px}
+.bmi-result .std{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin:0}
+.bmi-scale{margin:0 0 14px}
+.bmi-scale-bar{position:relative;height:34px;border-radius:var(--radius);overflow:hidden;background:var(--line)}
+.bmi-scale-bar .seg{position:absolute;top:0;bottom:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.6875rem;font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.04em}
+.bmi-scale-bar .s1{left:0;width:22.5%;background:#B87333}
+.bmi-scale-bar .s2{left:22.5%;width:32.5%;background:#0E7A5F}
+.bmi-scale-bar .s3{left:55%;width:27.5%;background:#B87333}
+.bmi-scale-bar .s4{left:82.5%;width:17.5%;background:#B0233A}
+.bmi-scale-marker{position:absolute;top:-6px;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid var(--ink);transform:translateX(-50%);transition:left .25s ease;z-index:2}
+.bmi-scale-labels{display:flex;justify-content:space-between;margin:6px 0 0;font-family:var(--mono);font-size:.6875rem;color:var(--muted)}
+.bmi-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:0 0 14px}
+.bmi-stat{background:var(--surface);padding:14px;text-align:center}
+.bmi-stat .n{font-family:var(--display);font-weight:700;font-size:1.375rem;letter-spacing:-.02em;line-height:1.1;margin:0 0 3px;color:var(--ink);word-break:break-word}
+.bmi-stat .l{font-family:var(--mono);font-size:.625rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0}
+.bmi-actions{display:flex;flex-wrap:wrap;gap:6px;margin:0}
+.bmi-actions button{font-size:.8125rem;padding:8px 13px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--ink);cursor:pointer;font-family:inherit;font-weight:500;transition:background .12s ease,border-color .12s ease,color .12s ease;display:inline-flex;align-items:center;gap:6px}
+.bmi-actions button:hover{border-color:var(--blue);color:var(--blue)}
+.bmi-actions button.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.bmi-actions button.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep);color:#fff}
+.bmi-actions button.danger:hover{border-color:var(--red);color:var(--red)}
+.article{margin:44px 0 0;max-width:72ch}
+.article h2{margin:36px 0 10px;font-size:1.5rem}
+.article h2:first-child{margin-top:0}
+.article p{margin:0 0 12px;color:#3A3E46}
+.article ul{margin:0 0 12px;padding-left:20px;color:#3A3E46}
+.article li{margin:0 0 6px}
+.article strong{font-weight:600;color:var(--ink)}
+.article a{color:var(--blue);text-decoration:underline}
+.article code{font-family:var(--mono);font-size:.875em;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:1px 4px}
+.article table{width:100%;border-collapse:collapse;margin:0 0 14px;font-size:.875rem}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.article th{background:#F7F7F3;font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+.faq{margin:14px 0 0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--blue);font-size:1.25rem;line-height:1;flex:none}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{margin:0 0 14px;color:#3A3E46;max-width:62ch}
+.related-list{list-style:none;margin:12px 0 0;padding:0}
+.related-list li{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center}
+.related-list .txt{flex:1}
+.related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
+.related-list .txt a:hover{color:var(--blue);text-decoration:underline}
+.related-list .txt p{margin:2px 0 0;font-size:.8125rem;color:var(--muted)}
+.related-list time{font-size:.75rem;color:var(--muted);flex:none;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem}
+footer a{color:inherit}
+footer a:hover{color:var(--blue)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:200}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+<a href="../../index.html" style="display:flex;align-items:center;gap:10px">
+<svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/><path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/><path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/><path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/><path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/></svg>
+<span class="wordmark">ToolNest</span>
+</a>
+<a href="../index.html" class="nav-right">All tools →</a>
+</header>
+
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>BMI Calculator</span></nav>
+
+<h1 class="lede">BMI Calculator</h1>
+<p class="sub">Find your Body Mass Index, healthy weight range, ideal weight and category. Type in any unit — the others fill automatically. Nothing is uploaded.</p>
+
+<div class="bmi-card">
+<h2>Your measurements</h2>
+
+<div class="bmi-row">
+<div class="bmi-field">
+<label for="mWeight">Weight (kg)</label>
+<input type="number" id="mWeight" step="0.1" min="1" max="500" placeholder="70">
+</div>
+<div class="bmi-field">
+<label for="iWeight">Weight (lb)</label>
+<input type="number" id="iWeight" step="0.1" min="2" max="1100" placeholder="154">
+</div>
+</div>
+
+<div class="bmi-row">
+<div class="bmi-field">
+<label for="mHeight">Height (cm)</label>
+<input type="number" id="mHeight" step="0.01" min="50" max="260" placeholder="167.66">
+</div>
+<div class="bmi-field">
+<label for="iHeightFt">Height (ft, decimal)</label>
+<input type="number" id="iHeightFt" step="0.01" min="0" max="9" placeholder="5.5">
+</div>
+<div class="bmi-field">
+<label for="iHeightIn">Height (in, total)</label>
+<input type="number" id="iHeightIn" step="0.01" min="0" max="120" placeholder="66">
+</div>
+</div>
+
+<div class="bmi-row">
+<div class="bmi-field">
+<label for="age">Age (years, optional)</label>
+<input type="number" id="age" step="1" min="2" max="120" placeholder="e.g. 30">
+</div>
+<div class="bmi-field">
+<label for="sex">Sex (optional)</label>
+<select id="sex">
+<option value="">Prefer not to say</option>
+<option value="male">Male</option>
+<option value="female">Female</option>
+</select>
+</div>
+</div>
+
+<p class="bmi-hint">Ft and in both represent total height. 5.5 ft = 66 in = 167.64 cm. Type in any box — the others fill automatically.</p>
+
+<div class="bmi-std-row">
+<span class="label">Standard:</span>
+<button data-std="who" aria-pressed="true">WHO / International</button>
+<button data-std="asian" aria-pressed="false">Asian</button>
+</div>
+<p class="bmi-hint">The Asian standard uses lower thresholds — a BMI of 23 is considered overweight instead of 25.</p>
+</div>
+
+<div class="bmi-card" id="resultCard" hidden>
+<h2>Your result</h2>
+
+<div class="bmi-result" id="resultBox">
+<p class="lbl">Your BMI</p>
+<p class="val" id="bmiValue">—</p>
+<p class="cat" id="bmiCategory">—</p>
+<p class="std" id="bmiStandard">WHO / International standard</p>
+</div>
+
+<div class="bmi-scale">
+<div class="bmi-scale-bar">
+<div class="seg s1">Under</div>
+<div class="seg s2">Healthy</div>
+<div class="seg s3">Over</div>
+<div class="seg s4">Obese</div>
+<div class="bmi-scale-marker" id="scaleMarker"></div>
+</div>
+<div class="bmi-scale-labels">
+<span>15</span><span>18.5</span><span>25</span><span>30</span><span>40</span>
+</div>
+</div>
+
+<div class="bmi-stats">
+<div class="bmi-stat"><p class="n" id="healthyMin">—</p><p class="l">Healthy min</p></div>
+<div class="bmi-stat"><p class="n" id="healthyMax">—</p><p class="l">Healthy max</p></div>
+<div class="bmi-stat"><p class="n" id="idealWeight">—</p><p class="l">Ideal weight</p></div>
+<div class="bmi-stat"><p class="n" id="bmiPrime">—</p><p class="l">BMI Prime</p></div>
+<div class="bmi-stat"><p class="n" id="ponderalIndex">—</p><p class="l">Ponderal Index</p></div>
+<div class="bmi-stat"><p class="n" id="weightDiff">—</p><p class="l">To healthy</p></div>
+</div>
+
+<div class="bmi-actions">
+<button class="primary" id="copyAll">Copy all data</button>
+<button id="copyJson">Copy as JSON</button>
+<button id="exportTxt">Export .txt</button>
+<button id="shareBtn">Share link</button>
+<button class="danger" id="clearBtn">Clear all</button>
+</div>
+</div>
+
+<article class="article">
+<h2>How to use the BMI calculator</h2>
+<p>Enter your weight and height in <strong>any unit</strong>. The other units fill in automatically. Everything stays in sync. Click <strong>Clear all</strong> to reset and calculate a new person.</p>
+
+<h2>What is BMI?</h2>
+<p>Body Mass Index (BMI) is a simple ratio of weight to height, used since the 1970s as a quick screening tool for weight categories. The formula is:</p>
+<p><code>BMI = weight (kg) ÷ height² (m)</code></p>
+
+<h2>BMI categories</h2>
+<table>
+<thead><tr><th>Category</th><th>BMI range</th></tr></thead>
+<tbody>
+<tr><td>Underweight</td><td>Below 18.5</td></tr>
+<tr><td>Normal weight</td><td>18.5 – 24.9</td></tr>
+<tr><td>Overweight</td><td>25.0 – 29.9</td></tr>
+<tr><td>Obese Class I</td><td>30.0 – 34.9</td></tr>
+<tr><td>Obese Class II</td><td>35.0 – 39.9</td></tr>
+<tr><td>Obese Class III</td><td>40.0 and above</td></tr>
+</tbody>
+</table>
+
+<h2>Asian-specific thresholds</h2>
+<table>
+<thead><tr><th>Category</th><th>Asian BMI range</th></tr></thead>
+<tbody>
+<tr><td>Underweight</td><td>Below 18.5</td></tr>
+<tr><td>Normal weight</td><td>18.5 – 22.9</td></tr>
+<tr><td>Overweight</td><td>23.0 – 24.9</td></tr>
+<tr><td>Obese I</td><td>25.0 – 29.9</td></tr>
+<tr><td>Obese II</td><td>30.0 and above</td></tr>
+</tbody>
+</table>
+
+<h2>What is BMI Prime?</h2>
+<p>BMI Prime is your BMI divided by 25 — the upper limit of the healthy range. Below 1.0 you're within range. Above 1.0 you're over.</p>
+
+<h2>What is the Ponderal Index?</h2>
+<p>The Ponderal Index is <code>weight (kg) ÷ height³ (m)</code>. Unlike BMI, it doesn't over-classify tall people. Useful for very tall or very short individuals.</p>
+
+<h2>Limitations of BMI</h2>
+<ul>
+<li><strong>It doesn't measure body fat directly.</strong> A muscular athlete can have a BMI of 30 with very low body fat.</li>
+<li><strong>It doesn't distinguish where fat is stored.</strong> Visceral fat is more harmful than subcutaneous fat.</li>
+<li><strong>It doesn't work well for children.</strong> Children use BMI-for-age percentiles.</li>
+<li><strong>It isn't accurate during pregnancy.</strong></li>
+</ul>
+
+<h2>Common questions</h2>
+<div class="faq">
+<details><summary>What is BMI?</summary><p>Body Mass Index is a measure of body fat based on height and weight.</p></details>
+<details><summary>What is a healthy BMI?</summary><p>For most adults, 18.5 to 24.9 is healthy. Under the Asian standard, 18.5 to 22.9.</p></details>
+<details><summary>Does BMI work for everyone?</summary><p>No. It doesn't distinguish muscle from fat. Not accurate for children, pregnant women, or athletes.</p></details>
+<details><summary>Is my data saved?</summary><p>Your inputs are stored only in your browser's local storage. Nothing is sent to any server.</p></details>
+</div>
+
+<h2>Related tools</h2>
+<ul class="related-list">
+<li><div class="txt"><a href="age.html">Age Calculator</a><p>Exact age in years, months, days.</p></div><time>Calc</time></li>
+<li><div class="txt"><a href="calorie.html">Calorie Calculator</a><p>Daily calorie needs based on activity.</p></div><time>Calc</time></li>
+<li><div class="txt"><a href="percentage.html">Percentage Calculator</a><p>Six percentage questions in one tool.</p></div><time>Calc</time></li>
+</ul>
+</article>
+
+<footer>
+<p>ToolNest · <a href="../../index.html">Home</a> · <a href="../index.html">All tools</a> · <a href="../../pages/about.html">About</a> · <a href="../../pages/privacy.html">Privacy</a></p>
+</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+var toast=$("toast");
+function flash(m){toast.textContent=m;toast.classList.add("show");clearTimeout(flash._t);flash._t=setTimeout(function(){toast.classList.remove("show");},1700);}
+
+var KG_PER_LB=0.45359237;
+var CM_PER_IN=2.54;
+var standard="who";
+
+var THRESHOLDS={
+  who:{under:18.5,over:25,obese:30,name:"WHO / International standard"},
+  asian:{under:18.5,over:23,obese:25,name:"Asian standard"}
+};
+
+function round(n,dec){var p=Math.pow(10,dec);return Math.round(n*p)/p;}
+function kgToLb(kg){return kg/KG_PER_LB;}
+function lbToKg(lb){return lb*KG_PER_LB;}
+function cmToIn(cm){return cm/CM_PER_IN;}
+function inToCm(inches){return inches*CM_PER_IN;}
+
+/* ---------- WEIGHT SYNC ---------- */
+function syncFromMetricWeight(){
+  var kg=parseFloat($("mWeight").value);
+  if(isNaN(kg)||kg<=0){$("iWeight").value="";$("iWeight").classList.remove("auto-filled");return;}
+  $("iWeight").value=round(kgToLb(kg),1);
+  $("iWeight").classList.add("auto-filled");
+}
+function syncFromImperialWeight(){
+  var lb=parseFloat($("iWeight").value);
+  if(isNaN(lb)||lb<=0){$("mWeight").value="";$("mWeight").classList.remove("auto-filled");return;}
+  $("mWeight").value=round(lbToKg(lb),1);
+  $("mWeight").classList.add("auto-filled");
+}
+
+/* ---------- HEIGHT SYNC ----------
+   Rules:
+   - cm and in are the "true" values (both represent total height).
+   - ft is a convenience field = total inches / 12 (decimal).
+   - All three stay in sync.
+------------------------------------- */
+function syncFromMetricHeight(){
+  var cm=parseFloat($("mHeight").value);
+  if(isNaN(cm)||cm<=0){
+    $("iHeightFt").value="";$("iHeightIn").value="";
+    $("iHeightFt").classList.remove("auto-filled");
+    $("iHeightIn").classList.remove("auto-filled");
+    return;
+  }
+  var totalIn=cmToIn(cm);
+  $("iHeightIn").value=round(totalIn,2);
+  $("iHeightFt").value=round(totalIn/12,2);
+  $("iHeightIn").classList.add("auto-filled");
+  $("iHeightFt").classList.add("auto-filled");
+}
+function syncFromFeet(){
+  var ft=parseFloat($("iHeightFt").value);
+  if(isNaN(ft)||ft<0){
+    $("iHeightIn").value="";$("iHeightIn").classList.remove("auto-filled");
+    $("mHeight").value="";$("mHeight").classList.remove("auto-filled");
+    return;
+  }
+  var totalIn=ft*12;
+  $("iHeightIn").value=round(totalIn,2);
+  $("iHeightIn").classList.add("auto-filled");
+  $("mHeight").value=round(inToCm(totalIn),2);
+  $("mHeight").classList.add("auto-filled");
+}
+function syncFromInches(){
+  var totalIn=parseFloat($("iHeightIn").value);
+  if(isNaN(totalIn)||totalIn<0){
+    $("iHeightFt").value="";$("iHeightFt").classList.remove("auto-filled");
+    $("mHeight").value="";$("mHeight").classList.remove("auto-filled");
+    return;
+  }
+  $("iHeightFt").value=round(totalIn/12,2);
+  $("iHeightFt").classList.add("auto-filled");
+  $("mHeight").value=round(inToCm(totalIn),2);
+  $("mHeight").classList.add("auto-filled");
+}
+
+function getKg(){
+  var v=parseFloat($("mWeight").value);
+  if(isNaN(v)||v<=0)return null;
+  return v;
+}
+function getCm(){
+  var v=parseFloat($("mHeight").value);
+  if(isNaN(v)||v<=0)return null;
+  return v;
+}
+
+function categorize(bmi){
+  var t=THRESHOLDS[standard];
+  if(bmi<t.under)return{key:"under",label:"Underweight"};
+  if(bmi<t.over)return{key:"healthy",label:"Normal weight"};
+  if(bmi<t.obese)return{key:"over",label:"Overweight"};
+  if(bmi<35)return{key:"obese",label:"Obese Class I"};
+  if(bmi<40)return{key:"obese",label:"Obese Class II"};
+  return{key:"obese",label:"Obese Class III"};
+}
+
+function formatWeight(kg){
+  return kg.toFixed(1)+" kg ("+kgToLb(kg).toFixed(1)+" lb)";
+}
+
+var lastBmi=null;
+var lastCat=null;
+
+function update(){
+  var kg=getKg();
+  var cm=getCm();
+  if(kg===null||cm===null){
+    $("resultCard").hidden=true;
+    lastBmi=null; lastCat=null;
+    return;
+  }
+
+  var hM=cm/100;
+  var bmi=kg/(hM*hM);
+  var cat=categorize(bmi);
+  var t=THRESHOLDS[standard];
+
+  lastBmi=bmi; lastCat=cat;
+
+  $("resultCard").hidden=false;
+  $("bmiValue").textContent=bmi.toFixed(1);
+  $("bmiCategory").textContent=cat.label;
+  $("bmiStandard").textContent=t.name;
+
+  var box=$("resultBox");
+  box.classList.remove("under","healthy","over","obese");
+  box.classList.add(cat.key);
+
+  var clamped=Math.max(15,Math.min(40,bmi));
+  var pct=((clamped-15)/(40-15))*100;
+  $("scaleMarker").style.left=pct+"%";
+
+  var hMinKg=t.under*hM*hM;
+  var hMaxKg=t.over*hM*hM;
+  $("healthyMin").textContent=formatWeight(hMinKg);
+  $("healthyMax").textContent=formatWeight(hMaxKg);
+  $("idealWeight").textContent=formatWeight((hMinKg+hMaxKg)/2);
+  $("bmiPrime").textContent=(bmi/25).toFixed(2);
+  $("ponderalIndex").textContent=(kg/(hM*hM*hM)).toFixed(1)+" kg/m³";
+
+  if(bmi<t.under){
+    $("weightDiff").textContent="+"+formatWeight(hMinKg-kg)+" under";
+  } else if(bmi>=t.over){
+    $("weightDiff").textContent="−"+formatWeight(kg-hMaxKg)+" over";
+  } else {
+    $("weightDiff").textContent="In range";
+  }
+}
+
+/* ---------- EVENT WIRING ---------- */
+$("mWeight").addEventListener("input",function(){
+  $("mWeight").classList.remove("auto-filled");
+  syncFromMetricWeight();
+  update();
+  saveState();
+});
+$("iWeight").addEventListener("input",function(){
+  $("iWeight").classList.remove("auto-filled");
+  syncFromImperialWeight();
+  update();
+  saveState();
+});
+$("mHeight").addEventListener("input",function(){
+  $("mHeight").classList.remove("auto-filled");
+  syncFromMetricHeight();
+  update();
+  saveState();
+});
+$("iHeightFt").addEventListener("input",function(){
+  $("iHeightFt").classList.remove("auto-filled");
+  syncFromFeet();
+  update();
+  saveState();
+});
+$("iHeightIn").addEventListener("input",function(){
+  $("iHeightIn").classList.remove("auto-filled");
+  syncFromInches();
+  update();
+  saveState();
+});
+$("age").addEventListener("input",function(){update();saveState();});
+$("sex").addEventListener("change",function(){update();saveState();});
+
+document.querySelectorAll("[data-std]").forEach(function(b){
+  b.addEventListener("click",function(){
+    standard=b.getAttribute("data-std");
+    document.querySelectorAll("[data-std]").forEach(function(x){
+      x.setAttribute("aria-pressed",String(x===b));
+    });
+    update();
+    saveState();
+  });
+});
+
+function copyText(t,msg){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(function(){flash(msg||"Copied");}).catch(function(){fbCopy(t,msg);});
+  } else {fbCopy(t,msg);}
+}
+function fbCopy(t,msg){
+  var ta=document.createElement("textarea");
+  ta.value=t;ta.style.position="fixed";ta.style.opacity="0";
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand("copy");flash(msg||"Copied");}catch(e){flash("Copy failed");}
+  document.body.removeChild(ta);
+}
+
+/* ---------- SUMMARY BUILDERS ---------- */
+function buildTextSummary(){
+  var lines=[
+    "BMI Summary — ToolNest",
+    "Generated: "+(new Date()).toLocaleString(),
+    "",
+    "INPUTS",
+    "  Weight: "+$("mWeight").value+" kg  /  "+$("iWeight").value+" lb",
+    "  Height: "+$("mHeight").value+" cm  /  "+$("iHeightFt").value+" ft  /  "+$("iHeightIn").value+" in",
+    "  Age: "+($("age").value||"—"),
+    "  Sex: "+($("sex").value||"—"),
+    "  Standard: "+THRESHOLDS[standard].name,
+    "",
+    "RESULTS",
+    "  BMI: "+$("bmiValue").textContent,
+    "  Category: "+$("bmiCategory").textContent,
+    "  Healthy range: "+$("healthyMin").textContent+" — "+$("healthyMax").textContent,
+    "  Ideal weight: "+$("idealWeight").textContent,
+    "  BMI Prime: "+$("bmiPrime").textContent,
+    "  Ponderal Index: "+$("ponderalIndex").textContent,
+    "  Distance to healthy range: "+$("weightDiff").textContent
+  ];
+  return lines.join("\n");
+}
+
+function buildJsonSummary(){
+  return JSON.stringify({
+    generatedAt:new Date().toISOString(),
+    source:"qrcodescanner.co.in/tools/calc/bmi.html",
+    inputs:{
+      weightKg:parseFloat($("mWeight").value)||null,
+      weightLb:parseFloat($("iWeight").value)||null,
+      heightCm:parseFloat($("mHeight").value)||null,
+      heightFt:parseFloat($("iHeightFt").value)||null,
+      heightIn:parseFloat($("iHeightIn").value)||null,
+      age:parseInt($("age").value,10)||null,
+      sex:$("sex").value||null,
+      standard:standard
+    },
+    results:{
+      bmi:lastBmi!==null?parseFloat(lastBmi.toFixed(2)):null,
+      category:lastCat?lastCat.label:null,
+      healthyMinKg:$("healthyMin").textContent,
+      healthyMaxKg:$("healthyMax").textContent,
+      idealWeight:$("idealWeight").textContent,
+      bmiPrime:$("bmiPrime").textContent,
+      ponderalIndex:$("ponderalIndex").textContent,
+      weightDiff:$("weightDiff").textContent
+    }
+  },null,2);
+}
+
+/* ---------- BUTTONS ---------- */
+$("copyAll").addEventListener("click",function(){
+  if(lastBmi===null)return flash("Enter weight and height first");
+  copyText(buildTextSummary(),"Summary copied");
+});
+
+$("copyJson").addEventListener("click",function(){
+  if(lastBmi===null)return flash("Enter weight and height first");
+  copyText(buildJsonSummary(),"JSON copied");
+});
+
+$("exportTxt").addEventListener("click",function(){
+  if(lastBmi===null)return flash("Enter weight and height first");
+  var text=buildTextSummary()+"\n\n---\nFull JSON:\n\n"+buildJsonSummary();
+  var blob=new Blob([text],{type:"text/plain;charset=utf-8"});
+  var a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="bmi-report-"+new Date().toISOString().slice(0,10)+".txt";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+  flash("Downloaded");
+});
+
+$("shareBtn").addEventListener("click",function(){
+  var kg=getKg();
+  var cm=getCm();
+  if(kg===null||cm===null)return flash("Enter weight and height first");
+  var params=["w="+kg,"h="+cm,"std="+standard];
+  if($("age").value)params.push("age="+$("age").value);
+  if($("sex").value)params.push("sex="+$("sex").value);
+  copyText(location.origin+location.pathname+"?"+params.join("&"),"Share link copied");
+});
+
+$("clearBtn").addEventListener("click",function(){
+  ["mWeight","mHeight","iWeight","iHeightFt","iHeightIn","age"].forEach(function(id){
+    $(id).value="";
+    $(id).classList.remove("auto-filled");
+  });
+  $("sex").value="";
+  $("resultCard").hidden=true;
+  lastBmi=null; lastCat=null;
+  try{localStorage.removeItem("bmi.state");}catch(e){}
+  flash("Cleared — ready for new data");
+});
+
+/* ---------- STATE ---------- */
+var STORAGE_KEY="bmi.state";
+function saveState(){
+  try{
+    var s={
+      mW:$("mWeight").value,
+      mH:$("mHeight").value,
+      age:$("age").value,
+      sex:$("sex").value,
+      std:standard
+    };
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(s));
+  }catch(e){}
+}
+function loadState(){
+  try{
+    var raw=localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      var s=JSON.parse(raw);
+      if(s.mW)$("mWeight").value=s.mW;
+      if(s.mH)$("mHeight").value=s.mH;
+      if(s.age)$("age").value=s.age;
+      if(s.sex)$("sex").value=s.sex;
+      if(s.std&&s.std!=="who"){
+        standard=s.std;
+        document.querySelectorAll("[data-std]").forEach(function(b){
+          b.setAttribute("aria-pressed",String(b.getAttribute("data-std")===s.std));
+        });
+      }
+    }
+  }catch(e){}
+  try{
+    var sp=new URLSearchParams(location.search);
+    if(sp.get("w"))$("mWeight").value=sp.get("w");
+    if(sp.get("h"))$("mHeight").value=sp.get("h");
+    if(sp.get("age"))$("age").value=sp.get("age");
+    if(sp.get("sex"))$("sex").value=sp.get("sex");
+    if(sp.get("std")&&sp.get("std")!==standard){
+      standard=sp.get("std");
+      document.querySelectorAll("[data-std]").forEach(function(b){
+        b.setAttribute("aria-pressed",String(b.getAttribute("data-std")===standard));
+      });
+    }
+  }catch(e){}
+}
+
+loadState();
+
+if($("mWeight").value)syncFromMetricWeight();
+if($("mHeight").value)syncFromMetricHeight();
+
+update();
+})();
+</script>
+</body>
+</html>

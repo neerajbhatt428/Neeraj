@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Date Difference Calculator — Days, Weeks, Months & Years Between Dates</title>
+<meta name="description" content="Calculate the difference between two dates in years, months, weeks, days, hours, minutes and seconds. Excludes or includes end date, business days, and works with any date from year 1 to 9999.">
+<link rel="canonical" href="https://qrcodescanner.co.in/tools/calc/date-diff.html">
+<link rel="sitemap" type="application/xml" href="https://qrcodescanner.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#1B4DFF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Date Difference Calculator — Days, Weeks, Months & Years">
+<meta property="og:description" content="Difference between any two dates. Business days, weekdays, holidays, and multiple unit breakdowns.">
+<meta property="og:url" content="https://qrcodescanner.co.in/tools/calc/date-diff.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Date Difference Calculator","url":"https://qrcodescanner.co.in/tools/calc/date-diff.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://qrcodescanner.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://qrcodescanner.co.in/tools/"},{"@type":"ListItem","position":3,"name":"Date Difference","item":"https://qrcodescanner.co.in/tools/calc/date-diff.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is the difference between two dates calculated?","acceptedAnswer":{"@type":"Answer","text":"The difference is counted in calendar terms: full years, then full months, then remaining days. This matches how age and duration are counted on official documents."}},{"@type":"Question","name":"Does it include or exclude the end date?","acceptedAnswer":{"@type":"Answer","text":"You choose. Excluding end date is standard for duration. Including end date counts both endpoints, which is useful for business-day or contract-day calculations."}},{"@type":"Question","name":"Can it calculate business days?","acceptedAnswer":{"@type":"Answer","text":"Yes. Business days exclude Saturdays and Sundays. You can also set custom weekend days."}}]}]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#EDEDE9;--surface:#FFFFFF;--ink:#14161A;--muted:#6B7079;--line:#D6D6D0;--blue:#1B4DFF;--blue-deep:#1338C4;--green:#0E7A5F;--red:#B0233A;--amber:#B87333;--radius:6px;--sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--display:"Bricolage Grotesque",var(--sans);--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;background-image:linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);background-size:28px 28px}
+.wrap{max-width:760px;margin:0 auto;padding:20px 18px 64px}
+.masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
+.masthead a{color:inherit;text-decoration:none}
+.mark{width:26px;height:26px;flex:none}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.masthead .nav-right{margin-left:auto;font-size:.875rem;color:var(--blue);text-decoration:underline;white-space:nowrap}
+.crumbs{font-size:.8125rem;color:var(--muted);margin:0 0 18px;font-family:var(--mono)}
+.crumbs a{color:var(--muted);text-decoration:underline}
+.crumbs a:hover{color:var(--blue)}
+.crumbs span{color:var(--ink)}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
+.lede{margin:0 0 6px;font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.05;letter-spacing:-.03em}
+.sub{margin:0 0 22px;color:var(--muted);max-width:68ch;font-size:1rem}
+.dd-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:0 0 14px}
+.dd-card h2{font-family:var(--display);font-weight:700;font-size:1.0625rem;letter-spacing:-.01em;margin:0 0 14px}
+.dd-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#DCDCD6;border:1px solid var(--line);padding:4px;border-radius:var(--radius);margin:0 0 14px}
+.dd-tabs button{border:0;background:transparent;padding:10px 12px;justify-content:center;font-weight:600;font-size:.8125rem;font-family:inherit;cursor:pointer;color:var(--ink);border-radius:4px;transition:background .12s ease,color .12s ease;display:inline-flex;align-items:center;text-align:center}
+.dd-tabs button:hover:not([aria-selected="true"]){background:rgba(0,0,0,.05)}
+.dd-tabs button[aria-selected="true"]{background:var(--ink);color:#fff}
+.dd-row{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 12px}
+.dd-field{flex:1 1 200px;min-width:0;display:flex;flex-direction:column;gap:4px}
+.dd-field label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.dd-field input{width:100%;padding:11px 12px;font-family:var(--mono);font-size:.9375rem;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);outline:none;transition:border-color .15s ease,box-shadow .15s ease}
+.dd-field input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.dd-preset-row{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px;align-items:center}
+.dd-preset-row .label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:4px}
+.dd-preset-row button{font-size:.75rem;padding:6px 11px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--muted);cursor:pointer;font-family:inherit;transition:color .12s ease,border-color .12s ease}
+.dd-preset-row button:hover{color:var(--blue);border-color:var(--blue)}
+.dd-toggles{display:flex;flex-wrap:wrap;gap:16px;margin:12px 0 0;padding:12px;background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius)}
+.dd-toggle{display:flex;align-items:center;gap:8px;font-size:.8125rem;color:var(--ink);cursor:pointer}
+.dd-toggle input{accent-color:var(--blue);cursor:pointer}
+.dd-weekends{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0;align-items:center;width:100%}
+.dd-weekends .label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:4px;align-self:center}
+.dd-weekends .wd{font-size:.75rem;padding:5px 10px;border-radius:100px;background:#fff;border:1px solid var(--line);color:var(--muted);cursor:pointer;font-family:var(--mono);transition:color .12s ease,border-color .12s ease,background .12s ease}
+.dd-weekends .wd:hover{border-color:var(--blue)}
+.dd-weekends .wd[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.dd-big{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:0 0 14px}
+.dd-big .cell{background:linear-gradient(135deg,rgba(27,77,255,.06),rgba(168,85,247,.05));padding:20px 12px;text-align:center}
+.dd-big .cell .n{font-family:var(--display);font-weight:700;font-size:clamp(1.75rem,6vw,2.75rem);letter-spacing:-.03em;line-height:1;margin:0 0 5px;color:var(--ink)}
+.dd-big .cell .l{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0}
+.dd-summary{margin:0 0 14px;padding:16px;background:linear-gradient(135deg,rgba(14,122,95,.08),rgba(27,77,255,.06));border:1px solid rgba(14,122,95,.28);border-radius:var(--radius);text-align:center}
+.dd-summary .l{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 6px}
+.dd-summary .v{font-family:var(--display);font-weight:700;font-size:clamp(1rem,3vw,1.25rem);letter-spacing:-.01em;line-height:1.25;color:var(--ink);margin:0;word-break:break-word}
+.dd-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:0 0 14px}
+.dd-stat{background:var(--surface);padding:12px 14px;text-align:center}
+.dd-stat .n{font-family:var(--display);font-weight:700;font-size:1.25rem;letter-spacing:-.02em;line-height:1.1;margin:0 0 3px;color:var(--ink);word-break:break-word}
+.dd-stat .l{font-family:var(--mono);font-size:.625rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0}
+.dd-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:0 0 14px}
+.dd-info .item{border-left:2px solid var(--line);padding-left:10px}
+.dd-info .k{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:0 0 3px}
+.dd-info .v{font-family:var(--display);font-weight:700;font-size:1.0625rem;letter-spacing:-.01em;margin:0;word-break:break-word}
+.dd-actions{display:flex;flex-wrap:wrap;gap:6px;margin:0}
+.dd-actions button{font-size:.8125rem;padding:8px 13px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--ink);cursor:pointer;font-family:inherit;font-weight:500;transition:background .12s ease,border-color .12s ease,color .12s ease;display:inline-flex;align-items:center;gap:6px}
+.dd-actions button:hover{border-color:var(--blue);color:var(--blue)}
+.dd-actions button.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.dd-actions button.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep);color:#fff}
+.dd-actions button.danger:hover{border-color:var(--red);color:var(--red)}
+.article{margin:44px 0 0;max-width:72ch}
+.article h2{margin:36px 0 10px;font-size:1.5rem}
+.article h2:first-child{margin-top:0}
+.article p{margin:0 0 12px;color:#3A3E46}
+.article ul{margin:0 0 12px;padding-left:20px;color:#3A3E46}
+.article li{margin:0 0 6px}
+.article strong{font-weight:600;color:var(--ink)}
+.article a{color:var(--blue);text-decoration:underline}
+.article code{font-family:var(--mono);font-size:.875em;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:1px 4px}
+.article table{width:100%;border-collapse:collapse;margin:0 0 14px;font-size:.875rem}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.article th{background:#F7F7F3;font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+.faq{margin:14px 0 0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--blue);font-size:1.25rem;line-height:1;flex:none}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{margin:0 0 14px;color:#3A3E46;max-width:62ch}
+.related-list{list-style:none;margin:12px 0 0;padding:0}
+.related-list li{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center}
+.related-list .txt{flex:1}
+.related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
+.related-list .txt a:hover{color:var(--blue);text-decoration:underline}
+.related-list .txt p{margin:2px 0 0;font-size:.8125rem;color:var(--muted)}
+.related-list time{font-size:.75rem;color:var(--muted);flex:none;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem}
+footer a{color:inherit}
+footer a:hover{color:var(--blue)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:200}
+.toast.show{opacity:1}
+@media(max-width:600px){
+  .dd-big .cell{padding:16px 8px}
+  .dd-big .cell .n{font-size:1.625rem}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+<a href="../../index.html" style="display:flex;align-items:center;gap:10px">
+<svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/><path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/><path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/><path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/><path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/></svg>
+<span class="wordmark">ToolNest</span>
+</a>
+<a href="../index.html" class="nav-right">All tools →</a>
+</header>
+
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Date Difference</span></nav>
+
+<h1 class="lede">Date Difference Calculator</h1>
+<p class="sub">Find the exact time between any two dates — years, months, weeks, days, hours and minutes. Includes business days, custom weekend settings, and end-date inclusion.</p>
+
+<div class="dd-card">
+<h2>Dates to compare</h2>
+
+<div class="dd-row">
+<div class="dd-field">
+<label for="dateA">From date</label>
+<input type="date" id="dateA">
+</div>
+<div class="dd-field">
+<label for="dateB">To date</label>
+<input type="date" id="dateB">
+</div>
+</div>
+
+<div class="dd-preset-row">
+<span class="label">Quick set:</span>
+<button data-preset="today">Today → Today</button>
+<button data-preset="this-month">Start of month → Today</button>
+<button data-preset="this-year">Start of year → Today</button>
+<button data-preset="swap">Swap dates</button>
+<button data-preset="clear">Clear</button>
+</div>
+
+<div class="dd-toggles">
+<label class="dd-toggle">
+<input type="checkbox" id="includeEnd">
+Include end date (+1 day)
+</label>
+<label class="dd-toggle">
+<input type="checkbox" id="businessDays">
+Calculate business days only
+</label>
+<label class="dd-toggle">
+<input type="checkbox" id="includeTime">
+Include time of day
+</label>
+</div>
+
+<div class="dd-weekends" id="weekendsRow" hidden>
+<span class="label">Weekend days:</span>
+<button class="wd" data-dow="0" aria-pressed="true">Sun</button>
+<button class="wd" data-dow="1" aria-pressed="false">Mon</button>
+<button class="wd" data-dow="2" aria-pressed="false">Tue</button>
+<button class="wd" data-dow="3" aria-pressed="false">Wed</button>
+<button class="wd" data-dow="4" aria-pressed="false">Thu</button>
+<button class="wd" data-dow="5" aria-pressed="false">Fri</button>
+<button class="wd" data-dow="6" aria-pressed="true">Sat</button>
+</div>
+
+<div class="dd-row" id="timeRow" hidden style="margin-top:12px">
+<div class="dd-field">
+<label for="timeA">Time of first date</label>
+<input type="time" id="timeA" value="00:00">
+</div>
+<div class="dd-field">
+<label for="timeB">Time of second date</label>
+<input type="time" id="timeB" value="00:00">
+</div>
+</div>
+</div>
+
+<div class="dd-card" id="resultCard" hidden>
+<h2>Difference</h2>
+
+<div class="dd-big">
+<div class="cell"><p class="n" id="yearsVal">0</p><p class="l">Years</p></div>
+<div class="cell"><p class="n" id="monthsVal">0</p><p class="l">Months</p></div>
+<div class="cell"><p class="n" id="daysVal">0</p><p class="l">Days</p></div>
+</div>
+
+<div class="dd-summary">
+<p class="l" id="summaryLabel">Exact duration</p>
+<p class="v" id="summaryText">—</p>
+</div>
+
+<div class="dd-stats" id="statsGrid">
+<div class="dd-stat"><p class="n" id="totalYears">0</p><p class="l">Total years</p></div>
+<div class="dd-stat"><p class="n" id="totalMonths">0</p><p class="l">Total months</p></div>
+<div class="dd-stat"><p class="n" id="totalWeeks">0</p><p class="l">Total weeks</p></div>
+<div class="dd-stat"><p class="n" id="totalDays">0</p><p class="l">Total days</p></div>
+<div class="dd-stat" id="hoursCell"><p class="n" id="totalHours">0</p><p class="l">Total hours</p></div>
+<div class="dd-stat" id="minutesCell"><p class="n" id="totalMinutes">0</p><p class="l">Total minutes</p></div>
+</div>
+
+<div class="dd-info" id="infoGrid">
+<div class="item"><p class="k">Days in span</p><p class="v" id="daysInSpan">—</p></div>
+<div class="item"><p class="k">Weekdays</p><p class="v" id="weekdaysCount">—</p></div>
+<div class="item"><p class="k">Weekend days</p><p class="v" id="weekendCount">—</p></div>
+<div class="item"><p class="k">Business days</p><p class="v" id="businessCount">—</p></div>
+<div class="item"><p class="k">Starting day</p><p class="v" id="startDow">—</p></div>
+<div class="item"><p class="k">Ending day</p><p class="v" id="endDow">—</p></div>
+</div>
+
+<div class="dd-actions">
+<button class="primary" id="copySummary">Copy summary</button>
+<button id="copyUrl">Share link</button>
+<button id="resetBtn" class="danger">Reset</button>
+</div>
+</div>
+
+<article class="article">
+<h2>How to use the date difference calculator</h2>
+<p>Pick a From date and a To date. The tool calculates the difference in years, months, weeks, days and — if you enable time — hours and minutes. Everything updates as you type.</p>
+
+<h2>What you get</h2>
+<ul>
+<li><strong>Years, months, days</strong> — the exact calendar difference, not a rough approximation.</li>
+<li><strong>Total units</strong> — the same span expressed in every common unit: total years, months, weeks, days, hours and minutes.</li>
+<li><strong>Business days</strong> — the number of working days between the two dates, with configurable weekend days.</li>
+<li><strong>Weekdays vs weekends</strong> — how many of the days in the span were weekdays versus weekend days.</li>
+<li><strong>Starting and ending weekday</strong> — useful for scheduling and for catching "the deadline falls on a Sunday" issues.</li>
+</ul>
+
+<h2>Include or exclude the end date</h2>
+<p>By default, the difference is <strong>exclusive of the end date</strong>. That is, the difference from 1 Jan to 31 Jan is 30 days. This is how most duration calculations work.</p>
+<p>Turn on <strong>Include end date</strong> and the tool adds 1 day to the count. 1 Jan to 31 Jan becomes 31 days. This is how <em>day-count</em> conventions work in some contracts, hotel bookings, and business-day calculations.</p>
+
+<h2>Business days</h2>
+<p>Turn on <strong>Calculate business days only</strong> to exclude weekend days. The default weekend is Saturday and Sunday, but you can toggle each day of the week — this matters if you're in a country where the weekend is Friday and Saturday, or where a specific day is the weekly market closure.</p>
+
+<h2>Months and years are calendar-based</h2>
+<p>Months do not all have the same length. From 15 Jan to 15 Feb is one month. From 15 Jan to 15 Mar is two months. From 15 Jan to 15 Apr is three months. The tool counts calendar months, not 30-day blocks — the same way age and duration are counted on official documents.</p>
+
+<h2>Common real-world uses</h2>
+<ul>
+<li><strong>Project duration</strong> — how many working days remain until the deadline.</li>
+<li><strong>Event planning</strong> — how many weeks until the wedding, exam, or trip.</li>
+<li><strong>Contract and legal</strong> — how many days from notice to termination.</li>
+<li><strong>Age from two dates</strong> — how old someone is, or was, on a specific day.</li>
+<li><strong>Interest calculation</strong> — day count between two payment dates.</li>
+<li><strong>Holiday planning</strong> — days between check-in and check-out.</li>
+</ul>
+
+<h2>Common questions</h2>
+<div class="faq">
+<details><summary>How is the difference between two dates calculated?</summary><p>The difference is counted in calendar terms: full years first, then full months, then remaining days. This matches how age and duration are counted on official documents.</p></details>
+<details><summary>Does it include or exclude the end date?</summary><p>You choose. Excluding the end date is standard for duration (1 Jan to 31 Jan = 30 days). Including the end date counts both endpoints (1 Jan to 31 Jan = 31 days).</p></details>
+<details><summary>Can it calculate business days?</summary><p>Yes. Turn on "Calculate business days only" and choose your weekend days. Default is Saturday and Sunday.</p></details>
+<details><summary>What if the From date is after the To date?</summary><p>The tool handles that. The difference is reported in absolute values, and the summary shows "From" and "To" in the direction you entered them. Swap them if you want the direction reversed.</p></details>
+<details><summary>Does it work for historical dates?</summary><p>Yes. Any date from year 1 to 9999 works. The calculation uses the proleptic Gregorian calendar.</p></details>
+<details><summary>Is my data saved?</summary><p>Your inputs are stored only in your browser's local storage. Nothing is sent to any server.</p></details>
+</div>
+
+<h2>Related tools</h2>
+<ul class="related-list">
+<li><div class="txt"><a href="age.html">Age Calculator</a><p>Exact age in years, months, days.</p></div><time>Calc</time></li>
+<li><div class="txt"><a href="loan.html">Loan EMI Calculator</a><p>Monthly EMI and repayment schedule.</p></div><time>Calc</time></li>
+<li><div class="txt"><a href="percentage.html">Percentage Calculator</a><p>Six percentage questions in one tool.</p></div><time>Calc</time></li>
+</ul>
+</article>
+
+<footer>
+<p>ToolNest · <a href="../../index.html">Home</a> · <a href="../index.html">All tools</a> · <a href="../../pages/about.html">About</a> · <a href="../../pages/privacy.html">Privacy</a></p>
+</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+var toast=$("toast");
+function flash(m){toast.textContent=m;toast.classList.add("show");clearTimeout(flash._t);flash._t=setTimeout(function(){toast.classList.remove("show");},1700);}
+
+var MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
+var WEEKDAYS=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+var weekendDays={0:true,6:true};
+
+function isLeap(y){return (y%4===0&&y%100!==0)||(y%400===0);}
+function daysInMonth(y,m){
+  if(m===2)return isLeap(y)?29:28;
+  if(m===4||m===6||m===9||m===11)return 30;
+  return 31;
+}
+function makeDate(y,m,d){
+  var dt=new Date(2000,0,1);
+  dt.setFullYear(y,m-1,d);
+  dt.setHours(0,0,0,0);
+  return dt;
+}
+function parseDateInput(str){
+  if(!str)return null;
+  var parts=str.split("-");
+  if(parts.length!==3)return null;
+  var y=parseInt(parts[0],10);
+  var m=parseInt(parts[1],10);
+  var d=parseInt(parts[2],10);
+  if(isNaN(y)||isNaN(m)||isNaN(d))return null;
+  if(d<1||d>31||m<1||m>12||y<1||y>9999)return null;
+  if(d>daysInMonth(y,m))return null;
+  return makeDate(y,m,d);
+}
+function parseTimeInput(str){
+  if(!str)return {h:0,m:0};
+  var parts=str.split(":");
+  var h=parseInt(parts[0],10)||0;
+  var m=parseInt(parts[1],10)||0;
+  return {h:h,m:m};
+}
+function toDateInput(d){
+  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+}
+function fmtLong(d){
+  return WEEKDAYS[d.getDay()]+", "+d.getDate()+" "+MONTHS[d.getMonth()]+" "+d.getFullYear();
+}
+function fmtShort(d){
+  return d.getDate()+" "+MONTHS[d.getMonth()].slice(0,3)+" "+d.getFullYear();
+}
+function num(n){return n.toLocaleString();}
+
+/* ---------- READ ---------- */
+function readInputs(){
+  var aStr=$("dateA").value;
+  var bStr=$("dateB").value;
+  if(!aStr||!bStr)return null;
+  var dateA=parseDateInput(aStr);
+  var dateB=parseDateInput(bStr);
+  if(!dateA||!dateB)return null;
+
+  var includeEnd=$("includeEnd").checked;
+  var businessOnly=$("businessDays").checked;
+  var includeTime=$("includeTime").checked;
+
+  var tA={h:0,m:0}, tB={h:0,m:0};
+  if(includeTime){
+    tA=parseTimeInput($("timeA").value);
+    tB=parseTimeInput($("timeB").value);
+    dateA.setHours(tA.h,tA.m,0,0);
+    dateB.setHours(tB.h,tB.m,0,0);
+  }
+
+  return {
+    dateA:dateA,dateB:dateB,
+    includeEnd:includeEnd,
+    businessOnly:businessOnly,
+    includeTime:includeTime
+  };
+}
+
+/* ---------- CALENDAR DIFF ---------- */
+function calendarDiff(from,to){
+  // Assumes from <= to. Returns {years, months, days}
+  var y=to.getFullYear()-from.getFullYear();
+  var m=to.getMonth()-from.getMonth();
+  var d=to.getDate()-from.getDate();
+
+  if(d<0){
+    m--;
+    var prevMonth=to.getMonth()===0?12:to.getMonth();
+    var prevYear=to.getMonth()===0?to.getFullYear()-1:to.getFullYear();
+    d+=daysInMonth(prevYear,prevMonth);
+  }
+  if(m<0){y--;m+=12;}
+  return {years:y,months:m,days:d};
+}
+
+/* ---------- DATE ITERATION ---------- */
+function eachDay(from,to,callback){
+  // Iterates from from (inclusive) up to to (exclusive)
+  var cur=new Date(from.getTime());
+  cur.setHours(0,0,0,0);
+  var end=new Date(to.getTime());
+  end.setHours(0,0,0,0);
+  while(cur<end){
+    callback(cur);
+    cur.setDate(cur.getDate()+1);
+  }
+}
+
+/* ---------- COMPUTE ---------- */
+var lastResult=null;
+
+function compute(){
+  var inputs=readInputs();
+  if(!inputs){
+    $("resultCard").hidden=true;
+    lastResult=null;
+    return;
+  }
+
+  var from=new Date(inputs.dateA.getTime());
+  var to=new Date(inputs.dateB.getTime());
+
+  // Determine direction
+  var reversed=from>to;
+  if(reversed){
+    var tmp=from; from=to; to=tmp;
+  }
+
+  // Apply include-end adjustment: add 1 day to `to` for total-days count
+  var effectiveTo=new Date(to.getTime());
+  if(inputs.includeEnd)effectiveTo.setDate(effectiveTo.getDate()+1);
+
+  // If includeTime and the difference includes hours, adjust to add partial day
+  var diffMs=effectiveTo-from;
+
+  // Calendar y/m/d
+  var cal=calendarDiff(from,effectiveTo);
+  if(inputs.includeEnd && cal.days>0 && from.getDate()===to.getDate()){
+    // Edge: if same date and include end, cal.days becomes 1
+  }
+
+  // For the y/m/d display, use the "exclusive" version to represent exact calendar gap
+  var calExclusive=calendarDiff(from,to);
+
+  var totalMs=effectiveTo-from;
+  var totalDays=Math.floor(totalMs/86400000);
+  var totalWeeks=Math.floor(totalDays/7);
+  var totalHours=Math.floor(totalMs/3600000);
+  var totalMinutes=Math.floor(totalMs/60000);
+  var totalMonths=calExclusive.years*12+calExclusive.months + (calExclusive.days>0&&from.getDate()===to.getDate()?0:0);
+
+  // Total months: count from `from` to `to` in calendar months
+  var totalMonthsFull=monthsBetween(from,to);
+  var totalYearsFull=totalMonthsFull/12;
+
+  // Day-by-day counters
+  var weekdays=0, weekend=0;
+  eachDay(from,effectiveTo,function(d){
+    if(weekendDays[d.getDay()])weekend++;
+    else weekdays++;
+  });
+  var business=weekdays;
+
+  var summaryText="";
+  if(calExclusive.years===0&&calExclusive.months===0&&calExclusive.days===0&&!inputs.includeTime){
+    summaryText="Same date";
+  } else {
+    var parts=[];
+    if(calExclusive.years)parts.push(calExclusive.years+" year"+(calExclusive.years===1?"":"s"));
+    if(calExclusive.months)parts.push(calExclusive.months+" month"+(calExclusive.months===1?"":"s"));
+    if(calExclusive.days)parts.push(calExclusive.days+" day"+(calExclusive.days===1?"":"s"));
+    if(!parts.length)parts.push("Less than a day");
+    summaryText=parts.join(" ");
+    if(inputs.includeEnd)summaryText+=" (+1 day included)";
+  }
+
+  var out={
+    inputs:inputs,
+    from:from, to:to,
+    reversed:reversed,
+    cal:calExclusive,
+    totalDays:totalDays,
+    totalWeeks:totalWeeks,
+    totalHours:totalHours,
+    totalMinutes:totalMinutes,
+    totalMonths:totalMonthsFull,
+    totalYears:(totalMonthsFull/12),
+    weekdays:weekdays,
+    weekend:weekend,
+    business:business,
+    summaryText:summaryText,
+    effectiveTo:effectiveTo
+  };
+
+  render(out);
+  lastResult=out;
+}
+
+function monthsBetween(from,to){
+  if(to<from)return 0;
+  var months=(to.getFullYear()-from.getFullYear())*12+(to.getMonth()-from.getMonth());
+  if(to.getDate()<from.getDate())months--;
+  return Math.max(0,months);
+}
+
+/* ---------- RENDER ---------- */
+function render(out){
+  $("resultCard").hidden=false;
+
+  $("yearsVal").textContent=num(out.cal.years);
+  $("monthsVal").textContent=num(out.cal.months);
+  $("daysVal").textContent=num(out.cal.days);
+
+  $("summaryLabel").textContent="Exact duration"+(out.inputs.businessOnly?" · business day view":"");
+  $("summaryText").textContent=out.summaryText;
+
+  $("totalYears").textContent=out.totalYears.toFixed(2);
+  $("totalMonths").textContent=num(out.totalMonths);
+  $("totalWeeks").textContent=num(out.totalWeeks);
+  $("totalDays").textContent=num(out.totalDays);
+  $("totalHours").textContent=num(out.totalHours);
+  $("totalMinutes").textContent=num(out.totalMinutes);
+
+  if(out.inputs.includeTime){
+    $("hoursCell").hidden=false;
+    $("minutesCell").hidden=false;
+  } else {
+    $("hoursCell").hidden=false;
+    $("minutesCell").hidden=false;
+  }
+
+  $("daysInSpan").textContent=num(out.totalDays);
+  $("weekdaysCount").textContent=num(out.weekdays);
+  $("weekendCount").textContent=num(out.weekend);
+  $("businessCount").textContent=num(out.business);
+  $("startDow").textContent=WEEKDAYS[out.from.getDay()];
+  $("endDow").textContent=WEEKDAYS[out.to.getDay()];
+
+  if(out.inputs.businessOnly){
+    $("weekdaysCount").parentElement.style.opacity="1";
+  }
+
+  // Legend: only show days-in-span etc
+  if(out.reversed){
+    $("summaryLabel").textContent="Direction: To is earlier than From — showing absolute difference";
+  }
+}
+
+/* ---------- WEEKEND TOGGLES ---------- */
+document.querySelectorAll(".wd").forEach(function(b){
+  b.addEventListener("click",function(){
+    var dow=parseInt(b.getAttribute("data-dow"),10);
+    weekendDays[dow]=!weekendDays[dow];
+    b.setAttribute("aria-pressed",String(weekendDays[dow]));
+    compute();
+    saveState();
+  });
+});
+
+/* ---------- PRESETS ---------- */
+document.querySelectorAll("[data-preset]").forEach(function(b){
+  b.addEventListener("click",function(){
+    var p=b.getAttribute("data-preset");
+    var today=new Date();
+    if(p==="today"){
+      $("dateA").value=toDateInput(today);
+      $("dateB").value=toDateInput(today);
+    } else if(p==="this-month"){
+      var s=new Date(today.getFullYear(),today.getMonth(),1);
+      $("dateA").value=toDateInput(s);
+      $("dateB").value=toDateInput(today);
+    } else if(p==="this-year"){
+      var s2=new Date(today.getFullYear(),0,1);
+      $("dateA").value=toDateInput(s2);
+      $("dateB").value=toDateInput(today);
+    } else if(p==="swap"){
+      var a=$("dateA").value;
+      var b2=$("dateB").value;
+      $("dateA").value=b2;
+      $("dateB").value=a;
+    } else if(p==="clear"){
+      $("dateA").value="";
+      $("dateB").value="";
+      $("resultCard").hidden=true;
+      lastResult=null;
+    }
+    compute();
+    saveState();
+  });
+});
+
+/* ---------- TOGGLES ---------- */
+$("includeEnd").addEventListener("change",function(){compute();saveState();});
+$("businessDays").addEventListener("change",function(){
+  $("weekendsRow").hidden=!$("businessDays").checked;
+  compute();
+  saveState();
+});
+$("includeTime").addEventListener("change",function(){
+  $("timeRow").hidden=!$("includeTime").checked;
+  compute();
+  saveState();
+});
+
+/* ---------- INPUTS ---------- */
+["dateA","dateB","timeA","timeB"].forEach(function(id){
+  $(id).addEventListener("input",function(){compute();saveState();});
+  $(id).addEventListener("change",function(){compute();saveState();});
+});
+
+/* ---------- ACTIONS ---------- */
+$("copySummary").addEventListener("click",function(){
+  if(!lastResult)return flash("Nothing to copy");
+  var o=lastResult;
+  var lines=[
+    "Date Difference — ToolNest",
+    "",
+    "From: "+fmtLong(o.from)+(o.inputs.includeTime?" "+$("timeA").value:""),
+    "To:   "+fmtLong(o.to)+(o.inputs.includeTime?" "+$("timeB").value:""),
+    "",
+    "Exact duration: "+o.summaryText,
+    "Years: "+o.cal.years+" · Months: "+o.cal.months+" · Days: "+o.cal.days,
+    "",
+    "Total days: "+num(o.totalDays),
+    "Total weeks: "+num(o.totalWeeks),
+    "Total months: "+num(o.totalMonths),
+    "Total hours: "+num(o.totalHours),
+    "Total minutes: "+num(o.totalMinutes),
+    "",
+    "Weekdays: "+num(o.weekdays),
+    "Weekend days: "+num(o.weekend),
+    "Business days: "+num(o.business),
+    "",
+    "Start day: "+WEEKDAYS[o.from.getDay()],
+    "End day: "+WEEKDAYS[o.to.getDay()]
+  ];
+  copyText(lines.join("\n"),"Summary copied");
+});
+
+$("copyUrl").addEventListener("click",function(){
+  if(!lastResult)return flash("Nothing to share");
+  var a=toDateInput(lastResult.from);
+  var b=toDateInput(lastResult.to);
+  var parts=["a="+a,"b="+b];
+  if($("includeEnd").checked)parts.push("end=1");
+  if($("businessDays").checked)parts.push("biz=1");
+  if($("includeTime").checked)parts.push("time=1","ta="+$("timeA").value,"tb="+$("timeB").value);
+  var wd=[];
+  Object.keys(weekendDays).forEach(function(d){if(weekendDays[d])wd.push(d);});
+  if(wd.length&&!(wd.length===2&&wd.indexOf("0")!==-1&&wd.indexOf("6")!==-1)){
+    parts.push("wd="+wd.join(""));
+  }
+  copyText(location.origin+location.pathname+"?"+parts.join("&"),"Share link copied");
+});
+
+$("resetBtn").addEventListener("click",function(){
+  $("dateA").value="";
+  $("dateB").value="";
+  $("includeEnd").checked=false;
+  $("businessDays").checked=false;
+  $("includeTime").checked=false;
+  $("timeA").value="00:00";
+  $("timeB").value="00:00";
+  weekendDays={0:true,6:true};
+  document.querySelectorAll(".wd").forEach(function(b){
+    var dow=parseInt(b.getAttribute("data-dow"),10);
+    b.setAttribute("aria-pressed",String(weekendDays[dow]));
+  });
+  $("weekendsRow").hidden=true;
+  $("timeRow").hidden=true;
+  $("resultCard").hidden=true;
+  lastResult=null;
+  try{localStorage.removeItem("datediff.state");}catch(e){}
+  flash("Reset");
+});
+
+/* ---------- COPY ---------- */
+function copyText(t,msg){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(function(){flash(msg||"Copied");}).catch(function(){fbCopy(t,msg);});
+  } else fbCopy(t,msg);
+}
+function fbCopy(t,msg){
+  var ta=document.createElement("textarea");
+  ta.value=t;ta.style.position="fixed";ta.style.opacity="0";
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand("copy");flash(msg||"Copied");}catch(e){flash("Copy failed");}
+  document.body.removeChild(ta);
+}
+
+/* ---------- STATE ---------- */
+var STORAGE_KEY="datediff.state";
+function saveState(){
+  try{
+    var s={
+      a:$("dateA").value,
+      b:$("dateB").value,
+      end:$("includeEnd").checked?1:0,
+      biz:$("businessDays").checked?1:0,
+      time:$("includeTime").checked?1:0,
+      ta:$("timeA").value,
+      tb:$("timeB").value,
+      wd:Object.keys(weekendDays).filter(function(d){return weekendDays[d];}).join("")
+    };
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(s));
+  }catch(e){}
+}
+function loadState(){
+  try{
+    var raw=localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      var s=JSON.parse(raw);
+      if(s.a)$("dateA").value=s.a;
+      if(s.b)$("dateB").value=s.b;
+      if(s.end)$("includeEnd").checked=true;
+      if(s.biz){
+        $("businessDays").checked=true;
+        $("weekendsRow").hidden=false;
+      }
+      if(s.time){
+        $("includeTime").checked=true;
+        $("timeRow").hidden=false;
+      }
+      if(s.ta)$("timeA").value=s.ta;
+      if(s.tb)$("timeB").value=s.tb;
+      if(s.wd){
+        weekendDays={};
+        for(var i=0;i<s.wd.length;i++)weekendDays[s.wd.charAt(i)]=true;
+        document.querySelectorAll(".wd").forEach(function(b){
+          var dow=b.getAttribute("data-dow");
+          b.setAttribute("aria-pressed",String(!!weekendDays[dow]));
+        });
+      }
+    }
+  }catch(e){}
+  try{
+    var sp=new URLSearchParams(location.search);
+    if(sp.get("a"))$("dateA").value=sp.get("a");
+    if(sp.get("b"))$("dateB").value=sp.get("b");
+    if(sp.get("end"))$("includeEnd").checked=true;
+    if(sp.get("biz")){
+      $("businessDays").checked=true;
+      $("weekendsRow").hidden=false;
+    }
+    if(sp.get("time")){
+      $("includeTime").checked=true;
+      $("timeRow").hidden=false;
+    }
+    if(sp.get("ta"))$("timeA").value=sp.get("ta");
+    if(sp.get("tb"))$("timeB").value=sp.get("tb");
+    if(sp.get("wd")){
+      var w=sp.get("wd");
+      weekendDays={};
+      for(var j=0;j<w.length;j++)weekendDays[w.charAt(j)]=true;
+      document.querySelectorAll(".wd").forEach(function(b){
+        var dow=b.getAttribute("data-dow");
+        b.setAttribute("aria-pressed",String(!!weekendDays[dow]));
+      });
+    }
+  }catch(e){}
+}
+
+/* ---------- INIT ---------- */
+loadState();
+if(!$("dateA").value&&!$("dateB").value){
+  var t=new Date();
+  $("dateA").value=toDateInput(t);
+  $("dateB").value=toDateInput(t);
+}
+compute();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tip Calculator & Bill Splitter — With Tax, Tip & Per-Person Share</title>
+<meta name="description" content="Free tip calculator and bill splitter. Add tip percentage, split between any number of people, include or exclude tax, round up or down, and see exactly who pays what.">
+<link rel="canonical" href="https://qrcodescanner.co.in/tools/calc/tip.html">
+<link rel="sitemap" type="application/xml" href="https://qrcodescanner.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#1B4DFF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tip Calculator & Bill Splitter">
+<meta property="og:description" content="Calculate tip, split the bill, and round up. Include or exclude tax.">
+<meta property="og:url" content="https://qrcodescanner.co.in/tools/calc/tip.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Tip Calculator & Bill Splitter","url":"https://qrcodescanner.co.in/tools/calc/tip.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://qrcodescanner.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://qrcodescanner.co.in/tools/"},{"@type":"ListItem","position":3,"name":"Tip Calculator","item":"https://qrcodescanner.co.in/tools/calc/tip.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much should I tip?","acceptedAnswer":{"@type":"Answer","text":"In the United States, 15 to 20 percent is standard for table service. In Europe, 5 to 10 percent is common. In many Asian countries, tipping is not expected."}},{"@type":"Question","name":"Should tip be calculated on the pre-tax or post-tax amount?","acceptedAnswer":{"@type":"Answer","text":"Both are accepted. Tipping on pre-tax amount is technically more accurate, but tipping on post-tax is common and slightly more generous."}},{"@type":"Question","name":"Can I split the bill unevenly?","acceptedAnswer":{"@type":"Answer","text":"Yes. Enter a custom amount for each person, and the tool adjusts the remaining balance for the rest."}}]}]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#EDEDE9;--surface:#FFFFFF;--ink:#14161A;--muted:#6B7079;--line:#D6D6D0;--blue:#1B4DFF;--blue-deep:#1338C4;--green:#0E7A5F;--red:#B0233A;--amber:#B87333;--radius:6px;--sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--display:"Bricolage Grotesque",var(--sans);--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;background-image:linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);background-size:28px 28px}
+.wrap{max-width:660px;margin:0 auto;padding:20px 18px 64px}
+.masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
+.masthead a{color:inherit;text-decoration:none}
+.mark{width:26px;height:26px;flex:none}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.masthead .nav-right{margin-left:auto;font-size:.875rem;color:var(--blue);text-decoration:underline;white-space:nowrap}
+.crumbs{font-size:.8125rem;color:var(--muted);margin:0 0 18px;font-family:var(--mono)}
+.crumbs a{color:var(--muted);text-decoration:underline}
+.crumbs a:hover{color:var(--blue)}
+.crumbs span{color:var(--ink)}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
+.lede{margin:0 0 6px;font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.05;letter-spacing:-.03em}
+.sub{margin:0 0 22px;color:var(--muted);max-width:68ch;font-size:1rem}
+.tp-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:0 0 14px}
+.tp-card h2{font-family:var(--display);font-weight:700;font-size:1.0625rem;letter-spacing:-.01em;margin:0 0 14px}
+.tp-row{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 12px}
+.tp-field{flex:1 1 180px;min-width:0;display:flex;flex-direction:column;gap:4px}
+.tp-field label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.tp-field input,.tp-field select{width:100%;padding:11px 12px;font-family:var(--mono);font-size:.9375rem;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);outline:none;transition:border-color .15s ease,box-shadow .15s ease}
+.tp-field input:focus,.tp-field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.tp-field .unit-hint{font-family:var(--mono);font-size:.625rem;color:var(--muted);text-transform:none;letter-spacing:0}
+.tp-tips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px;align-items:center}
+.tp-tips .label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:4px}
+.tp-tips button{font-size:.8125rem;padding:8px 14px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--ink);cursor:pointer;font-family:inherit;font-weight:500;transition:color .12s ease,border-color .12s ease}
+.tp-tips button:hover{color:var(--blue);border-color:var(--blue)}
+.tp-tips button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tp-tips button.custom-tip{border-style:dashed}
+.tp-split{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 12px}
+.tp-split .lbl{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:6px}
+.tp-split button{width:36px;height:36px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--ink);cursor:pointer;font-family:inherit;font-weight:600;font-size:1rem;display:inline-flex;align-items:center;justify-content:center;transition:color .12s ease,border-color .12s ease}
+.tp-split button:hover{color:var(--blue);border-color:var(--blue)}
+.tp-split .count{font-family:var(--mono);font-weight:600;font-size:1rem;min-width:34px;text-align:center}
+.tp-result{margin:0 0 14px;padding:22px;background:linear-gradient(135deg,rgba(27,77,255,.06),rgba(168,85,247,.05));border:1px solid rgba(27,77,255,.2);border-radius:var(--radius);text-align:center}
+.tp-result .lbl{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 6px}
+.tp-result .big{font-family:var(--display);font-weight:700;font-size:clamp(2.25rem,8vw,3.5rem);letter-spacing:-.04em;line-height:1;color:var(--blue);margin:0 0 8px}
+.tp-result .per{font-family:var(--mono);font-size:.8125rem;color:var(--muted);margin:0}
+.tp-result .per strong{color:var(--ink);font-weight:600}
+.tp-breakdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:0 0 14px}
+.tp-stat{background:var(--surface);padding:12px 14px;text-align:center}
+.tp-stat .n{font-family:var(--display);font-weight:700;font-size:1.125rem;letter-spacing:-.02em;line-height:1.1;margin:0 0 3px;color:var(--ink);word-break:break-word}
+.tp-stat .l{font-family:var(--mono);font-size:.625rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0}
+.tp-round{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 12px;padding:12px;background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius)}
+.tp-round label{font-size:.8125rem;color:var(--ink);display:flex;align-items:center;gap:6px;cursor:pointer}
+.tp-round input{accent-color:var(--blue);cursor:pointer}
+.tp-round .hint{font-family:var(--mono);font-size:.6875rem;color:var(--muted);margin-left:auto}
+.tp-custom-list{display:flex;flex-direction:column;gap:6px;margin:0 0 12px}
+.tp-custom-row{display:flex;gap:8px;align-items:center}
+.tp-custom-row .name{font-family:var(--mono);font-size:.75rem;color:var(--muted);flex:0 0 70px}
+.tp-custom-row input{flex:1;padding:9px 12px;font-family:var(--mono);font-size:.875rem;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);outline:none}
+.tp-custom-row input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.tp-custom-row .x{border:0;background:none;color:var(--muted);cursor:pointer;font-size:1.125rem;padding:4px 8px;border-radius:4px}
+.tp-custom-row .x:hover{color:var(--red);background:rgba(176,35,58,.08)}
+.tp-actions{display:flex;flex-wrap:wrap;gap:6px;margin:0}
+.tp-actions button{font-size:.8125rem;padding:9px 14px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--ink);cursor:pointer;font-family:inherit;font-weight:500;transition:background .12s ease,border-color .12s ease,color .12s ease;display:inline-flex;align-items:center;gap:6px}
+.tp-actions button:hover{border-color:var(--blue);color:var(--blue)}
+.tp-actions button.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.tp-actions button.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep);color:#fff}
+.tp-actions button.danger:hover{border-color:var(--red);color:var(--red)}
+.tp-currency{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px;align-items:center}
+.tp-currency .label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:4px}
+.tp-currency button{font-size:.75rem;padding:6px 11px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--muted);cursor:pointer;font-family:inherit;transition:color .12s ease,border-color .12s ease}
+.tp-currency button:hover{color:var(--blue);border-color:var(--blue)}
+.tp-currency button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.article{margin:44px 0 0;max-width:72ch}
+.article h2{margin:36px 0 10px;font-size:1.5rem}
+.article h2:first-child{margin-top:0}
+.article p{margin:0 0 12px;color:#3A3E46}
+.article ul{margin:0 0 12px;padding-left:20px;color:#3A3E46}
+.article li{margin:0 0 6px}
+.article strong{font-weight:600;color:var(--ink)}
+.article a{color:var(--blue);text-decoration:underline}
+.article code{font-family:var(--mono);font-size:.875em;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:1px 4px}
+.article table{width:100%;border-collapse:collapse;margin:0 0 14px;font-size:.875rem}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.article th{background:#F7F7F3;font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+.faq{margin:14px 0 0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--blue);font-size:1.25rem;line-height:1;flex:none}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{margin:0 0 14px;color:#3A3E46;max-width:62ch}
+.related-list{list-style:none;margin:12px 0 0;padding:0}
+.related-list li{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center}
+.related-list .txt{flex:1}
+.related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
+.related-list .txt a:hover{color:var(--blue);text-decoration:underline}
+.related-list .txt p{margin:2px 0 0;font-size:.8125rem;color:var(--muted)}
+.related-list time{font-size:.75rem;color:var(--muted);flex:none;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem}
+footer a{color:inherit}
+footer a:hover{color:var(--blue)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:200}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+<a href="../../index.html" style="display:flex;align-items:center;gap:10px">
+<svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/><path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/><path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/><path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/><path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/></svg>
+<span class="wordmark">ToolNest</span>
+</a>
+<a href="../index.html" class="nav-right">All tools →</a>
+</header>
+
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Tip Calculator</span></nav>
+
+<h1 class="lede">Tip &amp; Bill Split Calculator</h1>
+<p class="sub">Add a tip, split the bill between any number of people, include or exclude tax, and round up. Works for restaurants, cafes, taxis, hotels — anywhere you need to work out who pays what.</p>
+
+<div class="tp-card">
+<h2>Bill details</h2>
+
+<div class="tp-row">
+<div class="tp-field">
+<label for="bill">Bill amount</label>
+<input type="number" id="bill" value="2000" min="0" step="10">
+<span class="unit-hint">Total before tip</span>
+</div>
+<div class="tp-field">
+<label for="tax">Tax / GST included (%)</label>
+<input type="number" id="tax" value="5" min="0" max="50" step="0.1">
+<span class="unit-hint">0 if already included</span>
+</div>
+</div>
+
+<div class="tp-row">
+<div class="tp-field">
+<label for="tipPct">Tip (%)</label>
+<input type="number" id="tipPct" value="15" min="0" max="100" step="0.5">
+</div>
+<div class="tp-field">
+<label for="tipBase">Tip calculated on</label>
+<select id="tipBase">
+<option value="pretax" selected>Pre-tax amount</option>
+<option value="posttax">Post-tax amount</option>
+</select>
+</div>
+</div>
+
+<div class="tp-tips" id="tipPresets">
+<span class="label">Quick tip:</span>
+<button data-tip="10">10%</button>
+<button data-tip="12.5">12.5%</button>
+<button data-tip="15">15%</button>
+<button data-tip="18">18%</button>
+<button data-tip="20">20%</button>
+<button data-tip="25">25%</button>
+</div>
+
+<div class="tp-currency">
+<span class="label">Currency:</span>
+<button data-cur="₹" aria-pressed="true">₹ INR</button>
+<button data-cur="$" aria-pressed="false">$ USD</button>
+<button data-cur="€" aria-pressed="false">€ EUR</button>
+<button data-cur="£" aria-pressed="false">£ GBP</button>
+<button data-cur="none" aria-pressed="false">No symbol</button>
+</div>
+
+<div class="tp-split">
+<span class="lbl">Split between:</span>
+<button id="minus">−</button>
+<span class="count" id="peopleCount">2</span>
+<button id="plus">+</button>
+<span class="lbl" style="margin-left:8px">people</span>
+</div>
+
+<div class="tp-round">
+<label><input type="checkbox" id="roundUp"> Round total up to nearest</label>
+<select id="roundUnit" style="width:auto;padding:6px 10px;font-size:.8125rem;border:1px solid var(--line);background:#fff;border-radius:5px;font-family:inherit">
+<option value="1">1</option>
+<option value="10" selected>10</option>
+<option value="50">50</option>
+<option value="100">100</option>
+</select>
+<span class="hint" id="roundHint"></span>
+</div>
+</div>
+
+<div class="tp-card" id="resultCard" hidden>
+<h2>Result</h2>
+
+<div class="tp-result">
+<p class="lbl">Each person pays</p>
+<p class="big" id="perPersonBig">—</p>
+<p class="per" id="perPersonDetail">—</p>
+</div>
+
+<div class="tp-breakdown">
+<div class="tp-stat"><p class="n" id="baseAmount">—</p><p class="l">Pre-tax bill</p></div>
+<div class="tp-stat"><p class="n" id="taxAmount">—</p><p class="l">Tax</p></div>
+<div class="tp-stat"><p class="n" id="tipAmount">—</p><p class="l">Tip</p></div>
+<div class="tp-stat"><p class="n" id="totalAmount">—</p><p class="l">Total</p></div>
+<div class="tp-stat"><p class="n" id="peopleStat">—</p><p class="l">People</p></div>
+<div class="tp-stat"><p class="n" id="tipPctStat">—</p><p class="l">Tip %</p></div>
+</div>
+
+<div class="tp-custom-list" id="customList"></div>
+
+<div class="tp-actions">
+<button class="primary" id="copySummary">Copy summary</button>
+<button id="shareBtn">Share link</button>
+<button id="clearBtn" class="danger">Clear</button>
+</div>
+</div>
+
+<article class="article">
+<h2>How to use the tip calculator</h2>
+<p>Enter your bill amount. If the tax is already included in the bill, leave the tax field at 0. Otherwise, enter the tax percentage. Choose your tip percentage, set how many people are splitting the bill, and the calculator works out what each person pays.</p>
+
+<h2>Should I tip on the pre-tax or post-tax amount?</h2>
+<p>Both are accepted. Tipping on the pre-tax amount is technically more accurate — you're tipping on the food and service, not on the government's tax. Tipping on the post-tax amount is common and slightly more generous. Use the toggle to switch.</p>
+
+<h2>Typical tipping by country</h2>
+<table>
+<thead><tr><th>Country</th><th>Standard tip at restaurants</th></tr></thead>
+<tbody>
+<tr><td>United States</td><td>15% – 20% (sometimes 25% for excellent service)</td></tr>
+<tr><td>Canada</td><td>15% – 20%</td></tr>
+<tr><td>United Kingdom</td><td>10% – 12.5% (often included as "service charge")</td></tr>
+<tr><td>France, Germany, Italy</td><td>5% – 10% (often already included)</td></tr>
+<tr><td>India</td><td>5% – 10% at restaurants, not expected at other places</td></tr>
+<tr><td>Japan, South Korea</td><td>Not expected and sometimes refused</td></tr>
+<tr><td>Australia, New Zealand</td><td>Not expected, 5% – 10% for excellent service</td></tr>
+<tr><td>UAE, Middle East</td><td>10% – 15%</td></tr>
+</tbody>
+</table>
+
+<h2>How to split the bill</h2>
+<p>Use the +/− buttons to set how many people are sharing the bill. Each person pays an equal share of the total (bill + tax + tip). Use the <strong>Round up</strong> option to round the total to a convenient amount — say, ₹2,500 instead of ₹2,412.</p>
+
+<h2>Splitting unevenly</h2>
+<p>The calculator supports custom amounts per person. Enter the amount one person owes into their field, and the tool divides the rest evenly among the others. Use this when someone had a cheaper dish, or when one person is treating the rest.</p>
+
+<h2>Common questions</h2>
+<div class="faq">
+<details><summary>How much should I tip?</summary><p>In the United States, 15 to 20 percent is standard for table service. In Europe, 5 to 10 percent is common. In many Asian countries, tipping is not expected.</p></details>
+<details><summary>Should tip be calculated on the pre-tax or post-tax amount?</summary><p>Both are accepted. Tipping on the pre-tax amount is technically more accurate, but tipping on the post-tax is common and slightly more generous.</p></details>
+<details><summary>Can I split the bill unevenly?</summary><p>Yes. Enter a custom amount for one or more people, and the tool divides the remaining balance evenly.</p></details>
+<details><summary>What if the service charge is already included?</summary><p>Check the bill. If it says "service charge" or "gratuity included", you don't need to add more tip. Add the extra you want on top, or set tip to 0.</p></details>
+<details><summary>Does rounding up affect the tip?</summary><p>Yes. When you round the total up, the extra amount effectively becomes an additional tip. This is common at restaurants — "just make it ₹2,500".</p></details>
+<details><summary>Is my data saved?</summary><p>Your inputs are stored only in your browser's local storage. Nothing is sent to any server.</p></details>
+</div>
+
+<h2>Related tools</h2>
+<ul class="related-list">
+<li><div class="txt"><a href="discount.html">Discount Calculator</a><p>Calculate sale price and savings.</p></div><time>Calc</time></li>
+<li><div class="txt"><a href="percentage.html">Percentage Calculator</a><p>Six percentage questions in one tool.</p></div><time>Calc</time></li>
+<li><div class="txt"><a href="gst.html">GST Calculator</a><p>Add or remove GST at any rate.</p></div><time>Calc</time></li>
+</ul>
+</article>
+
+<footer>
+<p>ToolNest · <a href="../../index.html">Home</a> · <a href="../index.html">All tools</a> · <a href="../../pages/about.html">About</a> · <a href="../../pages/privacy.html">Privacy</a></p>
+</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+var toast=$("toast");
+function flash(m){toast.textContent=m;toast.classList.add("show");clearTimeout(flash._t);flash._t=setTimeout(function(){toast.classList.remove("show");},1700);}
+
+var currency="₹";
+var people=2;
+var customAmounts={};  // index -> amount
+
+function fmtMoney(n){
+  if(!isFinite(n))return "—";
+  var sym=currency==="none"?"":currency;
+  return sym+n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,",");
+}
+function round2(n){return Math.round(n*100)/100;}
+
+function readInputs(){
+  var bill=parseFloat($("bill").value);
+  var taxPct=parseFloat($("tax").value)||0;
+  var tipPct=parseFloat($("tipPct").value)||0;
+  var tipBase=$("tipBase").value;
+  var roundUp=$("roundUp").checked;
+  var roundUnit=parseFloat($("roundUnit").value)||1;
+  if(isNaN(bill)||bill<0)return null;
+  return {bill:bill,taxPct:taxPct,tipPct:tipPct,tipBase:tipBase,roundUp:roundUp,roundUnit:roundUnit};
+}
+
+function compute(){
+  var inputs=readInputs();
+  if(!inputs){$("resultCard").hidden=true;return;}
+
+  var base=inputs.bill;
+  var tax=base*(inputs.taxPct/100);
+  var baseForTip=inputs.tipBase==="pretax"?base:base+tax;
+  var tip=baseForTip*(inputs.tipPct/100);
+  var totalBeforeRound=base+tax+tip;
+
+  var total=totalBeforeRound;
+  var roundExtra=0;
+  if(inputs.roundUp){
+    var unit=inputs.roundUnit;
+    var rounded=Math.ceil(total/unit)*unit;
+    roundExtra=rounded-total;
+    total=rounded;
+  }
+
+  // Sum custom amounts
+  var customTotal=0;
+  var customCount=0;
+  for(var i=0;i<people;i++){
+    if(customAmounts[i]!==undefined&&customAmounts[i]!==null){
+      customTotal+=customAmounts[i];
+      customCount++;
+    }
+  }
+  var remaining=Math.max(0,total-customTotal);
+  var remainingPeople=people-customCount;
+  var equalShare=remainingPeople>0?remaining/remainingPeople:0;
+
+  // Per-person for display
+  var perPersonStandard=total/people;
+
+  render({
+    base:base,tax:tax,tip:tip,total:total,roundExtra:roundExtra,
+    people:people,perPersonStandard:perPersonStandard,
+    customTotal:customTotal,customCount:customCount,
+    remaining:remaining,remainingPeople:remainingPeople,equalShare:equalShare,
+    inputs:inputs
+  });
+}
+
+function render(out){
+  $("resultCard").hidden=false;
+
+  var perPersonLabel=out.remainingPeople>0&&out.customCount>0?out.equalShare:(out.total/out.people);
+  $("perPersonBig").textContent=fmtMoney(out.remainingPeople>0&&out.customCount>0?out.equalShare:out.total/out.people);
+  if(out.customCount>0){
+    $("perPersonDetail").innerHTML="Equal share of remaining for <strong>"+out.remainingPeople+"</strong> · Standard share: <strong>"+fmtMoney(out.total/out.people)+"</strong>";
+  } else {
+    $("perPersonDetail").innerHTML="Split equally between <strong>"+out.people+"</strong> "+(out.people===1?"person":"people");
+  }
+
+  $("baseAmount").textContent=fmtMoney(out.base);
+  $("taxAmount").textContent=fmtMoney(out.tax);
+  $("tipAmount").textContent=fmtMoney(out.tip);
+  $("totalAmount").textContent=fmtMoney(out.total);
+  $("peopleStat").textContent=out.people;
+  $("tipPctStat").textContent=out.inputs.tipPct.toFixed(out.inputs.tipPct%1?1:0)+"%";
+
+  if(out.roundExtra>0){
+    $("roundHint").textContent="Rounded up by "+fmtMoney(out.roundExtra);
+  } else {
+    $("roundHint").textContent="";
+  }
+
+  renderCustomList();
+}
+
+function renderCustomList(){
+  var list=$("customList");
+  if(people<=1){
+    list.innerHTML="";
+    return;
+  }
+  var html='<div style="font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:8px 0 6px">Custom amounts (optional)</div>';
+  for(var i=0;i<people;i++){
+    var val=customAmounts[i]!==undefined?customAmounts[i]:"";
+    html+='<div class="tp-custom-row">'+
+      '<span class="name">Person '+(i+1)+'</span>'+
+      '<input type="number" min="0" step="1" data-person="'+i+'" value="'+val+'" placeholder="Equal share">'+
+      '<button class="x" data-clear="'+i+'" title="Clear">×</button>'+
+      '</div>';
+  }
+  list.innerHTML=html;
+
+  list.querySelectorAll("input[data-person]").forEach(function(inp){
+    inp.addEventListener("input",function(){
+      var idx=parseInt(inp.getAttribute("data-person"),10);
+      var v=parseFloat(inp.value);
+      if(isNaN(v)||inp.value===""){delete customAmounts[idx];}
+      else customAmounts[idx]=v;
+      compute();
+      saveState();
+    });
+  });
+  list.querySelectorAll("button[data-clear]").forEach(function(b){
+    b.addEventListener("click",function(){
+      var idx=parseInt(b.getAttribute("data-clear"),10);
+      delete customAmounts[idx];
+      compute();
+      saveState();
+    });
+  });
+}
+
+/* ---------- TIP PRESETS ---------- */
+document.querySelectorAll("#tipPresets button").forEach(function(b){
+  b.addEventListener("click",function(){
+    $("tipPct").value=b.getAttribute("data-tip");
+    document.querySelectorAll("#tipPresets button").forEach(function(x){
+      x.setAttribute("aria-pressed",String(x===b));
+    });
+    compute();
+    saveState();
+  });
+});
+
+/* ---------- CURRENCY ---------- */
+document.querySelectorAll("[data-cur]").forEach(function(b){
+  b.addEventListener("click",function(){
+    currency=b.getAttribute("data-cur")==="none"?"none":b.getAttribute("data-cur");
+    document.querySelectorAll("[data-cur]").forEach(function(x){
+      x.setAttribute("aria-pressed",String(x===b));
+    });
+    compute();
+    saveState();
+  });
+});
+
+/* ---------- PEOPLE +/- ---------- */
+$("minus").addEventListener("click",function(){
+  if(people>1){people--;clearUnusedCustom();compute();saveState();}
+});
+$("plus").addEventListener("click",function(){
+  if(people<50){people++;compute();saveState();}
+});
+function clearUnusedCustom(){
+  Object.keys(customAmounts).forEach(function(k){
+    if(parseInt(k,10)>=people)delete customAmounts[k];
+  });
+}
+
+/* ---------- INPUTS ---------- */
+["bill","tax","tipPct"].forEach(function(id){
+  $(id).addEventListener("input",function(){compute();saveState();});
+});
+$("tipBase").addEventListener("change",function(){compute();saveState();});
+$("roundUp").addEventListener("change",function(){compute();saveState();});
+$("roundUnit").addEventListener("change",function(){compute();saveState();});
+
+/* ---------- PEOPLE COUNT DISPLAY ---------- */
+function updatePeopleDisplay(){
+  $("peopleCount").textContent=people;
+}
+
+/* ---------- COPY / SHARE ---------- */
+function copyText(t,msg){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(function(){flash(msg||"Copied");}).catch(function(){fbCopy(t,msg);});
+  } else fbCopy(t,msg);
+}
+function fbCopy(t,msg){
+  var ta=document.createElement("textarea");
+  ta.value=t;ta.style.position="fixed";ta.style.opacity="0";
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand("copy");flash(msg||"Copied");}catch(e){flash("Copy failed");}
+  document.body.removeChild(ta);
+}
+
+$("copySummary").addEventListener("click",function(){
+  var inp=readInputs();
+  if(!inp)return flash("Nothing to copy");
+  var base=inp.bill;
+  var tax=base*(inp.taxPct/100);
+  var baseForTip=inp.tipBase==="pretax"?base:base+tax;
+  var tip=baseForTip*(inp.tipPct/100);
+  var totalBeforeRound=base+tax+tip;
+  var total=totalBeforeRound;
+  var roundExtra=0;
+  if(inp.roundUp){
+    var unit=inp.roundUnit;
+    total=Math.ceil(total/unit)*unit;
+    roundExtra=total-totalBeforeRound;
+  }
+  var lines=[
+    "Tip & Split Summary — ToolNest",
+    "",
+    "Bill amount: "+fmtMoney(base),
+    "Tax ("+inp.taxPct+"%): "+fmtMoney(tax),
+    "Tip ("+inp.tipPct+"% on "+inp.tipBase+"): "+fmtMoney(tip),
+    roundExtra>0?"Round up: "+fmtMoney(roundExtra):null,
+    "Total: "+fmtMoney(total),
+    "Split between: "+people,
+    "Per person (equal): "+fmtMoney(total/people)
+  ].filter(Boolean);
+  if(Object.keys(customAmounts).length){
+    lines.push("");
+    lines.push("Custom amounts:");
+    Object.keys(customAmounts).forEach(function(k){
+      lines.push("  Person "+(parseInt(k,10)+1)+": "+fmtMoney(customAmounts[k]));
+    });
+  }
+  copyText(lines.join("\n"),"Summary copied");
+});
+
+$("shareBtn").addEventListener("click",function(){
+  var inp=readInputs();
+  if(!inp)return flash("Nothing to share");
+  var params=[
+    "b="+inp.bill,
+    "t="+inp.taxPct,
+    "tp="+inp.tipPct,
+    "tb="+inp.tipBase,
+    "p="+people,
+    "cur="+encodeURIComponent(currency)
+  ];
+  if(inp.roundUp)params.push("r="+inp.roundUnit);
+  copyText(location.origin+location.pathname+"?"+params.join("&"),"Share link copied");
+});
+
+$("clearBtn").addEventListener("click",function(){
+  $("bill").value="";
+  $("tax").value="";
+  $("tipPct").value="";
+  $("tipBase").value="pretax";
+  $("roundUp").checked=false;
+  $("roundUnit").value="10";
+  people=2;
+  customAmounts={};
+  updatePeopleDisplay();
+  $("resultCard").hidden=true;
+  $("customList").innerHTML="";
+  try{localStorage.removeItem("tip.state");}catch(e){}
+  flash("Cleared");
+});
+
+/* ---------- STATE ---------- */
+var STORAGE_KEY="tip.state";
+function saveState(){
+  try{
+    var s={
+      b:$("bill").value,
+      t:$("tax").value,
+      tp:$("tipPct").value,
+      tb:$("tipBase").value,
+      r:$("roundUp").checked?$("roundUnit").value:0,
+      p:people,
+      custom:customAmounts,
+      cur:currency
+    };
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(s));
+  }catch(e){}
+}
+function loadState(){
+  try{
+    var raw=localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      var s=JSON.parse(raw);
+      if(s.b)$("bill").value=s.b;
+      if(s.t)$("tax").value=s.t;
+      if(s.tp)$("tipPct").value=s.tp;
+      if(s.tb)$("tipBase").value=s.tb;
+      if(s.r&&s.r!=="0"){$("roundUp").checked=true;$("roundUnit").value=s.r;}
+      if(s.p)people=parseInt(s.p,10);
+      if(s.custom)customAmounts=s.custom;
+      if(s.cur)currency=s.cur;
+    }
+  }catch(e){}
+  try{
+    var sp=new URLSearchParams(location.search);
+    if(sp.get("b"))$("bill").value=sp.get("b");
+    if(sp.get("t"))$("tax").value=sp.get("t");
+    if(sp.get("tp"))$("tipPct").value=sp.get("tp");
+    if(sp.get("tb"))$("tipBase").value=sp.get("tb");
+    if(sp.get("p"))people=parseInt(sp.get("p"),10)||2;
+    if(sp.get("r")){$("roundUp").checked=true;$("roundUnit").value=sp.get("r");}
+    if(sp.get("cur"))currency=decodeURIComponent(sp.get("cur"));
+  }catch(e){}
+
+  document.querySelectorAll("[data-cur]").forEach(function(x){
+    x.setAttribute("aria-pressed",String(x.getAttribute("data-cur")===currency));
+  });
+}
+
+loadState();
+updatePeopleDisplay();
+compute();
+})();
+</script>
+</body>
+</html>
