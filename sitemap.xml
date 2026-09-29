@@ -1,8 +1,187 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- ============ CORE ============ -->
   <url>
     <loc>https://qrcodescanner.co.in/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/pages/about.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/pages/privacy.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <!-- ============ QR SCANNER ============ -->
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/qrscanner/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- ============ TEXT ============ -->
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/text/word-counter.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/text/case-converter.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ============ CONVERT ============ -->
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/convert/json-csv.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ============ DEVELOPER ============ -->
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/dev/json-format.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ============ SECURITY ============ -->
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/security/password.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ============ CALCULATORS ============ -->
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/calc/percentage.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/calc/age.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/calc/bmi.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/calc/loan.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/calc/date-diff.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/calc/compound.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/calc/gst.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/calc/calorie.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ============ IMAGE ============ -->
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/image/image-compress.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/image/image-resize.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/image/image-convert.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/image/image-crop.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/image/image-base64.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/image/exif.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/image/favicon.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ============ PDF ============ -->
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/pdf/pdf-merge.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/pdf/pdf-split.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/pdf/pdf-compress.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/pdf/pdf-rotate.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/pdf/pdf-to-img.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/pdf/img-to-pdf.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/pdf/pdf-text.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qrcodescanner.co.in/tools/pdf/pdf-numbers.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
