@@ -2,29 +2,33 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Free QR Code Scanner & Generator Online — Scan & Create QR Codes</title>
-<meta name="description" content="Free online QR code scanner and generator. Scan with your camera or upload an image, or create QR codes for URLs, text, Wi-Fi, phone, email, SMS, UPI and contacts. Everything runs in your browser.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Online Tools & QR Scanner — Runs in Your Browser</title>
+<meta name="description" content="A growing collection of free browser tools. Scan QR codes, count words, merge PDFs, compress images, format JSON and more. No signup, no upload — everything runs on your device.">
 <link rel="canonical" href="https://qrcodescanner.co.in/">
-<meta name="author" content="QR Code Scanner & Generator">
+<link rel="sitemap" type="application/xml" href="https://qrcodescanner.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#1B4DFF">
-<meta name="application-name" content="QR Code Scanner & Generator">
+<meta name="application-name" content="ToolNest">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="QR Code Scanner & Generator">
+<meta property="og:site_name" content="ToolNest">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="Free QR Code Scanner & Generator Online">
-<meta property="og:description" content="Scan QR codes online with your camera or image, or create QR codes for URLs, text, Wi-Fi, phone, email, SMS, UPI and contacts. Free and browser-based.">
+<meta property="og:title" content="Free Online Tools & QR Scanner">
+<meta property="og:description" content="Free browser tools — QR scanner, word counter, PDF tools, image tools and more.">
 <meta property="og:url" content="https://qrcodescanner.co.in/">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Free QR Code Scanner & Generator Online">
-<meta name="twitter:description" content="Scan QR codes or create your own QR code online. Free, fast and browser-based.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Online Tools & QR Scanner">
+<meta name="twitter:description" content="Free browser tools — QR scanner, word counter, PDF tools and more.">
 
-<meta name="robots" content="index,follow,max-image-preview:large">
+<!-- ============================================================
+     GOOGLE ADSENSE — Auto Ads
+     The script enables Auto Ads. Google places them automatically
+     based on page content and user behavior. No manual slots needed.
+     ============================================================ -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3576991570329575" crossorigin="anonymous"></script>
 
-<!-- Structured data: lets Google show the FAQ and app details in results.
-     Every question below must stay visible on the page or Google drops it. -->
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
@@ -33,1131 +37,703 @@
       "@type":"WebSite",
       "@id":"https://qrcodescanner.co.in/#website",
       "url":"https://qrcodescanner.co.in/",
-      "name":"QR Code Scanner & Generator",
-      "description":"Free online QR code scanner and QR code generator for URLs, text, Wi-Fi, phone, email, SMS, UPI and contacts."
+      "name":"ToolNest",
+      "description":"Free browser tools including a QR code scanner, word counter, PDF utilities and developer helpers.",
+      "potentialAction":{
+        "@type":"SearchAction",
+        "target":"https://qrcodescanner.co.in/tools/?q={search_term_string}",
+        "query-input":"required name=search_term_string"
+      }
     },
     {
-      "@type":"WebApplication",
-      "@id":"https://qrcodescanner.co.in/#application",
-      "name":"QR Code Scanner & Generator",
+      "@type":"Organization",
+      "@id":"https://qrcodescanner.co.in/#org",
+      "name":"ToolNest",
       "url":"https://qrcodescanner.co.in/",
-      "applicationCategory":"UtilitiesApplication",
-      "operatingSystem":"Any browser",
-      "browserRequirements":"Requires JavaScript. Camera scanning requires camera permission and HTTPS.",
-      "offers":{
-        "@type":"Offer",
-        "price":"0",
-        "priceCurrency":"USD"
-      },
-      "featureList":[
-        "Online QR code scanner",
-        "Camera QR code scanner",
-        "QR code image upload scanner",
-        "Free QR code generator",
-        "URL QR code generator",
-        "Text QR code generator",
-        "Wi-Fi QR code generator",
-        "Phone QR code generator",
-        "Email QR code generator",
-        "SMS QR code generator",
-        "UPI QR code generator",
-        "Contact QR code generator",
-        "Download QR code as PNG"
-      ]
-    },
-    {
-      "@type":"HowTo",
-      "@id":"https://qrcodescanner.co.in/#how-to-scan",
-      "name":"How to scan a QR code online",
-      "description":"Scan a QR code with your device camera or upload an image.",
-      "totalTime":"PT1M",
-      "step":[
-        {
-          "@type":"HowToStep",
-          "name":"Start the QR scanner",
-          "text":"Open the Scan QR Code tab and press Start camera. Allow camera access when your browser asks."
-        },
-        {
-          "@type":"HowToStep",
-          "name":"Scan the QR code",
-          "text":"Hold the QR code inside the camera frame until it is detected."
-        },
-        {
-          "@type":"HowToStep",
-          "name":"Read the result",
-          "text":"The decoded QR content appears on the page, where you can copy it or open supported links."
-        }
-      ]
-    },
-    {
-      "@type":"HowTo",
-      "@id":"https://qrcodescanner.co.in/#how-to-create",
-      "name":"How to create a QR code online",
-      "description":"Create a free QR code for a URL, text, Wi-Fi network, phone number, email, SMS, UPI payment or contact.",
-      "totalTime":"PT1M",
-      "step":[
-        {
-          "@type":"HowToStep",
-          "name":"Choose Create QR Code",
-          "text":"Open the Create QR Code tab."
-        },
-        {
-          "@type":"HowToStep",
-          "name":"Enter your information",
-          "text":"Choose the QR code type and enter the requested information."
-        },
-        {
-          "@type":"HowToStep",
-          "name":"Generate and download",
-          "text":"Press Generate QR Code and download the resulting PNG image."
-        }
-      ]
+      "logo":"https://qrcodescanner.co.in/assets/img/logo.png"
     }
   ]
 }
 </script>
 
-<!-- ============================================================
-     GOOGLE ADSENSE — paste your publisher ID and uncomment.
-     You need an approved AdSense account and a live domain first.
-     ============================================================ -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3576991570329575" crossorigin="anonymous"></script>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="manifest" href="/manifest.json">
 
 <style>
-:root{
-  --paper:#EDEDE9;
-  --surface:#FFFFFF;
-  --ink:#14161A;
-  --muted:#6B7079;
-  --line:#D6D6D0;
-  --blue:#1B4DFF;
-  --blue-deep:#1338C4;
-  --green:#0E7A5F;
-  --radius:6px;
-  --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  --display:"Bricolage Grotesque",var(--sans);
-  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+/* ============================================================
+   Homepage styles
+   ============================================================ */
+
+/* ---------- hero ---------- */
+.hero{
+  padding:36px 0 0;
+  position:relative;
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);
+  margin:0 0 20px;
+  padding:6px 12px;border:1px solid var(--line);border-radius:100px;
+  background:var(--surface);
+}
+.eyebrow::before{
+  content:"";width:6px;height:6px;border-radius:50%;
+  background:var(--green);box-shadow:0 0 0 3px rgba(14,122,95,.15);
+}
+.hero h1{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(2.4rem,7.5vw,4.25rem);
+  line-height:1;letter-spacing:-.04em;
+  margin:0 0 20px;max-width:18ch;
+}
+.hero h1 em{
+  font-style:normal;
+  color:var(--blue);
+  position:relative;
+  white-space:nowrap;
+}
+.hero h1 em::after{
+  content:"";position:absolute;left:0;right:0;bottom:.08em;
+  height:.12em;background:rgba(27,77,255,.18);z-index:-1;
+}
+.hero .lead{
+  font-size:clamp(1rem,1.5vw,1.125rem);
+  color:#3A3E46;max-width:56ch;margin:0 0 32px;
 }
 
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{
+/* ---------- search ---------- */
+.search{
+  max-width:640px;position:relative;margin:0 0 14px;
+}
+input.search-input{
+  width:100%;font:inherit;font-size:1rem;
+  padding:16px 78px 16px 50px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:8px;
+  outline:none;
+  box-shadow:0 2px 0 rgba(20,22,26,.02), 0 12px 32px -20px rgba(20,22,26,.15);
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+input.search-input::placeholder{color:var(--muted)}
+input.search-input:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 4px rgba(27,77,255,.1), 0 12px 32px -18px rgba(20,22,26,.25);
+}
+.search .search-icon{
+  position:absolute;left:17px;top:50%;transform:translateY(-50%);
+  width:18px;height:18px;color:var(--muted);pointer-events:none;
+}
+.search .kbd-hint{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  display:flex;gap:4px;pointer-events:none;
+}
+.search .kbd-hint kbd{
+  font-family:var(--mono);font-size:.6875rem;
+  padding:3px 6px;border-radius:4px;
+  background:var(--paper);border:1px solid var(--line);
+  color:var(--muted);
+}
+
+/* search dropdown */
+.search-results{
+  position:absolute;top:calc(100% + 8px);left:0;right:0;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:8px;
+  box-shadow:0 24px 48px -20px rgba(20,22,26,.25);
+  padding:6px;
+  display:none;
+  z-index:30;
+  max-height:360px;overflow-y:auto;
+}
+.search-results.open{display:block}
+.search-results a{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 12px;border-radius:5px;
+  text-decoration:none;color:var(--ink);
+  font-size:.9375rem;
+}
+.search-results a:hover,.search-results a.active{
   background:var(--paper);
-  color:var(--ink);
-  font-family:var(--sans);
-  font-size:16px;
-  line-height:1.55;
-  -webkit-font-smoothing:antialiased;
-  background-image:
-    linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);
-  background-size:28px 28px;
+}
+.search-results .sr-icon{
+  width:32px;height:32px;flex:none;
+  background:#EDF0FF;border-radius:5px;
+  display:grid;place-items:center;
+  color:var(--blue);font-family:var(--mono);font-weight:700;
+  font-size:.6875rem;letter-spacing:.03em;
+}
+.search-results .sr-info{flex:1;min-width:0}
+.search-results .sr-name{font-weight:500}
+.search-results .sr-desc{
+  font-size:.8125rem;color:var(--muted);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  margin-top:1px;
+}
+.search-results .sr-cat{
+  font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--muted);
+}
+.search-results .sr-empty{
+  padding:16px;text-align:center;color:var(--muted);font-size:.9375rem;
 }
 
-.wrap{max-width:660px;margin:0 auto;padding:20px 18px 64px}
-
-/* ---------- header ---------- */
-.masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
-.mark{width:26px;height:26px;flex:none}
-.wordmark{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
-
-/* ---------- headline ---------- */
-.lede{margin:0 0 6px;font-family:var(--display);font-weight:700;
-  font-size:clamp(2rem,7vw,2.9rem);line-height:1.02;letter-spacing:-.03em;max-width:15ch}
-.sub{margin:0 0 22px;color:var(--muted);max-width:58ch;font-size:1rem}
-
-/* ---------- scanner ---------- */
-.stage{
-  position:relative;background:#0C0E12;border:1px solid var(--line);
-  border-radius:var(--radius);overflow:hidden;aspect-ratio:1/1;
+/* ---------- quick chips ---------- */
+.quick{
+  display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+  margin:0 0 8px;font-size:.875rem;color:var(--muted);
 }
-@media(min-width:520px){.stage{aspect-ratio:4/3}}
-.stage video{width:100%;height:100%;object-fit:cover;display:block}
-.stage canvas{display:none}
+.quick .label{
+  font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.quick a{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 12px;border-radius:100px;
+  background:var(--surface);border:1px solid var(--line);
+  color:var(--ink);text-decoration:none;font-size:.8125rem;
+  transition:border-color .12s ease, color .12s ease;
+}
+.quick a:hover{border-color:var(--blue);color:var(--blue)}
+.quick a::after{content:"↗";font-size:.6875rem;opacity:.5}
 
-.idle{position:absolute;inset:0;display:grid;place-items:center;gap:0;
-  background:#0C0E12;padding:34px;text-align:center}
-.idle svg{width:min(190px,48%);height:auto;opacity:.9}
-.idle p{color:#8A9099;font-size:.875rem;margin:18px 0 0;max-width:34ch}
-.stage.live .idle{display:none}
+/* ---------- section headings ---------- */
+.section-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+  margin:56px 0 16px;
+}
+.section-title{
+  font-family:var(--display);font-weight:700;
+  font-size:1.0625rem;letter-spacing:-.01em;
+  margin:0;
+  display:flex;align-items:baseline;gap:10px;
+}
+.section-title .num{
+  font-family:var(--mono);font-weight:400;font-size:.6875rem;
+  color:var(--muted);letter-spacing:.05em;
+}
+.section-head .linkish{font-size:.875rem}
 
-.reticle{position:absolute;inset:0;pointer-events:none;display:none}
-.stage.live .reticle{display:block}
-.reticle .box{position:absolute;inset:14%;border-radius:4px;
-  box-shadow:0 0 0 2000px rgba(8,10,14,.45)}
-.reticle .c{position:absolute;width:26px;height:26px;border:3px solid var(--blue)}
-.reticle .c.tl{top:14%;left:14%;border-right:0;border-bottom:0;border-radius:4px 0 0 0}
-.reticle .c.tr{top:14%;right:14%;border-left:0;border-bottom:0;border-radius:0 4px 0 0}
-.reticle .c.bl{bottom:14%;left:14%;border-right:0;border-top:0;border-radius:0 0 0 4px}
-.reticle .c.br{bottom:14%;right:14%;border-left:0;border-top:0;border-radius:0 0 4px 0}
-.sweep{position:absolute;left:14%;right:14%;height:2px;background:var(--blue);
-  box-shadow:0 0 14px 2px rgba(27,77,255,.85);animation:sweep 2.6s ease-in-out infinite}
-@keyframes sweep{0%,100%{top:15%}50%{top:85%}}
-.stage.hit .c{border-color:#22E39A}
-.stage.hit .sweep{display:none}
-@media(prefers-reduced-motion:reduce){.sweep{animation:none;top:50%}}
-
-/* ---------- controls ---------- */
-.controls{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
-button{font:inherit;cursor:pointer;border-radius:var(--radius);
-  border:1px solid var(--line);background:var(--surface);color:var(--ink);
-  padding:11px 16px;font-weight:500;display:inline-flex;align-items:center;gap:8px;
-  transition:border-color .12s ease,background .12s ease}
-button:hover{border-color:#A9A9A1}
-button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-button[disabled]{opacity:.4;cursor:not-allowed}
-.primary{background:var(--blue);border-color:var(--blue);color:#fff;flex:1 1 190px;justify-content:center}
-.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep)}
-.icon{padding:11px 13px}
-.chip{border:1px solid var(--line);background:transparent;border-radius:100px;
-  padding:5px 12px;font-size:.8125rem;color:var(--muted)}
-.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
-
-.status{margin:12px 0 0;font-size:.875rem;color:var(--muted);min-height:1.4em}
-.status.err{color:#B0233A}
-
-/* ---------- result ---------- */
-.result{margin:22px 0 0;background:var(--surface);border:1px solid var(--line);
-  border-left:4px solid var(--green);border-radius:var(--radius);padding:18px}
-.result[hidden]{display:none}
-.rtype{font-size:.8125rem;color:var(--green);font-weight:600;margin:0 0 8px}
-.payload{font-family:var(--mono);font-size:.9375rem;line-height:1.5;
-  word-break:break-all;margin:0;max-height:8.5em;overflow:auto}
-.fields{list-style:none;margin:10px 0 0;padding:0;font-size:.9375rem}
-.fields li{display:flex;gap:10px;padding:5px 0;border-top:1px solid var(--line)}
-.fields span{color:var(--muted);flex:none;width:92px}
-.fields code{font-family:var(--mono);word-break:break-all}
-.ractions{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0}
-
-/* ---------- history ---------- */
-.section-head{display:flex;align-items:baseline;justify-content:space-between;
-  gap:12px;margin:36px 0 12px}
-h2{font-family:var(--display);font-weight:700;font-size:1.25rem;margin:0;letter-spacing:-.02em}
-.linkish{background:none;border:0;padding:0;color:var(--blue);font-size:.875rem;text-decoration:underline}
-.history{list-style:none;margin:0;padding:0}
-.history li{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-  padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center}
-.history .txt{font-family:var(--mono);font-size:.8125rem;overflow:hidden;
-  text-overflow:ellipsis;white-space:nowrap;flex:1}
-.history time{font-size:.75rem;color:var(--muted);flex:none}
-.empty{color:var(--muted);font-size:.9375rem;margin:0}
-
-/* ---------- article ---------- */
-.article{margin:44px 0 0;max-width:68ch}
-.article h2{margin:36px 0 10px;font-size:1.5rem}
-.article h2:first-child{margin-top:0}
-.article h3{font-family:var(--display);font-weight:700;font-size:1.0625rem;
-  letter-spacing:-.015em;margin:28px 0 8px}
-.article p{margin:0 0 12px;color:#3A3E46}
-.article ul{margin:0 0 12px;padding-left:20px;color:#3A3E46}
-.article li{margin:0 0 6px}
-.article strong{font-weight:600;color:var(--ink)}
-.article code{font-family:var(--mono);font-size:.875em;background:var(--surface);
-  border:1px solid var(--line);border-radius:3px;padding:1px 4px}
-.faq{margin:14px 0 0;border-top:1px solid var(--line)}
-.faq details{border-bottom:1px solid var(--line)}
-.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;
-  display:flex;justify-content:space-between;gap:16px;align-items:center}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";color:var(--blue);font-size:1.25rem;line-height:1;flex:none}
-.faq details[open] summary::after{content:"\2212"}
-.faq summary:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-.faq details p{margin:0 0 14px;color:#3A3E46;max-width:62ch}
-
-/* ---------- notes ---------- */
-.notes{margin:12px 0 0;color:var(--muted);font-size:.9375rem;max-width:62ch}
-.notes p{margin:0 0 10px}
-footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);
-  color:var(--muted);font-size:.8125rem}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-
-.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);
-  background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;
-  font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:20}
-.toast.show{opacity:1}
-
-/* ---------- tool mode switch ---------- */
-.mode-switch{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#DCDCD6;
-  border:1px solid var(--line);padding:4px;border-radius:var(--radius);margin:0 0 18px}
-.mode-switch button{border:0;background:transparent;padding:10px 12px;justify-content:center;font-weight:600}
-.mode-switch button[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
-.tool-panel[hidden]{display:none}
-
-/* ---------- QR generator ---------- */
-.generator-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
-.generator-card h2{margin:0 0 4px}
-.generator-label{display:block;font-weight:600;margin:0 0 8px}
-.generator-type{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 16px}
-.generator-type button{font-size:.8125rem;padding:7px 11px}
-.generator-type button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
-.generator-field{margin:0 0 13px}
-.generator-field label{display:block;font-size:.8125rem;color:var(--muted);margin:0 0 5px}
-.generator-field input,.generator-field textarea,.generator-field select{
-  width:100%;font:inherit;border:1px solid var(--line);background:#fff;color:var(--ink);
-  border-radius:var(--radius);padding:11px 12px;outline:none}
-.generator-field textarea{min-height:105px;resize:vertical}
-.generator-field input:focus,.generator-field textarea:focus,.generator-field select:focus{
-  border-color:var(--blue);outline:2px solid rgba(27,77,255,.12)}
-.generator-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.generator-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.generator-actions .primary{flex:1 1 190px}
-.qr-preview{margin:18px 0 0;padding:20px;background:#F7F7F3;border:1px solid var(--line);
-  display:grid;place-items:center;min-height:280px}
-#qrOutput{background:#fff;padding:14px;line-height:0}
-#qrOutput canvas,#qrOutput img{display:block;max-width:100%;height:auto}
-.generator-note{margin:12px 0 0;color:var(--muted);font-size:.8125rem}
-.color-input{height:44px;padding:4px!important;cursor:pointer}
-@media(max-width:520px){
-  .generator-grid{grid-template-columns:1fr}
-  .generator-card{padding:14px}
-  .qr-preview{min-height:250px;padding:14px}
+/* ---------- bento showcase ---------- */
+.bento{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-auto-rows:170px;
+  gap:12px;
+}
+@media(max-width:800px){
+  .bento{grid-template-columns:repeat(2,1fr);grid-auto-rows:auto}
 }
 
+/* hero bento card */
+.bento-hero{
+  grid-column:span 2;grid-row:span 2;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:26px;
+  text-decoration:none;color:inherit;
+  display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;overflow:hidden;
+  transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+.bento-hero:hover{
+  border-color:var(--blue);
+  transform:translateY(-2px);
+  box-shadow:0 24px 48px -32px rgba(27,77,255,.35);
+}
+.bento-hero .kicker{
+  font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--blue);margin:0 0 12px;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.bento-hero .kicker::before{
+  content:"";width:6px;height:6px;border-radius:50%;background:var(--blue);
+}
+.bento-hero h2{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(1.5rem,2.5vw,1.875rem);
+  letter-spacing:-.025em;line-height:1.05;margin:0 0 10px;
+  max-width:14ch;
+}
+.bento-hero p{
+  font-size:.9375rem;color:#3A3E46;max-width:32ch;margin:0;line-height:1.5;
+}
+.bento-hero .cta-line{
+  font-family:var(--mono);font-size:.8125rem;color:var(--blue);
+  margin-top:16px;display:inline-flex;align-items:center;gap:6px;
+}
+.bento-hero .cta-line::after{content:"→";transition:transform .15s ease}
+.bento-hero:hover .cta-line::after{transform:translateX(3px)}
 
-.tool-intro{margin:0 0 22px;max-width:68ch}
-.tool-intro h2{font-family:var(--display);font-weight:700;font-size:1.35rem;margin:0 0 7px;letter-spacing:-.02em}
-.tool-intro p{margin:0;color:#3A3E46;font-size:.95rem}
+/* decorative QR visual inside hero card */
+.bento-hero .visual{
+  position:absolute;right:-30px;top:-30px;
+  width:280px;height:280px;
+  opacity:.08;pointer-events:none;
+  transition:opacity .2s ease, transform .3s ease;
+}
+.bento-hero:hover .visual{opacity:.14;transform:rotate(-3deg) scale(1.02)}
 
+/* corner bracket motif */
+.bento-hero::before,
+.bento-hero::after{
+  content:"";position:absolute;width:22px;height:22px;
+  border:2px solid var(--blue);opacity:.35;
+  transition:opacity .2s ease;
+}
+.bento-hero::before{
+  top:14px;left:14px;border-right:0;border-bottom:0;border-radius:4px 0 0 0;
+}
+.bento-hero::after{
+  bottom:14px;right:14px;border-left:0;border-top:0;border-radius:0 0 4px 0;
+}
+.bento-hero:hover::before,
+.bento-hero:hover::after{opacity:.7}
+
+/* small bento items */
+.bento-item{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:18px;
+  text-decoration:none;color:inherit;
+  display:flex;flex-direction:column;justify-content:space-between;
+  transition:border-color .15s ease, transform .15s ease;
+}
+.bento-item:hover{
+  border-color:var(--blue);
+  transform:translateY(-2px);
+}
+.bento-item .ico{
+  width:30px;height:30px;border-radius:6px;
+  background:#EDF0FF;color:var(--blue);
+  display:grid;place-items:center;
+  font-family:var(--mono);font-weight:700;font-size:.6875rem;
+  letter-spacing:.02em;
+}
+.bento-item h3{
+  font-family:var(--display);font-weight:700;
+  font-size:1rem;letter-spacing:-.01em;margin:0 0 4px;
+}
+.bento-item p{
+  font-size:.8125rem;color:var(--muted);margin:0;line-height:1.45;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.bento-item .bottom{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:8px;
+}
+.bento-item .cat-tag{
+  font-family:var(--mono);font-size:.625rem;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--muted);
+}
+
+/* ---------- category strip ---------- */
+.cats{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+  gap:10px;
+  margin:0;
+}
+.cat-item{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px;
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:8px;text-decoration:none;color:inherit;
+  transition:border-color .12s ease, transform .12s ease;
+}
+.cat-item:hover{border-color:var(--blue);transform:translateY(-2px)}
+.cat-item .cat-ico{
+  width:32px;height:32px;flex:none;border-radius:6px;
+  background:var(--paper);color:var(--ink);
+  display:grid;place-items:center;
+  transition:background .12s ease, color .12s ease;
+}
+.cat-item:hover .cat-ico{background:#EDF0FF;color:var(--blue)}
+.cat-item .cat-ico svg{width:16px;height:16px}
+.cat-item .cat-name{
+  font-family:var(--display);font-weight:700;
+  font-size:.9375rem;letter-spacing:-.01em;line-height:1.15;
+}
+.cat-item .cat-count{
+  font-family:var(--mono);font-size:.6875rem;
+  text-transform:uppercase;letter-spacing:.05em;color:var(--muted);
+  margin-top:1px;
+}
+
+/* ---------- trust strip ---------- */
+.trust{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  margin:64px 0 0;
+}
+.trust-item{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:22px 4px 22px 0;
+}
+.trust-item + .trust-item{
+  border-left:1px solid var(--line);
+  padding-left:22px;
+}
+@media(max-width:640px){
+  .trust-item + .trust-item{border-left:0;padding-left:0;border-top:1px solid var(--line)}
+}
+.trust-item .trust-ico{
+  width:32px;height:32px;flex:none;border-radius:6px;
+  background:#EDF0FF;color:var(--blue);
+  display:grid;place-items:center;
+}
+.trust-item .trust-ico svg{width:16px;height:16px}
+.trust-item h3{
+  font-family:var(--display);font-weight:700;
+  font-size:.9375rem;letter-spacing:-.01em;margin:0 0 3px;
+}
+.trust-item p{
+  font-size:.8125rem;color:var(--muted);margin:0;line-height:1.45;
+}
+
+/* ---------- footer ---------- */
+footer{
+  margin:64px 0 0;
+  padding:26px 0 0;
+  border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;gap:16px;align-items:center;
+  color:var(--muted);font-size:.8125rem;
+}
+footer .footer-brand{
+  font-family:var(--display);font-weight:700;
+  color:var(--ink);letter-spacing:-.01em;
+}
+footer nav{margin-left:auto;display:flex;flex-wrap:wrap;gap:18px}
+footer nav a{color:var(--muted);text-decoration:none}
+footer nav a:hover{color:var(--blue);text-decoration:underline}
+
+/* ---------- reduced motion ---------- */
+@media(prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap-wide">
 
   <header class="masthead">
-    <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
-      <path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/>
-      <path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/>
-      <path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/>
-      <path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/>
-      <path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/>
-    </svg>
-    <span class="wordmark">QR Scanner & Generator</span>
+    <a href="/" style="display:flex;align-items:center;gap:10px">
+      <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/>
+        <path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/>
+        <path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/>
+        <path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/>
+        <path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/>
+      </svg>
+      <span class="wordmark">ToolNest</span>
+    </a>
+    <a href="/tools/" class="nav-right">All tools →</a>
   </header>
 
-  <h1 class="lede">Free QR Code Scanner & Generator</h1>
-  <p class="sub">Scan QR codes online with your camera or upload an image. Create QR codes for URLs, text, Wi-Fi, phone numbers, email, SMS, UPI and contacts. Free, fast and private — everything runs in your browser.</p>
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <span class="eyebrow">Free · Private · No signup</span>
 
-  <div class="mode-switch" role="tablist" aria-label="QR tools">
-    <button id="scanTab" role="tab" aria-selected="true">Scan QR Code</button>
-    <button id="generateTab" role="tab" aria-selected="false">Create QR Code</button>
+    <h1>Every tool you need, <em>running in your browser</em>.</h1>
+
+    <p class="lead">Scan QR codes, count words, merge PDFs, compress images, format JSON and more. Nothing you work on ever leaves your device — no uploads, no accounts, no tracking.</p>
+
+    <div class="search">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input class="search-input" id="heroSearch" type="search" placeholder="Search tools — try 'json', 'word', 'qr'…" autocomplete="off" spellcheck="false" aria-label="Search tools" aria-expanded="false" aria-controls="heroResults">
+      <span class="kbd-hint"><kbd>Ctrl</kbd><kbd>K</kbd></span>
+      <div class="search-results" id="heroResults" role="listbox"></div>
+    </div>
+
+    <div class="quick">
+      <span class="label">Popular:</span>
+      <a href="/tools/qrscanner/">QR Scanner</a>
+      <a href="/tools/text/word-counter.html">Word Counter</a>
+      <a href="/tools/dev/json-format.html">JSON Formatter</a>
+      <a href="/tools/security/password.html">Password Generator</a>
+    </div>
+  </section>
+
+  <!-- ================= FEATURED ================= -->
+  <div class="section-head">
+    <h2 class="section-title">Featured <span class="num">/ 01</span></h2>
+    <a href="/tools/" class="linkish">All tools →</a>
   </div>
 
-  <div class="tool-intro">
-    <h2>Online QR Code Scanner and QR Code Generator</h2>
-    <p>Use this free QR code tool to <strong>scan QR codes online</strong> or <strong>create a QR code</strong> without installing an app. Scan from your camera, upload a QR image, or generate a QR code for a link, text, Wi-Fi network, phone, email, SMS, UPI payment or contact.</p>
-  </div>
-
-  <div class="tool-panel" id="scanPanel">
-  <!-- SCANNER -->
-  <div class="stage" id="stage">
-    <video id="video" playsinline muted></video>
-    <canvas id="canvas"></canvas>
-    <div class="idle">
-      <svg viewBox="0 0 100 100" aria-hidden="true">
-        <g fill="#2A2E36">
+  <div class="bento">
+    <a class="bento-hero" href="/tools/qrscanner/" aria-label="QR Scanner & Generator">
+      <svg class="visual" viewBox="0 0 100 100" aria-hidden="true">
+        <g fill="currentColor" style="color:var(--blue)">
           <path d="M6 6h26v26H6V6zm6 6v14h14V12H12z"/>
           <path d="M68 6h26v26H68V6zm6 6v14h14V12H74z"/>
           <path d="M6 68h26v26H6V68zm6 6v14h14V74H12z"/>
         </g>
-        <g fill="#1B4DFF">
+        <g fill="currentColor" style="color:var(--blue)">
           <rect x="16" y="16" width="6" height="6"/><rect x="78" y="16" width="6" height="6"/><rect x="16" y="78" width="6" height="6"/>
-        </g>
-        <g fill="#2A2E36">
-          <rect x="40" y="6" width="6" height="6"/><rect x="52" y="12" width="6" height="6"/><rect x="40" y="24" width="6" height="6"/>
-          <rect x="6" y="40" width="6" height="6"/><rect x="18" y="52" width="6" height="6"/><rect x="30" y="40" width="6" height="6"/>
-          <rect x="44" y="44" width="6" height="6"/><rect x="56" y="56" width="6" height="6"/><rect x="68" y="44" width="6" height="6"/>
-          <rect x="80" y="56" width="6" height="6"/><rect x="68" y="68" width="6" height="6"/><rect x="88" y="76" width="6" height="6"/>
-          <rect x="44" y="80" width="6" height="6"/><rect x="56" y="88" width="6" height="6"/><rect x="76" y="88" width="6" height="6"/>
+          <rect x="40" y="6" width="6" height="6"/><rect x="52" y="12" width="6" height="6"/>
+          <rect x="40" y="24" width="6" height="6"/><rect x="6" y="40" width="6" height="6"/>
+          <rect x="18" y="52" width="6" height="6"/><rect x="30" y="40" width="6" height="6"/>
+          <rect x="44" y="44" width="6" height="6"/><rect x="56" y="56" width="6" height="6"/>
+          <rect x="68" y="44" width="6" height="6"/><rect x="80" y="56" width="6" height="6"/>
+          <rect x="68" y="68" width="6" height="6"/><rect x="88" y="76" width="6" height="6"/>
+          <rect x="44" y="80" width="6" height="6"/><rect x="56" y="88" width="6" height="6"/>
+          <rect x="76" y="88" width="6" height="6"/>
         </g>
       </svg>
-      <p id="idleNote">Camera is off. Start it, or upload a picture of a code.</p>
-    </div>
-    <div class="reticle">
-      <div class="box"></div>
-      <div class="sweep"></div>
-      <div class="c tl"></div><div class="c tr"></div><div class="c bl"></div><div class="c br"></div>
-    </div>
+
+      <div>
+        <p class="kicker">Flagship</p>
+        <h2>QR Scanner &amp; Generator</h2>
+        <p>Scan QR codes with your camera or from a screenshot. Create them for URLs, Wi-Fi, UPI, email, SMS and contacts.</p>
+        <span class="cta-line">Open tool</span>
+      </div>
+    </a>
+
+    <a class="bento-item" href="/tools/text/word-counter.html">
+      <div class="ico">WC</div>
+      <div>
+        <h3>Word Counter</h3>
+        <p>Words, characters, sentences and reading time.</p>
+      </div>
+      <div class="bottom"><span class="cat-tag">Text</span></div>
+    </a>
+
+    <a class="bento-item" href="/tools/dev/json-format.html">
+      <div class="ico">JF</div>
+      <div>
+        <h3>JSON Formatter</h3>
+        <p>Beautify, minify and validate with error positions.</p>
+      </div>
+      <div class="bottom"><span class="cat-tag">Dev</span></div>
+    </a>
+
+    <a class="bento-item" href="/tools/convert/json-csv.html">
+      <div class="ico">JC</div>
+      <div>
+        <h3>JSON ↔ CSV</h3>
+        <p>Convert between JSON and CSV in one click.</p>
+      </div>
+      <div class="bottom"><span class="cat-tag">Convert</span></div>
+    </a>
+
+    <a class="bento-item" href="/tools/security/password.html">
+      <div class="ico">PG</div>
+      <div>
+        <h3>Password Generator</h3>
+        <p>Strong random passwords, cryptographically generated.</p>
+      </div>
+      <div class="bottom"><span class="cat-tag">Security</span></div>
+    </a>
   </div>
 
-  <div class="controls">
-    <button class="primary" id="camBtn">Start camera</button>
-    <button id="uploadBtn">Upload image</button>
-    <button class="icon" id="flipBtn" title="Switch camera" aria-label="Switch camera" hidden>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
-    </button>
-    <button class="icon" id="torchBtn" title="Toggle light" aria-label="Toggle light" hidden>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v3M4.2 5.6l2 2M19.8 5.6l-2 2M12 8a4 4 0 014 4c0 1.7-1 2.6-1.4 3.6H9.4C9 14.6 8 13.7 8 12a4 4 0 014-4zM10 19h4M10.5 22h3"/></svg>
-    </button>
-    <input type="file" id="file" accept="image/*" class="sr">
-  </div>
-
-  <p class="status" id="status" role="status"></p>
-
-  <!-- RESULT -->
-  <section class="result" id="result" hidden>
-    <p class="rtype" id="rtype">Text</p>
-    <p class="payload" id="payload"></p>
-    <ul class="fields" id="fields" hidden></ul>
-    <div class="ractions">
-      <button id="copyBtn">Copy</button>
-      <button id="openBtn" hidden>Open link</button>
-      <button id="againBtn">Scan another</button>
-    </div>
-  </section>
-
-  </div>
-
-  <!-- GENERATOR -->
-  <div class="tool-panel" id="generatePanel" hidden>
-    <section class="generator-card" aria-labelledby="generatorTitle">
-      <h2 id="generatorTitle">Create a QR code</h2>
-      <p class="notes" style="margin:4px 0 16px">Choose what your QR code should contain, enter the details, then generate and download it.</p>
-
-      <label class="generator-label">QR code type</label>
-      <div class="generator-type" role="group" aria-label="QR code type">
-        <button type="button" data-qr-type="url" aria-pressed="true">URL / Text</button>
-        <button type="button" data-qr-type="wifi" aria-pressed="false">Wi-Fi</button>
-        <button type="button" data-qr-type="phone" aria-pressed="false">Phone</button>
-        <button type="button" data-qr-type="email" aria-pressed="false">Email</button>
-        <button type="button" data-qr-type="sms" aria-pressed="false">SMS</button>
-        <button type="button" data-qr-type="upi" aria-pressed="false">UPI</button>
-        <button type="button" data-qr-type="contact" aria-pressed="false">Contact</button>
-      </div>
-
-      <div id="generatorFields"></div>
-
-      <div class="generator-grid">
-        <div class="generator-field">
-          <label for="qrSize">QR size</label>
-          <select id="qrSize">
-            <option value="180">180 × 180</option>
-            <option value="240" selected>240 × 240</option>
-            <option value="300">300 × 300</option>
-            <option value="400">400 × 400</option>
-            <option value="500">500 × 500</option>
-          </select>
-        </div>
-        <div class="generator-field">
-          <label for="qrLevel">Error correction</label>
-          <select id="qrLevel">
-            <option value="L">Low — 7%</option>
-            <option value="M" selected>Medium — 15%</option>
-            <option value="Q">Quartile — 25%</option>
-            <option value="H">High — 30%</option>
-          </select>
-        </div>
-        <div class="generator-field">
-          <label for="qrDark">Foreground color</label>
-          <input class="color-input" id="qrDark" type="color" value="#14161A">
-        </div>
-        <div class="generator-field">
-          <label for="qrLight">Background color</label>
-          <input class="color-input" id="qrLight" type="color" value="#FFFFFF">
-        </div>
-      </div>
-
-      <div class="qr-preview">
-        <div id="qrOutput"></div>
-      </div>
-
-      <div class="generator-actions">
-        <button class="primary" id="generateBtn" type="button">Generate QR Code</button>
-        <button id="downloadQrBtn" type="button" disabled>Download PNG</button>
-        <button id="copyQrBtn" type="button" disabled>Copy QR</button>
-      </div>
-      <p class="generator-note" id="generatorStatus">Enter your details above and generate your QR code.</p>
-    </section>
-  </div>
-
-  <!-- HISTORY -->
+  <!-- ================= CATEGORIES ================= -->
   <div class="section-head">
-    <h2>Recent scans</h2>
-    <button class="linkish" id="clearBtn" hidden>Clear all</button>
+    <h2 class="section-title">Browse by category <span class="num">/ 02</span></h2>
+    <a href="/tools/" class="linkish">All tools →</a>
   </div>
-  <p class="empty" id="histEmpty">Codes you scan will be listed here, on this device only.</p>
-  <ul class="history" id="history"></ul>
 
-  <article class="article">
-    <h2>How to scan a QR code online</h2>
-    <p>A QR code is a grid of black and white squares that stores a short piece of text — usually a web address, but it can hold a Wi-Fi password, a phone number, a contact card or a payment request. Reading one takes a camera and a decoder, and every modern browser already has both. You do not need to install anything.</p>
-    <p>On this page, press <strong>Start camera</strong> and hold the code inside the blue frame. As soon as the pattern is sharp enough to read, the result appears underneath with a button to open it. If you are on a laptop with a code on your phone screen, or the other way round, hold the screen about 20&nbsp;cm from the lens and wait a second for the camera to focus.</p>
+  <div class="cats">
+    <a class="cat-item" href="/tools/#text">
+      <span class="cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V5h16v2M9 20h6M12 5v15"/></svg></span>
+      <span><span class="cat-name">Text</span><br><span class="cat-count">2 tools</span></span>
+    </a>
+    <a class="cat-item" href="/tools/#convert">
+      <span class="cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4M3 11V9a4 4 0 014-4h14M7 22l-4-4 4-4M21 13v2a4 4 0 01-4 4H3"/></svg></span>
+      <span><span class="cat-name">Convert</span><br><span class="cat-count">1 tool</span></span>
+    </a>
+    <a class="cat-item" href="/tools/#dev">
+      <span class="cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></span>
+      <span><span class="cat-name">Developer</span><br><span class="cat-count">1 tool</span></span>
+    </a>
+    <a class="cat-item" href="/tools/#generate">
+      <span class="cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 10l-6.1 1.2L12 17l-1.9-5.8L4 10l6.1-1.2z"/></svg></span>
+      <span><span class="cat-name">Generators</span><br><span class="cat-count">1 tool</span></span>
+    </a>
+    <a class="cat-item" href="/tools/#security">
+      <span class="cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+      <span><span class="cat-name">Security</span><br><span class="cat-count">1 tool</span></span>
+    </a>
+    <a class="cat-item" href="/tools/#image">
+      <span class="cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span>
+      <span><span class="cat-name">Image</span><br><span class="cat-count">7 Tools</span></span>
+    </a>
+    <a class="cat-item" href="/tools/#pdf">
+      <span class="cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg></span>
+      <span><span class="cat-name">PDF</span><br><span class="cat-count">8 Tools</span></span>
+    </a>
+    <a class="cat-item" href="/tools/#calc">
+      <span class="cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M8 6h8M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg></span>
+      <span><span class="cat-name">Calculators</span><br><span class="cat-count">8 Tools</span></span>
+    </a>
+    <a class="cat-item" href="/tools/#media">
+      <span class="cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M7 2v20M17 2v20M2 12h20M2 7h5M2 17h5M17 7h5M17 17h5"/></svg></span>
+      <span><span class="cat-name">Audio / Video</span><br><span class="cat-count">Soon</span></span>
+    </a>
+  </div>
 
-    <h3>Reading a QR code from a screenshot or saved picture</h3>
-    <p>Codes arrive by email, in a PDF invoice or in a chat message more often than they appear on a poster, and you cannot point a camera at your own screen easily. Press <strong>Upload image</strong> and pick the file, or simply drag the picture onto this page, or copy it and press Ctrl+V. The decoder runs several passes at different sizes and adjusts contrast automatically, so screenshots, scanned documents and photographs taken at an angle usually work.</p>
-    <p>If a picture refuses to read, the cause is nearly always one of four things: the image is blurred, the code is partly cut off, there is glare across the pattern, or the code has been stretched out of square. Cropping tightly around the code and trying again fixes most of them.</p>
-
-    <h3>What a QR code can contain</h3>
-    <p>The scanner recognises the standard formats and lays them out in plain language rather than showing you raw text:</p>
-    <ul>
-      <li><strong>Website link</strong> — shows the destination domain before you open it.</li>
-      <li><strong>Wi-Fi login</strong> — splits out the network name, the security type and the password so you can copy it.</li>
-      <li><strong>Contact card</strong> — the name, phone number, email and company stored in a vCard.</li>
-      <li><strong>UPI payment</strong> — the payee address, name and any fixed amount, which is worth checking before you pay.</li>
-      <li><strong>Phone, SMS, email and location</strong> — ready to dial, write or open in a map.</li>
-      <li><strong>Plain text</strong> — serial numbers, ticket references, tracking IDs and anything else.</li>
-    </ul>
-
-    <h3>Is it safe to scan a QR code?</h3>
-    <p>Scanning is safe. Acting on what you find is where the risk sits. Because a printed code gives no hint of where it leads, criminals stick their own codes over genuine ones on parking meters, restaurant tables and payment counters — a trick known as quishing. The fake code leads to a convincing copy of a payment page.</p>
-    <p>Two habits remove most of the danger. Check the domain shown in the result panel before you open anything, and treat a code that asks for a payment, a login or card details with suspicion unless you are certain of its source. On physical signage, run a finger over the code: a sticker laid over the original has an edge you can feel.</p>
-
-    <h3>Your images never leave your device</h3>
-    <p>Decoding runs entirely in your browser, using your own processor. No camera frame and no uploaded picture is ever sent to a server, which also means the page keeps working if your connection drops after it has loaded. Your recent scans are stored only in this browser and clear whenever you press <em>Clear all</em>.</p>
-    <p>One requirement is outside our control: browsers only grant camera access to pages served over HTTPS. If the camera button reports that it is blocked, check that the address begins with <code>https://</code>, then check your browser's site permissions.</p>
-
-
-    <h2>How to create a QR code online</h2>
-    <p>Open the <strong>Create QR Code</strong> tab to turn a website address, text, Wi-Fi login, phone number, email, SMS message, UPI payment details or contact card into a QR code. Enter the information, choose your preferred size and colors, then press <strong>Generate QR Code</strong>.</p>
-    <p>The QR code is created directly in your browser. You can download it as a PNG image or copy the QR image when your browser supports image clipboard access.</p>
-
-    <h3>Create Wi-Fi, UPI and contact QR codes</h3>
-    <p>For Wi-Fi, enter the network name, password and security type. For UPI, enter the UPI ID and optional payee name, amount and note. Contact QR codes can contain a name, phone number, email and company. Always verify payment details before completing a payment.</p>
-
-    <h2>Common questions</h2>
-    <div class="faq">
-      <details>
-        <summary>Does this work on iPhone and Android?</summary>
-        <p>Yes. It runs in Safari, Chrome, Firefox, Edge and Samsung Internet on both phones and computers. On iPhone, camera access requires Safari or a browser using Safari's engine, and you will be asked for permission the first time.</p>
-      </details>
-      <details>
-        <summary>Can I scan a QR code that is already on my phone screen?</summary>
-        <p>Take a screenshot, then upload it here. A camera cannot easily read a code on the same screen it is displayed on, so the screenshot route is the reliable one.</p>
-      </details>
-      <details>
-        <summary>Why does the camera say it is blocked?</summary>
-        <p>Permission was declined at some point, or the page is not on an HTTPS address. Open your browser's site settings for this page, set the camera to Allow, and reload.</p>
-      </details>
-      <details>
-        <summary>Can it read barcodes as well?</summary>
-        <p>Not currently. This reads QR codes only, including the Micro QR variants. Product barcodes use a different symbol system.</p>
-      </details>
-      <details>
-        <summary>Will a damaged or partly covered code still scan?</summary>
-        <p>Often, yes. QR codes carry error correction, and depending on the level chosen when the code was created, up to about 30 per cent of the pattern can be lost before it becomes unreadable. The three large squares in the corners must stay intact.</p>
-      </details>
-      <details>
-        <summary>Is it free, and are there limits?</summary>
-        <p>Free, with no account, no watermark and no cap on how many codes you scan.</p>
-      </details>
-      <details>
-        <summary>Can I create a QR code for a website?</summary>
-        <p>Yes. Open Create QR Code, choose URL / Text, enter your website address and press Generate QR Code. You can then download the QR code as a PNG.</p>
-      </details>
-      <details>
-        <summary>Can I create a Wi-Fi QR code?</summary>
-        <p>Yes. Choose Wi-Fi in the QR generator and enter the network name, password and security type.</p>
-      </details>
-      <details>
-        <summary>Does the QR code generator work on phones?</summary>
-        <p>Yes. The QR scanner and generator are designed to work in modern mobile and desktop browsers.</p>
-      </details>
-  </article>
+  <!-- ================= TRUST ================= -->
+  <div class="trust">
+    <div class="trust-item">
+      <span class="trust-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+      <div>
+        <h3>Runs entirely in your browser</h3>
+        <p>Your files and text never leave your device.</p>
+      </div>
+    </div>
+    <div class="trust-item">
+      <span class="trust-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></span>
+      <div>
+        <h3>Instant, no signup</h3>
+        <p>No accounts, no email, no passwords.</p>
+      </div>
+    </div>
+    <div class="trust-item">
+      <span class="trust-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+      <div>
+        <h3>Free, no watermarks</h3>
+        <p>Every tool, unlimited use, no premium tier.</p>
+      </div>
+    </div>
+    <div class="trust-item">
+      <span class="trust-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+      <div>
+        <h3>Works offline</h3>
+        <p>Install once, use anywhere — even without internet.</p>
+      </div>
+    </div>
+  </div>
 
   <footer>
-    <p>QR Scanner & Generator · <a href="#" style="color:inherit">Privacy</a></p>
+    <span class="footer-brand">ToolNest</span>
+    <nav>
+      <a href="/">ToolNest</a>
+      <a href="/tools/">All tools</a>
+      <a href="/pages/about.html">About</a>
+      <a href="/pages/privacy.html">Privacy</a>
+    </nav>
   </footer>
 </div>
 
-<div class="toast" id="toast"></div>
+<script>
+/* ============================================================
+   Hero search — instant results dropdown
+   ============================================================ */
 
-<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-<script>
-// Fallback if jsDelivr is blocked or down.
-if(!window.jsQR){
-  document.write('<script src="https://unpkg.com/jsqr@1.4.0/dist/jsQR.js"><\/script>');
-}
-</script>
-<script>
+const TOOLS = [
+  { id:'qr-scanner',    name:'QR Scanner & Generator', desc:'Scan or create QR codes for URLs, Wi-Fi, UPI and contacts.', cat:'generator', path:'/tools/qrscanner/' },
+  { id:'word-counter',  name:'Word Counter',           desc:'Count words, characters, sentences and reading time.',      cat:'text',      path:'/tools/text/word-counter.html' },
+  { id:'case-converter',name:'Case Converter',         desc:'Convert text case — UPPER, lower, Title, Sentence and more.',cat:'text',     path:'/tools/text/case-converter.html' },
+  { id:'json-format',   name:'JSON Formatter',         desc:'Beautify, minify and validate JSON.',                        cat:'developer', path:'/tools/dev/json-format.html' },
+  { id:'json-csv',      name:'JSON ↔ CSV',             desc:'Convert between JSON and CSV, flattening nested objects.',   cat:'convert',   path:'/tools/convert/json-csv.html' },
+  { id:'password',      name:'Password Generator',     desc:'Strong random passwords using cryptographic randomness.',    cat:'security',  path:'/tools/security/password.html' }
+];
+
 (function(){
-  "use strict";
-  var $ = function(id){ return document.getElementById(id); };
-  var stage=$("stage"), video=$("video"), canvas=$("canvas"), ctx=canvas.getContext("2d",{willReadFrequently:true});
-  var camBtn=$("camBtn"), uploadBtn=$("uploadBtn"), fileInput=$("file"),
-      flipBtn=$("flipBtn"), torchBtn=$("torchBtn"), statusEl=$("status");
-  var result=$("result"), rtype=$("rtype"), payload=$("payload"), fields=$("fields"),
-      copyBtn=$("copyBtn"), openBtn=$("openBtn"), againBtn=$("againBtn");
-  var histEl=$("history"), histEmpty=$("histEmpty"), clearBtn=$("clearBtn"), toast=$("toast");
+  const input   = document.getElementById('heroSearch');
+  const results = document.getElementById('heroResults');
+  let activeIdx = -1;
+  let current   = [];
 
-  var stream=null, raf=null, facing="environment", torchOn=false, lastValue="", scanning=false, frame=0;
+  function esc(s){ return s.replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c])); }
 
-  /* ---------- helpers ---------- */
-  function say(msg, isError){
-    statusEl.textContent = msg || "";
-    statusEl.classList.toggle("err", !!isError);
-  }
-  function flash(msg){
-    toast.textContent = msg;
-    toast.classList.add("show");
-    clearTimeout(flash._t);
-    flash._t = setTimeout(function(){ toast.classList.remove("show"); }, 1800);
-  }
-  function beep(){
-    try{
-      var AC = window.AudioContext || window.webkitAudioContext;
-      if(!AC) return;
-      var c = new AC(), o = c.createOscillator(), g = c.createGain();
-      o.type="sine"; o.frequency.value=880;
-      g.gain.setValueAtTime(.001,c.currentTime);
-      g.gain.exponentialRampToValueAtTime(.18,c.currentTime+.01);
-      g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.16);
-      o.connect(g); g.connect(c.destination); o.start(); o.stop(c.currentTime+.18);
-      setTimeout(function(){ c.close(); }, 400);
-    }catch(e){}
-  }
-
-  /* ---------- decoding ---------- */
-  function libReady(){
-    if(window.jsQR) return true;
-    say("The QR decoding library didn't load. Check your connection, or host jsQR.js next to this file.", true);
-    return false;
-  }
-
-  // Reads whatever is currently on `canvas`. Pass thorough=true for still
-  // images: adds a black/white threshold pass that rescues low-contrast,
-  // shadowed or screen-photographed codes.
-  function decodeCanvas(thorough){
-    var d = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    var hit = jsQR(d.data, d.width, d.height, { inversionAttempts:"attemptBoth" });
-    if(hit || !thorough) return hit;
-
-    var px = d.data, sum = 0, i;
-    for(i = 0; i < px.length; i += 4) sum += px[i]*0.299 + px[i+1]*0.587 + px[i+2]*0.114;
-    var mean = sum / (px.length / 4);
-    var bw = new Uint8ClampedArray(px.length);
-    for(i = 0; i < px.length; i += 4){
-      var v = (px[i]*0.299 + px[i+1]*0.587 + px[i+2]*0.114) > mean ? 255 : 0;
-      bw[i] = bw[i+1] = bw[i+2] = v; bw[i+3] = 255;
-    }
-    return jsQR(bw, d.width, d.height, { inversionAttempts:"attemptBoth" });
-  }
-
-  // Draws the source onto a white canvas at a given size and optional crop.
-  function paint(src, sw, sh, target, crop){
-    var sx = 0, sy = 0, w = sw, h = sh;
-    if(crop){
-      w = sw * crop; h = sh * crop;
-      sx = (sw - w) / 2; sy = (sh - h) / 2;
-    }
-    var scale = Math.min(target / Math.max(w, h), 4);
-    canvas.width = Math.max(1, Math.round(w * scale));
-    canvas.height = Math.max(1, Math.round(h * scale));
-    ctx.fillStyle = "#FFFFFF";                       // flatten transparent PNGs
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(src, sx, sy, w, h, 0, 0, canvas.width, canvas.height);
-  }
-
-  /* ---------- camera ---------- */
-  function startCamera(){
-    if(!libReady()) return;
-    if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
-      return say("This browser can't open a camera. Use the upload button instead.", true);
-    }
-    say("Asking for camera permission…");
-    navigator.mediaDevices.getUserMedia({
-      video:{ facingMode:{ ideal:facing }, width:{ideal:1280}, height:{ideal:960} },
-      audio:false
-    }).then(function(s){
-      stream = s;
-      video.srcObject = s;
-      return video.play();
-    }).then(function(){
-      stage.classList.add("live");
-      camBtn.textContent = "Stop camera";
-      flipBtn.hidden = false;
-      say("Looking for a code…");
-      setupTorch();
-      scanning = true;
-      tick();
-    }).catch(function(err){
-      var name = err && err.name;
-      if(name === "NotAllowedError") say("Camera blocked. Allow it in your browser's site settings, then try again.", true);
-      else if(name === "NotFoundError") say("No camera found on this device. Upload an image instead.", true);
-      else if(location.protocol !== "https:" && location.hostname !== "localhost") say("Camera needs an https:// address. Upload an image instead.", true);
-      else say("Camera failed to start: " + (err && err.message ? err.message : "unknown error"), true);
-    });
-  }
-
-  function stopCamera(){
-    scanning = false;
-    if(raf) cancelAnimationFrame(raf);
-    if(stream) stream.getTracks().forEach(function(t){ t.stop(); });
-    stream = null; torchOn = false;
-    video.srcObject = null;
-    stage.classList.remove("live","hit");
-    camBtn.textContent = "Start camera";
-    flipBtn.hidden = true; torchBtn.hidden = true;
-    say("");
-  }
-
-  function setupTorch(){
-    try{
-      var track = stream.getVideoTracks()[0];
-      var caps = track.getCapabilities ? track.getCapabilities() : {};
-      torchBtn.hidden = !("torch" in caps);
-    }catch(e){ torchBtn.hidden = true; }
-  }
-
-  torchBtn.addEventListener("click", function(){
-    if(!stream) return;
-    var track = stream.getVideoTracks()[0];
-    torchOn = !torchOn;
-    track.applyConstraints({ advanced:[{ torch: torchOn }] })
-      .then(function(){ torchBtn.setAttribute("aria-pressed", String(torchOn)); })
-      .catch(function(){ say("This camera won't let the page control the light.", true); });
-  });
-
-  flipBtn.addEventListener("click", function(){
-    facing = (facing === "environment") ? "user" : "environment";
-    stopCamera();
-    startCamera();
-  });
-
-  camBtn.addEventListener("click", function(){
-    if(stream) stopCamera(); else startCamera();
-  });
-
-  /* ---------- scan loop ---------- */
-  function tick(){
-    if(!scanning) return;
-    if(video.readyState === video.HAVE_ENOUGH_DATA){
-      var w = video.videoWidth, h = video.videoHeight;
-      if(w && h && window.jsQR){
-        frame++;
-        paint(video, w, h, 640);
-        var code = decodeCanvas(false);
-        // Every 4th frame, retry on the centre of the image — helps when the
-        // code is small or far away.
-        if(!code && frame % 4 === 0){
-          paint(video, w, h, 640, 0.5);
-          code = decodeCanvas(false);
-        }
-        if(code && code.data && code.data !== lastValue){
-          onFound(code.data);
-        }
-      }
-    }
-    raf = requestAnimationFrame(tick);
-  }
-
-  function onFound(text){
-    lastValue = text;
-    stage.classList.add("hit");
-    beep();
-    show(text);
-    remember(text);
-    say("Code found.");
-    setTimeout(function(){ stage.classList.remove("hit"); }, 900);
-  }
-
-  /* ---------- image upload ---------- */
-  uploadBtn.addEventListener("click", function(){ fileInput.click(); });
-  fileInput.addEventListener("change", function(){
-    var f = fileInput.files && fileInput.files[0];
-    if(f) readImage(f);
-    fileInput.value = "";
-  });
-
-  ["dragenter","dragover"].forEach(function(ev){
-    document.addEventListener(ev, function(e){ e.preventDefault(); });
-  });
-  document.addEventListener("drop", function(e){
-    e.preventDefault();
-    var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
-    if(f && /^image\//.test(f.type)) readImage(f);
-  });
-  document.addEventListener("paste", function(e){
-    var items = e.clipboardData && e.clipboardData.items;
-    if(!items) return;
-    for(var i=0;i<items.length;i++){
-      if(items[i].type.indexOf("image") === 0){ readImage(items[i].getAsFile()); break; }
-    }
-  });
-
-  function readImage(file){
-    say("Reading image…");
-    var url = URL.createObjectURL(file);
-    var img = new Image();
-    img.onload = function(){
-      URL.revokeObjectURL(url);
-      if(!libReady()) return;
-
-      // Try a ladder of sizes and crops. Screenshots of tiny codes need
-      // upscaling; photos of big codes decode better scaled down.
-      var attempts = [
-        [1000, 0], [600, 0], [1600, 0], [400, 0],
-        [1000, 0.7], [800, 0.45], [1200, 0.9]
-      ];
-      var code = null;
-      for(var a = 0; a < attempts.length && !code; a++){
-        paint(img, img.width, img.height, attempts[a][0], attempts[a][1] || 0);
-        code = decodeCanvas(true);
-      }
-
-      if(code && code.data){
-        lastValue = code.data;
-        beep(); show(code.data); remember(code.data);
-        say("Code found in the image.");
-      }else{
-        say("No QR code found. Crop tighter around the code, or try a sharper photo — blur and glare are the usual culprits.", true);
-      }
-    };
-    img.onerror = function(){ URL.revokeObjectURL(url); say("That file couldn't be opened as an image.", true); };
-    img.src = url;
-  }
-
-  /* ---------- result rendering ---------- */
-  function show(text){
-    var parsed = classify(text);
-    rtype.textContent = parsed.label;
-    payload.textContent = text;
-    fields.innerHTML = "";
-    if(parsed.rows.length){
-      parsed.rows.forEach(function(r){
-        var li = document.createElement("li");
-        var k = document.createElement("span"); k.textContent = r[0];
-        var v = document.createElement("code"); v.textContent = r[1];
-        li.appendChild(k); li.appendChild(v); fields.appendChild(li);
-      });
-      fields.hidden = false;
-    }else{
-      fields.hidden = true;
-    }
-    if(parsed.link){
-      openBtn.hidden = false;
-      openBtn.textContent = parsed.linkLabel || "Open link";
-      openBtn.onclick = function(){ window.open(parsed.link, "_blank", "noopener,noreferrer"); };
-    }else{
-      openBtn.hidden = true;
-    }
-    result.hidden = false;
-    result.scrollIntoView({ behavior:"smooth", block:"nearest" });
-  }
-
-  function classify(t){
-    var rows = [], m;
-    if(/^https?:\/\//i.test(t)){
-      var host = t;
-      try{ host = new URL(t).hostname; }catch(e){}
-      rows.push(["Goes to", host]);
-      return { label:"Website link", rows:rows, link:t, linkLabel:"Open link" };
-    }
-    if(/^WIFI:/i.test(t)){
-      var g = function(k){ var r = new RegExp(k+":((?:[^;\\\\]|\\\\.)*);","i").exec(t); return r ? r[1].replace(/\\(.)/g,"$1") : ""; };
-      var ssid=g("S"), pass=g("P"), sec=g("T")||"nopass";
-      if(ssid) rows.push(["Network", ssid]);
-      rows.push(["Security", sec === "nopass" ? "Open" : sec]);
-      if(pass) rows.push(["Password", pass]);
-      return { label:"Wi-Fi login", rows:rows, link:null };
-    }
-    if(/^mailto:/i.test(t)){
-      rows.push(["To", t.replace(/^mailto:/i,"").split("?")[0]]);
-      return { label:"Email address", rows:rows, link:t, linkLabel:"Write email" };
-    }
-    if(/^tel:/i.test(t)){
-      rows.push(["Number", t.replace(/^tel:/i,"")]);
-      return { label:"Phone number", rows:rows, link:t, linkLabel:"Call" };
-    }
-    if(/^(smsto|sms):/i.test(t)){
-      var p = t.split(":");
-      if(p[1]) rows.push(["Number", p[1]]);
-      if(p[2]) rows.push(["Message", p.slice(2).join(":")]);
-      return { label:"Text message", rows:rows, link:null };
-    }
-    if(/^BEGIN:VCARD/i.test(t)){
-      m = /(?:^|\n)FN[^:]*:(.+)/i.exec(t); if(m) rows.push(["Name", m[1].trim()]);
-      m = /(?:^|\n)TEL[^:]*:(.+)/i.exec(t); if(m) rows.push(["Phone", m[1].trim()]);
-      m = /(?:^|\n)EMAIL[^:]*:(.+)/i.exec(t); if(m) rows.push(["Email", m[1].trim()]);
-      m = /(?:^|\n)ORG[^:]*:(.+)/i.exec(t); if(m) rows.push(["Company", m[1].trim()]);
-      return { label:"Contact card", rows:rows, link:null };
-    }
-    if(/^BEGIN:VEVENT/i.test(t) || /^BEGIN:VCALENDAR/i.test(t)){
-      m = /(?:^|\n)SUMMARY[^:]*:(.+)/i.exec(t); if(m) rows.push(["Event", m[1].trim()]);
-      m = /(?:^|\n)LOCATION[^:]*:(.+)/i.exec(t); if(m) rows.push(["Where", m[1].trim()]);
-      return { label:"Calendar event", rows:rows, link:null };
-    }
-    if(/^geo:/i.test(t)){
-      rows.push(["Coordinates", t.replace(/^geo:/i,"")]);
-      return { label:"Location", rows:rows, link:"https://maps.google.com/?q=" + encodeURIComponent(t.replace(/^geo:/i,"")), linkLabel:"Open in Maps" };
-    }
-    if(/^upi:\/\//i.test(t)){
-      m = /pa=([^&]+)/i.exec(t); if(m) rows.push(["Pay to", decodeURIComponent(m[1])]);
-      m = /pn=([^&]+)/i.exec(t); if(m) rows.push(["Name", decodeURIComponent(m[1]).replace(/\+/g," ")]);
-      m = /am=([^&]+)/i.exec(t); if(m) rows.push(["Amount", decodeURIComponent(m[1])]);
-      return { label:"UPI payment", rows:rows, link:t, linkLabel:"Open payment app" };
-    }
-    return { label:"Plain text", rows:[], link:null };
-  }
-
-  copyBtn.addEventListener("click", function(){
-    var text = payload.textContent;
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(function(){ flash("Copied"); })
-        .catch(function(){ legacyCopy(text); });
-    }else{ legacyCopy(text); }
-  });
-  function legacyCopy(text){
-    var ta = document.createElement("textarea");
-    ta.value = text; ta.style.position="fixed"; ta.style.opacity="0";
-    document.body.appendChild(ta); ta.select();
-    try{ document.execCommand("copy"); flash("Copied"); }catch(e){ flash("Copy failed"); }
-    document.body.removeChild(ta);
-  }
-
-  againBtn.addEventListener("click", function(){
-    result.hidden = true;
-    lastValue = "";
-    if(!stream) startCamera(); else say("Looking for a code…");
-  });
-
-
-  /* ---------- QR generator + tool tabs ---------- */
-  var scanTab=$("scanTab"), generateTab=$("generateTab"),
-      scanPanel=$("scanPanel"), generatePanel=$("generatePanel");
-
-  function setMode(mode){
-    var isScan = mode === "scan";
-    scanTab.setAttribute("aria-selected", String(isScan));
-    generateTab.setAttribute("aria-selected", String(!isScan));
-    scanPanel.hidden = !isScan;
-    generatePanel.hidden = isScan;
-    if(!isScan && stream) stopCamera();
-  }
-
-  scanTab.addEventListener("click", function(){ setMode("scan"); });
-  generateTab.addEventListener("click", function(){ setMode("generate"); });
-
-  var qrType="url", generatedData="";
-  var generatorFields=$("generatorFields"),
-      qrOutput=$("qrOutput"),
-      generateBtn=$("generateBtn"),
-      downloadQrBtn=$("downloadQrBtn"),
-      copyQrBtn=$("copyQrBtn"),
-      qrSize=$("qrSize"),
-      qrLevel=$("qrLevel"),
-      qrDark=$("qrDark"),
-      qrLight=$("qrLight"),
-      generatorStatus=$("generatorStatus");
-
-  var generatorTemplates={
-    url:'<div class="generator-field"><label for="gText">Text or URL</label><textarea id="gText" placeholder="https://example.com">https://example.com</textarea></div>',
-    wifi:'<div class="generator-field"><label for="gSsid">Wi-Fi network name (SSID)</label><input id="gSsid" type="text" placeholder="My Wi-Fi"></div><div class="generator-field"><label for="gPass">Wi-Fi password</label><input id="gPass" type="text" placeholder="Password"></div><div class="generator-field"><label for="gSecurity">Security</label><select id="gSecurity"><option value="WPA">WPA / WPA2 / WPA3</option><option value="WEP">WEP</option><option value="nopass">No password</option></select></div>',
-    phone:'<div class="generator-field"><label for="gPhone">Phone number</label><input id="gPhone" type="tel" placeholder="+91 98765 43210"></div>',
-    email:'<div class="generator-field"><label for="gEmail">Email address</label><input id="gEmail" type="email" placeholder="hello@example.com"></div><div class="generator-field"><label for="gSubject">Subject</label><input id="gSubject" type="text" placeholder="Hello"></div><div class="generator-field"><label for="gBody">Message</label><textarea id="gBody" placeholder="Your message"></textarea></div>',
-    sms:'<div class="generator-field"><label for="gSmsPhone">Phone number</label><input id="gSmsPhone" type="tel" placeholder="+91 98765 43210"></div><div class="generator-field"><label for="gSmsBody">Message</label><textarea id="gSmsBody" placeholder="Your message"></textarea></div>',
-    upi:'<div class="generator-field"><label for="gUpiId">UPI ID</label><input id="gUpiId" type="text" placeholder="name@upi"></div><div class="generator-field"><label for="gUpiName">Payee name</label><input id="gUpiName" type="text" placeholder="Your Name"></div><div class="generator-grid"><div class="generator-field"><label for="gUpiAmount">Amount (optional)</label><input id="gUpiAmount" type="number" min="0" step="0.01" placeholder="100"></div><div class="generator-field"><label for="gUpiNote">Note (optional)</label><input id="gUpiNote" type="text" placeholder="Payment"></div></div>',
-    contact:'<div class="generator-field"><label for="gName">Full name</label><input id="gName" type="text" placeholder="John Doe"></div><div class="generator-field"><label for="gContactPhone">Phone</label><input id="gContactPhone" type="tel" placeholder="+91 98765 43210"></div><div class="generator-field"><label for="gContactEmail">Email</label><input id="gContactEmail" type="email" placeholder="hello@example.com"></div><div class="generator-field"><label for="gCompany">Company (optional)</label><input id="gCompany" type="text" placeholder="Company name"></div>'
-  };
-
-  function renderGeneratorFields(){
-    generatorFields.innerHTML=generatorTemplates[qrType];
-  }
-
-  document.querySelectorAll("[data-qr-type]").forEach(function(btn){
-    btn.addEventListener("click",function(){
-      qrType=btn.getAttribute("data-qr-type");
-      document.querySelectorAll("[data-qr-type]").forEach(function(b){
-        b.setAttribute("aria-pressed",String(b===btn));
-      });
-      renderGeneratorFields();
-      qrOutput.innerHTML="";
-      generatedData="";
-      downloadQrBtn.disabled=true;
-      copyQrBtn.disabled=true;
-      generatorStatus.textContent="Enter your details above and generate your QR code.";
-      generatorStatus.classList.remove("err");
-    });
-  });
-
-  function gval(id){
-    var el=$(id);
-    return el ? el.value.trim() : "";
-  }
-
-  function enc(v){ return encodeURIComponent(v || ""); }
-
-  function wifiEscape(v){
-    return String(v || "").replace(/([\\;,:"])/g,"\\$1");
-  }
-
-  function buildQrData(){
-    if(qrType==="url") return gval("gText");
-
-    if(qrType==="wifi"){
-      var ssid=gval("gSsid");
-      if(!ssid) return "";
-      return "WIFI:T:"+(gval("gSecurity")||"WPA")+";S:"+wifiEscape(ssid)+";P:"+wifiEscape(gval("gPass"))+";;";
-    }
-
-    if(qrType==="phone"){
-      return gval("gPhone") ? "tel:"+gval("gPhone") : "";
-    }
-
-    if(qrType==="email"){
-      var email=gval("gEmail");
-      if(!email) return "";
-      return "mailto:"+email+"?subject="+enc(gval("gSubject"))+"&body="+enc(gval("gBody"));
-    }
-
-    if(qrType==="sms"){
-      var number=gval("gSmsPhone");
-      return number ? "SMSTO:"+number+":"+gval("gSmsBody") : "";
-    }
-
-    if(qrType==="upi"){
-      var pa=gval("gUpiId");
-      if(!pa) return "";
-      var u="upi://pay?pa="+enc(pa);
-      if(gval("gUpiName")) u+="&pn="+enc(gval("gUpiName"));
-      if(gval("gUpiAmount")) u+="&am="+enc(gval("gUpiAmount"));
-      if(gval("gUpiNote")) u+="&tn="+enc(gval("gUpiNote"));
-      return u+"&cu=INR";
-    }
-
-    if(qrType==="contact"){
-      var name=gval("gName");
-      if(!name) return "";
-      return "BEGIN:VCARD\nVERSION:3.0\nFN:"+name+
-        (gval("gContactPhone") ? "\nTEL:"+gval("gContactPhone") : "")+
-        (gval("gContactEmail") ? "\nEMAIL:"+gval("gContactEmail") : "")+
-        (gval("gCompany") ? "\nORG:"+gval("gCompany") : "")+
-        "\nEND:VCARD";
-    }
-    return "";
-  }
-
-  function generateQr(){
-    if(!window.QRCode){
-      generatorStatus.textContent="QR generator library did not load. Check your internet connection.";
-      generatorStatus.classList.add("err");
+  function renderResults(list, query){
+    current = list;
+    activeIdx = -1;
+    if (!query){
+      results.classList.remove('open');
+      results.innerHTML = '';
+      input.setAttribute('aria-expanded','false');
       return;
     }
-
-    var data=buildQrData();
-    if(!data){
-      generatorStatus.textContent="Please enter the required information first.";
-      generatorStatus.classList.add("err");
+    if (!list.length){
+      results.innerHTML = `<div class="sr-empty">No tools match “${esc(query)}”.</div>`;
+      results.classList.add('open');
+      input.setAttribute('aria-expanded','true');
       return;
     }
+    results.innerHTML = list.map((t, i) => `
+      <a href="${t.path}" role="option" data-idx="${i}">
+        <span class="sr-icon">${esc(t.name.slice(0,2).toUpperCase())}</span>
+        <span class="sr-info">
+          <span class="sr-name">${esc(t.name)}</span>
+          <span class="sr-desc">${esc(t.desc)}</span>
+        </span>
+        <span class="sr-cat">${esc(t.cat)}</span>
+      </a>
+    `).join('');
+    results.classList.add('open');
+    input.setAttribute('aria-expanded','true');
+  }
 
-    var levels={L:QRCode.CorrectLevel.L,M:QRCode.CorrectLevel.M,Q:QRCode.CorrectLevel.Q,H:QRCode.CorrectLevel.H};
+  function search(q){
+    if (!q) return [];
+    const s = q.toLowerCase();
+    return TOOLS.filter(t =>
+      t.name.toLowerCase().includes(s) ||
+      t.desc.toLowerCase().includes(s) ||
+      t.cat.toLowerCase().includes(s)
+    ).slice(0, 6);
+  }
 
-    qrOutput.innerHTML="";
-    try{
-      new QRCode(qrOutput,{
-        text:data,
-        width:parseInt(qrSize.value,10)||240,
-        height:parseInt(qrSize.value,10)||240,
-        colorDark:qrDark.value,
-        colorLight:qrLight.value,
-        correctLevel:levels[qrLevel.value] || QRCode.CorrectLevel.M
-      });
+  let debounce;
+  input.addEventListener('input', () => {
+    clearTimeout(debounce);
+    debounce = setTimeout(() => {
+      const q = input.value.trim();
+      renderResults(search(q), q);
+    }, 100);
+  });
 
-      generatedData=data;
-      downloadQrBtn.disabled=false;
-      copyQrBtn.disabled=false;
-      generatorStatus.textContent="QR code generated successfully.";
-      generatorStatus.classList.remove("err");
-    }catch(e){
-      generatedData="";
-      downloadQrBtn.disabled=true;
-      copyQrBtn.disabled=true;
-      generatorStatus.textContent="Could not generate this QR code. Try shorter text.";
-      generatorStatus.classList.add("err");
+  input.addEventListener('focus', () => {
+    if (input.value.trim()) renderResults(search(input.value.trim()), input.value.trim());
+  });
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.search')) results.classList.remove('open');
+  });
+
+  input.addEventListener('keydown', e => {
+    const items = results.querySelectorAll('a');
+    if (e.key === 'Escape'){ input.blur(); results.classList.remove('open'); return; }
+    if (!items.length) return;
+    if (e.key === 'ArrowDown'){
+      e.preventDefault();
+      activeIdx = Math.min(activeIdx + 1, items.length - 1);
+      items.forEach((el, i) => el.classList.toggle('active', i === activeIdx));
+      items[activeIdx].scrollIntoView({ block:'nearest' });
+    } else if (e.key === 'ArrowUp'){
+      e.preventDefault();
+      activeIdx = Math.max(activeIdx - 1, 0);
+      items.forEach((el, i) => el.classList.toggle('active', i === activeIdx));
+      items[activeIdx].scrollIntoView({ block:'nearest' });
+    } else if (e.key === 'Enter'){
+      if (activeIdx >= 0){ e.preventDefault(); window.location.href = items[activeIdx].href; }
+      else if (items[0]){ e.preventDefault(); window.location.href = items[0].href; }
     }
-  }
-
-  generateBtn.addEventListener("click",generateQr);
-
-  [qrSize,qrLevel,qrDark,qrLight].forEach(function(el){
-    el.addEventListener("change",function(){
-      if(generatedData) generateQr();
-    });
   });
 
-  downloadQrBtn.addEventListener("click",function(){
-    var canvasEl=qrOutput.querySelector("canvas");
-    if(!canvasEl) return;
-    var a=document.createElement("a");
-    a.download="qr-code.png";
-    a.href=canvasEl.toDataURL("image/png");
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    flash("QR code downloaded");
-  });
-
-  copyQrBtn.addEventListener("click",function(){
-    var canvasEl=qrOutput.querySelector("canvas");
-    if(!canvasEl) return;
-
-    if(!canvasEl.toBlob || !navigator.clipboard || !window.ClipboardItem){
-      flash("Copy not supported — use Download PNG");
-      return;
+  /* Ctrl/Cmd + K focuses the search */
+  document.addEventListener('keydown', e => {
+    if ((e.key === 'k' || e.key === 'K') && (e.metaKey || e.ctrlKey)){
+      e.preventDefault();
+      input.focus();
+      input.select();
     }
-
-    canvasEl.toBlob(function(blob){
-      navigator.clipboard.write([new ClipboardItem({"image/png":blob})])
-        .then(function(){flash("QR code copied");})
-        .catch(function(){flash("Copy not supported — use Download PNG");});
-    },"image/png");
+    if (e.key === '/' && document.activeElement !== input && !/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)){
+      e.preventDefault();
+      input.focus();
+    }
   });
-
-  renderGeneratorFields();
-
-
-  /* ---------- history ---------- */
-  var KEY = "qrreader.history";
-  function load(){
-    try{ return JSON.parse(localStorage.getItem(KEY) || "[]"); }catch(e){ return []; }
-  }
-  function save(list){
-    try{ localStorage.setItem(KEY, JSON.stringify(list)); }catch(e){}
-  }
-  function remember(text){
-    var list = load().filter(function(x){ return x.t !== text; });
-    list.unshift({ t:text, d:Date.now() });
-    list = list.slice(0, 12);
-    save(list); renderHistory();
-  }
-  function renderHistory(){
-    var list = load();
-    histEl.innerHTML = "";
-    histEmpty.hidden = list.length > 0;
-    clearBtn.hidden = list.length === 0;
-    list.forEach(function(item){
-      var li = document.createElement("li");
-      var span = document.createElement("div");
-      span.className = "txt"; span.textContent = item.t;
-      var time = document.createElement("time");
-      time.textContent = relative(item.d);
-      var btn = document.createElement("button");
-      btn.className = "chip"; btn.textContent = "Show";
-      btn.onclick = function(){ lastValue = item.t; show(item.t); };
-      li.appendChild(span); li.appendChild(time); li.appendChild(btn);
-      histEl.appendChild(li);
-    });
-  }
-  function relative(ts){
-    var s = Math.round((Date.now() - ts)/1000);
-    if(s < 60) return "just now";
-    if(s < 3600) return Math.floor(s/60) + "m ago";
-    if(s < 86400) return Math.floor(s/3600) + "h ago";
-    return Math.floor(s/86400) + "d ago";
-  }
-  clearBtn.addEventListener("click", function(){
-    save([]); renderHistory(); flash("History cleared");
-  });
-
-  document.addEventListener("visibilitychange", function(){
-    if(document.hidden && stream) stopCamera();
-  });
-
-  renderHistory();
 })();
 </script>
 </body>
