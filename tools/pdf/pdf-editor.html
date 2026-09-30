@@ -595,6 +595,8 @@ textarea.inline-input{resize:none;white-space:pre;overflow:hidden;line-height:1.
 .zoom-box{display:inline-flex;align-items:center;gap:3px;font-family:var(--mono);font-size:.75rem;color:var(--muted)}
 .zoom-box input{width:56px;padding:4px 5px;border:1px solid var(--line);border-radius:5px;text-align:right;font:inherit;color:var(--ink);background:#fff}
 .zoom-box input:focus{outline:none;border-color:var(--blue)}
+.inline-input::selection{background:rgba(27,77,255,.28);color:inherit}
+.inline-input{background:rgba(255,255,255,.96);color:inherit;caret-color:#1B4DFF}
 </style>
 </head>
 <body>
@@ -1172,6 +1174,18 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
     $("insRotL").addEventListener("click", function(){ if (!selected) return; var b = selected.element.rot || 0; setRot(b - 90); commitRot(b); });
     $("insRotR").addEventListener("click", function(){ if (!selected) return; var b = selected.element.rot || 0; setRot(b + 90); commitRot(b); });
     $("zoomSlider").addEventListener("input", function(){ zoomToPct(+this.value); });
+    function fitInput(inp){
+      var cv = fitInput._c || (fitInput._c = document.createElement("canvas").getContext("2d")), cs = getComputedStyle(inp);
+      cv.font = cs.fontStyle + " " + cs.fontWeight + " " + cs.fontSize + " " + cs.fontFamily;
+      var w = 0;
+      inp.value.split("\n").forEach(function(l){ w = Math.max(w, cv.measureText(l).width); });
+      if (!inp.dataset.minw) inp.dataset.minw = parseFloat(inp.style.width) || 60;
+      var pad = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight) + parseFloat(cs.borderLeftWidth) + parseFloat(cs.borderRightWidth);
+      inp.style.width = Math.max(+inp.dataset.minw, w + pad + 28) + "px";
+    }
+    ["focusin", "input"].forEach(function(ev){
+      document.addEventListener(ev, function(e){ if (e.target.classList && e.target.classList.contains("inline-input")) fitInput(e.target); });
+    });
     var zi = $("zoomInput");
     zi.addEventListener("change", function(){ zoomToPct(+zi.value, true); zi.value = targetPct; });
     zi.addEventListener("keydown", function(e){ if (e.key === "Enter"){ e.preventDefault(); zi.blur(); } });
