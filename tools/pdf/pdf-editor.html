@@ -588,6 +588,13 @@ body{
 .rotval{width:38px;text-align:right;font-family:var(--mono);font-size:.6875rem;flex:none}
 .rot-handle{position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;border:2px solid var(--blue);cursor:grab;z-index:17;box-shadow:0 2px 4px rgba(0,0,0,.2)}
 .text-layer > span:hover{background:rgba(27,77,255,.14)}
+.hover-box{position:absolute;pointer-events:none;display:none;z-index:3;background:rgba(27,77,255,.14);outline:1px solid rgba(27,77,255,.55);border-radius:2px}
+.insp-row textarea{flex:1;padding:4px 6px;border:1px solid var(--line);border-radius:4px;font:inherit;font-size:.75rem;width:100%;resize:vertical}
+textarea.inline-input{resize:none;white-space:pre;overflow:hidden;line-height:1.2}
+.zoom-slider{width:150px}
+.zoom-box{display:inline-flex;align-items:center;gap:3px;font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+.zoom-box input{width:56px;padding:4px 5px;border:1px solid var(--line);border-radius:5px;text-align:right;font:inherit;color:var(--ink);background:#fff}
+.zoom-box input:focus{outline:none;border-color:var(--blue)}
 </style>
 </head>
 <body>
@@ -693,11 +700,11 @@ body{
     <button class="tool" id="zoomOutBtn" title="Zoom out (Ctrl+−)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M8 11h6"/></svg>
     </button>
-    <input type="range" id="zoomSlider" class="zoom-slider" min="20" max="500" value="100" step="1" title="Zoom">
+    <input type="range" id="zoomSlider" class="zoom-slider" min="10" max="500" value="100" step="1" title="Zoom">
     <button class="tool" id="zoomInBtn" title="Zoom in (Ctrl+=)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/></svg>
     </button>
-    <span class="tool" id="zoomLabel">100%</span>
+    <span class="zoom-box"><input type="number" id="zoomInput" min="10" max="500" step="1" value="100" title="Type a zoom % and press Enter"><span>%</span></span>
     <button class="tool" id="zoomFitBtn" title="Fit to width (Ctrl+0)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V4h4M20 8V4h-4M4 16v4h4M20 16v4h-4"/></svg>
     </button>
@@ -774,7 +781,7 @@ body{
             </select>
           </div>
           <div class="insp-row" id="insSizeRow"><label>Size</label><input type="number" id="insSize" min="6" max="144" step="1"></div>
-          <div class="insp-row" id="insTextRow"><label>Text</label><input type="text" id="insText"></div>
+          <div class="insp-row" id="insTextRow"><label>Text</label><textarea id="insText" rows="2"></textarea></div>
           <div class="insp-row" id="insFmtRow"><label>Format</label><span class="fmtgrp">
             <button class="fmt-btn" data-fmt="bold" aria-pressed="false"><b>B</b></button>
             <button class="fmt-btn" data-fmt="italic" aria-pressed="false"><i>I</i></button>
@@ -930,6 +937,8 @@ body{
       <span><span class="kbd">Ctrl</span>+<span class="kbd">D</span></span><span>Duplicate selected element</span>
       <span><span class="kbd">Del</span></span><span>Delete selected element</span>
       <span><span class="kbd">Esc</span></span><span>Deselect / cancel</span>
+      <span><span class="kbd">Shift</span>+click</span><span>On original text: select the whole paragraph, not just one line</span>
+      <span><span class="kbd">Alt</span>+click</span><span>Pick any element while another tool is active</span>
       <span>Arrows</span><span>Nudge selected 1px (<span class="kbd">Shift</span> for 10px)</span>
     </div>
 
@@ -1064,6 +1073,35 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
   }
 
   var fmt = { bold:false, italic:false, underline:false }, autoYellow = false;
+  var basePct = 100, targetPct = 100, zoomTimer = 0, zoomPending = false, renderGen = 0, fitLocked = false;
+  function fitWidth(){
+    if (!pdfDoc) return;
+    pdfDoc.getPage(1).then(function(pg){
+      var nf = Math.min(Math.max(300, els.viewer.offsetWidth - 80) / pg.getViewport({ scale: 1 }).width, 2.2);
+      zoomLevel = tp() / 100 / nf; fitScale = nf;
+      zoomToPct(nf * 100, true);
+    });
+  }
+  function curPct(){ return Math.round(fitScale * zoomLevel * 100); }
+  function tp(){ return zoomPending ? targetPct : curPct(); }
+  function zoomToPct(pct, now){
+    pct = Math.max(10, Math.min(500, Math.round(pct) || 100));
+    targetPct = pct; zoomPending = true;
+    var zi = $("zoomInput"), zs = $("zoomSlider");
+    if (zi && document.activeElement !== zi) zi.value = pct;
+    if (zs) zs.value = pct;
+    if (!pdfDoc) return;
+    var r = pct / basePct;
+    els.viewer.querySelectorAll(".page-wrap").forEach(function(w){ w.style.zoom = r; });
+    clearTimeout(zoomTimer);
+    zoomTimer = setTimeout(commitZoom, now ? 0 : 280);
+  }
+  function commitZoom(){
+    zoomPending = false;
+    var pc = targetPct;
+    setZoom(pc / 100 / fitScale);
+    basePct = pc;
+  }
   function pscale(pi){ var p = pages[pi]; return (p && p.viewport) ? p.viewport.scale : fitScale * zoomLevel; }
   var SC_KEYS = ["x","y","w","h","x1","y1","x2","y2","size"];
   function rescaleObj(o, r){
@@ -1133,7 +1171,10 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
     rs.addEventListener("change", function(){ commitRot(rb); });
     $("insRotL").addEventListener("click", function(){ if (!selected) return; var b = selected.element.rot || 0; setRot(b - 90); commitRot(b); });
     $("insRotR").addEventListener("click", function(){ if (!selected) return; var b = selected.element.rot || 0; setRot(b + 90); commitRot(b); });
-    $("zoomSlider").addEventListener("input", function(){ setZoom(this.value / 100 / fitScale); });
+    $("zoomSlider").addEventListener("input", function(){ zoomToPct(+this.value); });
+    var zi = $("zoomInput");
+    zi.addEventListener("change", function(){ zoomToPct(+zi.value, true); zi.value = targetPct; });
+    zi.addEventListener("keydown", function(e){ if (e.key === "Enter"){ e.preventDefault(); zi.blur(); } });
   }
 
   function init(){
@@ -1294,12 +1335,12 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
       var annLayer = w.querySelector(".ann-layer");
       var textLayer = w.querySelector(".text-layer");
       if (annLayer){
-        annLayer.style.pointerEvents = (activeTool === "select" || ["text","highlight","rect","arrow","note","redact","image","sign"].indexOf(activeTool) > -1) ? "auto" : "none";
-        annLayer.style.cursor = activeTool === "select" ? "default" :
+        annLayer.style.pointerEvents = "auto";
+        annLayer.style.cursor = (activeTool === "select" || activeTool === "edit") ? "default" :
                                 activeTool === "text" ? "text" : "crosshair";
       }
       if (textLayer){
-        textLayer.style.pointerEvents = (activeTool === "edit" || activeTool === "select") ? "auto" : "none";
+        textLayer.style.pointerEvents = "none";
       }
     });
   }
@@ -1368,6 +1409,7 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
     if (!pdfBytes) return;
     els.viewer.classList.remove("empty");
     els.viewer.innerHTML = "";
+    renderGen++; fitLocked = false;
     say("Rendering pages…");
 
     pdfjsLib.getDocument({ data: pdfBytes.slice(0) }).promise
@@ -1389,6 +1431,7 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
         els.side.style.display = "block";
         els.actionRow.style.display = "flex";
         buildThumbnails();
+        basePct = curPct(); targetPct = basePct;
         setCurrentPage(0);
         updateCursor();
         updateZoomLabel();
@@ -1442,6 +1485,7 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
         }
       });
       updateEditList();
+      pages.forEach(function(pp){ if (pp) hideCoveredIn(pp.textLayer, pp.deletedTexts); });
       flash("Session restored");
     } catch (err){
       console.warn("Restore failed", err);
@@ -1451,12 +1495,12 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
   function renderPage(page, pageNum){
     return new Promise(function(resolve){
       var nativeViewport = page.getViewport({ scale: 1 });
-      var viewerWidth = Math.max(300, els.viewer.clientWidth - 60);
-      fitScale = Math.min(viewerWidth / nativeViewport.width, 2.2);
+      var myGen = renderGen;
+      if (!fitLocked){ fitScale = Math.min(Math.max(300, els.viewer.offsetWidth - 80) / nativeViewport.width, 2.2); fitLocked = true; }
 
       var dpr = window.devicePixelRatio || 1;
       var effectiveScale = fitScale * zoomLevel;
-      var renderScale = effectiveScale * dpr;
+      var renderScale = Math.min(effectiveScale * dpr, Math.max(effectiveScale, Math.sqrt(3.2e7 / (nativeViewport.width * nativeViewport.height))));
 
       var displayViewport = page.getViewport({ scale: effectiveScale });
       var renderViewport = page.getViewport({ scale: renderScale });
@@ -1524,22 +1568,11 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
       }).promise.then(function(){
         return page.getTextContent();
       }).then(function(textContent){
-        buildTextLayer(textLayer, textContent, displayViewport);
+        if (myGen !== renderGen){ resolve(); return; }
+        buildTextLayer(textLayer, textContent, displayViewport, page);
         state.elements.forEach(function(el){ renderElement(pageNum - 1, el); });
         state.deletedTexts.forEach(function(d){ addDeletedCover(pageNum - 1, d); });
-        state.deletedTexts.forEach(function(d){
-          textLayer.querySelectorAll("span").forEach(function(s){
-            if (s.dataset.hidden === "1") return;
-            var r = s.getBoundingClientRect();
-            var wrapRect = wrap.getBoundingClientRect();
-            var sx = r.left - wrapRect.left;
-            var sy = r.top - wrapRect.top;
-            var fontSize = parseFloat(s.dataset.fontSize) || 12;
-            if (Math.abs(sx - (d.x - 0.5)) < 6 && Math.abs(sy - (d.y - fontSize * 0.15)) < 8){
-              s.style.opacity = "0"; s.dataset.hidden = "1";
-            }
-          });
-        });
+        hideCoveredIn(textLayer, state.deletedTexts);
         attachPageHandlers(pageNum - 1);
         var oldWrap = els.viewer.querySelector('.page-wrap[data-page="' + (pageNum - 1) + '"]');
         if (oldWrap) els.viewer.replaceChild(wrap, oldWrap);
@@ -1549,7 +1582,7 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
     });
   }
 
-  function buildTextLayer(layer, textContent, viewport){
+  function buildTextLayer(layer, textContent, viewport, page){
     var util = pdfjsLib.Util;
     textContent.items.forEach(function(item){
       if (!item.str) return;
@@ -1565,9 +1598,19 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
       span.dataset.color = "#000000";
       var fsz = item.height * viewport.scale;
       var mctx = buildTextLayer._c || (buildTextLayer._c = document.createElement("canvas").getContext("2d"));
-      mctx.font = fsz + "px sans-serif";
+      var st = (textContent.styles && textContent.styles[item.fontName]) || {}, nm = "";
+      try { var fo = page.commonObjs.get(item.fontName); nm = (fo && fo.name) || ""; } catch (fe){}
+      var fam = (/courier|mono|consol/i.test(nm) || st.fontFamily === "monospace") ? "'Courier New', Courier, monospace"
+              : ((/times|serif|georgia|garamond|roman|minion|palatino|cambria/i.test(nm) && !/sans/i.test(nm)) ||
+                 (st.fontFamily === "serif" && !/arial|helvet|sans|calibri|verdana|tahoma/i.test(nm))) ? "'Times New Roman', Times, serif"
+              : "Helvetica, Arial, sans-serif";
+      var isB = /bold|black|heavy|semibold|demi/i.test(nm), isI = /italic|oblique/i.test(nm);
+      span.dataset.font = fam; span.dataset.bold = isB ? "1" : ""; span.dataset.italic = isI ? "1" : "";
+      span.style.fontFamily = fam; span.style.fontWeight = isB ? "700" : "400"; span.style.fontStyle = isI ? "italic" : "normal";
+      mctx.font = (isI ? "italic " : "") + (isB ? "bold " : "") + fsz + "px " + fam;
       var nat = mctx.measureText(item.str).width;
       var real = item.width * viewport.scale;
+      span.dataset.w = real;
       if (nat > 0 && real > 0) span.style.transform = "scaleX(" + (real / nat) + ")";
       layer.appendChild(span);
     });
@@ -1592,6 +1635,7 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
       node.style.fontFamily = el.font || "Helvetica, Arial, sans-serif";
       node.style.color = el.color;
       node.style.fontWeight = el.bold ? "700" : "400";
+      node.style.lineHeight = el.lr ? String(el.lr) : "";
       node.style.fontStyle = el.italic ? "italic" : "normal";
       node.style.textDecoration = el.underline ? "underline" : "none";
     } else if (el.type === "rect"){
@@ -1681,6 +1725,28 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
     var p = pages[pageIndex];
     var annLayer = p.annLayer;
     var textLayer = p.textLayer;
+    var hov = document.createElement("div");
+    hov.className = "hover-box";
+    annLayer.appendChild(hov);
+    var hraf = 0, hev = null;
+    annLayer.addEventListener("mousemove", function(e){
+      hev = e;
+      if (hraf) return;
+      hraf = requestAnimationFrame(function(){
+        hraf = 0;
+        var nav = activeTool === "select" || activeTool === "edit";
+        if (!nav || (hev.target.closest && hev.target.closest(".ann-item"))){ hov.style.display = "none"; return; }
+        var sp = spanAt(pageIndex, hev.clientX, hev.clientY);
+        annLayer.style.cursor = sp ? "text" : "default";
+        if (!sp){ hov.style.display = "none"; return; }
+        var g = groupInfo(pageIndex, sp, hev.shiftKey);
+        if (!g){ hov.style.display = "none"; return; }
+        hov.style.left = g.cx + "px"; hov.style.top = g.cy + "px";
+        hov.style.width = g.cw + "px"; hov.style.height = g.ch + "px";
+        hov.style.display = "block";
+      });
+    });
+    annLayer.addEventListener("mouseleave", function(){ hov.style.display = "none"; });
 
     textLayer.addEventListener("click", function(e){
       if (activeTool !== "edit") return;
@@ -1693,44 +1759,47 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
     annLayer.addEventListener("mousedown", function(e){
       if (e.target.classList.contains("sel-handle")) return;
       currentPage = pageIndex;
+      var ae = document.activeElement;
+      if (ae && ae !== e.target && ae.classList && ae.classList.contains("inline-input")) ae.blur();
+      if (e.target.classList && e.target.classList.contains("inline-input")) return;
       var hitNode = e.target.closest(".ann-item");
       var rect = annLayer.getBoundingClientRect();
       var x = e.clientX - rect.left;
       var y = e.clientY - rect.top;
 
-      if (activeTool === "select"){
-        if (hitNode){
-          var elId = hitNode.dataset.elid;
-          var el = p.elements.filter(function(z){ return z.id === elId; })[0];
-          if (!el) return;
-          selected = { pageIndex: pageIndex, element: el };
-          showSelectionBox(pageIndex, el);
+      var hitEl = null;
+      if (hitNode){ var hid = hitNode.dataset.elid; hitEl = p.elements.filter(function(z){ return z.id === hid; })[0] || null; }
+      var isNav = activeTool === "select" || activeTool === "edit";
+      if (hitEl){
+        var pick = isNav || e.altKey ||
+          (["text","note","image"].indexOf(hitEl.type) > -1 && activeTool !== "image" && activeTool !== "sign") ||
+          (selected && selected.element === hitEl);
+        if (pick){
+          e.preventDefault();
+          selected = { pageIndex: pageIndex, element: hitEl };
+          showSelectionBox(pageIndex, hitEl);
           syncInspector();
           updateEditList();
-          startDrag(e, el, pageIndex);
+          startDrag(e, hitEl, pageIndex, function(){
+            if (activeTool === "edit" && hitEl.type === "text") openInlineEdit(pageIndex, hitEl);
+          });
           return;
         }
-
-// Hide the whole annotation layer (including covers) then ask what's
-// underneath. This reveals the original text span so we can promote it.
-var prevVis = annLayer.style.visibility;
-annLayer.style.visibility = "hidden";
-var underneath = document.elementFromPoint(e.clientX, e.clientY);
-annLayer.style.visibility = prevVis;
-
-if (underneath && underneath.tagName === "SPAN" && underneath.closest(".text-layer")){
-  var span = underneath;
-  if (span.dataset.hidden === "1") return;
-  var pel = promoteTextSpan(pageIndex, span);
-  if (pel) startDrag(e, pel, pageIndex);
-  return;
-}
-
+      }
+      if (isNav){
+        var sp = spanAt(pageIndex, e.clientX, e.clientY);
+        if (sp){
+          e.preventDefault();
+          if (activeTool === "select"){
+            var pel = promoteTextSpan(pageIndex, sp, e.shiftKey);
+            if (pel) startDrag(e, pel, pageIndex);
+          } else spanPress(e, pageIndex, sp);
+          return;
+        }
         deselect();
         return;
       }
-
-      if (activeTool === "edit") return;
+      if (selected) deselect();
       if (activeTool === "text"){ e.preventDefault(); openTextInput(pageIndex, x, y); return; }
       if (activeTool === "note"){
         var txt = prompt("Note text:");
@@ -1789,11 +1858,45 @@ if (underneath && underneath.tagName === "SPAN" && underneath.closest(".text-lay
       var elId = hitNode.dataset.elid;
       var el = p.elements.filter(function(z){ return z.id === elId; })[0];
       if (!el) return;
+      if (el.type === "text" && activeTool === "edit") return;
       if (el.type === "text" || el.type === "note") openInlineEdit(pageIndex, el);
     });
   }
 
-  function startDrag(mouseDownEvent, el, pageIndex){
+  function spanAt(pi, cx, cy){
+    var p = pages[pi], best = null;
+    if (!p) return null;
+    p.textLayer.querySelectorAll("span").forEach(function(sp){
+      if (sp.dataset.hidden === "1") return;
+      var r = sp.getBoundingClientRect();
+      if (cx >= r.left && cx <= r.right && cy >= r.top && cy <= r.bottom){
+        var a = r.width * r.height;
+        if (!best || a < best.a) best = { s: sp, a: a };
+      }
+    });
+    if (!best){
+      var runs = p.runs || (p.runs = pageRuns(pi)), a = p.annLayer.getBoundingClientRect(), lx = cx - a.left, ly = cy - a.top;
+      var hit = runs.filter(function(r){ return lx >= r.l - 2 && lx <= r.r + 2 && ly >= r.t + r.fs * 0.1 && ly <= r.b + r.fs * 0.3; })[0];
+      if (hit) return hit.items[0].sp;
+    }
+    return best && best.s;
+  }
+  // Edit tool: click = edit the text, drag = move it.
+  function spanPress(e, pi, span){
+    var sx = e.clientX, sy = e.clientY;
+    function off(){ document.removeEventListener("mousemove", mv); document.removeEventListener("mouseup", up); }
+    function mv(ev){
+      if (Math.abs(ev.clientX - sx) + Math.abs(ev.clientY - sy) < 5) return;
+      off();
+      var el = promoteTextSpan(pi, span, e.shiftKey);
+      if (el) startDrag(e, el, pi);
+    }
+    function up(){ off(); openEditInput(pi, span, e.shiftKey); }
+    document.addEventListener("mousemove", mv);
+    document.addEventListener("mouseup", up);
+  }
+
+  function startDrag(mouseDownEvent, el, pageIndex, onClick){
     var startX = mouseDownEvent.clientX;
     var startY = mouseDownEvent.clientY;
     var orig = clone({ x: el.x, y: el.y, x1: el.x1, y1: el.y1, x2: el.x2, y2: el.y2 });
@@ -1822,6 +1925,7 @@ if (underneath && underneath.tagName === "SPAN" && underneath.closest(".text-lay
         markDirty();
       }
       syncInspector();
+      if (!moved && onClick) onClick();
     }
     document.addEventListener("mousemove", move);
     document.addEventListener("mouseup", up);
@@ -1944,120 +2048,161 @@ if (underneath && underneath.tagName === "SPAN" && underneath.closest(".text-lay
       updateEditList();
     }
     input.addEventListener("keydown", function(e){
-      if (e.key === "Enter"){ e.preventDefault(); commit(); }
+      if (e.key === "Enter" && (input.tagName !== "TEXTAREA" || e.ctrlKey || e.metaKey)){ e.preventDefault(); commit(); }
       if (e.key === "Escape") input.remove();
     });
     input.addEventListener("blur", commit);
   }
 
-  function openEditInput(pageIndex, span){
-    var p = pages[pageIndex];
-    var wrap = els.viewer.querySelector('.page-wrap[data-page="' + pageIndex + '"]');
-    var wrapRect = wrap.getBoundingClientRect();
-    var r = span.getBoundingClientRect();
-    var x = r.left - wrapRect.left;
-    var y = r.top - wrapRect.top;
-    var fontSize = parseFloat(span.dataset.fontSize) || 12;
-    var original = span.dataset.originalText;
-    var color = span.dataset.color || "#000000";
-
-    var input = document.createElement("input");
-    input.type = "text";
+  function hideCoveredIn(layer, covers){
+    if (!covers || !covers.length) return;
+    layer.querySelectorAll("span").forEach(function(sp){
+      if (sp.dataset.hidden === "1") return;
+      var fs = parseFloat(sp.dataset.fontSize) || 12;
+      var cx = parseFloat(sp.style.left) + (parseFloat(sp.dataset.w) || 0) / 2, cy = parseFloat(sp.style.top) + fs * 0.6;
+      for (var i = 0; i < covers.length; i++){
+        var d = covers[i];
+        if (cx >= d.x && cx <= d.x + d.w && cy >= d.y && cy <= d.y + d.h){ sp.style.opacity = "0"; sp.dataset.hidden = "1"; break; }
+      }
+    });
+  }
+  // Merge the PDF's split text pieces into visual lines ("runs").
+  function pageRuns(pi){
+    var p = pages[pi], items = [];
+    p.textLayer.querySelectorAll("span").forEach(function(sp){
+      if (sp.dataset.hidden === "1") return;
+      var fs = parseFloat(sp.dataset.fontSize) || 12, l = parseFloat(sp.style.left), t = parseFloat(sp.style.top), w = parseFloat(sp.dataset.w) || 0;
+      items.push({ sp: sp, l: l, r: l + w, t: t, b: t + fs, fs: fs });
+    });
+    items.sort(function(a, b){ return a.b - b.b || a.l - b.l; });
+    var lines = [], runs = [];
+    items.forEach(function(it){
+      var ln = lines.filter(function(L){ return Math.abs(L.b - it.b) < Math.max(2, 0.3 * it.fs) && Math.abs(L.fs - it.fs) < 0.3 * it.fs; })[0];
+      if (ln) ln.items.push(it); else lines.push({ b: it.b, fs: it.fs, items: [it] });
+    });
+    lines.forEach(function(L){
+      L.items.sort(function(a, b){ return a.l - b.l; });
+      var cur = null;
+      L.items.forEach(function(it){
+        if (cur && it.l - cur.r < 0.6 * L.fs){ cur.items.push(it); cur.r = Math.max(cur.r, it.r); }
+        else { cur = { items: [it], l: it.l, r: it.r, t: it.t, b: it.b, fs: it.fs }; runs.push(cur); }
+      });
+    });
+    return runs;
+  }
+  function paraOf(runs, run){
+    var group = [run];
+    function next(cur, dir){
+      var best = null;
+      runs.forEach(function(r){
+        if (group.indexOf(r) > -1) return;
+        var dy = (r.b - cur.b) * dir;
+        if (dy < 0.8 * cur.fs || dy > 1.9 * cur.fs) return;
+        if (Math.abs(r.l - run.l) > 2.5 * cur.fs || r.l > cur.r) return;
+        if (Math.abs(r.fs - cur.fs) > 0.25 * cur.fs) return;
+        if (!best || dy < (best.b - cur.b) * dir) best = r;
+      });
+      return best;
+    }
+    var c = run, n;
+    while ((n = next(c, 1))){ group.push(n); c = n; }
+    c = run;
+    while ((n = next(c, -1))){ group.unshift(n); c = n; }
+    return group;
+  }
+  function groupInfo(pi, span, para){
+    var p = pages[pi], runs = p.runs || (p.runs = pageRuns(pi));
+    var run = runs.filter(function(r){ return r.items.some(function(i){ return i.sp === span; }); })[0];
+    if (!run) return null;
+    var rl = para ? paraOf(runs, run) : [run], lines = [], spans = [], l = 1e9, r = -1e9;
+    rl.forEach(function(rn){
+      var txt = "", prev = null;
+      rn.items.forEach(function(it){
+        var str = it.sp.dataset.originalText || "";
+        if (prev && it.l - prev.r > 0.12 * rn.fs && !/\s$/.test(txt) && !/^\s/.test(str)) txt += " ";
+        txt += str; prev = it; spans.push(it.sp);
+      });
+      lines.push(txt); l = Math.min(l, rn.l); r = Math.max(r, rn.r);
+    });
+    var first = rl[0], last = rl[rl.length - 1], fs = first.fs, f0 = first.items[0].sp;
+    var lr = rl.length > 1 ? Math.max(1, Math.min(2.5, (last.b - first.b) / (rl.length - 1) / fs)) : 0;
+    var cy = first.t + fs * 0.15;
+    return { spans: spans, text: lines.join("\n"), x: l, w: r - l, fs: fs, lr: lr,
+      ty: first.t + fs * (0.15 - ((lr || 1.2) - 1.2) / 2),
+      cx: l - 2, cw: (r - l) + 4 + fs * 0.1, cy: cy, ch: (last.b + fs * 0.3) - cy,
+      font: f0.dataset.font || "Helvetica, Arial, sans-serif", bold: !!f0.dataset.bold, italic: !!f0.dataset.italic, color: f0.dataset.color || "#000000" };
+  }
+  function makeGroupEl(g, text){
+    var el = { id: uid(), type: "text", x: g.x, y: g.ty, w: 0, h: g.fs * 1.2 * text.split("\n").length, text: text, color: g.color, font: g.font, bold: g.bold, italic: g.italic, size: g.fs, original: g.text };
+    if (g.lr) el.lr = g.lr;
+    return el;
+  }
+  function openEditInput(pageIndex, span, para){
+    var p = pages[pageIndex], g = groupInfo(pageIndex, span, para);
+    if (!g) return;
+    var multi = g.text.indexOf("\n") > -1, done = false;
+    var input = document.createElement(multi ? "textarea" : "input");
+    if (!multi) input.type = "text";
     input.className = "inline-input";
-    input.value = original;
-    input.style.left = x + "px";
-    input.style.top = y + "px";
-    input.style.width = Math.max(60, r.width + 40) + "px";
-    input.style.height = Math.max(16, r.height) + "px";
-    input.style.fontSize = fontSize + "px";
-    input.style.color = color;
-    input.style.fontFamily = "Helvetica, Arial, sans-serif";
+    input.value = g.text;
+    input.style.left = g.x + "px"; input.style.top = g.cy + "px";
+    input.style.width = Math.max(60, g.w + 40) + "px";
+    input.style.height = Math.max(16, g.ch) + "px";
+    input.style.fontSize = g.fs + "px";
+    input.style.color = g.color;
+    input.style.fontFamily = g.font;
+    input.style.fontWeight = g.bold ? "700" : "400";
+    input.style.fontStyle = g.italic ? "italic" : "normal";
+    if (multi){ input.wrap = "off"; input.style.lineHeight = String(g.lr); }
     p.annLayer.appendChild(input);
-    input.focus();
-    input.select();
-
+    input.focus(); input.select();
     function commit(){
+      if (done || !input.parentNode) return;
+      done = true;
       var v = input.value;
       input.remove();
-      if (v === original) return;
-      if (!v.trim()) return;
-
-      var padX = -1.5;
-      var coverH = fontSize * 1.15;
-      var coverY = y + fontSize * 0.15;
-      var coverX = x + padX;
-      var coverW = Math.max(4, r.width - padX * 2);
-      var cover = { x: coverX, y: coverY, w: coverW, h: coverH };
-
-      var newEl = {
-        id: uid(), type: "text",
-        x: x, y: y + fontSize * 0.15, w: 0, h: fontSize * 1.2,
-        text: v, color: color, font: "Helvetica, Arial, sans-serif", size: fontSize,
-        original: original, coverRef: cover
-      };
-      p.deletedTexts.push(cover);
-      addDeletedCover(pageIndex, cover);
-      span.style.opacity = "0";
-      span.dataset.hidden = "1";
-      addElement(pageIndex, newEl);
-      updateEditList();
+      if (v === g.text || !v.trim()) return;
+      var cover = { x: g.cx, y: g.cy, w: g.cw, h: g.ch };
+      var el = makeGroupEl(g, v);
+      el.coverRef = cover;
+      p.deletedTexts.push(cover); addDeletedCover(pageIndex, cover);
+      g.spans.forEach(function(sp){ sp.style.opacity = "0"; sp.dataset.hidden = "1"; });
+      p.runs = null;
+      addElement(pageIndex, el);
       flash("Edited");
     }
     input.addEventListener("keydown", function(e){
-      if (e.key === "Enter"){ e.preventDefault(); commit(); }
-      if (e.key === "Escape") input.remove();
+      if (e.key === "Enter" && (!multi || e.ctrlKey || e.metaKey)){ e.preventDefault(); commit(); }
+      if (e.key === "Escape"){ done = true; input.remove(); }
     });
     input.addEventListener("blur", commit);
   }
-
-  function promoteTextSpan(pageIndex, span){
-    var p = pages[pageIndex];
-    var wrap = els.viewer.querySelector('.page-wrap[data-page="' + pageIndex + '"]');
-    var wrapRect = wrap.getBoundingClientRect();
-    var r = span.getBoundingClientRect();
-    var x = r.left - wrapRect.left;
-    var y = r.top - wrapRect.top;
-    var fontSize = parseFloat(span.dataset.fontSize) || 12;
-    var text = span.dataset.originalText || span.textContent || "";
-    var color = span.dataset.color || "#000000";
-
-    var padX = -1.5;
-    var coverH = fontSize * 1.15;
-    var coverY = y + fontSize * 0.15;
-    var coverX = x + padX;
-    var coverW = Math.max(4, r.width - padX * 2);
-    var cover = { x: coverX, y: coverY, w: coverW, h: coverH };
-    p.deletedTexts.push(cover);
-    addDeletedCover(pageIndex, cover);
-    span.style.opacity = "0";
-    span.dataset.hidden = "1";
-
-    var el = {
-      id: uid(), type: "text",
-      x: x, y: y + fontSize * 0.15, w: 0, h: fontSize * 1.2,
-      text: text, color: color, font: "Helvetica, Arial, sans-serif", size: fontSize,
-      original: text, coverRef: cover
-    };
+  function promoteTextSpan(pageIndex, span, para){
+    var p = pages[pageIndex], g = groupInfo(pageIndex, span, para);
+    if (!g) return null;
+    var cover = { x: g.cx, y: g.cy, w: g.cw, h: g.ch };
+    var el = makeGroupEl(g, g.text);
+    el.coverRef = cover;
+    p.deletedTexts.push(cover); addDeletedCover(pageIndex, cover);
+    g.spans.forEach(function(sp){ sp.style.opacity = "0"; sp.dataset.hidden = "1"; });
+    p.runs = null;
     addElement(pageIndex, el);
-
-    selected = { pageIndex: pageIndex, element: el };
-    showSelectionBox(pageIndex, el);
-    syncInspector();
-    updateEditList();
-    flash("Selected. Move or edit it.");
+    flash(para ? "Paragraph selected" : "Line selected");
     return el;
   }
 
   function openInlineEdit(pageIndex, el){
     var p = pages[pageIndex];
-    var input = document.createElement("input");
-    input.type = "text";
+    var input = document.createElement((el.text || "").indexOf("\n") > -1 ? "textarea" : "input");
+    if (input.tagName === "INPUT") input.type = "text"; else { input.wrap = "off"; input.style.lineHeight = String(el.lr || 1.2); }
     input.className = "inline-input";
     input.value = el.text || "";
+    input.style.fontWeight = el.bold ? "700" : "400";
+    input.style.fontStyle = el.italic ? "italic" : "normal";
     input.style.left = el.x + "px";
     input.style.top = el.y + "px";
     input.style.width = Math.max(80, (el.w || 160)) + "px";
-    input.style.height = Math.max(18, el.size * 1.3) + "px";
+    input.style.height = Math.max(18, el.size * (input.tagName === "TEXTAREA" ? (el.lr || 1.2) * (el.text || "").split("\n").length + 0.2 : 1.3)) + "px";
     input.style.fontSize = el.size + "px";
     input.style.fontFamily = el.font || "Helvetica, Arial, sans-serif";
     input.style.color = el.color;
@@ -2078,7 +2223,7 @@ if (underneath && underneath.tagName === "SPAN" && underneath.closest(".text-lay
       }
     }
     input.addEventListener("keydown", function(e){
-      if (e.key === "Enter"){ e.preventDefault(); commit(); }
+      if (e.key === "Enter" && (input.tagName !== "TEXTAREA" || e.ctrlKey || e.metaKey)){ e.preventDefault(); commit(); }
       if (e.key === "Escape") input.remove();
     });
     input.addEventListener("blur", commit);
@@ -2088,8 +2233,11 @@ if (underneath && underneath.tagName === "SPAN" && underneath.closest(".text-lay
     pages[pageIndex].elements.push(el);
     renderElement(pageIndex, el);
     pushHistory("add", { pageIndex: pageIndex, elementId: el.id, element: el });
-    updateEditList();
     markDirty();
+    selected = { pageIndex: pageIndex, element: el };
+    showSelectionBox(pageIndex, el);
+    syncInspector();
+    updateEditList();
   }
 
   function showSelectionBox(pageIndex, el){
@@ -2500,20 +2648,23 @@ if (underneath && underneath.tagName === "SPAN" && underneath.closest(".text-lay
   }
 
   function bindZoom(){
-    $("zoomInBtn").addEventListener("click", function(){ setZoom(zoomLevel * 1.25); });
-    $("zoomOutBtn").addEventListener("click", function(){ setZoom(zoomLevel / 1.25); });
-    $("zoomFitBtn").addEventListener("click", function(){ setZoom(1); });
+    $("zoomInBtn").addEventListener("click", function(){ zoomToPct(tp() + 10, true); });
+    $("zoomOutBtn").addEventListener("click", function(){ zoomToPct(tp() - 10, true); });
+    $("zoomFitBtn").addEventListener("click", fitWidth);
     els.viewer.addEventListener("wheel", function(e){
       if (!(e.ctrlKey || e.metaKey)) return;
       e.preventDefault();
-      setZoom(zoomLevel * (e.deltaY < 0 ? 1.15 : 1/1.15));
+      zoomToPct(tp() * Math.exp(-Math.max(-60, Math.min(60, e.deltaY)) * 0.0015));
     }, { passive: false });
-      }
+  }
   function updateZoomLabel(){
-    var pc = Math.round(fitScale * zoomLevel * 100); $("zoomLabel").textContent = pc + "%"; var zs = $("zoomSlider"); if (zs) zs.value = pc;
+    if (zoomPending) return;
+    var pc = curPct(), zi = $("zoomInput"), zs = $("zoomSlider");
+    if (zi && document.activeElement !== zi) zi.value = pc;
+    if (zs) zs.value = pc;
   }
   function setZoom(z){
-    var nz = Math.max(0.15, Math.min(6, z));
+    var nz = Math.max(0.1 / fitScale, Math.min(5 / fitScale, z));
     if (pdfDoc && nz !== zoomLevel) rescaleAll(nz / zoomLevel);
     zoomLevel = nz;
     updateZoomLabel();
@@ -2524,14 +2675,17 @@ if (underneath && underneath.tagName === "SPAN" && underneath.closest(".text-lay
     say("Rendering…");
     clearTimeout(renderDebounce);
     renderDebounce = setTimeout(function(){
+      var sr = { t: els.viewer.scrollTop / Math.max(1, els.viewer.scrollHeight), l: els.viewer.scrollLeft / Math.max(1, els.viewer.scrollWidth) };
       els.viewer.innerHTML = "";
+      var gen = ++renderGen;
       var savedPages = pages.slice();
-      pages = [];
       var chain = Promise.resolve();
       for (var i = 1; i <= pdfDoc.numPages; i++){
         (function(n){
           chain = chain.then(function(){
+            if (gen !== renderGen) return;
             return pdfDoc.getPage(n).then(function(page){
+              if (gen !== renderGen) return;
               pages[n-1] = savedPages[n-1] || null;
               return renderPage(page, n);
             });
@@ -2539,9 +2693,12 @@ if (underneath && underneath.tagName === "SPAN" && underneath.closest(".text-lay
         })(i);
       }
       chain.then(function(){
+        if (gen !== renderGen) return;
         say("Ready.", "ok");
         updateZoomLabel();
         updateCursor();
+        els.viewer.scrollTop = sr.t * els.viewer.scrollHeight;
+        els.viewer.scrollLeft = sr.l * els.viewer.scrollWidth;
         if (selected) showSelectionBox(selected.pageIndex, selected.element);
       });
     }, 120);
@@ -2709,9 +2866,9 @@ if (underneath && underneath.tagName === "SPAN" && underneath.closest(".text-lay
         if (selected){ e.preventDefault(); duplicateSelected(); }
         return;
       }
-      if ((e.ctrlKey || e.metaKey) && (e.key === "=" || e.key === "+")){ e.preventDefault(); setZoom(zoomLevel * 1.25); return; }
-      if ((e.ctrlKey || e.metaKey) && (e.key === "-" || e.key === "_")){ e.preventDefault(); setZoom(zoomLevel / 1.25); return; }
-      if ((e.ctrlKey || e.metaKey) && e.key === "0"){ e.preventDefault(); setZoom(1); return; }
+      if ((e.ctrlKey || e.metaKey) && (e.key === "=" || e.key === "+")){ e.preventDefault(); zoomToPct(tp() + 10, true); return; }
+      if ((e.ctrlKey || e.metaKey) && (e.key === "-" || e.key === "_")){ e.preventDefault(); zoomToPct(tp() - 10, true); return; }
+      if ((e.ctrlKey || e.metaKey) && e.key === "0"){ e.preventDefault(); fitWidth(); return; }
 
       if (e.key === "Escape"){
         deselect();
@@ -3065,17 +3222,20 @@ if (underneath && underneath.tagName === "SPAN" && underneath.closest(".text-lay
                 var c = hexToRgb01(el.color);
                 var sizePt = el.size / s;
                 if (el.underline && el.text){
-                  try {
-                    var tw = font.widthOfTextAtSize(el.text, sizePt);
-                    var uy = toPdfY(el.y + el.size * 0.85) - sizePt * 0.12;
-                    outPage.drawLine({ start: { x: toPdfX(el.x), y: uy }, end: { x: toPdfX(el.x) + tw, y: uy }, thickness: Math.max(0.5, sizePt / 16), color: rgb(c.r, c.g, c.b) });
-                  } catch (ue){}
+                  el.text.split("\n").forEach(function(ln, li){
+                    try {
+                      var tw = font.widthOfTextAtSize(ln, sizePt);
+                      var uy = toPdfY(el.y + el.size * (0.85 + ((el.lr || 1.2) - 1.2) / 2)) - sizePt * 0.12 - li * (el.lr || 1.2) * sizePt;
+                      outPage.drawLine({ start: { x: toPdfX(el.x), y: uy }, end: { x: toPdfX(el.x) + tw, y: uy }, thickness: Math.max(0.5, sizePt / 16), color: rgb(c.r, c.g, c.b) });
+                    } catch (ue){}
+                  });
                 }
                 try {
                   outPage.drawText(el.text || "", {
                     x: toPdfX(el.x),
-                    y: toPdfY(el.y + el.size * 0.85),
+                    y: toPdfY(el.y + el.size * (0.85 + ((el.lr || 1.2) - 1.2) / 2)),
                     size: sizePt,
+                    lineHeight: (el.lr || 1.2) * sizePt,
                     font: font,
                     color: rgb(c.r, c.g, c.b)
                   });
@@ -3084,8 +3244,9 @@ if (underneath && underneath.tagName === "SPAN" && underneath.closest(".text-lay
                   if (safe){
                     outPage.drawText(safe, {
                       x: toPdfX(el.x),
-                      y: toPdfY(el.y + el.size * 0.85),
+                      y: toPdfY(el.y + el.size * (0.85 + ((el.lr || 1.2) - 1.2) / 2)),
                       size: sizePt,
+                      lineHeight: (el.lr || 1.2) * sizePt,
                       font: font,
                       color: rgb(c.r, c.g, c.b)
                     });
