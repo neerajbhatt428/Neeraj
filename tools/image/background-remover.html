@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Background Remover — Remove Image Backgrounds Online Free</title>
+<meta name="description" content="Remove the background from any image directly in your browser. AI-powered, no upload, no signup, 100% private. Works on photos, products, people and more.">
+<link rel="canonical" href="https://qrcodescanner.co.in/tools/image/background-remover.html">
+<link rel="sitemap" type="application/xml" href="https://qrcodescanner.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#1B4DFF">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Background Remover — Remove Image Backgrounds Online Free">
+<meta property="og:description" content="Remove the background from any image in your browser. AI-powered, no upload, 100% private.">
+<meta property="og:url" content="https://qrcodescanner.co.in/tools/image/background-remover.html">
+
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"WebApplication",
+      "name":"Background Remover",
+      "url":"https://qrcodescanner.co.in/tools/image/background-remover.html",
+      "applicationCategory":"UtilitiesApplication",
+      "operatingSystem":"Any browser",
+      "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+      "featureList":[
+        "Remove image background in browser",
+        "AI-powered segmentation",
+        "No upload — runs locally",
+        "Transparent PNG output",
+        "Select object or select background tools","Brush erase and restore","HEIC, AVIF, TIFF, GIF, BMP, SVG support","WebGPU acceleration","Custom background color or image",
+        "Works on photos, products, people"
+      ]
+    },
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://qrcodescanner.co.in/"},
+        {"@type":"ListItem","position":2,"name":"Tools","item":"https://qrcodescanner.co.in/tools/"},
+        {"@type":"ListItem","position":3,"name":"Background Remover","item":"https://qrcodescanner.co.in/tools/image/background-remover.html"}
+      ]
+    },
+    {
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"Is this background remover free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is completely free, has no daily limit and runs entirely in your browser."}},
+        {"@type":"Question","name":"Does my image get uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The AI model runs on your device using WebAssembly. Your image never leaves your browser."}},
+        {"@type":"Question","name":"What image formats are supported?","acceptedAnswer":{"@type":"Answer","text":"JPG, PNG, WebP, AVIF, HEIC, GIF, BMP, TIFF and SVG images are supported. Export as PNG, WebP or JPG with a transparent or custom background."}},
+        {"@type":"Question","name":"Why does the first run take longer?","acceptedAnswer":{"@type":"Answer","text":"On first use, the AI model (about 40 MB) is downloaded and cached by your browser. Every image after that is much faster."}}
+      ]
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/base.css">
+
+<style>
+/* Fallback design tokens — keeps the tool rendering even if base.css fails to load */
+:root{
+  --paper:#EDEDE9;
+  --surface:#FFFFFF;
+  --ink:#14161A;
+  --muted:#6B7079;
+  --line:#D6D6D0;
+  --blue:#1B4DFF;
+  --blue-deep:#1338C4;
+  --green:#0E7A5F;
+  --red:#B0233A;
+  --radius:6px;
+  --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --display:"Bricolage Grotesque",var(--sans);
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);
+  background-size:28px 28px;
+  margin:0;padding:0;
+}
+.wrap-wide{max-width:900px;margin:0 auto;padding:20px 18px 64px}
+
+.masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
+.masthead a{color:inherit;text-decoration:none}
+.mark{width:26px;height:26px;flex:none}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.masthead .nav-right{margin-left:auto;font-size:.875rem;color:var(--blue);text-decoration:underline;white-space:nowrap}
+
+.crumbs{font-size:.8125rem;color:var(--muted);margin:0 0 18px;font-family:var(--mono)}
+.crumbs a{color:var(--muted);text-decoration:underline}
+.crumbs a:hover{color:var(--blue)}
+.crumbs span{color:var(--ink)}
+
+.lede{margin:0 0 6px;font-family:var(--display);font-weight:700;
+  font-size:clamp(2rem,7vw,2.9rem);line-height:1.02;letter-spacing:-.03em;max-width:20ch}
+.sub{margin:0 0 22px;color:var(--muted);max-width:58ch;font-size:1rem}
+
+/* Tool-specific styles */
+.stage{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:24px;
+  margin:24px 0 0;
+}
+.drop-zone{
+  display:block;
+  border:2px dashed var(--line);
+  border-radius:var(--radius);
+  padding:48px 24px;
+  text-align:center;
+  cursor:pointer;
+  transition:border-color .15s ease, background .15s ease;
+  background:#FAFAF8;
+}
+.drop-zone:hover, .drop-zone.over{
+  border-color:var(--blue);
+  background:#F5F7FF;
+}
+.drop-zone svg{
+  width:48px;height:48px;
+  color:var(--blue);opacity:.6;
+  margin:0 auto 16px;display:block;
+}
+.drop-zone h2{
+  font-family:var(--display);
+  font-weight:700;
+  font-size:1.25rem;
+  margin:0 0 8px;
+  letter-spacing:-.01em;
+}
+.drop-zone p{
+  margin:0;
+  color:var(--muted);
+  font-size:.9375rem;
+}
+
+.preview-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin:20px 0 0;
+}
+@media(max-width:640px){
+  .preview-grid{grid-template-columns:1fr}
+}
+.preview-panel{
+  background:#F4F4F4;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  min-height:280px;
+}
+.preview-panel h3{
+  font-family:var(--mono);
+  font-size:.6875rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--muted);
+  margin:0 0 12px;
+}
+.preview-img{
+  flex:1;
+  display:grid;
+  place-items:center;
+  background-image:
+    linear-gradient(45deg, #E0E0E0 25%, transparent 25%),
+    linear-gradient(-45deg, #E0E0E0 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #E0E0E0 75%),
+    linear-gradient(-45deg, transparent 75%, #E0E0E0 75%);
+  background-size:16px 16px;
+  background-position:0 0, 0 8px, 8px -8px, -8px 0px;
+  border-radius:4px;
+  overflow:hidden;
+}
+.preview-img canvas{
+  max-width:100%;
+  max-height:320px;
+  display:block;
+}
+
+.controls{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  align-items:center;
+  margin:20px 0 0;
+  padding:16px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+}
+.control-group{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:.875rem;
+}
+.control-group label{color:var(--muted);white-space:nowrap}
+.control-group select{
+  padding:8px 12px;
+  border:1px solid var(--line);
+  border-radius:5px;
+  background:#fff;
+  font:inherit;
+  font-size:.8125rem;
+  color:var(--ink);
+}
+.control-group select:focus{outline:none;border-color:var(--blue)}
+
+.color-options{
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+.color-swatch{
+  width:24px;height:24px;
+  border-radius:50%;
+  border:2px solid transparent;
+  cursor:pointer;
+  transition:transform .1s ease, border-color .1s ease;
+}
+.color-swatch:hover{transform:scale(1.15)}
+.color-swatch.active{border-color:var(--ink)}
+.color-swatch[data-color="transparent"]{
+  background-image:
+    linear-gradient(45deg, #ccc 25%, transparent 25%),
+    linear-gradient(-45deg, #ccc 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #ccc 75%),
+    linear-gradient(-45deg, transparent 75%, #ccc 75%);
+  background-size:10px 10px;
+  background-position:0 0, 0 5px, 5px -5px, -5px 0px;
+  background-color:#fff;
+}
+
+.btnrow{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:20px 0 0;
+}
+.btn{
+  font:inherit;cursor:pointer;
+  border-radius:var(--radius);
+  border:1px solid var(--line);
+  background:var(--surface);
+  color:var(--ink);
+  padding:12px 18px;
+  font-weight:500;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  transition:border-color .12s ease,background .12s ease;
+}
+.btn:hover{border-color:#A9A9A1}
+.btn:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.btn.primary{
+  background:var(--blue);
+  border-color:var(--blue);
+  color:#fff;
+  justify-content:center;
+  flex:1 1 220px;
+}
+.btn.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep)}
+
+.progress{
+  margin:16px 0 0;
+  height:6px;
+  background:var(--line);
+  border-radius:100px;
+  overflow:hidden;
+  display:none;
+}
+.progress.show{display:block}
+.progress-bar{
+  height:100%;
+  width:0;
+  background:var(--blue);
+  transition:width .3s ease;
+}
+
+.status{
+  margin:12px 0 0;
+  font-family:var(--mono);
+  font-size:.8125rem;
+  color:var(--muted);
+  min-height:1.4em;
+}
+.status.err{color:var(--red)}
+.status.ok{color:var(--green)}
+
+.toast{
+  position:fixed;left:50%;bottom:24px;transform:translateX(-50%);
+  background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;
+  font-size:.875rem;opacity:0;pointer-events:none;
+  transition:opacity .2s ease;z-index:200;
+  display:flex;align-items:center;gap:8px;
+  box-shadow:0 8px 24px rgba(0,0,0,.25);
+}
+.toast.show{opacity:1}
+
+.article{margin:44px 0 0;max-width:68ch}
+.article h2{margin:36px 0 10px;font-family:var(--display);font-size:1.5rem;letter-spacing:-.02em}
+.article h2:first-child{margin-top:0}
+.article p{margin:0 0 12px;color:#3A3E46}
+.article ul{margin:0 0 12px;padding-left:20px;color:#3A3E46}
+.article li{margin:0 0 6px}
+.article strong{font-weight:600;color:var(--ink)}
+.article a{color:var(--blue);text-decoration:underline}
+.article ol{margin:0 0 12px;padding-left:22px;color:#3A3E46}
+
+.faq{margin:14px 0 0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;
+  display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--blue);font-size:1.25rem;line-height:1;flex:none}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{margin:0 0 14px;color:#3A3E46;max-width:62ch}
+
+footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);
+  color:var(--muted);font-size:.8125rem}
+footer a{color:inherit}
+footer a:hover{color:var(--blue)}
+
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.wrap-wide{max-width:1100px}
+[hidden]{display:none!important}
+.tools{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px;align-items:center}
+.tb{font:inherit;font-size:.8125rem;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--ink);padding:8px 12px;border-radius:var(--radius)}
+.tb:hover{border-color:#A9A9A1}.tb.active{background:var(--blue);border-color:var(--blue);color:#fff}
+.tb[disabled]{opacity:.4;cursor:not-allowed}
+.opts{display:flex;flex-wrap:wrap;gap:8px 20px;padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius);background:#FAFAF8;font-size:.8125rem;margin:0 0 10px}
+.opts label{display:flex;align-items:center;gap:8px;color:var(--muted)}
+.opts input[type=range]{width:110px}.opts select{font:inherit;font-size:.8125rem;padding:4px 6px}
+.hint{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin:0 0 10px}
+.vp{overflow:auto;max-height:72vh;border:1px solid var(--line);border-radius:var(--radius);display:grid;place-items:center;
+background-color:#fff;background-image:linear-gradient(45deg,#E4E4E4 25%,transparent 25%),linear-gradient(-45deg,#E4E4E4 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#E4E4E4 75%),linear-gradient(-45deg,transparent 75%,#E4E4E4 75%);background-size:16px 16px;background-position:0 0,0 8px,8px -8px,-8px 0}
+#view{max-width:100%;max-height:70vh;display:block;cursor:crosshair;user-select:none}
+.bgrow{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin:12px 0 0;font-size:.8125rem;color:var(--muted)}
+.bgrow input[type=color]{width:28px;height:28px;padding:0;border:1px solid var(--line);border-radius:50%;background:none;cursor:pointer}
+.color-swatch{border:2px solid var(--line)}.color-swatch.active{border-color:var(--blue)}
+.vp{display:flex}#view{flex:none;margin:auto}
+#ring{position:fixed;pointer-events:none;border:2px solid #fff;box-shadow:0 0 0 1px #000,inset 0 0 0 1px #000;border-radius:50%;z-index:150;transform:translate(-50%,-50%)}
+.btnrow{position:sticky;bottom:0;background:var(--surface);padding:10px 0;border-top:1px solid var(--line);z-index:5}
+.vpw{position:relative}
+#busy{position:absolute;inset:0;display:flex;gap:10px;align-items:center;justify-content:center;background:rgba(255,255,255,.75);font-family:var(--mono);font-size:.875rem;z-index:6;text-align:center;padding:12px}
+#busy i{flex:none;width:18px;height:18px;border:3px solid var(--line);border-top-color:var(--blue);border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.adv{font-size:.8125rem;color:var(--muted)}.adv summary{cursor:pointer;color:var(--blue)}
+.advin{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:8px}
+@media(max-width:640px){.tb{padding:10px 12px}.tools{flex-wrap:nowrap;overflow-x:auto}.tools .tb{flex:none}.opts input[type=range]{width:90px}}
+</style>
+</head>
+<body>
+<div class="wrap-wide">
+
+  <header class="masthead">
+    <a href="../../index.html" style="display:flex;align-items:center;gap:10px">
+      <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/>
+        <path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/>
+        <path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/>
+        <path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/>
+        <path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/>
+      </svg>
+      <span class="wordmark">ToolNest</span>
+    </a>
+    <a href="../index.html" class="nav-right">All tools →</a>
+  </header>
+
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Background Remover</span>
+  </nav>
+
+  <h1 class="lede">Background Remover</h1>
+  <p class="sub">Remove the background from any image directly in your browser. AI-powered, fast, no upload, 100% private. Select the object or the background yourself to fix any edge.</p>
+
+  <div class="stage">
+    <label class="drop-zone" id="dropZone" for="fileInput">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      <h2>Drop an image here</h2>
+      <p>or click to choose · or paste with Ctrl+V<br>JPG, PNG, WebP, AVIF, HEIC, GIF, BMP, TIFF, SVG</p>
+      <input type="file" id="fileInput" accept="image/*,.heic,.heif,.tif,.tiff,.avif" class="sr">
+    </label>
+    <div class="progress" id="progress"><div class="progress-bar" id="progressBar"></div></div>
+    <p class="status" id="status" role="status"></p>
+    <div id="editor" hidden>
+      <div class="tools" id="tools">
+        <button class="tb" data-tool="rm" title="Click a background area to remove it (R)">Remove background</button>
+        <button class="tb" data-tool="kp" title="Click a missing part of your subject to bring it back (K)">Restore object</button>
+        <button class="tb" data-tool="pk" title="Click your subject, everything else goes (O)">Keep one object</button>
+        <button class="tb" data-tool="er" title="Paint to erase (E). [ and ] change size">Erase brush</button>
+        <button class="tb" data-tool="rs" title="Paint to restore (B)">Restore brush</button>
+        <button class="tb" data-tool="pn" title="Drag to move around when zoomed (H)">Pan</button>
+        <span style="flex:1"></span>
+        <button class="tb" id="undoBtn" title="Ctrl+Z">Undo</button><button class="tb" id="redoBtn">Redo</button><button class="tb" id="autoBtn" title="Discard edits, back to AI result">Reset</button>
+      </div>
+      <div class="opts">
+        <span id="brushOpt" style="display:contents"><label>Brush size <input type="range" id="bs" min="10" max="150" value="40"></label><label>Hardness <input type="range" id="hd" min="0" max="95" value="60"></label></span>
+        <span id="wandOpt" style="display:contents"><label>Tolerance <input type="range" id="tol" min="1" max="100" value="25"></label>
+        <label><input type="checkbox" id="cg" checked> Connected area only</label></span>
+        <details class="adv"><summary>Edge &amp; AI settings</summary><div class="advin"><label>Edge softness <input type="range" id="soft" min="0" max="8" value="1"></label>
+        <label>Shrink / grow <input type="range" id="grow" min="-8" max="8" value="0"></label>
+        <label>AI model <select id="q"><option value="isnet_quint8">Fast</option><option value="isnet_fp16" selected>Balanced</option><option value="birefnet">Best (BiRefNet, large first download)</option></select></label></div></details>
+      </div>
+      <p class="hint" id="hint"></p>
+      <div class="vpw"><div class="vp"><canvas id="view"></canvas></div><div id="busy" hidden><i></i><span id="busyT">Removing background…</span></div></div>
+      <div class="bgrow">
+        <span>Background</span>
+        <span class="color-options" id="colorOptions">
+          <span class="color-swatch active" data-color="transparent" title="Transparent"></span>
+          <span class="color-swatch" data-color="#FFFFFF" style="background:#FFFFFF" title="White"></span>
+          <span class="color-swatch" data-color="#000000" style="background:#000000" title="Black"></span>
+          <span class="color-swatch" data-color="#1B4DFF" style="background:#1B4DFF" title="Blue"></span>
+          <span class="color-swatch" data-color="#12B76A" style="background:#12B76A" title="Green"></span>
+          <span class="color-swatch" data-color="#D92D20" style="background:#D92D20" title="Red"></span>
+        </span>
+        <input type="color" id="cc" value="#F5C518" title="Custom colour">
+        <label class="tb" style="cursor:pointer">Image…<input type="file" id="bgf" accept="image/*" class="sr"></label>
+        <span style="flex:1"></span>
+        <label>Zoom <input type="range" id="zs" min="100" max="800" value="100" step="10" style="width:150px;vertical-align:middle"> <span id="zv">100%</span></label><button class="tb" id="zf">Fit</button>
+        <button class="tb" id="cmp">Hold to compare (C)</button>
+      </div>
+      <div class="btnrow">
+        <button class="btn primary" id="downloadBtn">Download</button>
+        <select class="tb" id="fmt"><option value="image/png">PNG</option><option value="image/webp">WebP</option><option value="image/jpeg">JPG</option></select>
+        <label class="tb" style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="crop"> Crop to subject</label>
+        <button class="btn" id="copyBtn">Copy</button>
+        <button class="btn" id="resetBtn">New image</button>
+      </div>
+    </div>
+  </div>
+
+  <article class="article">
+    <h2>How to remove an image background</h2>
+    <ol>
+      <li>Drop an image (JPG, PNG, WebP, AVIF, HEIC, GIF, BMP, TIFF, SVG) onto the box above, paste it, or click to choose a file.</li>
+      <li>Wait a few seconds. On your first use, the AI model (~40 MB) downloads once — every image after that is much faster.</li>
+      <li>The original and the background-removed version appear side by side.</li>
+      <li>Choose a background colour — transparent, white, black, blue, green or red.</li>
+      <li>Click <strong>Download PNG</strong> to save the result.</li>
+    </ol>
+
+    <h2>Fix any mistake in seconds</h2><ul><li><strong>Select background</strong> — click a background area (or a colour) to remove it.</li><li><strong>Select object</strong> — click a missing part of the subject to bring it back.</li><li><strong>Keep one object</strong> — click your subject and everything else disappears.</li><li><strong>Erase / Restore brush</strong> — paint over small leftovers or lost details.</li></ul><h2>What works well</h2>
+    <ul>
+      <li><strong>People and portraits</strong> — clean cutouts around hair, shoulders and clothing</li>
+      <li><strong>Products</strong> — bottles, shoes, electronics, packaged goods</li>
+      <li><strong>Animals</strong> — pets, wildlife, detailed fur</li>
+      <li><strong>Cars and objects</strong> — cars, furniture, plants</li>
+    </ul>
+    <p>Complex backgrounds (crowds, foliage, glass) work less reliably. The model runs on your device, so results depend on image complexity and your CPU speed.</p>
+
+    <h2>Your image never leaves your device</h2>
+    <p>The AI model runs entirely in your browser using WebAssembly. Your image is never uploaded to any server, no data is collected, and once the page has loaded you can even disconnect from the internet and the tool still works.</p>
+
+    <h2>Why the first run is slower</h2>
+    <p>The AI segmentation model is around 40 MB. It downloads once and is then cached by your browser. Every image after the first is processed in a few seconds on a typical laptop, longer on older phones.</p>
+
+    <h2>Common questions</h2>
+    <div class="faq">
+      <details><summary>Is this background remover free?</summary><p>Yes. It is completely free, has no daily limit and runs entirely in your browser.</p></details>
+      <details><summary>Does my image get uploaded?</summary><p>No. The AI model runs on your device using WebAssembly. Your image never leaves your browser.</p></details>
+      <details><summary>What image formats are supported?</summary><p>JPG, PNG, WebP, AVIF, HEIC, GIF, BMP, TIFF and SVG images are supported. Export as PNG, WebP or JPG with a transparent or custom background.</p></details>
+      <details><summary>Why does the first run take longer?</summary><p>On first use, the AI model (about 40 MB) is downloaded and cached by your browser. Every image after that is much faster.</p></details>
+      <details><summary>Does it work on phones?</summary><p>Yes. It runs in Safari on iOS and Chrome on Android. Older phones may take longer because the model runs on your device's CPU.</p></details>
+    </div>
+
+    <h2>Related tools</h2>
+    <ul class="related-list" style="list-style:none;margin:12px 0 0;padding:0">
+      <li style="background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center">
+        <div style="flex:1;font-size:.9375rem"><a href="image-compress.html" style="color:inherit;text-decoration:none;font-weight:500">Image Compressor</a><p style="margin:2px 0 0;font-size:.8125rem;color:var(--muted)">Reduce image file size without losing quality.</p></div>
+      </li>
+      <li style="background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center">
+        <div style="flex:1;font-size:.9375rem"><a href="image-resize.html" style="color:inherit;text-decoration:none;font-weight:500">Image Resizer</a><p style="margin:2px 0 0;font-size:.8125rem;color:var(--muted)">Resize images to exact dimensions.</p></div>
+      </li>
+      <li style="background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center">
+        <div style="flex:1;font-size:.9375rem"><a href="image-convert.html" style="color:inherit;text-decoration:none;font-weight:500">Image Converter</a><p style="margin:2px 0 0;font-size:.8125rem;color:var(--muted)">Convert between PNG, JPG and WebP.</p></div>
+      </li>
+    </ul>
+  </article>
+
+  <footer>
+    <p>
+      ToolNest ·
+      <a href="../../index.html">Home</a> ·
+      <a href="../index.html">All tools</a> ·
+      <a href="../../pages/about.html">About</a> ·
+      <a href="../../pages/privacy.html">Privacy</a>
+    </p>
+  </footer>
+</div>
+
+<div id="ring" hidden></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+var $=function(i){return document.getElementById(i)};
+var drop=$('dropZone'),fin=$('fileInput'),ed=$('editor'),view=$('view'),vx=view.getContext('2d'),st=$('status'),prog=$('progress'),bar=$('progressBar'),toast=$('toast');
+var W,H,orig,src,sx,M,A,AUTO,MD,mc,mx,cut,cx,bg='transparent',bgImg=null,tool='rm',undo=[],redo=[],busy=false,showO=false,MAXD=2000;
+var PP='https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/',lib=null,libP=null,pre=null,warmed=false,fname='image';
+var HINTS={rm:'Click the background area you want removed. Raise tolerance to catch more shades; untick "connected" to remove that colour everywhere.',kp:'Click a part of the subject that was cut away to bring it back.',pk:'Click the main subject. Everything that is not connected to it is removed.',er:'Paint over leftover background to erase it.',rs:'Paint over cut-away parts to restore them.',pn:'Drag to move around the zoomed image. Ctrl + scroll also zooms.'};
+function mk(w,h){var c=document.createElement('canvas');c.width=w;c.height=h;return c}
+function flash(m){toast.textContent=m;toast.classList.add('show');clearTimeout(flash.t);flash.t=setTimeout(function(){toast.classList.remove('show')},1800)}
+function say(m,k){st.textContent=m||'';st.className='status'+(k?' '+k:'');if(m&&!$('busy').hidden)$('busyT').textContent=m}
+function pg(p){prog.classList.add('show');bar.style.width=p+'%'}
+function hp(){setTimeout(function(){prog.classList.remove('show');bar.style.width='0'},400)}
+function js(u){return new Promise(function(a,b){var s=document.createElement('script');s.src=u;s.onload=a;s.onerror=function(){b(new Error('Could not load decoder. Check your connection.'))};document.head.appendChild(s)})}
+
+/* ---------- AI library (WebGPU when available, WASM fallback) ---------- */
+function loadLib(){
+  if(lib)return Promise.resolve(lib);if(libP)return libP;
+  var S=['https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/+esm','https://esm.sh/@imgly/background-removal@1.7.0','https://unpkg.com/@imgly/background-removal@1.7.0/dist/index.mjs'];
+  libP=(async function(){for(var i=0;i<S.length;i++){try{var m=await import(S[i]),f=m.removeBackground||m.default;if(typeof f==='function'){lib=f;pre=m.preload;return f}}catch(e){console.warn('CDN failed',S[i],e)}}libP=null;throw new Error('Could not load the AI library. Check your internet connection.')})();
+  return libP}
+function cfg(dev,p){return{publicPath:PP,debug:false,device:dev,model:$('q').value,output:{format:'image/png',quality:1},progress:p?function(k,c,t){if(t)pg(10+75*c/t)}:undefined}}
+async function run(fn,b){var g=!!navigator.gpu;try{return await fn(b,cfg(g?'gpu':'cpu',1))}catch(e){if(g)return await fn(b,cfg('cpu',1));throw e}}
+function warm(){if(warmed)return;warmed=true;loadLib().then(function(){if(pre)pre(cfg(navigator.gpu?'gpu':'cpu')).catch(function(){})}).catch(function(){warmed=false})}
+['pointerenter','pointerdown','dragenter'].forEach(function(e){drop.addEventListener(e,warm,{once:true})});
+
+/* ---------- decoding: everything the browser can read + HEIC + TIFF ---------- */
+async function decode(f){
+  var n=f.name.toLowerCase();
+  if(/\.hei[cf]$/.test(n)||/hei[cf]/.test(f.type)){await js('https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js');var r=await heic2any({blob:f,toType:'image/png'});f=Array.isArray(r)?r[0]:r}
+  else if(/\.tiff?$/.test(n)||/tiff/.test(f.type)){await js('https://cdn.jsdelivr.net/npm/utif@3.1.0/UTIF.js');var buf=await f.arrayBuffer(),ifd=UTIF.decode(buf)[0];UTIF.decodeImage(buf,ifd);var c=mk(ifd.width,ifd.height);c.getContext('2d').putImageData(new ImageData(new Uint8ClampedArray(UTIF.toRGBA8(ifd)),ifd.width,ifd.height),0,0);return c}
+  try{return await createImageBitmap(f)}catch(e){
+    return await new Promise(function(a,b){var i=new Image(),u=URL.createObjectURL(f);i.onload=function(){if(!i.width){i.width=1024;i.height=1024}a(i)};i.onerror=function(){b(new Error('Unsupported or corrupt image'))};i.src=u})}}
+async function open(f){if(busy)return flash('Please wait for the current image');fname=(f.name||'image').replace(/\.[^.]+$/,'');
+  try{
+    say('Reading image…');pg(5);orig=await decode(f);
+    var s=Math.min(1,MAXD/Math.max(orig.width,orig.height));W=Math.round(orig.width*s);H=Math.round(orig.height*s);
+    src=mk(W,H);sx=src.getContext('2d',{willReadFrequently:true});sx.drawImage(orig,0,0,W,H);
+    cut=mk(W,H);cx=cut.getContext('2d');mc=mk(W,H);mx=mc.getContext('2d');MD=mx.createImageData(W,H);
+    view.width=W;view.height=H;M=new Uint8Array(W*H).fill(255);undo=[];redo=[];
+    drop.style.display='none';ed.hidden=false;fit();setTool('rm');commit();await auto();
+  }catch(e){console.error(e);say(e.message||'Could not read that image','err');hp()}}
+fin.addEventListener('change',function(){if(fin.files[0])open(fin.files[0]);fin.value=''});
+['dragenter','dragover'].forEach(function(e){drop.addEventListener(e,function(x){x.preventDefault();drop.classList.add('over')})});
+['dragleave','drop'].forEach(function(e){drop.addEventListener(e,function(x){x.preventDefault();drop.classList.remove('over')})});
+drop.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f)open(f)});
+document.addEventListener('paste',function(e){var f=e.clipboardData&&e.clipboardData.files[0];if(f)open(f)});
+
+/* ---------- BiRefNet (MIT) via Transformers.js, falls back to imgly on any failure ---------- */
+var tf=null;
+async function birefnet(blob){
+  if(!tf){
+    var m=await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3/+esm'),ids=['onnx-community/BiRefNet_lite-ONNX','onnx-community/BiRefNet_lite'],devs=navigator.gpu?['webgpu',null]:[null],model,proc,err;
+    for(var a=0;a<ids.length&&!model;a++)for(var b=0;b<devs.length&&!model;b++){
+      try{var o={dtype:'fp32',progress_callback:function(p){if(p.status==='progress')pg(10+75*p.progress/100)}};if(devs[b])o.device=devs[b];
+        model=await m.AutoModel.from_pretrained(ids[a],o);proc=await m.AutoProcessor.from_pretrained(ids[a])}catch(e){err=e;model=null}}
+    if(!model)throw err||new Error('BiRefNet failed to load');tf={m:m,model:model,proc:proc}}
+  say('Detecting subject (BiRefNet)…');
+  var img=await tf.m.RawImage.fromBlob(blob),px=(await tf.proc(img)).pixel_values,res=await tf.model({input_image:px}),
+  mk2=await tf.m.RawImage.fromTensor(res.output_image[0].sigmoid().mul(255).to('uint8')).resize(W,H),ch=mk2.channels||1,al=new Uint8Array(W*H);
+  for(var i=0;i<al.length;i++)al[i]=mk2.data[i*ch];return al}
+/* ---------- AI detection ---------- */
+async function auto(){
+  busy=true;$('tools').style.opacity=.5;$('busy').hidden=false;
+  try{
+    say('Loading AI model (first time only, cached afterwards)…');pg(10);
+    var s=Math.min(1,1280/Math.max(W,H)),c=mk(Math.round(W*s)||1,Math.round(H*s)||1),al=null,i;c.getContext('2d').drawImage(src,0,0,c.width,c.height);
+    var blob=await new Promise(function(r){c.toBlob(r,'image/png')});
+    if($('q').value==='birefnet'){try{al=await birefnet(blob)}catch(e){console.warn(e);$('q').value='isnet_fp16';flash('BiRefNet unavailable here, used the standard model')}}
+    if(!al){var fn=await loadLib();say('Detecting subject…');var out=await run(fn,blob),bm=await createImageBitmap(out),t=mk(W,H),tx=t.getContext('2d',{willReadFrequently:true});tx.drawImage(bm,0,0,W,H);
+      var D=tx.getImageData(0,0,W,H).data;al=new Uint8Array(W*H);for(i=0;i<W*H;i++)al[i]=D[i*4+3]}
+    snap();M.set(al);AUTO=M.slice();commit();
+    say('Done! Not perfect? Pick a tool above and click or paint to fix it. Shortcuts: R E B K O H, Ctrl+Z undo, hold C to compare.','ok');flash('Done');pg(100);
+  }catch(e){console.error(e);say('Could not remove background: '+(e.message||e),'err')}
+  busy=false;$('tools').style.opacity=1;$('busy').hidden=true;hp()}
+
+/* ---------- mask pipeline ---------- */
+function bx(s,d,r,n,stp,cnt,cs){var k=2*r+1;for(var l=0;l<cnt;l++){var b=l*cs,sum=0,i;for(i=-r;i<=r;i++)sum+=s[b+Math.min(n-1,Math.max(0,i))*stp];for(i=0;i<n;i++){d[b+i*stp]=sum/k;sum+=s[b+Math.min(n-1,i+r+1)*stp]-s[b+Math.max(0,i-r)*stp]}}}
+function blur(a,r){var t=new Uint8Array(a.length),o=new Uint8Array(a.length);bx(a,t,r,W,1,H,W);bx(t,o,r,H,W,W,1);return o}
+function final(){
+  var r=+$('soft').value,g=+$('grow').value;if(!r&&!g)return M;
+  var b=blur(M,r||1),gain=r?1+6/r:6,sh=g*.04,o=new Uint8Array(M.length);
+  for(var i=0;i<o.length;i++){var v=((b[i]/255-.5+sh)*gain+.5)*255;o[i]=v<0?0:v>255?255:v}return o}
+function sync(a,x0,y0,x1,y1){var d=MD.data;for(var y=y0;y<y1;y++)for(var x=x0;x<x1;x++)d[(y*W+x)*4+3]=a[y*W+x];mx.putImageData(MD,0,0,x0,y0,x1-x0,y1-y0)}
+function commit(){A=final();sync(A,0,0,W,H);render();$('undoBtn').disabled=!undo.length;$('redoBtn').disabled=!redo.length}
+function render(){
+  vx.clearRect(0,0,W,H);if(showO){vx.drawImage(src,0,0);return}
+  cx.globalCompositeOperation='source-over';cx.clearRect(0,0,W,H);cx.drawImage(src,0,0);cx.globalCompositeOperation='destination-in';cx.drawImage(mc,0,0);
+  paintBg(vx,W,H);vx.drawImage(cut,0,0)}
+function cover(c,i,w,h){var s=Math.max(w/i.width,h/i.height);c.drawImage(i,(w-i.width*s)/2,(h-i.height*s)/2,i.width*s,i.height*s)}
+function paintBg(c,w,h,col){col=col||bg;if(col==='img'&&bgImg)cover(c,bgImg,w,h);else if(col!=='transparent'&&col!=='img'){c.fillStyle=col;c.fillRect(0,0,w,h)}}
+
+/* ---------- undo ---------- */
+function snap(){undo.push(M.slice());if(undo.length>12)undo.shift();redo=[]}
+$('undoBtn').onclick=function(){if(busy||!undo.length)return;redo.push(M);M=undo.pop();commit()};
+$('redoBtn').onclick=function(){if(busy||!redo.length)return;undo.push(M);M=redo.pop();commit()};
+$('autoBtn').onclick=function(){if(busy||!AUTO)return;snap();M=AUTO.slice();commit();flash('Reset to AI result')};
+document.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'&&!ed.hidden){e.preventDefault();(e.shiftKey?$('redoBtn'):$('undoBtn')).click()}});
+
+/* ---------- tools ---------- */
+function setTool(t){tool=t;[].forEach.call(document.querySelectorAll('[data-tool]'),function(b){b.classList.toggle('active',b.dataset.tool===t)});
+  var br=t==='er'||t==='rs';$('brushOpt').hidden=!br;$('wandOpt').hidden=!(t==='rm'||t==='kp');view.style.touchAction=br||t==='pn'?'none':'manipulation';view.style.cursor=br?'none':t==='pn'?'grab':'crosshair';if(!br)$('ring').hidden=true;$('hint').textContent=HINTS[t]}
+$('tools').addEventListener('click',function(e){var b=e.target.closest('[data-tool]');if(b)setTool(b.dataset.tool)});
+function fill(x,y,ok,contig){
+  var n=W*H,R=new Uint8Array(n),i;
+  if(!contig){for(i=0;i<n;i++)if(ok(i))R[i]=1;return R}
+  var q=new Int32Array(n),h=0,t=0,s=y*W+x;q[t++]=s;R[s]=1;
+  while(h<t){i=q[h++];var c=i%W;
+    if(c>0&&!R[i-1]&&ok(i-1)){R[i-1]=1;q[t++]=i-1}
+    if(c<W-1&&!R[i+1]&&ok(i+1)){R[i+1]=1;q[t++]=i+1}
+    if(i>=W&&!R[i-W]&&ok(i-W)){R[i-W]=1;q[t++]=i-W}
+    if(i<n-W&&!R[i+W]&&ok(i+W)){R[i+W]=1;q[t++]=i+W}}
+  return R}
+function click(p){
+  var x=Math.min(W-1,Math.max(0,p[0]|0)),y=Math.min(H-1,Math.max(0,p[1]|0)),R,i;
+  if(tool==='pk'){
+    if(M[y*W+x]<128)return flash('Click on the subject you want to keep');
+    snap();R=fill(x,y,function(i){return M[i]>127},true);for(i=0;i<R.length;i++)if(!R[i])M[i]=0}
+  else{
+    snap();var D=sx.getImageData(0,0,W,H).data,j=(y*W+x)*4,r=D[j],g=D[j+1],b=D[j+2],T=+$('tol').value*2.2;T*=T;
+    R=fill(x,y,function(i){var k=i*4,a=D[k]-r,c=D[k+1]-g,d=D[k+2]-b;return a*a+c*c+d*d<=T},$('cg').checked);
+    var v=tool==='kp'?255:0;for(i=0;i<R.length;i++)if(R[i])M[i]=v}
+  commit()}
+var down=false,last=null,dx0,dy0,dx1,dy1,pan=null,rg=$('ring');
+function pt(e){var r=view.getBoundingClientRect();return[(e.clientX-r.left)*W/r.width,(e.clientY-r.top)*H/r.height]}
+function stamp(x,y,r){
+  var x0=Math.max(0,Math.floor(x-r)),x1=Math.min(W,Math.ceil(x+r)),y0=Math.max(0,Math.floor(y-r)),y1=Math.min(H,Math.ceil(y+r)),er=tool==='er',HD=+$('hd').value/100;
+  for(var j=y0;j<y1;j++)for(var i=x0;i<x1;i++){var d=Math.hypot(i-x,j-y);if(d>=r)continue;var w=Math.min(1,(1-d/r)/(1-HD)),v=er?255-255*w:255*w,k=j*W+i;
+    if(er?v<M[k]:v>M[k])M[k]=v}
+  dx0=Math.min(dx0,x0);dy0=Math.min(dy0,y0);dx1=Math.max(dx1,x1);dy1=Math.max(dy1,y1)}
+function stroke(p){
+  var r=+$('bs').value/2*W/view.getBoundingClientRect().width;dx0=W;dy0=H;dx1=0;dy1=0;
+  var d=last?Math.hypot(p[0]-last[0],p[1]-last[1]):0,n=Math.max(1,Math.ceil(d/(r/3)));
+  for(var k=1;k<=n;k++)stamp(last?last[0]+(p[0]-last[0])*k/n:p[0],last?last[1]+(p[1]-last[1])*k/n:p[1],r);
+  last=p;if(dx1>dx0){sync(M,dx0,dy0,dx1,dy1);render()}}
+view.addEventListener('pointerdown',function(e){
+  if(!M||busy)return;var p=pt(e);
+  if(tool==='pn'){pan=[e.clientX,e.clientY];view.setPointerCapture(e.pointerId);return}
+  if(tool==='er'||tool==='rs'){snap();down=true;last=null;view.setPointerCapture(e.pointerId);stroke(p)}else click(p)});
+view.addEventListener('pointermove',function(e){
+  if(pan){vp.scrollLeft-=e.clientX-pan[0];vp.scrollTop-=e.clientY-pan[1];pan=[e.clientX,e.clientY]}else if(down)stroke(pt(e));
+  if(tool==='er'||tool==='rs'){rg.hidden=false;rg.style.width=rg.style.height=$('bs').value+'px';rg.style.left=e.clientX+'px';rg.style.top=e.clientY+'px'}});
+view.addEventListener('pointerleave',function(){rg.hidden=true});
+['pointerup','pointercancel'].forEach(function(ev){view.addEventListener(ev,function(){pan=null;if(down){down=false;commit()}})});
+var rf;['soft','grow'].forEach(function(id){$(id).addEventListener('input',function(){cancelAnimationFrame(rf);rf=requestAnimationFrame(function(){if(M)commit()})})});
+$('q').addEventListener('change',function(){if(M&&!busy)auto()});
+
+document.addEventListener('keydown',function(e){
+  if(ed.hidden||e.ctrlKey||e.metaKey||e.altKey||e.target.tagName==='SELECT')return;
+  var k=e.key.toLowerCase(),m={r:'rm',k:'kp',o:'pk',e:'er',b:'rs',h:'pn'};
+  if(m[k])setTool(m[k]);
+  else if(k==='['||k===']'){var s=$('bs');s.value=+s.value+(k===']'?10:-10)}
+  else if(k==='='||k==='+')setZ(Math.min(800,+zs.value+50));
+  else if(k==='-')setZ(Math.max(100,+zs.value-50));
+  else if(k==='0')fit();
+  else if(k==='c'&&!showO&&M){showO=true;render()}});
+document.addEventListener('keyup',function(e){if(e.key.toLowerCase()==='c'&&showO){showO=false;if(M)render()}});
+document.addEventListener('dragover',function(e){e.preventDefault()});
+document.addEventListener('drop',function(e){e.preventDefault();var f=e.dataTransfer.files[0];if(f&&!drop.contains(e.target)&&e.target!==drop)open(f)});
+/* ---------- view / background ---------- */
+var vp=document.querySelector('.vp'),zs=$('zs');
+function fit(){view.style.maxWidth='100%';view.style.maxHeight='70vh';view.style.width='';zs.value=100;$('zv').textContent='100%'}
+function setZ(z){
+  var fx=(vp.scrollLeft+vp.clientWidth/2)/vp.scrollWidth,fy=(vp.scrollTop+vp.clientHeight/2)/vp.scrollHeight;
+  view.style.maxWidth='100%';view.style.maxHeight='70vh';view.style.width='';var base=view.getBoundingClientRect().width;
+  if(z>100){view.style.maxWidth='none';view.style.maxHeight='none';view.style.width=base*z/100+'px'}
+  zs.value=z;$('zv').textContent=Math.round(z)+'%';vp.scrollLeft=fx*vp.scrollWidth-vp.clientWidth/2;vp.scrollTop=fy*vp.scrollHeight-vp.clientHeight/2}
+zs.addEventListener('input',function(){setZ(+zs.value)});$('zf').onclick=fit;
+vp.addEventListener('wheel',function(e){if(!e.ctrlKey&&!e.metaKey)return;e.preventDefault();setZ(Math.min(800,Math.max(100,+zs.value*(e.deltaY<0?1.15:1/1.15))))},{passive:false});
+var cm=$('cmp');function sO(v){return function(e){e.preventDefault();showO=v;if(M)render()}}
+['pointerdown'].forEach(function(e){cm.addEventListener(e,sO(true))});['pointerup','pointerleave','pointercancel'].forEach(function(e){cm.addEventListener(e,sO(false))});
+$('colorOptions').addEventListener('click',function(e){var s=e.target.closest('.color-swatch');if(!s)return;bg=s.dataset.color;mark(s);render()});
+function mark(s){[].forEach.call($('colorOptions').children,function(k){k.classList.toggle('active',k===s)})}
+$('cc').addEventListener('input',function(){bg=this.value;mark(null);render()});
+$('bgf').addEventListener('change',function(){var f=this.files[0];if(!f)return;var i=new Image();i.onload=function(){bgImg=i;bg='img';mark(null);render()};i.src=URL.createObjectURL(f);this.value=''});
+
+/* ---------- export at original resolution ---------- */
+async function exportBlob(fmt){
+  var s=Math.min(1,6000/Math.max(orig.width,orig.height)),w=Math.round(orig.width*s),h=Math.round(orig.height*s);
+  var c=mk(w,h),x=c.getContext('2d');x.drawImage(orig,0,0,w,h);x.globalCompositeOperation='destination-in';x.drawImage(mc,0,0,w,h);
+  var cropped=$('crop').checked,bx0=0,by0=0,bw=w,bh=h;
+  if(cropped){var a=-1,b=-1,c2=W,d=H,i,j;for(j=0;j<H;j++)for(i=0;i<W;i++)if(A[j*W+i]>10){if(i<c2)c2=i;if(i>a)a=i;if(j<d)d=j;if(j>b)b=j}
+    if(a>=0){bx0=Math.floor(c2*w/W);by0=Math.floor(d*h/H);bw=Math.min(w-bx0,Math.ceil((a-c2+1)*w/W));bh=Math.min(h-by0,Math.ceil((b-d+1)*h/H))}}
+  var f=mk(bw,bh),y=f.getContext('2d'),col=bg==='transparent'&&fmt==='image/jpeg'?'#FFFFFF':bg;
+  if(col==='img'&&bgImg){y.save();y.translate(-bx0,-by0);cover(y,bgImg,w,h);y.restore()}else paintBg(y,bw,bh,col);
+  y.drawImage(c,-bx0,-by0);
+  return new Promise(function(r){f.toBlob(r,fmt,.95)})}
+$('downloadBtn').onclick=async function(){
+  if(!M||busy)return flash('Nothing to download yet');var fmt=$('fmt').value;
+  try{var b=await exportBlob(fmt),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=fname+'-no-bg.'+({'image/png':'png','image/webp':'webp','image/jpeg':'jpg'})[fmt];
+    document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},2000);flash('Downloaded')}catch(e){flash('Export failed')}};
+$('copyBtn').onclick=async function(){
+  if(!M||busy)return;try{await navigator.clipboard.write([new ClipboardItem({'image/png':exportBlob('image/png')})]);flash('Copied to clipboard')}catch(e){flash('Copy not supported here. Use Download.')}};
+$('resetBtn').onclick=function(){M=A=AUTO=orig=null;ed.hidden=true;drop.style.display='block';say('');flash('Choose another image')};
+})();
+</script>
+</body>
+</html>
