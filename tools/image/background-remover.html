@@ -358,15 +358,60 @@ background-color:#fff;background-image:linear-gradient(45deg,#E4E4E4 25%,transpa
 .bgrow input[type=color]{width:28px;height:28px;padding:0;border:1px solid var(--line);border-radius:50%;background:none;cursor:pointer}
 .color-swatch{border:2px solid var(--line)}.color-swatch.active{border-color:var(--blue)}
 .vp{display:flex}#view{flex:none;margin:auto}
-#ring{position:fixed;pointer-events:none;border:2px solid #fff;box-shadow:0 0 0 1px #000,inset 0 0 0 1px #000;border-radius:50%;z-index:150;transform:translate(-50%,-50%)}
+#ring{position:fixed;pointer-events:none;background:rgba(255,255,255,.25);border:2px solid rgba(255,255,255,.95);box-shadow:0 0 0 1px rgba(0,0,0,.5),0 0 10px rgba(0,0,0,.35);border-radius:50%;z-index:150;transform:translate(-50%,-50%)}
 .btnrow{position:sticky;bottom:0;background:var(--surface);padding:10px 0;border-top:1px solid var(--line);z-index:5}
 .vpw{position:relative}
-#busy{position:absolute;inset:0;display:flex;gap:10px;align-items:center;justify-content:center;background:rgba(255,255,255,.75);font-family:var(--mono);font-size:.875rem;z-index:6;text-align:center;padding:12px}
+#busy{position:absolute;inset:0;display:flex;gap:10px;align-items:center;justify-content:center;background:color-mix(in srgb,var(--surface) 80%,transparent);color:var(--ink);font-family:var(--mono);font-size:.875rem;z-index:6;text-align:center;padding:12px}
 #busy i{flex:none;width:18px;height:18px;border:3px solid var(--line);border-top-color:var(--blue);border-radius:50%;animation:sp .8s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
 .adv{font-size:.8125rem;color:var(--muted)}.adv summary{cursor:pointer;color:var(--blue)}
 .advin{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:8px}
 @media(max-width:640px){.tb{padding:10px 12px}.tools{flex-wrap:nowrap;overflow-x:auto}.tools .tb{flex:none}.opts input[type=range]{width:90px}}
+.stage{padding:16px;box-shadow:0 1px 2px rgba(20,22,26,.04),0 12px 32px rgba(20,22,26,.07);border-radius:12px}
+.drop-zone{border-radius:10px;padding:56px 24px}
+.cta{display:inline-block;margin:16px 0 0;background:var(--blue);color:#fff;padding:12px 24px;border-radius:8px;font-weight:600}
+.chips{list-style:none;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:20px 0 0;padding:0}
+.chips li{font:.6875rem var(--mono);color:var(--muted);border:1px solid var(--line);border-radius:100px;padding:4px 10px;background:var(--surface)}
+.app{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:16px;align-items:start}
+@media(max-width:860px){.app{grid-template-columns:1fr}}
+.topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:0 0 10px}
+.seg{display:flex;gap:4px;flex-wrap:wrap}.tg{display:flex;gap:4px}
+.tool{display:flex;align-items:center;gap:6px;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:500 .8125rem var(--sans);cursor:pointer;transition:background .12s}
+.tool:hover{border-color:#8A8F99}.tool.active{background:var(--blue);border-color:var(--blue);color:#fff}
+.tool svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ib{padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit;font-size:.8125rem;cursor:pointer}
+.ib:hover{border-color:#A9A9A1}.ib[disabled]{opacity:.4;cursor:not-allowed}
+.vp{min-height:420px;max-height:70vh;border-radius:8px}
+.pill{position:absolute;background:rgba(20,22,26,.88);color:#fff;border:0;border-radius:100px;padding:7px 14px;font:500 .75rem var(--sans);cursor:pointer;display:flex;align-items:center;gap:10px;z-index:7;user-select:none;-webkit-user-select:none}
+.cmpb{top:12px;right:12px}.zoom{bottom:14px;left:50%;transform:translateX(-50%);cursor:default}
+.zoom button{background:none;border:0;color:#fff;font:inherit;cursor:pointer;padding:0}.zoom input{width:120px;accent-color:#fff}.zoom span{min-width:36px;text-align:right}
+.side{display:flex;flex-direction:column;gap:12px}
+.side section{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--surface)}
+.side h4{margin:0 0 10px;font:500 .6875rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.side .hint{margin:0 0 10px;line-height:1.45}
+.field{display:flex;flex-direction:column;gap:4px;margin:0 0 10px;font-size:.8125rem;color:var(--muted)}.field input{width:100%;accent-color:var(--blue)}
+.chk{display:flex;gap:6px;align-items:center;font-size:.8125rem;color:var(--muted)}
+.row{display:flex;gap:8px;margin:8px 0 0;align-items:center}
+.row .btn{flex:1;padding:9px 10px;font-size:.8125rem;justify-content:center}
+.side .btn.primary{width:100%;flex:none;padding:13px;font-size:.9375rem}
+.sel{font:inherit;font-size:.8125rem;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.sw{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.sw input[type=color]{width:28px;height:28px;padding:0;border:1px solid var(--line);border-radius:50%;background:none;cursor:pointer}
+@media(max-width:640px){.tool span{display:none}.tool{padding:10px 12px}.zoom input{width:80px}}
+body .wrap-wide{max-width:1400px!important}
+.lede{max-width:none!important;font-size:clamp(1.7rem,3.5vw,2.3rem)}
+.sub{max-width:90ch!important;margin-bottom:8px}
+.stage{margin-top:14px}
+.app{grid-template-columns:minmax(0,1fr) 300px}
+@media(max-width:860px){.app{grid-template-columns:1fr}}
+.vp{max-height:80vh;min-height:480px}#view{max-height:76vh}
+.zoom button{min-height:0}
+@media(max-width:640px){.vp{min-height:300px}.sel{font-size:16px}.tool{min-height:44px}.drop-zone{padding:36px 16px}.cmpb{padding:9px 14px}}
+/* wide pages: article flows into columns instead of one narrow strip */
+.wrap-wide .article{max-width:none;columns:2 440px;column-gap:56px}
+.wrap-wide .article h2,.wrap-wide .article h3{break-after:avoid;break-inside:avoid}
+.wrap-wide .article h2:first-child{margin-top:0}
+.wrap-wide .article .faq details,.wrap-wide .article .related-list li,.wrap-wide .article li{break-inside:avoid}
 </style>
 </head>
 <body>
@@ -397,56 +442,61 @@ background-color:#fff;background-image:linear-gradient(45deg,#E4E4E4 25%,transpa
     <label class="drop-zone" id="dropZone" for="fileInput">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
       <h2>Drop an image here</h2>
-      <p>or click to choose · or paste with Ctrl+V<br>JPG, PNG, WebP, AVIF, HEIC, GIF, BMP, TIFF, SVG</p>
+      <p>or paste with Ctrl+V</p><span class="cta">Choose image</span><ul class="chips"><li>100% private</li><li>No sign-up</li><li>Full resolution</li><li>JPG · PNG · WebP · AVIF · HEIC · GIF · BMP · TIFF · SVG</li></ul>
       <input type="file" id="fileInput" accept="image/*,.heic,.heif,.tif,.tiff,.avif" class="sr">
     </label>
     <div class="progress" id="progress"><div class="progress-bar" id="progressBar"></div></div>
     <p class="status" id="status" role="status"></p>
     <div id="editor" hidden>
-      <div class="tools" id="tools">
-        <button class="tb" data-tool="rm" title="Click a background area to remove it (R)">Remove background</button>
-        <button class="tb" data-tool="kp" title="Click a missing part of your subject to bring it back (K)">Restore object</button>
-        <button class="tb" data-tool="pk" title="Click your subject, everything else goes (O)">Keep one object</button>
-        <button class="tb" data-tool="er" title="Paint to erase (E). [ and ] change size">Erase brush</button>
-        <button class="tb" data-tool="rs" title="Paint to restore (B)">Restore brush</button>
-        <button class="tb" data-tool="pn" title="Drag to move around when zoomed (H)">Pan</button>
-        <span style="flex:1"></span>
-        <button class="tb" id="undoBtn" title="Ctrl+Z">Undo</button><button class="tb" id="redoBtn">Redo</button><button class="tb" id="autoBtn" title="Discard edits, back to AI result">Reset</button>
+    <div class="app">
+      <div class="work">
+        <div class="topbar">
+          <div class="seg" id="tools">
+            <button class="tool" data-tool="rm" title="Click a background area to remove it (R)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4V2M15 16v-2M8 9h2M20 9h2M17.8 11.8L19 13M17.8 6.2L19 5M12.2 6.2L11 5M3 21l9-9"/></svg><span>Remove</span></button>
+            <button class="tool" data-tool="er" title="Paint to erase (E). [ and ] change size"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 21h10M5.5 13.5l7-7a2 2 0 012.8 0l3.2 3.2a2 2 0 010 2.8L12 19H8.5l-3-3a2 2 0 010-2.5z"/></svg><span>Erase</span></button>
+            <button class="tool" data-tool="rs" title="Paint to restore (B)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 3l3 3-9 9-3-3zM9 12c-3 0-4 2-4 4 0 2-1 3-2 4 3 1 7 0 7-4"/></svg><span>Restore</span></button>
+            <button class="tool" data-tool="pn" title="Drag to move around when zoomed (H)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 13V5a1.5 1.5 0 013 0v6M11 10V3.5a1.5 1.5 0 013 0V11M14 10V5a1.5 1.5 0 013 0v8c0 4-2 7-6 7-3 0-4-2-6-5l-1.5-2.5a1.5 1.5 0 012.5-1.5L8 13"/></svg><span>Pan</span></button>
+          </div>
+          <div class="tg"><button class="ib" id="undoBtn" title="Undo (Ctrl+Z)">Undo</button><button class="ib" id="redoBtn" title="Redo (Ctrl+Shift+Z)">Redo</button><button class="ib" id="autoBtn" title="Discard edits and go back to the AI result">Reset</button></div>
+        </div>
+        <div class="vpw">
+          <div class="vp"><canvas id="view"></canvas></div>
+          <div id="busy" hidden><i></i><span id="busyT">Removing background…</span></div>
+          <button class="pill cmpb" id="cmp">Hold to compare (C)</button>
+          <div class="pill zoom"><button id="zf" title="Fit to screen (0)">Fit</button><input type="range" id="zs" min="100" max="800" value="100" step="10" aria-label="Zoom"><span id="zv">100%</span></div>
+        </div>
       </div>
-      <div class="opts">
-        <span id="brushOpt" style="display:contents"><label>Brush size <input type="range" id="bs" min="10" max="150" value="40"></label><label>Hardness <input type="range" id="hd" min="0" max="95" value="60"></label></span>
-        <span id="wandOpt" style="display:contents"><label>Tolerance <input type="range" id="tol" min="1" max="100" value="25"></label>
-        <label><input type="checkbox" id="cg" checked> Connected area only</label></span>
-        <details class="adv"><summary>Edge &amp; AI settings</summary><div class="advin"><label>Edge softness <input type="range" id="soft" min="0" max="8" value="1"></label>
-        <label>Shrink / grow <input type="range" id="grow" min="-8" max="8" value="0"></label>
-        <label>AI model <select id="q"><option value="isnet_quint8">Fast</option><option value="isnet_fp16" selected>Balanced</option><option value="birefnet">Best (BiRefNet, large first download)</option></select></label></div></details>
-      </div>
-      <p class="hint" id="hint"></p>
-      <div class="vpw"><div class="vp"><canvas id="view"></canvas></div><div id="busy" hidden><i></i><span id="busyT">Removing background…</span></div></div>
-      <div class="bgrow">
-        <span>Background</span>
-        <span class="color-options" id="colorOptions">
-          <span class="color-swatch active" data-color="transparent" title="Transparent"></span>
-          <span class="color-swatch" data-color="#FFFFFF" style="background:#FFFFFF" title="White"></span>
-          <span class="color-swatch" data-color="#000000" style="background:#000000" title="Black"></span>
-          <span class="color-swatch" data-color="#1B4DFF" style="background:#1B4DFF" title="Blue"></span>
-          <span class="color-swatch" data-color="#12B76A" style="background:#12B76A" title="Green"></span>
-          <span class="color-swatch" data-color="#D92D20" style="background:#D92D20" title="Red"></span>
-        </span>
-        <input type="color" id="cc" value="#F5C518" title="Custom colour">
-        <label class="tb" style="cursor:pointer">Image…<input type="file" id="bgf" accept="image/*" class="sr"></label>
-        <span style="flex:1"></span>
-        <label>Zoom <input type="range" id="zs" min="100" max="800" value="100" step="10" style="width:150px;vertical-align:middle"> <span id="zv">100%</span></label><button class="tb" id="zf">Fit</button>
-        <button class="tb" id="cmp">Hold to compare (C)</button>
-      </div>
-      <div class="btnrow">
-        <button class="btn primary" id="downloadBtn">Download</button>
-        <select class="tb" id="fmt"><option value="image/png">PNG</option><option value="image/webp">WebP</option><option value="image/jpeg">JPG</option></select>
-        <label class="tb" style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="crop"> Crop to subject</label>
-        <button class="btn" id="copyBtn">Copy</button>
-        <button class="btn" id="resetBtn">New image</button>
-      </div>
+      <aside class="side">
+        <section><h4>Export</h4>
+          <button class="btn primary" id="downloadBtn">Download image</button>
+          <div class="row"><select class="sel" id="fmt" aria-label="Format"><option value="image/png">PNG</option><option value="image/webp">WebP</option><option value="image/jpeg">JPG</option></select><label class="chk"><input type="checkbox" id="crop"> Crop to subject</label></div>
+          <div class="row"><button class="btn" id="copyBtn">Copy</button><button class="btn" id="resetBtn">New image</button></div>
+        </section>
+        <section><h4>Tool options</h4>
+          <p class="hint" id="hint"></p>
+          <div id="brushOpt"><label class="field">Brush size <input type="range" id="bs" min="10" max="150" value="40"></label><label class="field">Hardness <input type="range" id="hd" min="0" max="95" value="60"></label></div>
+          <div id="wandOpt"><label class="field">Tolerance <input type="range" id="tol" min="1" max="100" value="30"></label><label class="chk"><input type="checkbox" id="cg" checked> Connected area only</label></div>
+        </section>
+        <section><h4>Edges</h4>
+          <label class="field">Softness <input type="range" id="soft" min="0" max="8" value="1"></label>
+          <label class="field">Shrink / grow <input type="range" id="grow" min="-8" max="8" value="0"></label>
+        </section>
+        <section><h4>Background</h4>
+          <div class="sw"><span class="color-options" id="colorOptions">
+            <span class="color-swatch active" data-color="transparent" title="Transparent"></span>
+            <span class="color-swatch" data-color="#FFFFFF" style="background:#FFFFFF" title="White"></span>
+            <span class="color-swatch" data-color="#000000" style="background:#000000" title="Black"></span>
+            <span class="color-swatch" data-color="#1B4DFF" style="background:#1B4DFF" title="Blue"></span>
+            <span class="color-swatch" data-color="#12B76A" style="background:#12B76A" title="Green"></span>
+            <span class="color-swatch" data-color="#D92D20" style="background:#D92D20" title="Red"></span>
+          </span><input type="color" id="cc" value="#F5C518" title="Custom colour"><label class="ib" style="cursor:pointer">Image…<input type="file" id="bgf" accept="image/*" class="sr"></label></div>
+        </section>
+        <section><h4>AI model</h4>
+          <select class="sel" id="q" style="width:100%"><option value="isnet_quint8">Fast</option><option value="isnet_fp16" selected>Balanced</option><option value="birefnet">Best (BiRefNet, large first download)</option></select>
+        </section>
+      </aside>
     </div>
+  </div>
   </div>
 
   <article class="article">
@@ -454,12 +504,12 @@ background-color:#fff;background-image:linear-gradient(45deg,#E4E4E4 25%,transpa
     <ol>
       <li>Drop an image (JPG, PNG, WebP, AVIF, HEIC, GIF, BMP, TIFF, SVG) onto the box above, paste it, or click to choose a file.</li>
       <li>Wait a few seconds. On your first use, the AI model (~40 MB) downloads once — every image after that is much faster.</li>
-      <li>The original and the background-removed version appear side by side.</li>
-      <li>Choose a background colour — transparent, white, black, blue, green or red.</li>
-      <li>Click <strong>Download PNG</strong> to save the result.</li>
+      <li>The background-removed image appears right away. Hold the <strong>Compare</strong> button to see the original.</li>
+      <li>Keep it transparent, or pick a background colour or image.</li>
+      <li>Click <strong>Download image</strong> and choose PNG, WebP or JPG.</li>
     </ol>
 
-    <h2>Fix any mistake in seconds</h2><ul><li><strong>Select background</strong> — click a background area (or a colour) to remove it.</li><li><strong>Select object</strong> — click a missing part of the subject to bring it back.</li><li><strong>Keep one object</strong> — click your subject and everything else disappears.</li><li><strong>Erase / Restore brush</strong> — paint over small leftovers or lost details.</li></ul><h2>What works well</h2>
+    <h2>Fix any mistake in seconds</h2><ul><li><strong>Remove</strong> — click a background area (or a colour) to remove it.</li><li><strong>Erase / Restore brush</strong> — paint over small leftovers or lost details.</li></ul><h2>What works well</h2>
     <ul>
       <li><strong>People and portraits</strong> — clean cutouts around hair, shoulders and clothing</li>
       <li><strong>Products</strong> — bottles, shoes, electronics, packaged goods</li>
@@ -517,8 +567,8 @@ background-color:#fff;background-image:linear-gradient(45deg,#E4E4E4 25%,transpa
 var $=function(i){return document.getElementById(i)};
 var drop=$('dropZone'),fin=$('fileInput'),ed=$('editor'),view=$('view'),vx=view.getContext('2d'),st=$('status'),prog=$('progress'),bar=$('progressBar'),toast=$('toast');
 var W,H,orig,src,sx,M,A,AUTO,MD,mc,mx,cut,cx,bg='transparent',bgImg=null,tool='rm',undo=[],redo=[],busy=false,showO=false,MAXD=2000;
-var PP='https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/',lib=null,libP=null,pre=null,warmed=false,fname='image';
-var HINTS={rm:'Click the background area you want removed. Raise tolerance to catch more shades; untick "connected" to remove that colour everywhere.',kp:'Click a part of the subject that was cut away to bring it back.',pk:'Click the main subject. Everything that is not connected to it is removed.',er:'Paint over leftover background to erase it.',rs:'Paint over cut-away parts to restore them.',pn:'Drag to move around the zoomed image. Ctrl + scroll also zooms.'};
+var PP='https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/',lib=null,libP=null,pre=null,warmed=false,fname='image',BL=null;
+var HINTS={rm:'Click the background area you want removed. Raise tolerance to catch more shades; untick "connected" to remove that colour everywhere.',er:'Paint over leftover background to erase it.',rs:'Paint over cut-away parts to restore them.',pn:'Drag to move around the zoomed image. Ctrl + scroll also zooms.'};
 function mk(w,h){var c=document.createElement('canvas');c.width=w;c.height=h;return c}
 function flash(m){toast.textContent=m;toast.classList.add('show');clearTimeout(flash.t);flash.t=setTimeout(function(){toast.classList.remove('show')},1800)}
 function say(m,k){st.textContent=m||'';st.className='status'+(k?' '+k:'');if(m&&!$('busy').hidden)$('busyT').textContent=m}
@@ -548,7 +598,7 @@ async function open(f){if(busy)return flash('Please wait for the current image')
   try{
     say('Reading image…');pg(5);orig=await decode(f);
     var s=Math.min(1,MAXD/Math.max(orig.width,orig.height));W=Math.round(orig.width*s);H=Math.round(orig.height*s);
-    src=mk(W,H);sx=src.getContext('2d',{willReadFrequently:true});sx.drawImage(orig,0,0,W,H);
+    src=mk(W,H);sx=src.getContext('2d',{willReadFrequently:true});sx.drawImage(orig,0,0,W,H);BL=null;
     cut=mk(W,H);cx=cut.getContext('2d');mc=mk(W,H);mx=mc.getContext('2d');MD=mx.createImageData(W,H);
     view.width=W;view.height=H;M=new Uint8Array(W*H).fill(255);undo=[];redo=[];
     drop.style.display='none';ed.hidden=false;fit();setTool('rm');commit();await auto();
@@ -583,7 +633,7 @@ async function auto(){
     if(!al){var fn=await loadLib();say('Detecting subject…');var out=await run(fn,blob),bm=await createImageBitmap(out),t=mk(W,H),tx=t.getContext('2d',{willReadFrequently:true});tx.drawImage(bm,0,0,W,H);
       var D=tx.getImageData(0,0,W,H).data;al=new Uint8Array(W*H);for(i=0;i<W*H;i++)al[i]=D[i*4+3]}
     snap();M.set(al);AUTO=M.slice();commit();
-    say('Done! Not perfect? Pick a tool above and click or paint to fix it. Shortcuts: R E B K O H, Ctrl+Z undo, hold C to compare.','ok');flash('Done');pg(100);
+    say('Done! Not perfect? Pick a tool above and click or paint to fix it. Shortcuts: R E B H, Ctrl+Z undo, hold C to compare.','ok');flash('Done');pg(100);
   }catch(e){console.error(e);say('Could not remove background: '+(e.message||e),'err')}
   busy=false;$('tools').style.opacity=1;$('busy').hidden=true;hp()}
 
@@ -612,7 +662,7 @@ document.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&e.key
 
 /* ---------- tools ---------- */
 function setTool(t){tool=t;[].forEach.call(document.querySelectorAll('[data-tool]'),function(b){b.classList.toggle('active',b.dataset.tool===t)});
-  var br=t==='er'||t==='rs';$('brushOpt').hidden=!br;$('wandOpt').hidden=!(t==='rm'||t==='kp');view.style.touchAction=br||t==='pn'?'none':'manipulation';view.style.cursor=br?'none':t==='pn'?'grab':'crosshair';if(!br)$('ring').hidden=true;$('hint').textContent=HINTS[t]}
+  var br=t==='er'||t==='rs';$('brushOpt').hidden=!br;$('wandOpt').hidden=!(t==='rm');view.style.touchAction=br||t==='pn'?'none':'manipulation';view.style.cursor=br?'none':t==='pn'?'grab':'crosshair';if(!br)$('ring').hidden=true;$('hint').textContent=HINTS[t]}
 $('tools').addEventListener('click',function(e){var b=e.target.closest('[data-tool]');if(b)setTool(b.dataset.tool)});
 function fill(x,y,ok,contig){
   var n=W*H,R=new Uint8Array(n),i;
@@ -624,15 +674,18 @@ function fill(x,y,ok,contig){
     if(i>=W&&!R[i-W]&&ok(i-W)){R[i-W]=1;q[t++]=i-W}
     if(i<n-W&&!R[i+W]&&ok(i+W)){R[i+W]=1;q[t++]=i+W}}
   return R}
+function blurred(){
+  if(BL)return BL;var D=sx.getImageData(0,0,W,H).data,n=W*H;
+  BL=[0,1,2].map(function(c){var a=new Uint8Array(n);for(var i=0;i<n;i++)a[i]=D[i*4+c];return blur(a,2)});return BL}
 function click(p){
   var x=Math.min(W-1,Math.max(0,p[0]|0)),y=Math.min(H-1,Math.max(0,p[1]|0)),R,i;
-  if(tool==='pk'){
-    if(M[y*W+x]<128)return flash('Click on the subject you want to keep');
-    snap();R=fill(x,y,function(i){return M[i]>127},true);for(i=0;i<R.length;i++)if(!R[i])M[i]=0}
-  else{
-    snap();var D=sx.getImageData(0,0,W,H).data,j=(y*W+x)*4,r=D[j],g=D[j+1],b=D[j+2],T=+$('tol').value*2.2;T*=T;
-    R=fill(x,y,function(i){var k=i*4,a=D[k]-r,c=D[k+1]-g,d=D[k+2]-b;return a*a+c*c+d*d<=T},$('cg').checked);
-    var v=tool==='kp'?255:0;for(i=0;i<R.length;i++)if(R[i])M[i]=v}
+  {
+    snap();var B=blurred(),n=W*H,sr=0,sg=0,sb=0,c=0,T=+$('tol').value*2.2;T*=T;
+    for(var yy=Math.max(0,y-3);yy<=Math.min(H-1,y+3);yy++)for(var xx=Math.max(0,x-3);xx<=Math.min(W-1,x+3);xx++){var k=yy*W+xx;sr+=B[0][k];sg+=B[1][k];sb+=B[2][k];c++}
+    sr/=c;sg/=c;sb/=c;
+    R=fill(x,y,function(i){var a=B[0][i]-sr,e=B[1][i]-sg,d=B[2][i]-sb;return a*a+e*e+d*d<=T},$('cg').checked);
+    var Q=new Uint8Array(n);for(i=0;i<n;i++)Q[i]=R[i]?255:0;Q=blur(Q,3);
+    for(i=0;i<n;i++)if(Q[i]>127)M[i]=0}
   commit()}
 var down=false,last=null,dx0,dy0,dx1,dy1,pan=null,rg=$('ring');
 function pt(e){var r=view.getBoundingClientRect();return[(e.clientX-r.left)*W/r.width,(e.clientY-r.top)*H/r.height]}
@@ -660,7 +713,7 @@ $('q').addEventListener('change',function(){if(M&&!busy)auto()});
 
 document.addEventListener('keydown',function(e){
   if(ed.hidden||e.ctrlKey||e.metaKey||e.altKey||e.target.tagName==='SELECT')return;
-  var k=e.key.toLowerCase(),m={r:'rm',k:'kp',o:'pk',e:'er',b:'rs',h:'pn'};
+  var k=e.key.toLowerCase(),m={r:'rm',e:'er',b:'rs',h:'pn'};
   if(m[k])setTool(m[k]);
   else if(k==='['||k===']'){var s=$('bs');s.value=+s.value+(k===']'?10:-10)}
   else if(k==='='||k==='+')setZ(Math.min(800,+zs.value+50));
@@ -672,10 +725,10 @@ document.addEventListener('dragover',function(e){e.preventDefault()});
 document.addEventListener('drop',function(e){e.preventDefault();var f=e.dataTransfer.files[0];if(f&&!drop.contains(e.target)&&e.target!==drop)open(f)});
 /* ---------- view / background ---------- */
 var vp=document.querySelector('.vp'),zs=$('zs');
-function fit(){view.style.maxWidth='100%';view.style.maxHeight='70vh';view.style.width='';zs.value=100;$('zv').textContent='100%'}
+function fit(){view.style.maxWidth='100%';view.style.maxHeight='76vh';view.style.width='';zs.value=100;$('zv').textContent='100%'}
 function setZ(z){
   var fx=(vp.scrollLeft+vp.clientWidth/2)/vp.scrollWidth,fy=(vp.scrollTop+vp.clientHeight/2)/vp.scrollHeight;
-  view.style.maxWidth='100%';view.style.maxHeight='70vh';view.style.width='';var base=view.getBoundingClientRect().width;
+  view.style.maxWidth='100%';view.style.maxHeight='76vh';view.style.width='';var base=view.getBoundingClientRect().width;
   if(z>100){view.style.maxWidth='none';view.style.maxHeight='none';view.style.width=base*z/100+'px'}
   zs.value=z;$('zv').textContent=Math.round(z)+'%';vp.scrollLeft=fx*vp.scrollWidth-vp.clientWidth/2;vp.scrollTop=fy*vp.scrollHeight-vp.clientHeight/2}
 zs.addEventListener('input',function(){setZ(+zs.value)});$('zf').onclick=fit;
