@@ -3,29 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Free Online Tools & QR Scanner — Runs in Your Browser</title>
-<meta name="description" content="A growing collection of free browser tools. Scan QR codes, count words, merge PDFs, compress images, format JSON and more. No signup, no upload — everything runs on your device.">
-<link rel="canonical" href="https://qrcodescanner.co.in/">
+<title>Free Online Tools — Text, PDF, Image, Dev Utilities</title>
+<meta name="description" content="A growing collection of free browser-based tools. Count words, merge PDFs, compress images, format JSON and more. No signup, no upload — everything runs in your browser.">
+<link rel="canonical" href="https://qrcodescanner.co.in/tools/">
 <link rel="sitemap" type="application/xml" href="https://qrcodescanner.co.in/sitemap.xml">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#1B4DFF">
-<meta name="application-name" content="ToolNest">
-<meta name="referrer" content="strict-origin-when-cross-origin">
 
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="ToolNest">
-<meta property="og:locale" content="en_US">
-<meta property="og:title" content="Free Online Tools & QR Scanner">
-<meta property="og:description" content="Free browser tools — QR scanner, word counter, PDF tools, image tools and more.">
-<meta property="og:url" content="https://qrcodescanner.co.in/">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Free Online Tools & QR Scanner">
-<meta name="twitter:description" content="Free browser tools — QR scanner, word counter, PDF tools and more.">
+<meta property="og:title" content="Free Online Tools — Text, PDF, Image, Dev Utilities">
+<meta property="og:description" content="Free browser-based tools. No signup, no upload, everything runs locally.">
+<meta property="og:url" content="https://qrcodescanner.co.in/tools/">
 
 <!-- ============================================================
      GOOGLE ADSENSE — Auto Ads
-     The script enables Auto Ads. Google places them automatically
-     based on page content and user behavior. No manual slots needed.
      ============================================================ -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3576991570329575" crossorigin="anonymous"></script>
 
@@ -38,19 +29,22 @@
       "@id":"https://qrcodescanner.co.in/#website",
       "url":"https://qrcodescanner.co.in/",
       "name":"ToolNest",
-      "description":"Free browser tools including a QR code scanner, word counter, PDF utilities and developer helpers.",
-      "potentialAction":{
-        "@type":"SearchAction",
-        "target":"https://qrcodescanner.co.in/tools/?q={search_term_string}",
-        "query-input":"required name=search_term_string"
-      }
+      "description":"Free browser-based tools for text, files, images, PDFs and code."
     },
     {
-      "@type":"Organization",
-      "@id":"https://qrcodescanner.co.in/#org",
-      "name":"ToolNest",
-      "url":"https://qrcodescanner.co.in/",
-      "logo":"https://qrcodescanner.co.in/assets/img/logo.png"
+      "@type":"CollectionPage",
+      "@id":"https://qrcodescanner.co.in/tools/#collection",
+      "url":"https://qrcodescanner.co.in/tools/",
+      "name":"Free Online Tools",
+      "description":"A growing collection of free browser-based tools. No signup, no upload, everything runs locally.",
+      "isPartOf":{"@id":"https://qrcodescanner.co.in/#website"}
+    },
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://qrcodescanner.co.in/"},
+        {"@type":"ListItem","position":2,"name":"Tools","item":"https://qrcodescanner.co.in/tools/"}
+      ]
     }
   ]
 }
@@ -63,364 +57,33 @@
 <link rel="manifest" href="/manifest.json">
 
 <style>
-/* ============================================================
-   Homepage styles
-   ============================================================ */
+.tools-hero{margin:0 0 26px}
+.search{margin:22px 0 0;position:relative}
+.search input{padding-left:44px}
+.search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);
+  width:16px;height:16px;color:var(--muted);pointer-events:none}
 
-/* ---------- hero ---------- */
-.hero{
-  padding:36px 0 0;
-  position:relative;
-}
-.eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--muted);
-  margin:0 0 20px;
-  padding:6px 12px;border:1px solid var(--line);border-radius:100px;
-  background:var(--surface);
-}
-.eyebrow::before{
-  content:"";width:6px;height:6px;border-radius:50%;
-  background:var(--green);box-shadow:0 0 0 3px rgba(14,122,95,.15);
-}
-.hero h1{
-  font-family:var(--display);font-weight:700;
-  font-size:clamp(2.4rem,7.5vw,4.25rem);
-  line-height:1;letter-spacing:-.04em;
-  margin:0 0 20px;max-width:18ch;
-}
-.hero h1 em{
-  font-style:normal;
-  color:var(--blue);
-  position:relative;
-  white-space:nowrap;
-}
-.hero h1 em::after{
-  content:"";position:absolute;left:0;right:0;bottom:.08em;
-  height:.12em;background:rgba(27,77,255,.18);z-index:-1;
-}
-.hero .lead{
-  font-size:clamp(1rem,1.5vw,1.125rem);
-  color:#3A3E46;max-width:56ch;margin:0 0 32px;
-}
+.cats{display:flex;flex-wrap:wrap;gap:7px;margin:22px 0 8px}
+.cat{border:1px solid var(--line);background:transparent;border-radius:100px;
+  padding:7px 14px;font-size:.875rem;color:var(--muted);cursor:pointer;font-weight:500}
+.cat[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
 
-/* ---------- search ---------- */
-.search{
-  max-width:640px;position:relative;margin:0 0 14px;
-}
-input.search-input{
-  width:100%;font:inherit;font-size:1rem;
-  padding:16px 78px 16px 50px;
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:8px;
-  outline:none;
-  box-shadow:0 2px 0 rgba(20,22,26,.02), 0 12px 32px -20px rgba(20,22,26,.15);
-  transition:border-color .15s ease, box-shadow .15s ease;
-}
-input.search-input::placeholder{color:var(--muted)}
-input.search-input:focus{
-  border-color:var(--blue);
-  box-shadow:0 0 0 4px rgba(27,77,255,.1), 0 12px 32px -18px rgba(20,22,26,.25);
-}
-.search .search-icon{
-  position:absolute;left:17px;top:50%;transform:translateY(-50%);
-  width:18px;height:18px;color:var(--muted);pointer-events:none;
-}
-.search .kbd-hint{
-  position:absolute;right:14px;top:50%;transform:translateY(-50%);
-  display:flex;gap:4px;pointer-events:none;
-}
-.search .kbd-hint kbd{
-  font-family:var(--mono);font-size:.6875rem;
-  padding:3px 6px;border-radius:4px;
-  background:var(--paper);border:1px solid var(--line);
-  color:var(--muted);
-}
-
-/* search dropdown */
-.search-results{
-  position:absolute;top:calc(100% + 8px);left:0;right:0;
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:8px;
-  box-shadow:0 24px 48px -20px rgba(20,22,26,.25);
-  padding:6px;
-  display:none;
-  z-index:30;
-  max-height:360px;overflow-y:auto;
-}
-.search-results.open{display:block}
-.search-results a{
-  display:flex;align-items:center;gap:12px;
-  padding:10px 12px;border-radius:5px;
-  text-decoration:none;color:var(--ink);
-  font-size:.9375rem;
-}
-.search-results a:hover,.search-results a.active{
-  background:var(--paper);
-}
-.search-results .sr-icon{
-  width:32px;height:32px;flex:none;
-  background:#EDF0FF;border-radius:5px;
-  display:grid;place-items:center;
-  color:var(--blue);font-family:var(--mono);font-weight:700;
-  font-size:.6875rem;letter-spacing:.03em;
-}
-.search-results .sr-info{flex:1;min-width:0}
-.search-results .sr-name{font-weight:500}
-.search-results .sr-desc{
-  font-size:.8125rem;color:var(--muted);
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-  margin-top:1px;
-}
-.search-results .sr-cat{
-  font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;
-  letter-spacing:.05em;color:var(--muted);
-}
-.search-results .sr-empty{
-  padding:16px;text-align:center;color:var(--muted);font-size:.9375rem;
-}
-
-/* ---------- quick chips ---------- */
-.quick{
-  display:flex;flex-wrap:wrap;align-items:center;gap:8px;
-  margin:0 0 8px;font-size:.875rem;color:var(--muted);
-}
-.quick .label{
-  font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;
-  letter-spacing:.08em;
-}
-.quick a{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:5px 12px;border-radius:100px;
-  background:var(--surface);border:1px solid var(--line);
-  color:var(--ink);text-decoration:none;font-size:.8125rem;
-  transition:border-color .12s ease, color .12s ease;
-}
-.quick a:hover{border-color:var(--blue);color:var(--blue)}
-.quick a::after{content:"↗";font-size:.6875rem;opacity:.5}
-
-/* ---------- section headings ---------- */
-.section-head{
-  display:flex;align-items:baseline;justify-content:space-between;gap:16px;
-  margin:56px 0 16px;
-}
-.section-title{
-  font-family:var(--display);font-weight:700;
-  font-size:1.0625rem;letter-spacing:-.01em;
-  margin:0;
-  display:flex;align-items:baseline;gap:10px;
-}
-.section-title .num{
-  font-family:var(--mono);font-weight:400;font-size:.6875rem;
-  color:var(--muted);letter-spacing:.05em;
-}
-.section-head .linkish{font-size:.875rem}
-
-/* ---------- bento showcase ---------- */
-.bento{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  grid-auto-rows:170px;
-  gap:12px;
-}
-@media(max-width:800px){
-  .bento{grid-template-columns:repeat(2,1fr);grid-auto-rows:auto}
-}
-
-/* hero bento card */
-.bento-hero{
-  grid-column:span 2;grid-row:span 2;
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:10px;
-  padding:26px;
-  text-decoration:none;color:inherit;
-  display:flex;flex-direction:column;justify-content:space-between;
-  position:relative;overflow:hidden;
-  transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease;
-}
-.bento-hero:hover{
-  border-color:var(--blue);
-  transform:translateY(-2px);
-  box-shadow:0 24px 48px -32px rgba(27,77,255,.35);
-}
-.bento-hero .kicker{
-  font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;
-  letter-spacing:.08em;color:var(--blue);margin:0 0 12px;
-  display:inline-flex;align-items:center;gap:6px;
-}
-.bento-hero .kicker::before{
-  content:"";width:6px;height:6px;border-radius:50%;background:var(--blue);
-}
-.bento-hero h2{
-  font-family:var(--display);font-weight:700;
-  font-size:clamp(1.5rem,2.5vw,1.875rem);
-  letter-spacing:-.025em;line-height:1.05;margin:0 0 10px;
-  max-width:14ch;
-}
-.bento-hero p{
-  font-size:.9375rem;color:#3A3E46;max-width:32ch;margin:0;line-height:1.5;
-}
-.bento-hero .cta-line{
-  font-family:var(--mono);font-size:.8125rem;color:var(--blue);
-  margin-top:16px;display:inline-flex;align-items:center;gap:6px;
-}
-.bento-hero .cta-line::after{content:"→";transition:transform .15s ease}
-.bento-hero:hover .cta-line::after{transform:translateX(3px)}
-
-/* decorative QR visual inside hero card */
-.bento-hero .visual{
-  position:absolute;right:-30px;top:-30px;
-  width:280px;height:280px;
-  opacity:.08;pointer-events:none;
-  transition:opacity .2s ease, transform .3s ease;
-}
-.bento-hero:hover .visual{opacity:.14;transform:rotate(-3deg) scale(1.02)}
-
-/* corner bracket motif */
-.bento-hero::before,
-.bento-hero::after{
-  content:"";position:absolute;width:22px;height:22px;
-  border:2px solid var(--blue);opacity:.35;
-  transition:opacity .2s ease;
-}
-.bento-hero::before{
-  top:14px;left:14px;border-right:0;border-bottom:0;border-radius:4px 0 0 0;
-}
-.bento-hero::after{
-  bottom:14px;right:14px;border-left:0;border-top:0;border-radius:0 0 4px 0;
-}
-.bento-hero:hover::before,
-.bento-hero:hover::after{opacity:.7}
-
-/* small bento items */
-.bento-item{
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:10px;
-  padding:18px;
-  text-decoration:none;color:inherit;
-  display:flex;flex-direction:column;justify-content:space-between;
-  transition:border-color .15s ease, transform .15s ease;
-}
-.bento-item:hover{
-  border-color:var(--blue);
-  transform:translateY(-2px);
-}
-.bento-item .ico{
-  width:30px;height:30px;border-radius:6px;
-  background:#EDF0FF;color:var(--blue);
-  display:grid;place-items:center;
-  font-family:var(--mono);font-weight:700;font-size:.6875rem;
-  letter-spacing:.02em;
-}
-.bento-item h3{
-  font-family:var(--display);font-weight:700;
-  font-size:1rem;letter-spacing:-.01em;margin:0 0 4px;
-}
-.bento-item p{
-  font-size:.8125rem;color:var(--muted);margin:0;line-height:1.45;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
-  overflow:hidden;
-}
-.bento-item .bottom{
-  display:flex;align-items:flex-end;justify-content:space-between;gap:8px;
-}
-.bento-item .cat-tag{
-  font-family:var(--mono);font-size:.625rem;text-transform:uppercase;
-  letter-spacing:.06em;color:var(--muted);
-}
-
-/* ---------- category strip ---------- */
-.cats{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
-  gap:10px;
-  margin:0;
-}
-.cat-item{
-  display:flex;align-items:center;gap:12px;
-  padding:14px 16px;
-  background:var(--surface);border:1px solid var(--line);
-  border-radius:8px;text-decoration:none;color:inherit;
-  transition:border-color .12s ease, transform .12s ease;
-}
-.cat-item:hover{border-color:var(--blue);transform:translateY(-2px)}
-.cat-item .cat-ico{
-  width:32px;height:32px;flex:none;border-radius:6px;
-  background:var(--paper);color:var(--ink);
-  display:grid;place-items:center;
-  transition:background .12s ease, color .12s ease;
-}
-.cat-item:hover .cat-ico{background:#EDF0FF;color:var(--blue)}
-.cat-item .cat-ico svg{width:16px;height:16px}
-.cat-item .cat-name{
-  font-family:var(--display);font-weight:700;
-  font-size:.9375rem;letter-spacing:-.01em;line-height:1.15;
-}
-.cat-item .cat-count{
-  font-family:var(--mono);font-size:.6875rem;
-  text-transform:uppercase;letter-spacing:.05em;color:var(--muted);
-  margin-top:1px;
-}
-
-/* ---------- trust strip ---------- */
-.trust{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:0;
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-  margin:64px 0 0;
-}
-.trust-item{
-  display:flex;align-items:flex-start;gap:12px;
-  padding:22px 4px 22px 0;
-}
-.trust-item + .trust-item{
-  border-left:1px solid var(--line);
-  padding-left:22px;
-}
-@media(max-width:640px){
-  .trust-item + .trust-item{border-left:0;padding-left:0;border-top:1px solid var(--line)}
-}
-.trust-item .trust-ico{
-  width:32px;height:32px;flex:none;border-radius:6px;
-  background:#EDF0FF;color:var(--blue);
-  display:grid;place-items:center;
-}
-.trust-item .trust-ico svg{width:16px;height:16px}
-.trust-item h3{
-  font-family:var(--display);font-weight:700;
-  font-size:.9375rem;letter-spacing:-.01em;margin:0 0 3px;
-}
-.trust-item p{
-  font-size:.8125rem;color:var(--muted);margin:0;line-height:1.45;
-}
-
-/* ---------- footer ---------- */
-footer{
-  margin:64px 0 0;
-  padding:26px 0 0;
-  border-top:1px solid var(--line);
-  display:flex;flex-wrap:wrap;gap:16px;align-items:center;
-  color:var(--muted);font-size:.8125rem;
-}
-footer .footer-brand{
-  font-family:var(--display);font-weight:700;
-  color:var(--ink);letter-spacing:-.01em;
-}
-footer nav{margin-left:auto;display:flex;flex-wrap:wrap;gap:18px}
-footer nav a{color:var(--muted);text-decoration:none}
-footer nav a:hover{color:var(--blue);text-decoration:underline}
-
-/* ---------- reduced motion ---------- */
-@media(prefers-reduced-motion:reduce){
-  *{transition:none !important;animation:none !important}
-}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:12px;margin:18px 0 0}
+.tool-card{display:block;background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius);padding:18px;text-decoration:none;color:inherit;
+  transition:border-color .12s ease,transform .12s ease}
+.tool-card:hover{border-color:var(--blue);transform:translateY(-2px)}
+.tool-card .ico{width:34px;height:34px;border-radius:6px;background:#EDF0FF;
+  display:grid;place-items:center;color:var(--blue);margin:0 0 12px;
+  font-weight:700;font-family:var(--mono);font-size:.8125rem}
+.tool-card h3{margin:0 0 5px;font-size:1rem;letter-spacing:-.01em}
+.tool-card p{margin:0;font-size:.875rem;color:var(--muted);line-height:1.5}
+.tool-card .cat-tag{display:inline-block;margin:10px 0 0;font-size:.6875rem;
+  font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.empty{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted)}
+.section-label{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--muted);margin:44px 0 0}
 </style>
 </head>
 <body>
@@ -437,303 +100,159 @@ footer nav a:hover{color:var(--blue);text-decoration:underline}
       </svg>
       <span class="wordmark">ToolNest</span>
     </a>
-    <a href="/tools/" class="nav-right">All tools →</a>
+    <a href="/" class="nav-right">ToolNest →</a>
   </header>
 
-  <!-- ================= HERO ================= -->
-  <section class="hero">
-    <span class="eyebrow">Free · Private · No signup</span>
-
-    <h1>Every tool you need, <em>running in your browser</em>.</h1>
-
-    <p class="lead">Scan QR codes, count words, merge PDFs, compress images, format JSON and more. Nothing you work on ever leaves your device — no uploads, no accounts, no tracking.</p>
+  <section class="tools-hero">
+    <h1 class="lede">Free browser tools. Nothing uploaded.</h1>
+    <p class="sub">A growing collection of utilities for text, files, images, PDFs and code. Everything runs on your device — no signup, no server, no tracking.</p>
 
     <div class="search">
-      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input class="search-input" id="heroSearch" type="search" placeholder="Search tools — try 'json', 'word', 'qr'…" autocomplete="off" spellcheck="false" aria-label="Search tools" aria-expanded="false" aria-controls="heroResults">
-      <span class="kbd-hint"><kbd>Ctrl</kbd><kbd>K</kbd></span>
-      <div class="search-results" id="heroResults" role="listbox"></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input id="search" type="search" placeholder="Search tools — try 'pdf', 'word', 'json'…" autocomplete="off" spellcheck="false" aria-label="Search tools">
     </div>
 
-    <div class="quick">
-      <span class="label">Popular:</span>
-      <a href="/tools/qrscanner/">QR Scanner</a>
-      <a href="/tools/text/word-counter.html">Word Counter</a>
-      <a href="/tools/dev/json-format.html">JSON Formatter</a>
-      <a href="/tools/security/password.html">Password Generator</a>
-    </div>
+    <div class="cats" id="cats" role="group" aria-label="Tool categories"></div>
   </section>
 
-  <!-- ================= FEATURED ================= -->
-  <div class="section-head">
-    <h2 class="section-title">Featured <span class="num">/ 01</span></h2>
-    <a href="/tools/" class="linkish">All tools →</a>
-  </div>
-
-  <div class="bento">
-    <a class="bento-hero" href="/tools/qrscanner/" aria-label="QR Scanner & Generator">
-      <svg class="visual" viewBox="0 0 100 100" aria-hidden="true">
-        <g fill="currentColor" style="color:var(--blue)">
-          <path d="M6 6h26v26H6V6zm6 6v14h14V12H12z"/>
-          <path d="M68 6h26v26H68V6zm6 6v14h14V12H74z"/>
-          <path d="M6 68h26v26H6V68zm6 6v14h14V74H12z"/>
-        </g>
-        <g fill="currentColor" style="color:var(--blue)">
-          <rect x="16" y="16" width="6" height="6"/><rect x="78" y="16" width="6" height="6"/><rect x="16" y="78" width="6" height="6"/>
-          <rect x="40" y="6" width="6" height="6"/><rect x="52" y="12" width="6" height="6"/>
-          <rect x="40" y="24" width="6" height="6"/><rect x="6" y="40" width="6" height="6"/>
-          <rect x="18" y="52" width="6" height="6"/><rect x="30" y="40" width="6" height="6"/>
-          <rect x="44" y="44" width="6" height="6"/><rect x="56" y="56" width="6" height="6"/>
-          <rect x="68" y="44" width="6" height="6"/><rect x="80" y="56" width="6" height="6"/>
-          <rect x="68" y="68" width="6" height="6"/><rect x="88" y="76" width="6" height="6"/>
-          <rect x="44" y="80" width="6" height="6"/><rect x="56" y="88" width="6" height="6"/>
-          <rect x="76" y="88" width="6" height="6"/>
-        </g>
-      </svg>
-
-      <div>
-        <p class="kicker">Flagship</p>
-        <h2>QR Scanner &amp; Generator</h2>
-        <p>Scan QR codes with your camera or from a screenshot. Create them for URLs, Wi-Fi, UPI, email, SMS and contacts.</p>
-        <span class="cta-line">Open tool</span>
-      </div>
-    </a>
-
-    <a class="bento-item" href="/tools/text/word-counter.html">
-      <div class="ico">WC</div>
-      <div>
-        <h3>Word Counter</h3>
-        <p>Words, characters, sentences and reading time.</p>
-      </div>
-      <div class="bottom"><span class="cat-tag">Text</span></div>
-    </a>
-
-    <a class="bento-item" href="/tools/dev/json-format.html">
-      <div class="ico">JF</div>
-      <div>
-        <h3>JSON Formatter</h3>
-        <p>Beautify, minify and validate with error positions.</p>
-      </div>
-      <div class="bottom"><span class="cat-tag">Dev</span></div>
-    </a>
-
-    <a class="bento-item" href="/tools/convert/json-csv.html">
-      <div class="ico">JC</div>
-      <div>
-        <h3>JSON ↔ CSV</h3>
-        <p>Convert between JSON and CSV in one click.</p>
-      </div>
-      <div class="bottom"><span class="cat-tag">Convert</span></div>
-    </a>
-
-    <a class="bento-item" href="/tools/security/password.html">
-      <div class="ico">PG</div>
-      <div>
-        <h3>Password Generator</h3>
-        <p>Strong random passwords, cryptographically generated.</p>
-      </div>
-      <div class="bottom"><span class="cat-tag">Security</span></div>
-    </a>
-  </div>
-
-  <!-- ================= CATEGORIES ================= -->
-  <div class="section-head">
-    <h2 class="section-title">Browse by category <span class="num">/ 02</span></h2>
-    <a href="/tools/" class="linkish">All tools →</a>
-  </div>
-
-  <div class="cats">
-    <a class="cat-item" href="/tools/#text">
-      <span class="cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V5h16v2M9 20h6M12 5v15"/></svg></span>
-      <span><span class="cat-name">Text</span><br><span class="cat-count">2 tools</span></span>
-    </a>
-    <a class="cat-item" href="/tools/#convert">
-      <span class="cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4M3 11V9a4 4 0 014-4h14M7 22l-4-4 4-4M21 13v2a4 4 0 01-4 4H3"/></svg></span>
-      <span><span class="cat-name">Convert</span><br><span class="cat-count">1 tool</span></span>
-    </a>
-    <a class="cat-item" href="/tools/#dev">
-      <span class="cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></span>
-      <span><span class="cat-name">Developer</span><br><span class="cat-count">1 tool</span></span>
-    </a>
-    <a class="cat-item" href="/tools/#generate">
-      <span class="cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 10l-6.1 1.2L12 17l-1.9-5.8L4 10l6.1-1.2z"/></svg></span>
-      <span><span class="cat-name">Generators</span><br><span class="cat-count">1 tool</span></span>
-    </a>
-    <a class="cat-item" href="/tools/#security">
-      <span class="cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
-      <span><span class="cat-name">Security</span><br><span class="cat-count">1 tool</span></span>
-    </a>
-    <a class="cat-item" href="/tools/#image">
-      <span class="cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span>
-      <span><span class="cat-name">Image</span><br><span class="cat-count">7 Tools</span></span>
-    </a>
-    <a class="cat-item" href="/tools/#pdf">
-      <span class="cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg></span>
-      <span><span class="cat-name">PDF</span><br><span class="cat-count">8 Tools</span></span>
-    </a>
-    <a class="cat-item" href="/tools/#calc">
-      <span class="cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M8 6h8M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg></span>
-      <span><span class="cat-name">Calculators</span><br><span class="cat-count">8 Tools</span></span>
-    </a>
-    <a class="cat-item" href="/tools/#media">
-      <span class="cat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M7 2v20M17 2v20M2 12h20M2 7h5M2 17h5M17 7h5M17 17h5"/></svg></span>
-      <span><span class="cat-name">Audio / Video</span><br><span class="cat-count">Soon</span></span>
-    </a>
-  </div>
-
-  <!-- ================= TRUST ================= -->
-  <div class="trust">
-    <div class="trust-item">
-      <span class="trust-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
-      <div>
-        <h3>Runs entirely in your browser</h3>
-        <p>Your files and text never leave your device.</p>
-      </div>
-    </div>
-    <div class="trust-item">
-      <span class="trust-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></span>
-      <div>
-        <h3>Instant, no signup</h3>
-        <p>No accounts, no email, no passwords.</p>
-      </div>
-    </div>
-    <div class="trust-item">
-      <span class="trust-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
-      <div>
-        <h3>Free, no watermarks</h3>
-        <p>Every tool, unlimited use, no premium tier.</p>
-      </div>
-    </div>
-    <div class="trust-item">
-      <span class="trust-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
-      <div>
-        <h3>Works offline</h3>
-        <p>Install once, use anywhere — even without internet.</p>
-      </div>
-    </div>
-  </div>
+  <p class="section-label" id="countLabel">All tools</p>
+  <div class="grid" id="grid"></div>
 
   <footer>
-    <span class="footer-brand">ToolNest</span>
-    <nav>
-      <a href="/">ToolNest</a>
-      <a href="/tools/">All tools</a>
-      <a href="/pages/about.html">About</a>
-      <a href="/pages/privacy.html">Privacy</a>
-    </nav>
+    <p>ToolNest · <a href="/">ToolNest</a> · <a href="/pages/about.html">About</a> · <a href="/pages/privacy.html">Privacy</a></p>
   </footer>
 </div>
 
 <script>
-/* ============================================================
-   Hero search — instant results dropdown
-   ============================================================ */
-
-const TOOLS = [
-  { id:'qr-scanner',    name:'QR Scanner & Generator', desc:'Scan or create QR codes for URLs, Wi-Fi, UPI and contacts.', cat:'generator', path:'/tools/qrscanner/' },
-  { id:'word-counter',  name:'Word Counter',           desc:'Count words, characters, sentences and reading time.',      cat:'text',      path:'/tools/text/word-counter.html' },
-  { id:'case-converter',name:'Case Converter',         desc:'Convert text case — UPPER, lower, Title, Sentence and more.',cat:'text',     path:'/tools/text/case-converter.html' },
-  { id:'json-format',   name:'JSON Formatter',         desc:'Beautify, minify and validate JSON.',                        cat:'developer', path:'/tools/dev/json-format.html' },
-  { id:'json-csv',      name:'JSON ↔ CSV',             desc:'Convert between JSON and CSV, flattening nested objects.',   cat:'convert',   path:'/tools/convert/json-csv.html' },
-  { id:'password',      name:'Password Generator',     desc:'Strong random passwords using cryptographic randomness.',    cat:'security',  path:'/tools/security/password.html' }
+const CATEGORIES = [
+  { id:'all',      name:'All' },
+  { id:'text',     name:'Text' },
+  { id:'convert',  name:'Convert' },
+  { id:'calc',     name:'Calculators' },
+  { id:'dev',      name:'Developer' },
+  { id:'image',    name:'Image' },
+  { id:'pdf',      name:'PDF' },
+  { id:'media',    name:'Audio/Video' },
+  { id:'generate', name:'Generators' },
+  { id:'security', name:'Security' }
 ];
 
+const TOOLS = [
+  { id:'qr-scanner',   name:'QR Scanner & Generator', desc:'Scan QR codes with your camera, or create QR codes for URLs, Wi-Fi, UPI and contacts.', cat:'generate', path:'/tools/qrscanner/', tags:['qr','scan','camera','generator'] },
+  { id:'word-counter', name:'Word Counter',      desc:'Count words, characters, sentences and reading time.', cat:'text', path:'/tools/text/word-counter.html',  tags:['words','count','characters'] },
+  { id:'case-conv',    name:'Case Converter',    desc:'Convert text to UPPER, lower, Title and Sentence case.', cat:'text', path:'/tools/text/case-converter.html', tags:['upper','lower','title'] },
+  { id:'json-csv',     name:'JSON ↔ CSV',        desc:'Convert between JSON and CSV instantly.', cat:'convert', path:'/tools/convert/json-csv.html',       tags:['json','csv','excel'] },
+  { id:'json-fmt',     name:'JSON Formatter',    desc:'Beautify, minify and validate JSON.', cat:'dev', path:'/tools/dev/json-format.html',           tags:['pretty','validate','json'] },
+  { id:'password',     name:'Password Generator',desc:'Strong random passwords with custom rules.', cat:'security', path:'/tools/security/password.html', tags:['secure','random','password'] },
+  { id:'percentage',  name:'Percentage Calculator',  desc:'Solve percentage increase, decrease, and "X% of Y" instantly.', cat:'calc', path:'/tools/calc/percentage.html', tags:['percent','math','increase','decrease'] },
+{ id:'age',         name:'Age Calculator',         desc:'Calculate exact age in years, months, days from any birth date.', cat:'calc', path:'/tools/calc/age.html', tags:['birthday','date','years'] },
+{ id:'bmi',         name:'BMI Calculator',         desc:'Body Mass Index with healthy weight range guidance.', cat:'calc', path:'/tools/calc/bmi.html', tags:['health','weight','body'] },
+{ id:'loan',        name:'Loan / EMI Calculator',  desc:'Monthly payment, total interest and full payment schedule.', cat:'calc', path:'/tools/calc/loan.html', tags:['emi','interest','mortgage','finance'] },
+{ id:'date-diff',   name:'Date Difference',        desc:'Days, weeks, months and years between any two dates.', cat:'calc', path:'/tools/calc/date-diff.html', tags:['days','between','duration'] },
+{ id:'compound',    name:'Compound Interest',      desc:'Project savings growth with monthly or yearly contributions.', cat:'calc', path:'/tools/calc/compound.html', tags:['savings','investment','interest'] },
+{ id:'gst',         name:'GST Calculator',         desc:'Add or remove GST at any rate. Indian GST rates included.', cat:'calc', path:'/tools/calc/gst.html', tags:['tax','india','vat'] },
+{ id:'calorie',     name:'Calorie / TDEE Calculator', desc:'Daily calorie needs based on age, weight, height and activity.', cat:'calc', path:'/tools/calc/calorie.html', tags:['tdee','bmi','diet','fitness'] },
+{ id:'image-compress', name:'Image Compressor',   desc:'Reduce image file size without losing visible quality. Works on JPG, PNG, WebP.', cat:'image', path:'/tools/image/image-compress.html', tags:['compress','optimize','reduce','jpg','png'] },
+{ id:'image-resize',   name:'Image Resizer',      desc:'Resize images to exact dimensions or by percentage. Maintains aspect ratio.', cat:'image', path:'/tools/image/image-resize.html', tags:['resize','scale','dimensions'] },
+{ id:'bg-remover', name:'Background Remover', desc:'Remove the background from any image. AI-powered, runs in your browser.', cat:'image', path:'/tools/image/background-remover.html', tags:['background','remove','transparent','cutout','ai'] },
+{ id:'image-convert',  name:'Image Converter',    desc:'Convert between PNG, JPG, WebP and BMP. Batch supported.', cat:'image', path:'/tools/image/image-convert.html', tags:['png','jpg','webp','convert'] },
+{ id:'image-crop',     name:'Image Cropper',      desc:'Crop images to any ratio — square, 16:9, 4:3, story or custom.', cat:'image', path:'/tools/image/image-crop.html', tags:['crop','aspect','square'] },
+{ id:'image-base64',   name:'Image to Base64',    desc:'Encode an image as Base64 data URL or decode Base64 back to image.', cat:'image', path:'/tools/image/image-base64.html', tags:['base64','dataurl','encode','decode'] },
+{ id:'exif',           name:'EXIF Viewer',        desc:'View and strip metadata from photos — GPS, camera model, date taken.', cat:'image', path:'/tools/image/exif.html', tags:['metadata','privacy','gps','strip'] },
+{ id:'favicon',        name:'Favicon Generator',  desc:'Generate all favicon sizes from one image, including .ico for legacy browsers.', cat:'image', path:'/tools/image/favicon.html', tags:['favicon','ico','icon','website'] },
+{ id:'pdf-merge',    name:'Merge PDF',          desc:'Combine multiple PDFs into one file. Preserves bookmarks and page order.', cat:'pdf', path:'/tools/pdf/pdf-merge.html',    tags:['combine','join','merge'] },
+{ id:'pdf-split',    name:'Split PDF',          desc:'Split a PDF into separate pages, ranges or every N pages.', cat:'pdf', path:'/tools/pdf/pdf-split.html',    tags:['split','extract','pages'] },
+{ id:'pdf-compress', name:'Compress PDF',       desc:'Reduce PDF file size by re-encoding images and cleaning metadata.', cat:'pdf', path:'/tools/pdf/pdf-compress.html', tags:['compress','smaller','optimize'] },
+{ id:'pdf-rotate',   name:'Rotate PDF',         desc:'Rotate PDF pages 90°, 180° or 270° and save.', cat:'pdf', path:'/tools/pdf/pdf-rotate.html',   tags:['rotate','turn','orientation'] },
+{ id:'pdf-to-img',   name:'PDF to JPG',         desc:'Render PDF pages as JPG or PNG images. Batch download as ZIP.', cat:'pdf', path:'/tools/pdf/pdf-to-img.html',   tags:['render','jpg','png','convert'] },
+{ id:'img-to-pdf',   name:'JPG to PDF',         desc:'Combine images into a single PDF. Set page size, orientation and margins.', cat:'pdf', path:'/tools/pdf/img-to-pdf.html',   tags:['images','jpg','pdf','combine'] },
+{ id:'pdf-text',     name:'Extract PDF Text',   desc:'Extract all text from a PDF for copy-paste or download.', cat:'pdf', path:'/tools/pdf/pdf-text.html',     tags:['text','extract','copy'] },
+{ id:'pdf-editor', name:'PDF Editor', desc:'Add text, highlights, images, shapes, signatures. Reorder, rotate, delete pages.', cat:'pdf', path:'/tools/pdf/pdf-editor.html', tags:['edit','annotate','highlight','sign','image'] },
+{ id:'pdf-numbers',  name:'Add Page Numbers',   desc:'Add page numbers to the bottom of every page. Choose position and format.', cat:'pdf', path:'/tools/pdf/pdf-numbers.html',  tags:['numbers','pages','footer'] }
+];
+
+let activeCat = 'all';
+let query = '';
+
+const grid = document.getElementById('grid');
+const catsEl = document.getElementById('cats');
+const search = document.getElementById('search');
+const countLabel = document.getElementById('countLabel');
+
+function renderCats(){
+  catsEl.innerHTML = CATEGORIES.map(c =>
+    `<button class="cat" data-cat="${c.id}" aria-pressed="${c.id===activeCat}">${c.name}</button>`
+  ).join('');
+  catsEl.querySelectorAll('.cat').forEach(b => {
+    b.onclick = () => { activeCat = b.dataset.cat; renderCats(); render(); };
+  });
+}
+
+function matches(t){
+  if (activeCat !== 'all' && t.cat !== activeCat) return false;
+  if (!query) return true;
+  const q = query.toLowerCase();
+  return t.name.toLowerCase().includes(q)
+    || t.desc.toLowerCase().includes(q)
+    || (t.tags||[]).some(x => x.includes(q));
+}
+
+function render(){
+  const list = TOOLS.filter(matches);
+  const catName = CATEGORIES.find(c=>c.id===activeCat).name;
+  countLabel.textContent = activeCat === 'all'
+    ? `All tools (${list.length})`
+    : `${catName} (${list.length})`;
+
+  if (!list.length){
+    grid.innerHTML = `<div class="empty">No tools match “${query.replace(/[<>&]/g,'')}”.</div>`;
+    return;
+  }
+  grid.innerHTML = list.map(t => `
+    <a class="tool-card" href="${t.path}">
+      <div class="ico">${t.name.slice(0,2).toUpperCase()}</div>
+      <h3>${t.name}</h3>
+      <p>${t.desc}</p>
+      <span class="cat-tag">${t.cat}</span>
+    </a>
+  `).join('');
+}
+
+let debounce;
+search.addEventListener('input', e => {
+  clearTimeout(debounce);
+  debounce = setTimeout(() => { query = e.target.value.trim(); render(); }, 120);
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === '/' && document.activeElement !== search){ e.preventDefault(); search.focus(); }
+  if (e.key === 'Escape' && document.activeElement === search){ search.value=''; query=''; render(); search.blur(); }
+});
+
+renderCats();
+render();
+
+/* ============================================================
+   Hash-based category links — e.g. /tools/#pdf activates PDF
+   ============================================================ */
 (function(){
-  const input   = document.getElementById('heroSearch');
-  const results = document.getElementById('heroResults');
-  let activeIdx = -1;
-  let current   = [];
-
-  function esc(s){ return s.replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c])); }
-
-  function renderResults(list, query){
-    current = list;
-    activeIdx = -1;
-    if (!query){
-      results.classList.remove('open');
-      results.innerHTML = '';
-      input.setAttribute('aria-expanded','false');
-      return;
+  function applyHash(){
+    var hash = (location.hash || '').replace('#','').trim();
+    if (!hash) return;
+    var match = CATEGORIES.find(function(c){ return c.id === hash; });
+    if (!match) return;
+    activeCat = hash;
+    renderCats();
+    render();
+    var grid = document.getElementById('grid');
+    if (grid) {
+      setTimeout(function(){
+        grid.scrollIntoView({ behavior:'smooth', block:'start' });
+      }, 60);
     }
-    if (!list.length){
-      results.innerHTML = `<div class="sr-empty">No tools match “${esc(query)}”.</div>`;
-      results.classList.add('open');
-      input.setAttribute('aria-expanded','true');
-      return;
-    }
-    results.innerHTML = list.map((t, i) => `
-      <a href="${t.path}" role="option" data-idx="${i}">
-        <span class="sr-icon">${esc(t.name.slice(0,2).toUpperCase())}</span>
-        <span class="sr-info">
-          <span class="sr-name">${esc(t.name)}</span>
-          <span class="sr-desc">${esc(t.desc)}</span>
-        </span>
-        <span class="sr-cat">${esc(t.cat)}</span>
-      </a>
-    `).join('');
-    results.classList.add('open');
-    input.setAttribute('aria-expanded','true');
   }
-
-  function search(q){
-    if (!q) return [];
-    const s = q.toLowerCase();
-    return TOOLS.filter(t =>
-      t.name.toLowerCase().includes(s) ||
-      t.desc.toLowerCase().includes(s) ||
-      t.cat.toLowerCase().includes(s)
-    ).slice(0, 6);
-  }
-
-  let debounce;
-  input.addEventListener('input', () => {
-    clearTimeout(debounce);
-    debounce = setTimeout(() => {
-      const q = input.value.trim();
-      renderResults(search(q), q);
-    }, 100);
-  });
-
-  input.addEventListener('focus', () => {
-    if (input.value.trim()) renderResults(search(input.value.trim()), input.value.trim());
-  });
-
-  document.addEventListener('click', e => {
-    if (!e.target.closest('.search')) results.classList.remove('open');
-  });
-
-  input.addEventListener('keydown', e => {
-    const items = results.querySelectorAll('a');
-    if (e.key === 'Escape'){ input.blur(); results.classList.remove('open'); return; }
-    if (!items.length) return;
-    if (e.key === 'ArrowDown'){
-      e.preventDefault();
-      activeIdx = Math.min(activeIdx + 1, items.length - 1);
-      items.forEach((el, i) => el.classList.toggle('active', i === activeIdx));
-      items[activeIdx].scrollIntoView({ block:'nearest' });
-    } else if (e.key === 'ArrowUp'){
-      e.preventDefault();
-      activeIdx = Math.max(activeIdx - 1, 0);
-      items.forEach((el, i) => el.classList.toggle('active', i === activeIdx));
-      items[activeIdx].scrollIntoView({ block:'nearest' });
-    } else if (e.key === 'Enter'){
-      if (activeIdx >= 0){ e.preventDefault(); window.location.href = items[activeIdx].href; }
-      else if (items[0]){ e.preventDefault(); window.location.href = items[0].href; }
-    }
-  });
-
-  /* Ctrl/Cmd + K focuses the search */
-  document.addEventListener('keydown', e => {
-    if ((e.key === 'k' || e.key === 'K') && (e.metaKey || e.ctrlKey)){
-      e.preventDefault();
-      input.focus();
-      input.select();
-    }
-    if (e.key === '/' && document.activeElement !== input && !/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)){
-      e.preventDefault();
-      input.focus();
-    }
-  });
+  window.addEventListener('load', applyHash);
+  window.addEventListener('hashchange', applyHash);
 })();
 </script>
 </body>
