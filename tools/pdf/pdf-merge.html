@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Merge PDF — Combine Multiple PDFs Into One Free</title>
-<meta name="description" content="Free online PDF merger. Combine multiple PDF files into one document. Drag to reorder. No upload, no watermark, runs entirely in your browser.">
+<meta name="description" content="Free online PDF merger. Combine multiple PDF files into one document. Reorder by drag or tap. No upload, no watermark, runs entirely in your browser.">
 <link rel="canonical" href="https://qrcodescanner.co.in/tools/pdf/pdf-merge.html">
 <link rel="sitemap" type="application/xml" href="https://qrcodescanner.co.in/sitemap.xml">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -14,7 +14,7 @@
 <meta property="og:description" content="Combine multiple PDFs into one file, in your browser.">
 <meta property="og:url" content="https://qrcodescanner.co.in/tools/pdf/pdf-merge.html">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Merge PDF","url":"https://qrcodescanner.co.in/tools/pdf/pdf-merge.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://qrcodescanner.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://qrcodescanner.co.in/tools/"},{"@type":"ListItem","position":3,"name":"Merge PDF","item":"https://qrcodescanner.co.in/tools/pdf/pdf-merge.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this PDF merger free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is completely free, has no file limit, and does not add watermarks."}},{"@type":"Question","name":"Are my PDFs uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. Everything happens in your browser. Your files never leave your device."}},{"@type":"Question","name":"Can I control the order of pages?","acceptedAnswer":{"@type":"Answer","text":"Yes. Drag the files to reorder them before merging. Pages appear in the order you arrange them."}},{"@type":"Question","name":"Is there a file size limit?","acceptedAnswer":{"@type":"Answer","text":"No hard limit, though very large files (100 MB+) may be slow on low-end devices because processing happens in memory."}}]}]}
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Merge PDF","url":"https://qrcodescanner.co.in/tools/pdf/pdf-merge.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://qrcodescanner.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://qrcodescanner.co.in/tools/"},{"@type":"ListItem","position":3,"name":"Merge PDF","item":"https://qrcodescanner.co.in/tools/pdf/pdf-merge.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this PDF merger free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is completely free, has no file limit, and does not add watermarks."}},{"@type":"Question","name":"Are my PDFs uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. Everything happens in your browser. Your files never leave your device."}},{"@type":"Question","name":"Can I control the order of pages?","acceptedAnswer":{"@type":"Answer","text":"Yes. Drag the files to reorder them on desktop, or use the up and down arrows on any device. Pages appear in the order you arrange them."}},{"@type":"Question","name":"Is there a file size limit?","acceptedAnswer":{"@type":"Answer","text":"No hard limit, though very large files (100 MB+) may be slow on low-end devices because processing happens in memory."}}]}]}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,7 +22,7 @@
 <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 <style>
 :root{--paper:#EDEDE9;--surface:#FFFFFF;--ink:#14161A;--muted:#6B7079;--line:#D6D6D0;--blue:#1B4DFF;--blue-deep:#1338C4;--green:#0E7A5F;--red:#B0233A;--amber:#B87333;--radius:6px;--sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--display:"Bricolage Grotesque",var(--sans);--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
-*{box-sizing:border-box}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 [hidden]{display:none!important}
 html,body{margin:0;padding:0}
 body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;background-image:linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);background-size:28px 28px}
@@ -48,19 +48,23 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .pd-drop p{margin:0;color:var(--muted);font-size:.875rem}
 .pd-drop .formats{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin-top:8px}
 .pd-list{display:flex;flex-direction:column;gap:10px;margin:0 0 14px}
-.pd-item{display:flex;gap:14px;align-items:center;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);cursor:grab;transition:border-color .12s ease,box-shadow .12s ease,opacity .12s ease}
+.pd-item{display:flex;gap:12px;align-items:center;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);cursor:grab;transition:border-color .12s ease,box-shadow .12s ease,opacity .12s ease}
 .pd-item:hover{border-color:var(--blue)}
 .pd-item.dragging{opacity:.4;cursor:grabbing}
 .pd-item.drop-target{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.15)}
-.pd-handle{flex:none;color:var(--muted);font-family:var(--mono);font-size:1rem;cursor:grab;user-select:none;line-height:1}
+.pd-handle{flex:none;color:var(--muted);font-family:var(--mono);font-size:1rem;cursor:grab;user-select:none;line-height:1;padding:8px 6px;margin:-8px -2px}
 .pd-icon{flex:none;width:36px;height:36px;background:#F7F7F3;border:1px solid var(--line);border-radius:6px;display:grid;place-items:center;font-family:var(--mono);font-size:.6875rem;font-weight:600;color:var(--red)}
 .pd-info{flex:1;min-width:0}
-.pd-name{font-family:var(--mono);font-size:.8125rem;font-weight:600;color:var(--ink);word-break:break-all;margin:0 0 3px}
+.pd-name{font-family:var(--mono);font-size:.8125rem;font-weight:600;color:var(--ink);word-break:break-word;overflow-wrap:anywhere;margin:0 0 3px;line-height:1.3}
 .pd-meta{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin:0}
-.pd-remove{flex:none;background:none;border:1px solid var(--line);border-radius:100px;width:28px;height:28px;display:grid;place-items:center;color:var(--muted);cursor:pointer;font-family:inherit;font-size:1rem;line-height:1}
+.pd-controls{flex:none;display:flex;gap:4px;align-items:center}
+.pd-move,
+.pd-remove{flex:none;background:none;border:1px solid var(--line);border-radius:100px;width:32px;height:32px;display:grid;place-items:center;color:var(--muted);cursor:pointer;font-family:inherit;font-size:.875rem;line-height:1;padding:0;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.pd-move:hover:not(:disabled),.pd-remove:hover{border-color:var(--blue);color:var(--blue)}
 .pd-remove:hover{border-color:var(--red);color:var(--red)}
+.pd-move:disabled{opacity:.3;cursor:not-allowed}
 .pd-actions{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
-.pd-actions button{font-size:.8125rem;padding:9px 14px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--ink);cursor:pointer;font-family:inherit;font-weight:500;transition:background .12s ease,border-color .12s ease,color .12s ease;display:inline-flex;align-items:center;gap:6px}
+.pd-actions button{font-size:.8125rem;padding:9px 14px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--ink);cursor:pointer;font-family:inherit;font-weight:500;transition:background .12s ease,border-color .12s ease,color .12s ease;display:inline-flex;align-items:center;gap:6px;min-height:38px}
 .pd-actions button:hover{border-color:var(--blue);color:var(--blue)}
 .pd-actions button.primary{background:var(--blue);border-color:var(--blue);color:#fff}
 .pd-actions button.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep);color:#fff}
@@ -102,8 +106,104 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem}
 footer a{color:inherit}
 footer a:hover{color:var(--blue)}
-.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:200}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:200;max-width:90vw;text-align:center}
 .toast.show{opacity:1}
+
+/* ============ MOBILE ============ */
+@media(max-width:640px){
+  .wrap{padding:16px 14px 56px}
+
+  /* Reduce card padding to reclaim horizontal space */
+  .pd-card{padding:14px}
+
+  /* Smaller drop zone, still comfortable to tap */
+  .pd-drop{padding:26px 16px}
+  .pd-drop .icon{font-size:2rem;margin-bottom:6px}
+  .pd-drop strong{font-size:1rem}
+  .pd-drop p{font-size:.8125rem}
+  .pd-drop .formats{font-size:.6875rem}
+
+  /* File row: two-line layout that gives the name full width */
+  .pd-item{
+    display:grid;
+    grid-template-columns:36px 1fr auto;
+    grid-template-areas:
+      "icon info controls"
+      "icon info controls";
+    column-gap:12px;
+    row-gap:6px;
+    padding:12px;
+    cursor:default;
+    align-items:start;
+  }
+  .pd-handle{display:none}  /* drag handle not useful on touch */
+  .pd-icon{grid-area:icon;width:36px;height:36px;align-self:center}
+  .pd-info{grid-area:info}
+  .pd-controls{
+    grid-area:controls;
+    flex-direction:column;
+    gap:6px;
+    align-self:start;
+  }
+
+  /* Bigger tap targets for move / remove */
+  .pd-move,
+  .pd-remove{width:36px;height:36px;font-size:1rem}
+
+  /* Allow filename to wrap naturally instead of breaking all chars */
+  .pd-name{
+    font-size:.8125rem;
+    word-break:break-word;
+    overflow-wrap:anywhere;
+    line-height:1.35;
+  }
+  .pd-meta{font-size:.6875rem}
+
+  /* Summary stacks to 1 column on very narrow phones */
+  .pd-summary{grid-template-columns:1fr 1fr}
+  .pd-summary .pd-sum:first-child{grid-column:1 / -1}
+  .pd-sum .n{font-size:1.25rem}
+
+  /* Buttons go full-width and taller for thumbs */
+  .pd-actions{flex-direction:column;gap:8px}
+  .pd-actions button{
+    width:100%;
+    justify-content:center;
+    min-height:46px;
+    font-size:.875rem;
+  }
+
+  /* Result box actions also stack */
+  #resultBox .pd-actions{margin-top:10px}
+
+  /* Article readability */
+  .article{margin-top:36px}
+  .article h2{font-size:1.25rem;margin:28px 0 8px}
+  .article p,.article li{font-size:.9375rem}
+
+  /* Related list — smaller time label */
+  .related-list li{padding:11px 12px}
+  .related-list .txt a{font-size:.9375rem}
+  .related-list .txt p{font-size:.75rem}
+  .related-list time{font-size:.6875rem}
+
+  /* Toast above bottom nav bar area */
+  .toast{bottom:16px;font-size:.8125rem;padding:9px 16px}
+}
+
+/* Very narrow phones (iPhone SE, 320px) */
+@media(max-width:380px){
+  .wrap{padding:14px 12px 48px}
+  .pd-card{padding:12px}
+  .pd-move,.pd-remove{width:34px;height:34px}
+  .pd-sum .n{font-size:1.125rem}
+  .lede{font-size:1.6rem}
+}
+
+/* Reduce motion preference */
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
 </style>
 </head>
 <body>
@@ -120,13 +220,13 @@ footer a:hover{color:var(--blue)}
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Merge PDF</span></nav>
 
 <h1 class="lede">Merge PDF</h1>
-<p class="sub">Combine multiple PDF files into one document. Drag to reorder. No watermark, no signup, no upload — everything runs in your browser.</p>
+<p class="sub">Combine multiple PDF files into one document. Reorder by drag or tap. No watermark, no signup, no upload — everything runs in your browser.</p>
 
 <div class="pd-card" id="dropCard">
 <h2>Upload PDFs</h2>
 <div class="pd-drop" id="drop">
 <div class="icon">⬆</div>
-<strong>Drop PDFs here or click to browse</strong>
+<strong>Drop PDFs here or tap to browse</strong>
 <p>Combine two or more PDFs into one</p>
 <div class="formats">No watermark · No upload · Batch supported</div>
 <input type="file" id="fileInput" accept="application/pdf,.pdf" multiple hidden>
@@ -174,11 +274,11 @@ footer a:hover{color:var(--blue)}
 
 <article class="article">
 <h2>How to merge PDFs</h2>
-<p>Drop two or more PDF files onto the page. They appear in a list, and each is labelled with its filename, page count and size. Drag any file up or down to change its position — pages from the merged PDF will appear in the order shown. When the order is right, click <strong>Merge PDFs</strong>. The tool processes everything in your browser and produces a single PDF you can download.</p>
+<p>Drop two or more PDF files onto the page, or tap the box to browse. They appear in a list, and each is labelled with its filename, page count and size. Reorder them by dragging the handle on desktop, or by using the up and down arrows on any device. Pages from the merged PDF will appear in the order shown. When the order is right, tap <strong>Merge PDFs</strong>. The tool processes everything in your browser and produces a single PDF you can download.</p>
 <p>Nothing is uploaded. Your PDFs never leave your device.</p>
 
 <h2>Reordering pages</h2>
-<p>Drag the handle on the left of each row to move files up or down. The order in the list is the order of pages in the output. To reverse the entire order, click <strong>Reverse order</strong>.</p>
+<p>On desktop, drag the handle on the left of each row to move files up or down. On mobile, use the <strong>↑</strong> and <strong>↓</strong> buttons on the right of each file. The order in the list is the order of pages in the output. To reverse the entire order at once, tap <strong>Reverse order</strong>.</p>
 
 <h2>How merging works</h2>
 <p>The tool loads every PDF into memory, extracts the pages from each one in order, and writes them into a new PDF document. Bookmarks, hyperlinks and form fields inside individual PDFs are preserved as-is — they just get offset to point at their new page positions. Fonts and images are copied byte-for-byte; no re-compression, no quality loss.</p>
@@ -206,7 +306,8 @@ footer a:hover{color:var(--blue)}
 <div class="faq">
 <details><summary>Is this PDF merger free?</summary><p>Yes. It is completely free, has no file limit and does not add watermarks.</p></details>
 <details><summary>Are my PDFs uploaded?</summary><p>No. Everything happens in your browser. Your files never leave your device.</p></details>
-<details><summary>Can I control the order of pages?</summary><p>Yes. Drag the files to reorder them before merging. Pages appear in the order you arrange them.</p></details>
+<details><summary>Can I control the order of pages?</summary><p>Yes. Drag the files on desktop, or use the up and down arrows on any device. Pages appear in the order you arrange them.</p></details>
+<details><summary>Does it work on mobile?</summary><p>Yes. Tap the upload box to select files, and use the arrow buttons to reorder them.</p></details>
 <details><summary>Is there a file size limit?</summary><p>No hard limit, though very large files (100 MB+) may be slow on low-end devices because processing happens in memory.</p></details>
 <details><summary>Will password-protected PDFs work?</summary><p>Not if they require a password to open. If the password is only for editing or printing (a permissions password), merging usually works.</p></details>
 <details><summary>Does merging reduce quality?</summary><p>No. Merging copies each page as-is into the new document. There's zero quality loss.</p></details>
@@ -242,7 +343,7 @@ function fmtSize(bytes){
   return (bytes/(1024*1024)).toFixed(2)+" MB";
 }
 
-var files=[];       // {id, file, name, size, pageCount, bytes}
+var files=[];       // {id, file, name, size, pageCount, bytes, error}
 var idCounter=0;
 var mergedBlob=null;
 
@@ -292,25 +393,43 @@ async function inspectAll(){
   }
 }
 
+/* ---------- MOVE UP / DOWN ---------- */
+function moveFile(id, direction){
+  var idx=files.findIndex(function(f){return f.id===id;});
+  if(idx<0)return;
+  var newIdx=idx+direction;
+  if(newIdx<0||newIdx>=files.length)return;
+  var moved=files.splice(idx,1)[0];
+  files.splice(newIdx,0,moved);
+  renderList();
+  // Announce change for screen readers
+  flash(direction<0?"Moved up":"Moved down");
+}
+
 /* ---------- RENDER LIST ---------- */
 function renderList(){
   var list=$("fileList");
   list.innerHTML="";
-  files.forEach(function(entry){
+  var total=files.length;
+  files.forEach(function(entry,index){
     var item=document.createElement("div");
     item.className="pd-item";
     item.draggable=true;
     item.dataset.id=entry.id;
 
+    // Drag handle (desktop only)
     var handle=document.createElement("span");
     handle.className="pd-handle";
     handle.textContent="⠿";
     handle.title="Drag to reorder";
+    handle.setAttribute("aria-hidden","true");
 
+    // PDF icon
     var icon=document.createElement("div");
     icon.className="pd-icon";
     icon.textContent="PDF";
 
+    // Info block
     var info=document.createElement("div");
     info.className="pd-info";
     var nm=document.createElement("p");
@@ -329,11 +448,42 @@ function renderList(){
     info.appendChild(nm);
     info.appendChild(meta);
 
+    // Controls: up / down / remove
+    var controls=document.createElement("div");
+    controls.className="pd-controls";
+
+    var up=document.createElement("button");
+    up.className="pd-move";
+    up.type="button";
+    up.title="Move up";
+    up.setAttribute("aria-label","Move "+entry.name+" up");
+    up.textContent="↑";
+    up.disabled=index===0;
+    up.addEventListener("click",function(e){
+      e.stopPropagation();
+      moveFile(entry.id,-1);
+    });
+
+    var down=document.createElement("button");
+    down.className="pd-move";
+    down.type="button";
+    down.title="Move down";
+    down.setAttribute("aria-label","Move "+entry.name+" down");
+    down.textContent="↓";
+    down.disabled=index===total-1;
+    down.addEventListener("click",function(e){
+      e.stopPropagation();
+      moveFile(entry.id,1);
+    });
+
     var rm=document.createElement("button");
     rm.className="pd-remove";
-    rm.title="Remove";
+    rm.type="button";
+    rm.title="Remove file";
+    rm.setAttribute("aria-label","Remove "+entry.name);
     rm.textContent="×";
-    rm.addEventListener("click",function(){
+    rm.addEventListener("click",function(e){
+      e.stopPropagation();
       files=files.filter(function(f){return f.id!==entry.id;});
       if(!files.length){
         $("listCard").hidden=true;
@@ -343,16 +493,20 @@ function renderList(){
       updateSummary();
     });
 
+    controls.appendChild(up);
+    controls.appendChild(down);
+    controls.appendChild(rm);
+
     item.appendChild(handle);
     item.appendChild(icon);
     item.appendChild(info);
-    item.appendChild(rm);
+    item.appendChild(controls);
 
     list.appendChild(item);
   });
 }
 
-/* ---------- DRAG REORDER ---------- */
+/* ---------- DRAG REORDER (desktop only) ---------- */
 var draggingId=null;
 var list=$("fileList");
 
@@ -447,6 +601,10 @@ $("mergeBtn").addEventListener("click",async function(){
       $("pageCount").textContent+" pages</strong>. Final size: <strong>"+
       fmtSize(mergedBlob.size)+"</strong>.";
     $("resultBox").hidden=false;
+    // Scroll result into view on mobile
+    if(window.innerWidth<=640){
+      $("resultBox").scrollIntoView({behavior:"smooth",block:"nearest"});
+    }
     flash("Merged successfully");
   }catch(e){
     flash(e.message||"Merge failed");
