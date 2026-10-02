@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Background Remover — Remove Image Backgrounds Online Free</title>
 <meta name="description" content="Remove the background from any image directly in your browser. AI-powered, no upload, no signup, 100% private. Works on photos, products, people and more.">
 <link rel="canonical" href="https://qrcodescanner.co.in/tools/image/background-remover.html">
@@ -412,6 +412,33 @@ body .wrap-wide{max-width:1400px!important}
 .wrap-wide .article h2,.wrap-wide .article h3{break-after:avoid;break-inside:avoid}
 .wrap-wide .article h2:first-child{margin-top:0}
 .wrap-wide .article .faq details,.wrap-wide .article .related-list li,.wrap-wide .article li{break-inside:avoid}
+.mbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:30;gap:8px;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(20,22,26,.1)}
+.mbar .ib{padding:0 16px;min-height:46px}.mbar .btn{flex:1;min-height:46px;font-weight:600;justify-content:center}
+@media(pointer:coarse){.kbd{display:none}}
+@media(max-width:860px){
+  .app{display:flex;flex-direction:column;gap:12px}
+  .side{display:contents}
+  .work{order:1}
+  .side section:nth-child(2){order:2}.side section:nth-child(1){order:3}
+  .side section:nth-child(3){order:4}.side section:nth-child(4){order:5}.side section:nth-child(5){order:6}
+}
+@media(max-width:640px){
+  :root{--vh:58vh}
+  #editor{padding-bottom:84px}
+  .stage{padding:12px;border-radius:10px}
+  .seg{display:grid;grid-template-columns:repeat(4,1fr);width:100%}
+  .tool{flex-direction:column;gap:3px;padding:8px 2px;font-size:.6875rem;justify-content:center}
+  .tool span{display:inline}
+  .topbar{display:block}.tg{margin-top:8px}.tg #undoBtn,.tg #redoBtn{display:none}.tg .ib{flex:1}
+  .vp{min-height:240px;max-height:62vh}
+  .field{flex-direction:row;align-items:center;justify-content:space-between;gap:12px}.field input{width:58%}
+  input[type=range]{height:28px}
+  .color-swatch{width:32px;height:32px}
+  .zoom input{width:90px}
+  .mbar{display:flex}
+  .toast{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+  .kbd{display:none}
+}
 </style>
 </head>
 <body>
@@ -442,7 +469,7 @@ body .wrap-wide{max-width:1400px!important}
     <label class="drop-zone" id="dropZone" for="fileInput">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
       <h2>Drop an image here</h2>
-      <p>or paste with Ctrl+V</p><span class="cta">Choose image</span><ul class="chips"><li>100% private</li><li>No sign-up</li><li>Full resolution</li><li>JPG · PNG · WebP · AVIF · HEIC · GIF · BMP · TIFF · SVG</li></ul>
+      <p class="kbd">or paste with Ctrl+V</p><span class="cta">Choose image</span><ul class="chips"><li>100% private</li><li>No sign-up</li><li>Full resolution</li><li>JPG · PNG · WebP · AVIF · HEIC · GIF · BMP · TIFF · SVG</li></ul>
       <input type="file" id="fileInput" accept="image/*,.heic,.heif,.tif,.tiff,.avif" class="sr">
     </label>
     <div class="progress" id="progress"><div class="progress-bar" id="progressBar"></div></div>
@@ -462,7 +489,7 @@ body .wrap-wide{max-width:1400px!important}
         <div class="vpw">
           <div class="vp"><canvas id="view"></canvas></div>
           <div id="busy" hidden><i></i><span id="busyT">Removing background…</span></div>
-          <button class="pill cmpb" id="cmp">Hold to compare (C)</button>
+          <button class="pill cmpb" id="cmp">Hold to compare<span class="kbd"> (C)</span></button>
           <div class="pill zoom"><button id="zf" title="Fit to screen (0)">Fit</button><input type="range" id="zs" min="100" max="800" value="100" step="10" aria-label="Zoom"><span id="zv">100%</span></div>
         </div>
       </div>
@@ -496,6 +523,7 @@ body .wrap-wide{max-width:1400px!important}
         </section>
       </aside>
     </div>
+    <div class="mbar"><button class="ib" id="mUndo">Undo</button><button class="ib" id="mRedo">Redo</button><button class="btn primary" id="mdl">Download image</button></div>
   </div>
   </div>
 
@@ -566,7 +594,7 @@ body .wrap-wide{max-width:1400px!important}
 "use strict";
 var $=function(i){return document.getElementById(i)};
 var drop=$('dropZone'),fin=$('fileInput'),ed=$('editor'),view=$('view'),vx=view.getContext('2d'),st=$('status'),prog=$('progress'),bar=$('progressBar'),toast=$('toast');
-var W,H,orig,src,sx,M,A,AUTO,MD,mc,mx,cut,cx,bg='transparent',bgImg=null,tool='rm',undo=[],redo=[],busy=false,showO=false,MAXD=2000;
+var W,H,orig,src,sx,M,A,AUTO,MD,mc,mx,cut,cx,bg='transparent',bgImg=null,tool='rm',undo=[],redo=[],busy=false,showO=false,MOB=window.matchMedia('(pointer:coarse)').matches||innerWidth<700,MAXD=MOB?1400:2000,EXMAX=MOB?4096:6000;
 var PP='https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/',lib=null,libP=null,pre=null,warmed=false,fname='image',BL=null;
 var HINTS={rm:'Click the background area you want removed. Raise tolerance to catch more shades; untick "connected" to remove that colour everywhere.',er:'Paint over leftover background to erase it.',rs:'Paint over cut-away parts to restore them.',pn:'Drag to move around the zoomed image. Ctrl + scroll also zooms.'};
 function mk(w,h){var c=document.createElement('canvas');c.width=w;c.height=h;return c}
@@ -633,7 +661,7 @@ async function auto(){
     if(!al){var fn=await loadLib();say('Detecting subject…');var out=await run(fn,blob),bm=await createImageBitmap(out),t=mk(W,H),tx=t.getContext('2d',{willReadFrequently:true});tx.drawImage(bm,0,0,W,H);
       var D=tx.getImageData(0,0,W,H).data;al=new Uint8Array(W*H);for(i=0;i<W*H;i++)al[i]=D[i*4+3]}
     snap();M.set(al);AUTO=M.slice();commit();
-    say('Done! Not perfect? Pick a tool above and click or paint to fix it. Shortcuts: R E B H, Ctrl+Z undo, hold C to compare.','ok');flash('Done');pg(100);
+    say('Done! Not perfect? Pick a tool above and tap or paint to fix it.'+(MOB?'':' Shortcuts: R E B H, Ctrl+Z undo, hold C to compare.'),'ok');flash('Done');pg(100);
   }catch(e){console.error(e);say('Could not remove background: '+(e.message||e),'err')}
   busy=false;$('tools').style.opacity=1;$('busy').hidden=true;hp()}
 
@@ -645,7 +673,7 @@ function final(){
   var b=blur(M,r||1),gain=r?1+6/r:6,sh=g*.04,o=new Uint8Array(M.length);
   for(var i=0;i<o.length;i++){var v=((b[i]/255-.5+sh)*gain+.5)*255;o[i]=v<0?0:v>255?255:v}return o}
 function sync(a,x0,y0,x1,y1){var d=MD.data;for(var y=y0;y<y1;y++)for(var x=x0;x<x1;x++)d[(y*W+x)*4+3]=a[y*W+x];mx.putImageData(MD,0,0,x0,y0,x1-x0,y1-y0)}
-function commit(){A=final();sync(A,0,0,W,H);render();$('undoBtn').disabled=!undo.length;$('redoBtn').disabled=!redo.length}
+function commit(){A=final();sync(A,0,0,W,H);render();$('undoBtn').disabled=!undo.length;$('redoBtn').disabled=!redo.length;$('mUndo').disabled=!undo.length;$('mRedo').disabled=!redo.length}
 function render(){
   vx.clearRect(0,0,W,H);if(showO){vx.drawImage(src,0,0);return}
   cx.globalCompositeOperation='source-over';cx.clearRect(0,0,W,H);cx.drawImage(src,0,0);cx.globalCompositeOperation='destination-in';cx.drawImage(mc,0,0);
@@ -654,12 +682,13 @@ function cover(c,i,w,h){var s=Math.max(w/i.width,h/i.height);c.drawImage(i,(w-i.
 function paintBg(c,w,h,col){col=col||bg;if(col==='img'&&bgImg)cover(c,bgImg,w,h);else if(col!=='transparent'&&col!=='img'){c.fillStyle=col;c.fillRect(0,0,w,h)}}
 
 /* ---------- undo ---------- */
-function snap(){undo.push(M.slice());if(undo.length>12)undo.shift();redo=[]}
+function snap(){undo.push(M.slice());if(undo.length>(MOB?6:12))undo.shift();redo=[]}
 $('undoBtn').onclick=function(){if(busy||!undo.length)return;redo.push(M);M=undo.pop();commit()};
 $('redoBtn').onclick=function(){if(busy||!redo.length)return;undo.push(M);M=redo.pop();commit()};
 $('autoBtn').onclick=function(){if(busy||!AUTO)return;snap();M=AUTO.slice();commit();flash('Reset to AI result')};
 document.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'&&!ed.hidden){e.preventDefault();(e.shiftKey?$('redoBtn'):$('undoBtn')).click()}});
 
+$('mUndo').onclick=function(){$('undoBtn').click()};$('mRedo').onclick=function(){$('redoBtn').click()};$('mdl').onclick=function(){$('downloadBtn').click()};
 /* ---------- tools ---------- */
 function setTool(t){tool=t;[].forEach.call(document.querySelectorAll('[data-tool]'),function(b){b.classList.toggle('active',b.dataset.tool===t)});
   var br=t==='er'||t==='rs';$('brushOpt').hidden=!br;$('wandOpt').hidden=!(t==='rm');view.style.touchAction=br||t==='pn'?'none':'manipulation';view.style.cursor=br?'none':t==='pn'?'grab':'crosshair';if(!br)$('ring').hidden=true;$('hint').textContent=HINTS[t]}
@@ -687,7 +716,7 @@ function click(p){
     var Q=new Uint8Array(n);for(i=0;i<n;i++)Q[i]=R[i]?255:0;Q=blur(Q,3);
     for(i=0;i<n;i++)if(Q[i]>127)M[i]=0}
   commit()}
-var down=false,last=null,dx0,dy0,dx1,dy1,pan=null,rg=$('ring');
+var down=false,last=null,dx0,dy0,dx1,dy1,pan=null,tap=null,rg=$('ring');
 function pt(e){var r=view.getBoundingClientRect();return[(e.clientX-r.left)*W/r.width,(e.clientY-r.top)*H/r.height]}
 function stamp(x,y,r){
   var x0=Math.max(0,Math.floor(x-r)),x1=Math.min(W,Math.ceil(x+r)),y0=Math.max(0,Math.floor(y-r)),y1=Math.min(H,Math.ceil(y+r)),er=tool==='er',HD=+$('hd').value/100;
@@ -702,12 +731,12 @@ function stroke(p){
 view.addEventListener('pointerdown',function(e){
   if(!M||busy)return;var p=pt(e);
   if(tool==='pn'){pan=[e.clientX,e.clientY];view.setPointerCapture(e.pointerId);return}
-  if(tool==='er'||tool==='rs'){snap();down=true;last=null;view.setPointerCapture(e.pointerId);stroke(p)}else click(p)});
+  if(tool==='er'||tool==='rs'){snap();down=true;last=null;view.setPointerCapture(e.pointerId);stroke(p)}else tap=[e.clientX,e.clientY,p]});
 view.addEventListener('pointermove',function(e){
   if(pan){vp.scrollLeft-=e.clientX-pan[0];vp.scrollTop-=e.clientY-pan[1];pan=[e.clientX,e.clientY]}else if(down)stroke(pt(e));
   if(tool==='er'||tool==='rs'){rg.hidden=false;rg.style.width=rg.style.height=$('bs').value+'px';rg.style.left=e.clientX+'px';rg.style.top=e.clientY+'px'}});
 view.addEventListener('pointerleave',function(){rg.hidden=true});
-['pointerup','pointercancel'].forEach(function(ev){view.addEventListener(ev,function(){pan=null;if(down){down=false;commit()}})});
+['pointerup','pointercancel'].forEach(function(ev){view.addEventListener(ev,function(e){pan=null;if(down){down=false;commit()}if(tap&&e.type==='pointerup'&&Math.hypot(e.clientX-tap[0],e.clientY-tap[1])<10)click(tap[2]);tap=null})});
 var rf;['soft','grow'].forEach(function(id){$(id).addEventListener('input',function(){cancelAnimationFrame(rf);rf=requestAnimationFrame(function(){if(M)commit()})})});
 $('q').addEventListener('change',function(){if(M&&!busy)auto()});
 
@@ -725,10 +754,10 @@ document.addEventListener('dragover',function(e){e.preventDefault()});
 document.addEventListener('drop',function(e){e.preventDefault();var f=e.dataTransfer.files[0];if(f&&!drop.contains(e.target)&&e.target!==drop)open(f)});
 /* ---------- view / background ---------- */
 var vp=document.querySelector('.vp'),zs=$('zs');
-function fit(){view.style.maxWidth='100%';view.style.maxHeight='76vh';view.style.width='';zs.value=100;$('zv').textContent='100%'}
+function fit(){view.style.maxWidth='100%';view.style.maxHeight='var(--vh,76vh)';view.style.width='';zs.value=100;$('zv').textContent='100%'}
 function setZ(z){
   var fx=(vp.scrollLeft+vp.clientWidth/2)/vp.scrollWidth,fy=(vp.scrollTop+vp.clientHeight/2)/vp.scrollHeight;
-  view.style.maxWidth='100%';view.style.maxHeight='76vh';view.style.width='';var base=view.getBoundingClientRect().width;
+  view.style.maxWidth='100%';view.style.maxHeight='var(--vh,76vh)';view.style.width='';var base=view.getBoundingClientRect().width;
   if(z>100){view.style.maxWidth='none';view.style.maxHeight='none';view.style.width=base*z/100+'px'}
   zs.value=z;$('zv').textContent=Math.round(z)+'%';vp.scrollLeft=fx*vp.scrollWidth-vp.clientWidth/2;vp.scrollTop=fy*vp.scrollHeight-vp.clientHeight/2}
 zs.addEventListener('input',function(){setZ(+zs.value)});$('zf').onclick=fit;
@@ -742,7 +771,7 @@ $('bgf').addEventListener('change',function(){var f=this.files[0];if(!f)return;v
 
 /* ---------- export at original resolution ---------- */
 async function exportBlob(fmt){
-  var s=Math.min(1,6000/Math.max(orig.width,orig.height)),w=Math.round(orig.width*s),h=Math.round(orig.height*s);
+  var s=Math.min(1,EXMAX/Math.max(orig.width,orig.height)),w=Math.round(orig.width*s),h=Math.round(orig.height*s);
   var c=mk(w,h),x=c.getContext('2d');x.drawImage(orig,0,0,w,h);x.globalCompositeOperation='destination-in';x.drawImage(mc,0,0,w,h);
   var cropped=$('crop').checked,bx0=0,by0=0,bw=w,bh=h;
   if(cropped){var a=-1,b=-1,c2=W,d=H,i,j;for(j=0;j<H;j++)for(i=0;i<W;i++)if(A[j*W+i]>10){if(i<c2)c2=i;if(i>a)a=i;if(j<d)d=j;if(j>b)b=j}
@@ -753,7 +782,9 @@ async function exportBlob(fmt){
   return new Promise(function(r){f.toBlob(r,fmt,.95)})}
 $('downloadBtn').onclick=async function(){
   if(!M||busy)return flash('Nothing to download yet');var fmt=$('fmt').value;
-  try{var b=await exportBlob(fmt),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=fname+'-no-bg.'+({'image/png':'png','image/webp':'webp','image/jpeg':'jpg'})[fmt];
+  try{var b=await exportBlob(fmt),ext=({'image/png':'png','image/webp':'webp','image/jpeg':'jpg'})[fmt];
+    if(MOB&&navigator.canShare){var sf=new File([b],fname+'-no-bg.'+ext,{type:b.type});if(navigator.canShare({files:[sf]})){try{await navigator.share({files:[sf]});return}catch(e){if(e.name==='AbortError')return}}}
+    var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=fname+'-no-bg.'+({'image/png':'png','image/webp':'webp','image/jpeg':'jpg'})[fmt];
     document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},2000);flash('Downloaded')}catch(e){flash('Export failed')}};
 $('copyBtn').onclick=async function(){
   if(!M||busy)return;try{await navigator.clipboard.write([new ClipboardItem({'image/png':exportBlob('image/png')})]);flash('Copied to clipboard')}catch(e){flash('Copy not supported here. Use Download.')}};
