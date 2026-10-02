@@ -153,14 +153,13 @@ const TOOLS = [
 { id:'gst',         name:'GST Calculator',         desc:'Add or remove GST at any rate. Indian GST rates included.', cat:'calc', path:'/tools/calc/gst.html', tags:['tax','india','vat'] },
 { id:'calorie',     name:'Calorie / TDEE Calculator', desc:'Daily calorie needs based on age, weight, height and activity.', cat:'calc', path:'/tools/calc/calorie.html', tags:['tdee','bmi','diet','fitness'] },
 { id:'image-compress', name:'Image Compressor',   desc:'Reduce image file size without losing visible quality. Works on JPG, PNG, WebP.', cat:'image', path:'/tools/image/image-compress.html', tags:['compress','optimize','reduce','jpg','png'] },
-{ id:'bg-remover', name:'Background Remover', desc:'Remove image backgrounds with AI. Batch mode, GPU accelerated, transparent PNG output.', cat:'image', path:'/tools/image/background-remover.html', tags:['background','remove','transparent','cutout','ai','batch'] },     
 { id:'image-resize',   name:'Image Resizer',      desc:'Resize images to exact dimensions or by percentage. Maintains aspect ratio.', cat:'image', path:'/tools/image/image-resize.html', tags:['resize','scale','dimensions'] },
+{ id:'bg-remover', name:'Background Remover', desc:'Remove the background from any image. AI-powered, runs in your browser.', cat:'image', path:'/tools/image/background-remover.html', tags:['background','remove','transparent','cutout','ai'] },
 { id:'image-convert',  name:'Image Converter',    desc:'Convert between PNG, JPG, WebP and BMP. Batch supported.', cat:'image', path:'/tools/image/image-convert.html', tags:['png','jpg','webp','convert'] },
 { id:'image-crop',     name:'Image Cropper',      desc:'Crop images to any ratio — square, 16:9, 4:3, story or custom.', cat:'image', path:'/tools/image/image-crop.html', tags:['crop','aspect','square'] },
 { id:'image-base64',   name:'Image to Base64',    desc:'Encode an image as Base64 data URL or decode Base64 back to image.', cat:'image', path:'/tools/image/image-base64.html', tags:['base64','dataurl','encode','decode'] },
 { id:'exif',           name:'EXIF Viewer',        desc:'View and strip metadata from photos — GPS, camera model, date taken.', cat:'image', path:'/tools/image/exif.html', tags:['metadata','privacy','gps','strip'] },
 { id:'favicon',        name:'Favicon Generator',  desc:'Generate all favicon sizes from one image, including .ico for legacy browsers.', cat:'image', path:'/tools/image/favicon.html', tags:['favicon','ico','icon','website'] },
-{ id:'pdf-editor', name:'PDF Editor', desc:'Add text, highlights, images, shapes, signatures. Reorder, rotate, delete pages.', cat:'pdf', path:'/tools/pdf/pdf-editor.html', tags:['edit','annotate','highlight','sign','image'] },     
 { id:'pdf-merge',    name:'Merge PDF',          desc:'Combine multiple PDFs into one file. Preserves bookmarks and page order.', cat:'pdf', path:'/tools/pdf/pdf-merge.html',    tags:['combine','join','merge'] },
 { id:'pdf-split',    name:'Split PDF',          desc:'Split a PDF into separate pages, ranges or every N pages.', cat:'pdf', path:'/tools/pdf/pdf-split.html',    tags:['split','extract','pages'] },
 { id:'pdf-compress', name:'Compress PDF',       desc:'Reduce PDF file size by re-encoding images and cleaning metadata.', cat:'pdf', path:'/tools/pdf/pdf-compress.html', tags:['compress','smaller','optimize'] },
@@ -168,6 +167,7 @@ const TOOLS = [
 { id:'pdf-to-img',   name:'PDF to JPG',         desc:'Render PDF pages as JPG or PNG images. Batch download as ZIP.', cat:'pdf', path:'/tools/pdf/pdf-to-img.html',   tags:['render','jpg','png','convert'] },
 { id:'img-to-pdf',   name:'JPG to PDF',         desc:'Combine images into a single PDF. Set page size, orientation and margins.', cat:'pdf', path:'/tools/pdf/img-to-pdf.html',   tags:['images','jpg','pdf','combine'] },
 { id:'pdf-text',     name:'Extract PDF Text',   desc:'Extract all text from a PDF for copy-paste or download.', cat:'pdf', path:'/tools/pdf/pdf-text.html',     tags:['text','extract','copy'] },
+{ id:'pdf-editor', name:'PDF Editor', desc:'Add text, highlights, images, shapes, signatures. Reorder, rotate, delete pages.', cat:'pdf', path:'/tools/pdf/pdf-editor.html', tags:['edit','annotate','highlight','sign','image'] },
 { id:'pdf-numbers',  name:'Add Page Numbers',   desc:'Add page numbers to the bottom of every page. Choose position and format.', cat:'pdf', path:'/tools/pdf/pdf-numbers.html',  tags:['numbers','pages','footer'] }
 ];
 
@@ -231,6 +231,29 @@ document.addEventListener('keydown', e => {
 
 renderCats();
 render();
+
+/* ============================================================
+   Hash-based category links — e.g. /tools/#pdf activates PDF
+   ============================================================ */
+(function(){
+  function applyHash(){
+    var hash = (location.hash || '').replace('#','').trim();
+    if (!hash) return;
+    var match = CATEGORIES.find(function(c){ return c.id === hash; });
+    if (!match) return;
+    activeCat = hash;
+    renderCats();
+    render();
+    var grid = document.getElementById('grid');
+    if (grid) {
+      setTimeout(function(){
+        grid.scrollIntoView({ behavior:'smooth', block:'start' });
+      }, 60);
+    }
+  }
+  window.addEventListener('load', applyHash);
+  window.addEventListener('hashchange', applyHash);
+})();
 </script>
 </body>
 </html>
