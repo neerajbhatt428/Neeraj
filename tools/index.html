@@ -15,9 +15,6 @@
 <meta property="og:description" content="Free browser-based tools. No signup, no upload, everything runs locally.">
 <meta property="og:url" content="https://qrcodescanner.co.in/tools/">
 
-<!-- ============================================================
-     GOOGLE ADSENSE — Auto Ads
-     ============================================================ -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3576991570329575" crossorigin="anonymous"></script>
 
 <script type="application/ld+json">
@@ -57,33 +54,293 @@
 <link rel="manifest" href="/manifest.json">
 
 <style>
-.tools-hero{margin:0 0 26px}
-.search{margin:22px 0 0;position:relative}
-.search input{padding-left:44px}
-.search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);
-  width:16px;height:16px;color:var(--muted);pointer-events:none}
+/* ============================================================
+   Tools index — responsive
+   ============================================================ */
 
-.cats{display:flex;flex-wrap:wrap;gap:7px;margin:22px 0 8px}
-.cat{border:1px solid var(--line);background:transparent;border-radius:100px;
-  padding:7px 14px;font-size:.875rem;color:var(--muted);cursor:pointer;font-weight:500}
-.cat[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+body > .wrap-wide{
+  padding:clamp(16px,2.5vw,28px) clamp(16px,3.5vw,40px) 64px;
+}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:12px;margin:18px 0 0}
-.tool-card{display:block;background:var(--surface);border:1px solid var(--line);
-  border-radius:var(--radius);padding:18px;text-decoration:none;color:inherit;
-  transition:border-color .12s ease,transform .12s ease}
-.tool-card:hover{border-color:var(--blue);transform:translateY(-2px)}
-.tool-card .ico{width:34px;height:34px;border-radius:6px;background:#EDF0FF;
-  display:grid;place-items:center;color:var(--blue);margin:0 0 12px;
-  font-weight:700;font-family:var(--mono);font-size:.8125rem}
-.tool-card h3{margin:0 0 5px;font-size:1rem;letter-spacing:-.01em}
-.tool-card p{margin:0;font-size:.875rem;color:var(--muted);line-height:1.5}
-.tool-card .cat-tag{display:inline-block;margin:10px 0 0;font-size:.6875rem;
-  font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
-.empty{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted)}
-.section-label{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;
-  letter-spacing:.08em;color:var(--muted);margin:44px 0 0}
+/* ---------- hero: two columns on desktop ---------- */
+.tools-hero{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:18px;
+  margin:0 0 clamp(20px,3vw,32px);
+}
+@media(min-width:880px){
+  .tools-hero{
+    grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
+    column-gap:clamp(32px,4vw,64px);
+    row-gap:16px;
+    align-items:center;
+  }
+  .hero-copy,
+  .hero-search{min-width:0}
+}
+
+.hero-copy .lede{
+  font-size:clamp(1.75rem,4vw,2.6rem);
+  line-height:1.08;
+  letter-spacing:-.035em;
+  margin:0 0 10px;
+  max-width:22ch;
+}
+.hero-copy .sub{
+  margin:0;
+  font-size:clamp(.9375rem,1.1vw,1rem);
+  line-height:1.55;
+  max-width:48ch;
+}
+
+/* ---------- search ---------- */
+.search{
+  position:relative;
+  width:100%;
+}
+.search input{
+  width:100%;
+  font:inherit;
+  font-size:16px;
+  padding:15px 16px 15px 46px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:10px;
+  outline:none;
+  color:var(--ink);
+  transition:border-color .15s ease, box-shadow .15s ease;
+  box-shadow:0 2px 0 rgba(20,22,26,.02), 0 12px 32px -20px rgba(20,22,26,.12);
+}
+.search input::placeholder{color:var(--muted)}
+.search input:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 4px rgba(27,77,255,.1), 0 12px 32px -18px rgba(20,22,26,.2);
+}
+.search svg{
+  position:absolute;
+  left:16px;top:50%;
+  transform:translateY(-50%);
+  width:17px;height:17px;
+  color:var(--muted);
+  pointer-events:none;
+}
+
+/* ---------- category pills: full-width row below hero ---------- */
+.cats{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin:4px 0 0;
+}
+@media(min-width:880px){
+  .tools-hero .cats{
+    grid-column:1 / -1;
+    margin-top:8px;
+  }
+}
+
+.cat{
+  border:1px solid var(--line);
+  background:transparent;
+  border-radius:100px;
+  padding:8px 14px;
+  font-size:.8125rem;
+  color:var(--muted);
+  cursor:pointer;
+  font-weight:500;
+  font-family:inherit;
+  white-space:nowrap;
+  transition:background .12s ease, border-color .12s ease, color .12s ease;
+}
+.cat:hover{color:var(--ink);border-color:#A9A9A1}
+.cat[aria-pressed="true"]{
+  background:var(--ink);
+  border-color:var(--ink);
+  color:#fff;
+}
+
+/* ---------- section label ---------- */
+.section-label{
+  font-family:var(--mono);
+  font-size:.75rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--muted);
+  margin:clamp(20px,3vw,32px) 0 0;
+}
+
+/* ---------- tools grid ---------- */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(260px,1fr));
+  gap:clamp(10px,1.2vw,14px);
+  margin:16px 0 0;
+}
+
+.tool-card{
+  display:flex;
+  flex-direction:column;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:clamp(14px,1.6vw,18px);
+  text-decoration:none;
+  color:inherit;
+  transition:border-color .12s ease, transform .12s ease, box-shadow .12s ease;
+  min-height:132px;
+}
+.tool-card:hover{
+  border-color:var(--blue);
+  transform:translateY(-2px);
+  box-shadow:0 12px 24px -16px rgba(27,77,255,.35);
+}
+.tool-card:active{transform:translateY(0)}
+.tool-card .ico{
+  width:34px;height:34px;
+  border-radius:6px;
+  background:#EDF0FF;
+  display:grid;place-items:center;
+  color:var(--blue);
+  margin:0 0 12px;
+  font-weight:700;
+  font-family:var(--mono);
+  font-size:.8125rem;
+  letter-spacing:.02em;
+  flex:none;
+}
+.tool-card h3{
+  margin:0 0 5px;
+  font-family:var(--display);
+  font-size:1rem;
+  letter-spacing:-.01em;
+  line-height:1.2;
+}
+.tool-card p{
+  margin:0;
+  font-size:.875rem;
+  color:var(--muted);
+  line-height:1.5;
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.tool-card .cat-tag{
+  display:inline-block;
+  margin:12px 0 0;
+  font-size:.6875rem;
+  font-family:var(--mono);
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  color:var(--muted);
+  margin-top:auto;
+  padding-top:10px;
+}
+
+.empty{
+  grid-column:1 / -1;
+  text-align:center;
+  padding:60px 20px;
+  color:var(--muted);
+  font-size:.9375rem;
+}
+
+/* ============================================================
+   MOBILE (< 640px)
+   ============================================================ */
+@media(max-width:640px){
+  body > .wrap-wide{padding:14px 16px 56px}
+
+  .tools-hero{gap:14px;margin-bottom:18px}
+  .hero-copy .sub{margin:0}
+
+  .search input{
+    padding:14px 14px 14px 44px;
+  }
+
+  /* Horizontal-scrolling category pills */
+  .cats{
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    margin-left:-16px;
+    margin-right:-16px;
+    padding:4px 16px 10px;
+    scroll-snap-type:x proximity;
+    gap:6px;
+  }
+  .cats::-webkit-scrollbar{display:none}
+  .cat{
+    flex:none;
+    scroll-snap-align:start;
+    white-space:nowrap;
+    min-height:36px;
+    padding:9px 15px;
+    font-size:.8125rem;
+    display:inline-flex;
+    align-items:center;
+  }
+
+  /* Single-column compact tool cards */
+  .grid{grid-template-columns:1fr;gap:10px}
+  .tool-card{
+    min-height:0;
+    padding:14px;
+    border-radius:10px;
+    display:grid;
+    grid-template-columns:38px 1fr;
+    grid-template-rows:auto auto auto;
+    column-gap:12px;
+    row-gap:2px;
+  }
+  .tool-card .ico{
+    grid-row:1 / span 2;
+    width:38px;height:38px;
+    margin:0;
+    font-size:.75rem;
+  }
+  .tool-card h3{
+    grid-column:2;
+    font-size:.9375rem;
+    margin:0;
+    align-self:center;
+  }
+  .tool-card p{
+    grid-column:2;
+    font-size:.8125rem;
+    -webkit-line-clamp:2;
+    line-height:1.45;
+  }
+  .tool-card .cat-tag{
+    grid-column:2;
+    margin:6px 0 0;
+    padding-top:0;
+    font-size:.625rem;
+  }
+}
+
+/* ---------- small phones ---------- */
+@media(max-width:380px){
+  .hero-copy .lede{font-size:1.5rem}
+  .tool-card{padding:12px;column-gap:10px}
+  .tool-card .ico{width:34px;height:34px}
+  .tool-card h3{font-size:.875rem}
+  .tool-card p{font-size:.75rem}
+}
+
+/* ---------- reduced motion ---------- */
+@media(prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important}
+}
+
+/* ---------- touch devices ---------- */
+@media(hover:none){
+  .tool-card:hover{transform:none;box-shadow:none;border-color:var(--line)}
+  .tool-card:active{border-color:var(--blue);background:#FAFBFF}
+}
 </style>
 </head>
 <body>
@@ -100,16 +357,20 @@
       </svg>
       <span class="wordmark">ToolNest</span>
     </a>
-    <a href="/" class="nav-right">ToolNest →</a>
+    <a href="/" class="nav-right">Home →</a>
   </header>
 
   <section class="tools-hero">
-    <h1 class="lede">Free browser tools. Nothing uploaded.</h1>
-    <p class="sub">A growing collection of utilities for text, files, images, PDFs and code. Everything runs on your device — no signup, no server, no tracking.</p>
+    <div class="hero-copy">
+      <h1 class="lede">Free browser tools.<br>Nothing uploaded.</h1>
+      <p class="sub">A growing collection of utilities for text, files, images, PDFs and code. Everything runs on your device — no signup, no server, no tracking.</p>
+    </div>
 
-    <div class="search">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input id="search" type="search" placeholder="Search tools — try 'pdf', 'word', 'json'…" autocomplete="off" spellcheck="false" aria-label="Search tools">
+    <div class="hero-search">
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input id="search" type="search" placeholder="Search tools — try 'pdf', 'word', 'json'…" autocomplete="off" spellcheck="false" aria-label="Search tools">
+      </div>
     </div>
 
     <div class="cats" id="cats" role="group" aria-label="Tool categories"></div>
@@ -119,7 +380,7 @@
   <div class="grid" id="grid"></div>
 
   <footer>
-    <p>ToolNest · <a href="/">ToolNest</a> · <a href="/pages/about.html">About</a> · <a href="/pages/privacy.html">Privacy</a></p>
+    <p>ToolNest · <a href="/">Home</a> · <a href="/pages/about.html">About</a> · <a href="/pages/privacy.html">Privacy</a></p>
   </footer>
 </div>
 
@@ -145,30 +406,30 @@ const TOOLS = [
   { id:'json-fmt',     name:'JSON Formatter',    desc:'Beautify, minify and validate JSON.', cat:'dev', path:'/tools/dev/json-format.html',           tags:['pretty','validate','json'] },
   { id:'password',     name:'Password Generator',desc:'Strong random passwords with custom rules.', cat:'security', path:'/tools/security/password.html', tags:['secure','random','password'] },
   { id:'percentage',  name:'Percentage Calculator',  desc:'Solve percentage increase, decrease, and "X% of Y" instantly.', cat:'calc', path:'/tools/calc/percentage.html', tags:['percent','math','increase','decrease'] },
-{ id:'age',         name:'Age Calculator',         desc:'Calculate exact age in years, months, days from any birth date.', cat:'calc', path:'/tools/calc/age.html', tags:['birthday','date','years'] },
-{ id:'bmi',         name:'BMI Calculator',         desc:'Body Mass Index with healthy weight range guidance.', cat:'calc', path:'/tools/calc/bmi.html', tags:['health','weight','body'] },
-{ id:'loan',        name:'Loan / EMI Calculator',  desc:'Monthly payment, total interest and full payment schedule.', cat:'calc', path:'/tools/calc/loan.html', tags:['emi','interest','mortgage','finance'] },
-{ id:'date-diff',   name:'Date Difference',        desc:'Days, weeks, months and years between any two dates.', cat:'calc', path:'/tools/calc/date-diff.html', tags:['days','between','duration'] },
-{ id:'compound',    name:'Compound Interest',      desc:'Project savings growth with monthly or yearly contributions.', cat:'calc', path:'/tools/calc/compound.html', tags:['savings','investment','interest'] },
-{ id:'gst',         name:'GST Calculator',         desc:'Add or remove GST at any rate. Indian GST rates included.', cat:'calc', path:'/tools/calc/gst.html', tags:['tax','india','vat'] },
-{ id:'calorie',     name:'Calorie / TDEE Calculator', desc:'Daily calorie needs based on age, weight, height and activity.', cat:'calc', path:'/tools/calc/calorie.html', tags:['tdee','bmi','diet','fitness'] },
-{ id:'image-compress', name:'Image Compressor',   desc:'Reduce image file size without losing visible quality. Works on JPG, PNG, WebP.', cat:'image', path:'/tools/image/image-compress.html', tags:['compress','optimize','reduce','jpg','png'] },
-{ id:'image-resize',   name:'Image Resizer',      desc:'Resize images to exact dimensions or by percentage. Maintains aspect ratio.', cat:'image', path:'/tools/image/image-resize.html', tags:['resize','scale','dimensions'] },
-{ id:'bg-remover',      name:'Image BG Remover', desc:'Remove the background from any image. AI-powered, runs in your browser.', cat:'image', path:'/tools/image/background-remover.html', tags:['background','remove','transparent','cutout','ai'] },
-{ id:'image-convert',  name:'Image Converter',    desc:'Convert between PNG, JPG, WebP and BMP. Batch supported.', cat:'image', path:'/tools/image/image-convert.html', tags:['png','jpg','webp','convert'] },
-{ id:'image-crop',     name:'Image Cropper',      desc:'Crop images to any ratio — square, 16:9, 4:3, story or custom.', cat:'image', path:'/tools/image/image-crop.html', tags:['crop','aspect','square'] },
-{ id:'image-base64',   name:'Image to Base64',    desc:'Encode an image as Base64 data URL or decode Base64 back to image.', cat:'image', path:'/tools/image/image-base64.html', tags:['base64','dataurl','encode','decode'] },
-{ id:'exif',           name:'EXIF Viewer',        desc:'View and strip metadata from photos — GPS, camera model, date taken.', cat:'image', path:'/tools/image/exif.html', tags:['metadata','privacy','gps','strip'] },
-{ id:'favicon',        name:'Favicon Generator',  desc:'Generate all favicon sizes from one image, including .ico for legacy browsers.', cat:'image', path:'/tools/image/favicon.html', tags:['favicon','ico','icon','website'] },
-{ id:'pdf-merge',    name:'Merge PDF',          desc:'Combine multiple PDFs into one file. Preserves bookmarks and page order.', cat:'pdf', path:'/tools/pdf/pdf-merge.html',    tags:['combine','join','merge'] },
-{ id:'pdf-split',    name:'Split PDF',          desc:'Split a PDF into separate pages, ranges or every N pages.', cat:'pdf', path:'/tools/pdf/pdf-split.html',    tags:['split','extract','pages'] },
-{ id:'pdf-compress', name:'Compress PDF',       desc:'Reduce PDF file size by re-encoding images and cleaning metadata.', cat:'pdf', path:'/tools/pdf/pdf-compress.html', tags:['compress','smaller','optimize'] },
-{ id:'pdf-rotate',   name:'Rotate PDF',         desc:'Rotate PDF pages 90°, 180° or 270° and save.', cat:'pdf', path:'/tools/pdf/pdf-rotate.html',   tags:['rotate','turn','orientation'] },
-{ id:'pdf-to-img',   name:'PDF to JPG',         desc:'Render PDF pages as JPG or PNG images. Batch download as ZIP.', cat:'pdf', path:'/tools/pdf/pdf-to-img.html',   tags:['render','jpg','png','convert'] },
-{ id:'img-to-pdf',   name:'JPG to PDF',         desc:'Combine images into a single PDF. Set page size, orientation and margins.', cat:'pdf', path:'/tools/pdf/img-to-pdf.html',   tags:['images','jpg','pdf','combine'] },
-{ id:'pdf-text',     name:'Extract PDF Text',   desc:'Extract all text from a PDF for copy-paste or download.', cat:'pdf', path:'/tools/pdf/pdf-text.html',     tags:['text','extract','copy'] },
-{ id:'pdf-editor', name:'PDF Editor', desc:'Add text, highlights, images, shapes, signatures. Reorder, rotate, delete pages.', cat:'pdf', path:'/tools/pdf/pdf-editor.html', tags:['edit','annotate','highlight','sign','image'] },
-{ id:'pdf-numbers',  name:'Add Page Numbers',   desc:'Add page numbers to the bottom of every page. Choose position and format.', cat:'pdf', path:'/tools/pdf/pdf-numbers.html',  tags:['numbers','pages','footer'] }
+  { id:'age',         name:'Age Calculator',         desc:'Calculate exact age in years, months, days from any birth date.', cat:'calc', path:'/tools/calc/age.html', tags:['birthday','date','years'] },
+  { id:'bmi',         name:'BMI Calculator',         desc:'Body Mass Index with healthy weight range guidance.', cat:'calc', path:'/tools/calc/bmi.html', tags:['health','weight','body'] },
+  { id:'loan',        name:'Loan / EMI Calculator',  desc:'Monthly payment, total interest and full payment schedule.', cat:'calc', path:'/tools/calc/loan.html', tags:['emi','interest','mortgage','finance'] },
+  { id:'date-diff',   name:'Date Difference',        desc:'Days, weeks, months and years between any two dates.', cat:'calc', path:'/tools/calc/date-diff.html', tags:['days','between','duration'] },
+  { id:'compound',    name:'Compound Interest',      desc:'Project savings growth with monthly or yearly contributions.', cat:'calc', path:'/tools/calc/compound.html', tags:['savings','investment','interest'] },
+  { id:'gst',         name:'GST Calculator',         desc:'Add or remove GST at any rate. Indian GST rates included.', cat:'calc', path:'/tools/calc/gst.html', tags:['tax','india','vat'] },
+  { id:'calorie',     name:'Calorie / TDEE Calculator', desc:'Daily calorie needs based on age, weight, height and activity.', cat:'calc', path:'/tools/calc/calorie.html', tags:['tdee','bmi','diet','fitness'] },
+  { id:'image-compress', name:'Image Compressor',   desc:'Reduce image file size without losing visible quality. Works on JPG, PNG, WebP.', cat:'image', path:'/tools/image/image-compress.html', tags:['compress','optimize','reduce','jpg','png'] },
+  { id:'image-resize',   name:'Image Resizer',      desc:'Resize images to exact dimensions or by percentage. Maintains aspect ratio.', cat:'image', path:'/tools/image/image-resize.html', tags:['resize','scale','dimensions'] },
+  { id:'bg-remover', name:'Background Remover', desc:'Remove the background from any image. AI-powered, runs in your browser.', cat:'image', path:'/tools/image/background-remover.html', tags:['background','remove','transparent','cutout','ai'] },
+  { id:'image-convert',  name:'Image Converter',    desc:'Convert between PNG, JPG, WebP and BMP. Batch supported.', cat:'image', path:'/tools/image/image-convert.html', tags:['png','jpg','webp','convert'] },
+  { id:'image-crop',     name:'Image Cropper',      desc:'Crop images to any ratio — square, 16:9, 4:3, story or custom.', cat:'image', path:'/tools/image/image-crop.html', tags:['crop','aspect','square'] },
+  { id:'image-base64',   name:'Image to Base64',    desc:'Encode an image as Base64 data URL or decode Base64 back to image.', cat:'image', path:'/tools/image/image-base64.html', tags:['base64','dataurl','encode','decode'] },
+  { id:'exif',           name:'EXIF Viewer',        desc:'View and strip metadata from photos — GPS, camera model, date taken.', cat:'image', path:'/tools/image/exif.html', tags:['metadata','privacy','gps','strip'] },
+  { id:'favicon',        name:'Favicon Generator',  desc:'Generate all favicon sizes from one image, including .ico for legacy browsers.', cat:'image', path:'/tools/image/favicon.html', tags:['favicon','ico','icon','website'] },
+  { id:'pdf-merge',    name:'Merge PDF',          desc:'Combine multiple PDFs into one file. Preserves bookmarks and page order.', cat:'pdf', path:'/tools/pdf/pdf-merge.html',    tags:['combine','join','merge'] },
+  { id:'pdf-split',    name:'Split PDF',          desc:'Split a PDF into separate pages, ranges or every N pages.', cat:'pdf', path:'/tools/pdf/pdf-split.html',    tags:['split','extract','pages'] },
+  { id:'pdf-compress', name:'Compress PDF',       desc:'Reduce PDF file size by re-encoding images and cleaning metadata.', cat:'pdf', path:'/tools/pdf/pdf-compress.html', tags:['compress','smaller','optimize'] },
+  { id:'pdf-rotate',   name:'Rotate PDF',         desc:'Rotate PDF pages 90°, 180° or 270° and save.', cat:'pdf', path:'/tools/pdf/pdf-rotate.html',   tags:['rotate','turn','orientation'] },
+  { id:'pdf-to-img',   name:'PDF to JPG',         desc:'Render PDF pages as JPG or PNG images. Batch download as ZIP.', cat:'pdf', path:'/tools/pdf/pdf-to-img.html',   tags:['render','jpg','png','convert'] },
+  { id:'img-to-pdf',   name:'JPG to PDF',         desc:'Combine images into a single PDF. Set page size, orientation and margins.', cat:'pdf', path:'/tools/pdf/img-to-pdf.html',   tags:['images','jpg','pdf','combine'] },
+  { id:'pdf-text',     name:'Extract PDF Text',   desc:'Extract all text from a PDF for copy-paste or download.', cat:'pdf', path:'/tools/pdf/pdf-text.html',     tags:['text','extract','copy'] },
+  { id:'pdf-editor', name:'PDF Editor', desc:'Add text, highlights, images, shapes, signatures. Reorder, rotate, delete pages.', cat:'pdf', path:'/tools/pdf/pdf-editor.html', tags:['edit','annotate','highlight','sign','image'] },
+  { id:'pdf-numbers',  name:'Add Page Numbers',   desc:'Add page numbers to the bottom of every page. Choose position and format.', cat:'pdf', path:'/tools/pdf/pdf-numbers.html',  tags:['numbers','pages','footer'] }
 ];
 
 let activeCat = 'all';
@@ -184,7 +445,14 @@ function renderCats(){
     `<button class="cat" data-cat="${c.id}" aria-pressed="${c.id===activeCat}">${c.name}</button>`
   ).join('');
   catsEl.querySelectorAll('.cat').forEach(b => {
-    b.onclick = () => { activeCat = b.dataset.cat; renderCats(); render(); };
+    b.onclick = () => {
+      activeCat = b.dataset.cat;
+      renderCats();
+      render();
+      if (window.innerWidth <= 640){
+        b.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' });
+      }
+    };
   });
 }
 
