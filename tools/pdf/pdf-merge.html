@@ -14,7 +14,7 @@
 <meta property="og:description" content="Combine multiple PDFs into one file, in your browser.">
 <meta property="og:url" content="https://qrcodescanner.co.in/tools/pdf/pdf-merge.html">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Merge PDF","url":"https://qrcodescanner.co.in/tools/pdf/pdf-merge.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://qrcodescanner.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://qrcodescanner.co.in/tools/"},{"@type":"ListItem","position":3,"name":"Merge PDF","item":"https://qrcodescanner.co.in/tools/pdf/pdf-merge.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this PDF merger free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is completely free, has no file limit, and does not add watermarks."}},{"@type":"Question","name":"Are my PDFs uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. Everything happens in your browser. Your files never leave your device."}},{"@type":"Question","name":"Can I control the order of pages?","acceptedAnswer":{"@type":"Answer","text":"Yes. Drag the files to reorder them on desktop, or use the up and down arrows on any device. Pages appear in the order you arrange them."}},{"@type":"Question","name":"Is there a file size limit?","acceptedAnswer":{"@type":"Answer","text":"No hard limit, though very large files (100 MB+) may be slow on low-end devices because processing happens in memory."}}]}]}
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Merge PDF","url":"https://qrcodescanner.co.in/tools/pdf/pdf-merge.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://qrcodescanner.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://qrcodescanner.co.in/tools/"},{"@type":"ListItem","position":3,"name":"Merge PDF","item":"https://qrcodescanner.co.in/tools/pdf/pdf-merge.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this PDF merger free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is completely free, has no file limit, and does not add watermarks."}},{"@type":"Question","name":"Are my PDFs uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. Everything happens in your browser. Your files never leave your device."}},{"@type":"Question","name":"Can I control the order of pages?","acceptedAnswer":{"@type":"Answer","text":"Yes. Drag the files to reorder them on desktop, or use the up and down arrows on any device."}},{"@type":"Question","name":"Is there a file size limit?","acceptedAnswer":{"@type":"Answer","text":"No hard limit, though very large files (100 MB+) may be slow on low-end devices."}}]}]}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +25,7 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 [hidden]{display:none!important}
 html,body{margin:0;padding:0}
-body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;background-image:linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);background-size:28px 28px}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;text-size-adjust:100%;background-image:linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);background-size:28px 28px}
 .wrap{max-width:800px;margin:0 auto;padding:20px 18px 64px}
 .masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
 .masthead a{color:inherit;text-decoration:none}
@@ -41,28 +41,100 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .sub{margin:0 0 22px;color:var(--muted);max-width:68ch;font-size:1rem}
 .pd-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:0 0 14px}
 .pd-card h2{font-family:var(--display);font-weight:700;font-size:1.0625rem;letter-spacing:-.01em;margin:0 0 14px}
-.pd-drop{border:2px dashed var(--line);border-radius:var(--radius);padding:36px 20px;text-align:center;background:#F7F7F3;transition:border-color .15s ease,background .15s ease;cursor:pointer}
+.pd-drop{border:2px dashed var(--line);border-radius:var(--radius);padding:36px 20px;text-align:center;background:#F7F7F3;transition:border-color .15s ease,background .15s ease;cursor:pointer;display:block}
 .pd-drop:hover,.pd-drop.dragover{border-color:var(--blue);background:rgba(27,77,255,.04)}
 .pd-drop .icon{font-size:2.5rem;line-height:1;margin:0 0 8px;color:var(--blue)}
 .pd-drop strong{display:block;font-family:var(--display);font-weight:700;font-size:1.0625rem;margin:0 0 4px}
 .pd-drop p{margin:0;color:var(--muted);font-size:.875rem}
 .pd-drop .formats{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin-top:8px}
-.pd-list{display:flex;flex-direction:column;gap:10px;margin:0 0 14px}
-.pd-item{display:flex;gap:12px;align-items:center;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);cursor:grab;transition:border-color .12s ease,box-shadow .12s ease,opacity .12s ease}
+
+/* ===== FILE LIST ===== */
+.pd-list{display:flex;flex-direction:column;gap:8px;margin:0 0 14px}
+
+.pd-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 14px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  cursor:grab;
+  transition:border-color .12s ease,box-shadow .12s ease,opacity .12s ease;
+}
 .pd-item:hover{border-color:var(--blue)}
 .pd-item.dragging{opacity:.4;cursor:grabbing}
 .pd-item.drop-target{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.15)}
-.pd-handle{flex:none;color:var(--muted);font-family:var(--mono);font-size:1rem;cursor:grab;user-select:none;line-height:1;padding:8px 6px;margin:-8px -2px}
-.pd-icon{flex:none;width:36px;height:36px;background:#F7F7F3;border:1px solid var(--line);border-radius:6px;display:grid;place-items:center;font-family:var(--mono);font-size:.6875rem;font-weight:600;color:var(--red)}
+
+.pd-handle{
+  flex:none;
+  color:var(--muted);
+  font-family:var(--mono);
+  font-size:1rem;
+  cursor:grab;
+  user-select:none;
+  line-height:1;
+  padding:6px 4px;
+  margin:-6px -2px;
+}
+.pd-icon{
+  flex:none;
+  width:36px;height:36px;
+  background:#F7F7F3;
+  border:1px solid var(--line);
+  border-radius:6px;
+  display:grid;place-items:center;
+  font-family:var(--mono);
+  font-size:.6875rem;
+  font-weight:600;
+  color:var(--red);
+  letter-spacing:.02em;
+}
 .pd-info{flex:1;min-width:0}
-.pd-name{font-family:var(--mono);font-size:.8125rem;font-weight:600;color:var(--ink);word-break:break-word;overflow-wrap:anywhere;margin:0 0 3px;line-height:1.3}
-.pd-meta{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin:0}
-.pd-controls{flex:none;display:flex;gap:4px;align-items:center}
+.pd-name{
+  font-family:var(--mono);
+  font-size:.8125rem;
+  font-weight:600;
+  color:var(--ink);
+  margin:0 0 2px;
+  line-height:1.3;
+  word-break:break-word;
+  overflow-wrap:anywhere;
+}
+.pd-meta{
+  font-family:var(--mono);
+  font-size:.75rem;
+  color:var(--muted);
+  margin:0;
+  line-height:1.3;
+}
+.pd-controls{
+  flex:none;
+  display:flex;
+  flex-direction:row;
+  gap:6px;
+  align-items:center;
+}
 .pd-move,
-.pd-remove{flex:none;background:none;border:1px solid var(--line);border-radius:100px;width:32px;height:32px;display:grid;place-items:center;color:var(--muted);cursor:pointer;font-family:inherit;font-size:.875rem;line-height:1;padding:0;transition:border-color .12s ease,color .12s ease,background .12s ease}
-.pd-move:hover:not(:disabled),.pd-remove:hover{border-color:var(--blue);color:var(--blue)}
+.pd-remove{
+  flex:none;
+  background:none;
+  border:1px solid var(--line);
+  border-radius:100px;
+  width:32px;height:32px;
+  display:grid;place-items:center;
+  color:var(--muted);
+  cursor:pointer;
+  font-family:inherit;
+  font-size:.875rem;
+  line-height:1;
+  padding:0;
+  transition:border-color .12s ease,color .12s ease,background .12s ease;
+}
+.pd-move:hover:not(:disabled){border-color:var(--blue);color:var(--blue)}
 .pd-remove:hover{border-color:var(--red);color:var(--red)}
 .pd-move:disabled{opacity:.3;cursor:not-allowed}
+
 .pd-actions{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
 .pd-actions button{font-size:.8125rem;padding:9px 14px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--ink);cursor:pointer;font-family:inherit;font-weight:500;transition:background .12s ease,border-color .12s ease,color .12s ease;display:inline-flex;align-items:center;gap:6px;min-height:38px}
 .pd-actions button:hover{border-color:var(--blue);color:var(--blue)}
@@ -112,59 +184,51 @@ footer a:hover{color:var(--blue)}
 /* ============ MOBILE ============ */
 @media(max-width:640px){
   .wrap{padding:16px 14px 56px}
-
-  /* Reduce card padding to reclaim horizontal space */
   .pd-card{padding:14px}
 
-  /* Smaller drop zone, still comfortable to tap */
-  .pd-drop{padding:26px 16px}
-  .pd-drop .icon{font-size:2rem;margin-bottom:6px}
-  .pd-drop strong{font-size:1rem}
+  /* Compact drop zone */
+  .pd-drop{padding:24px 14px}
+  .pd-drop .icon{font-size:1.75rem;margin-bottom:4px}
+  .pd-drop strong{font-size:.9375rem}
   .pd-drop p{font-size:.8125rem}
-  .pd-drop .formats{font-size:.6875rem}
+  .pd-drop .formats{font-size:.6875rem;margin-top:6px}
 
-  /* File row: two-line layout that gives the name full width */
+  /* Compact list rows */
+  .pd-list{gap:6px}
   .pd-item{
-    display:grid;
-    grid-template-columns:36px 1fr auto;
-    grid-template-areas:
-      "icon info controls"
-      "icon info controls";
-    column-gap:12px;
-    row-gap:6px;
-    padding:12px;
+    padding:10px 12px;
+    gap:10px;
     cursor:default;
-    align-items:start;
   }
-  .pd-handle{display:none}  /* drag handle not useful on touch */
-  .pd-icon{grid-area:icon;width:36px;height:36px;align-self:center}
-  .pd-info{grid-area:info}
-  .pd-controls{
-    grid-area:controls;
-    flex-direction:column;
-    gap:6px;
-    align-self:start;
+  .pd-handle{display:none}
+  .pd-icon{
+    width:34px;height:34px;
+    font-size:.625rem;
   }
-
-  /* Bigger tap targets for move / remove */
-  .pd-move,
-  .pd-remove{width:36px;height:36px;font-size:1rem}
-
-  /* Allow filename to wrap naturally instead of breaking all chars */
   .pd-name{
     font-size:.8125rem;
-    word-break:break-word;
-    overflow-wrap:anywhere;
-    line-height:1.35;
+    line-height:1.3;
   }
   .pd-meta{font-size:.6875rem}
 
-  /* Summary stacks to 1 column on very narrow phones */
+  /* Controls horizontal, right side, smaller */
+  .pd-controls{
+    flex-direction:row;
+    gap:4px;
+  }
+  .pd-move,
+  .pd-remove{
+    width:34px;height:34px;
+    font-size:.875rem;
+  }
+
+  /* Summary: Files spans full row, then pages/size side-by-side */
   .pd-summary{grid-template-columns:1fr 1fr}
   .pd-summary .pd-sum:first-child{grid-column:1 / -1}
+  .pd-sum{padding:12px}
   .pd-sum .n{font-size:1.25rem}
 
-  /* Buttons go full-width and taller for thumbs */
+  /* Buttons stack full-width, comfortable tap height */
   .pd-actions{flex-direction:column;gap:8px}
   .pd-actions button{
     width:100%;
@@ -173,34 +237,30 @@ footer a:hover{color:var(--blue)}
     font-size:.875rem;
   }
 
-  /* Result box actions also stack */
-  #resultBox .pd-actions{margin-top:10px}
-
-  /* Article readability */
+  /* Article tweaks */
   .article{margin-top:36px}
   .article h2{font-size:1.25rem;margin:28px 0 8px}
   .article p,.article li{font-size:.9375rem}
 
-  /* Related list — smaller time label */
+  /* Related list */
   .related-list li{padding:11px 12px}
   .related-list .txt a{font-size:.9375rem}
   .related-list .txt p{font-size:.75rem}
   .related-list time{font-size:.6875rem}
 
-  /* Toast above bottom nav bar area */
   .toast{bottom:16px;font-size:.8125rem;padding:9px 16px}
 }
 
-/* Very narrow phones (iPhone SE, 320px) */
+/* Very narrow phones */
 @media(max-width:380px){
   .wrap{padding:14px 12px 48px}
   .pd-card{padding:12px}
-  .pd-move,.pd-remove{width:34px;height:34px}
+  .pd-item{padding:10px}
+  .pd-move,.pd-remove{width:32px;height:32px}
   .pd-sum .n{font-size:1.125rem}
   .lede{font-size:1.6rem}
 }
 
-/* Reduce motion preference */
 @media(prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
 }
@@ -343,29 +403,18 @@ function fmtSize(bytes){
   return (bytes/(1024*1024)).toFixed(2)+" MB";
 }
 
-var files=[];       // {id, file, name, size, pageCount, bytes, error}
+var files=[];
 var idCounter=0;
 var mergedBlob=null;
 
 function newId(){return ++idCounter;}
 
-/* ---------- ADD FILES ---------- */
 function addFiles(fileList){
   var accepted=0;
   for(var i=0;i<fileList.length;i++){
     var f=fileList[i];
-    if(!/\.pdf$/i.test(f.name)&&f.type!=="application/pdf"){
-      continue;
-    }
-    files.push({
-      id:newId(),
-      file:f,
-      name:f.name,
-      size:f.size,
-      pageCount:null,
-      bytes:null,
-      error:null
-    });
+    if(!/\.pdf$/i.test(f.name)&&f.type!=="application/pdf"){continue;}
+    files.push({id:newId(),file:f,name:f.name,size:f.size,pageCount:null,bytes:null,error:null});
     accepted++;
   }
   if(!accepted){flash("No PDF files found");return;}
@@ -374,7 +423,6 @@ function addFiles(fileList){
   inspectAll();
 }
 
-/* ---------- INSPECT PDFs ---------- */
 async function inspectAll(){
   var PDFLib=window.PDFLib;
   if(!PDFLib){flash("PDF library not loaded");return;}
@@ -393,8 +441,7 @@ async function inspectAll(){
   }
 }
 
-/* ---------- MOVE UP / DOWN ---------- */
-function moveFile(id, direction){
+function moveFile(id,direction){
   var idx=files.findIndex(function(f){return f.id===id;});
   if(idx<0)return;
   var newIdx=idx+direction;
@@ -402,11 +449,9 @@ function moveFile(id, direction){
   var moved=files.splice(idx,1)[0];
   files.splice(newIdx,0,moved);
   renderList();
-  // Announce change for screen readers
   flash(direction<0?"Moved up":"Moved down");
 }
 
-/* ---------- RENDER LIST ---------- */
 function renderList(){
   var list=$("fileList");
   list.innerHTML="";
@@ -417,19 +462,16 @@ function renderList(){
     item.draggable=true;
     item.dataset.id=entry.id;
 
-    // Drag handle (desktop only)
     var handle=document.createElement("span");
     handle.className="pd-handle";
     handle.textContent="⠿";
     handle.title="Drag to reorder";
     handle.setAttribute("aria-hidden","true");
 
-    // PDF icon
     var icon=document.createElement("div");
     icon.className="pd-icon";
     icon.textContent="PDF";
 
-    // Info block
     var info=document.createElement("div");
     info.className="pd-info";
     var nm=document.createElement("p");
@@ -448,7 +490,6 @@ function renderList(){
     info.appendChild(nm);
     info.appendChild(meta);
 
-    // Controls: up / down / remove
     var controls=document.createElement("div");
     controls.className="pd-controls";
 
@@ -506,7 +547,6 @@ function renderList(){
   });
 }
 
-/* ---------- DRAG REORDER (desktop only) ---------- */
 var draggingId=null;
 var list=$("fileList");
 
@@ -522,9 +562,7 @@ list.addEventListener("dragstart",function(e){
 list.addEventListener("dragend",function(e){
   var item=e.target.closest(".pd-item");
   if(item)item.classList.remove("dragging");
-  document.querySelectorAll(".pd-item.drop-target").forEach(function(x){
-    x.classList.remove("drop-target");
-  });
+  document.querySelectorAll(".pd-item.drop-target").forEach(function(x){x.classList.remove("drop-target");});
   draggingId=null;
 });
 
@@ -534,9 +572,7 @@ list.addEventListener("dragover",function(e){
   if(!target||draggingId===null)return;
   var targetId=parseInt(target.dataset.id,10);
   if(targetId===draggingId)return;
-  document.querySelectorAll(".pd-item.drop-target").forEach(function(x){
-    x.classList.remove("drop-target");
-  });
+  document.querySelectorAll(".pd-item.drop-target").forEach(function(x){x.classList.remove("drop-target");});
   target.classList.add("drop-target");
 });
 
@@ -546,18 +582,15 @@ list.addEventListener("drop",function(e){
   if(!target||draggingId===null)return;
   var targetId=parseInt(target.dataset.id,10);
   if(targetId===draggingId)return;
-
   var fromIdx=files.findIndex(function(f){return f.id===draggingId;});
   var toIdx=files.findIndex(function(f){return f.id===targetId;});
   if(fromIdx<0||toIdx<0)return;
-
   var moved=files.splice(fromIdx,1)[0];
   files.splice(toIdx,0,moved);
   draggingId=null;
   renderList();
 });
 
-/* ---------- SUMMARY ---------- */
 function updateSummary(){
   var count=files.length;
   var pages=0;
@@ -571,7 +604,6 @@ function updateSummary(){
   $("totalSize").textContent=fmtSize(total);
 }
 
-/* ---------- MERGE ---------- */
 $("mergeBtn").addEventListener("click",async function(){
   if(files.length<2)return flash("Add at least 2 PDFs to merge");
   var PDFLib=window.PDFLib;
@@ -601,7 +633,6 @@ $("mergeBtn").addEventListener("click",async function(){
       $("pageCount").textContent+" pages</strong>. Final size: <strong>"+
       fmtSize(mergedBlob.size)+"</strong>.";
     $("resultBox").hidden=false;
-    // Scroll result into view on mobile
     if(window.innerWidth<=640){
       $("resultBox").scrollIntoView({behavior:"smooth",block:"nearest"});
     }
@@ -635,7 +666,6 @@ $("startOverBtn").addEventListener("click",function(){
   flash("Cleared");
 });
 
-/* ---------- OTHER BUTTONS ---------- */
 $("reverseBtn").addEventListener("click",function(){
   files.reverse();
   renderList();
@@ -653,7 +683,6 @@ $("clearBtn").addEventListener("click",function(){
   flash("Cleared");
 });
 
-/* ---------- DROP ZONE ---------- */
 var drop=$("drop");
 var fileInput=$("fileInput");
 drop.addEventListener("click",function(){fileInput.click();});
