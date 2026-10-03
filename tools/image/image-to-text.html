@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Image to Text (OCR) — Extract Text From Any Image Free</title>
+<meta name="description" content="Extract text from images, screenshots and scanned documents. AI-powered OCR in 17 languages including Hindi, Tamil, Arabic, Chinese. Runs in your browser, no upload, no signup.">
+<link rel="canonical" href="https://qrcodescanner.co.in/tools/image/image-to-text.html">
+<link rel="sitemap" type="application/xml" href="https://qrcodescanner.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#1B4DFF">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Image to Text (OCR) — Extract Text From Any Image Free">
+<meta property="og:description" content="Extract text from images with AI OCR. 17 languages. Runs entirely in your browser.">
+<meta property="og:url" content="https://qrcodescanner.co.in/tools/image/image-to-text.html">
+
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"WebApplication",
+      "name":"Image to Text (OCR)",
+      "url":"https://qrcodescanner.co.in/tools/image/image-to-text.html",
+      "applicationCategory":"UtilitiesApplication",
+      "operatingSystem":"Any browser",
+      "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+      "featureList":[
+        "Extract text from images",
+        "OCR in 17 languages",
+        "Batch processing",
+        "No upload — runs locally",
+        "Copy or download extracted text",
+        "Works on screenshots, scans, photos"
+      ]
+    },
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://qrcodescanner.co.in/"},
+        {"@type":"ListItem","position":2,"name":"Tools","item":"https://qrcodescanner.co.in/tools/"},
+        {"@type":"ListItem","position":3,"name":"Image to Text","item":"https://qrcodescanner.co.in/tools/image/image-to-text.html"}
+      ]
+    },
+    {
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"Is this image to text tool free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is completely free, has no daily limit and runs entirely in your browser."}},
+        {"@type":"Question","name":"Does my image get uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The OCR engine runs on your device using WebAssembly. Your image never leaves your browser."}},
+        {"@type":"Question","name":"What languages are supported?","acceptedAnswer":{"@type":"Answer","text":"English, Hindi, Bengali, Tamil, Telugu, Marathi, Gujarati, Kannada, Punjabi, Urdu, Arabic, Spanish, French, German, Chinese and Japanese."}},
+        {"@type":"Question","name":"Why is the first run slower?","acceptedAnswer":{"@type":"Answer","text":"The OCR language model (10 to 30 MB) downloads once and is then cached by your browser. Every image after that is much faster."}},
+        {"@type":"Question","name":"Can I extract text from a screenshot?","acceptedAnswer":{"@type":"Answer","text":"Yes. Screenshots usually give the best accuracy because they have sharp, clean text with no shadows or glare."}}
+      ]
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/base.css">
+
+<style>
+:root{
+  --paper:#EDEDE9;
+  --surface:#FFFFFF;
+  --ink:#14161A;
+  --muted:#6B7079;
+  --line:#D6D6D0;
+  --blue:#1B4DFF;
+  --blue-deep:#1338C4;
+  --green:#0E7A5F;
+  --red:#B0233A;
+  --radius:6px;
+  --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --display:"Bricolage Grotesque",var(--sans);
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);
+  background-size:28px 28px;
+  margin:0;padding:0;
+  -webkit-text-size-adjust:100%;
+}
+.wrap-wide{max-width:1080px;margin:0 auto;padding:20px 18px 64px}
+
+.masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
+.masthead a{color:inherit;text-decoration:none}
+.mark{width:26px;height:26px;flex:none}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.masthead .nav-right{margin-left:auto;font-size:.875rem;color:var(--blue);text-decoration:underline;white-space:nowrap}
+
+.crumbs{font-size:.8125rem;color:var(--muted);margin:0 0 18px;font-family:var(--mono)}
+.crumbs a{color:var(--muted);text-decoration:underline}
+.crumbs a:hover{color:var(--blue)}
+.crumbs span{color:var(--ink)}
+
+.lede{margin:0 0 6px;font-family:var(--display);font-weight:700;
+  font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.05;letter-spacing:-.03em}
+.sub{margin:0 0 22px;color:var(--muted);max-width:62ch;font-size:1rem}
+
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 22px}
+.badge{display:inline-flex;align-items:center;gap:5px;
+  padding:4px 10px;border-radius:100px;
+  font-family:var(--mono);font-size:.6875rem;
+  text-transform:uppercase;letter-spacing:.06em;
+  background:var(--surface);border:1px solid var(--line);
+  color:var(--muted);
+}
+.badge svg{width:12px;height:12px}
+.badge.privacy{color:var(--ink);border-color:var(--line)}
+
+.stage{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:24px 0 0}
+
+.drop-zone{
+  display:block;
+  border:2px dashed var(--line);
+  border-radius:var(--radius);
+  padding:44px 24px;
+  text-align:center;
+  cursor:pointer;
+  transition:border-color .15s ease, background .15s ease, transform .15s ease;
+  background:#FAFAF8;
+}
+.drop-zone:hover, .drop-zone.over{border-color:var(--blue);background:#F5F7FF}
+.drop-zone.over{transform:scale(1.01)}
+.drop-zone svg{width:48px;height:48px;color:var(--blue);opacity:.6;margin:0 auto 16px;display:block}
+.drop-zone h2{font-family:var(--display);font-weight:700;font-size:1.25rem;margin:0 0 8px;letter-spacing:-.01em}
+.drop-zone p{margin:0;color:var(--muted);font-size:.9375rem}
+.drop-zone .hint{font-family:var(--mono);font-size:.6875rem;color:var(--muted);margin:14px 0 0;opacity:.7}
+
+.controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:18px 0 0;padding:14px 16px;background:#FAFAF8;border:1px solid var(--line);border-radius:var(--radius)}
+.control-group{display:flex;align-items:center;gap:8px;font-size:.875rem}
+.control-group label{color:var(--muted);white-space:nowrap;font-size:.8125rem;font-weight:500}
+.control-group select{
+  padding:8px 12px;border:1px solid var(--line);border-radius:5px;
+  background:#fff;font:inherit;font-size:.8125rem;color:var(--ink);cursor:pointer;
+  min-width:180px;
+}
+.control-group select:focus{outline:none;border-color:var(--blue)}
+
+.progress-wrap{display:none;margin:18px 0 0;padding:14px 16px;background:#F5F7FF;border:1px solid rgba(27,77,255,.2);border-left:4px solid var(--blue);border-radius:var(--radius)}
+.progress-wrap.show{display:block}
+.progress-head{display:flex;align-items:center;gap:10px;margin:0 0 10px}
+.progress-head .spinner{width:16px;height:16px;flex:none;border:2px solid rgba(27,77,255,.25);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.progress-head strong{font-size:.875rem;font-weight:600}
+.progress-head .pct{margin-left:auto;font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+.progress{height:4px;background:var(--line);border-radius:100px;overflow:hidden}
+.progress-bar{height:100%;width:0;background:var(--blue);transition:width .25s ease}
+.progress-note{font-size:.75rem;color:var(--muted);margin:8px 0 0}
+
+.results{display:flex;flex-direction:column;gap:14px;margin:22px 0 0}
+.result-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.result-card.done{border-color:rgba(14,122,95,.35)}
+.result-card.error{border-color:rgba(176,35,58,.35)}
+.result-head{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line);background:#FAFAF8}
+.result-thumb{
+  width:52px;height:52px;flex:none;border-radius:5px;
+  background:#fff;border:1px solid var(--line);
+  background-size:cover;background-position:center;
+  cursor:pointer;
+}
+.result-info{flex:1;min-width:0}
+.result-name{font-family:var(--mono);font-size:.8125rem;font-weight:600;color:var(--ink);margin:0 0 3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.result-meta{font-family:var(--mono);font-size:.6875rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:0}
+.result-actions{display:flex;gap:6px;flex:none}
+.result-actions button{font:inherit;cursor:pointer;border-radius:5px;padding:6px 12px;font-size:.75rem;font-weight:500;border:1px solid var(--line);background:var(--surface);color:var(--ink);transition:border-color .12s ease,color .12s ease}
+.result-actions button:hover{border-color:var(--blue);color:var(--blue)}
+.result-actions button.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.result-actions button.primary:hover{background:var(--blue-deep);color:#fff}
+.result-actions button:disabled{opacity:.4;cursor:not-allowed}
+.result-actions button svg{width:12px;height:12px;vertical-align:-2px;margin-right:4px}
+
+.result-body{padding:14px;font-family:var(--mono);font-size:.875rem;line-height:1.6;white-space:pre-wrap;word-break:break-word;max-height:400px;overflow-y:auto;background:#fff;color:var(--ink)}
+.result-body.empty{color:var(--muted);font-style:italic;font-family:var(--sans)}
+.result-card.processing .result-body{color:var(--muted);font-family:var(--sans);font-style:italic}
+
+.batch-actions{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+.batch-actions button{font:inherit;cursor:pointer;border-radius:var(--radius);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:11px 16px;font-weight:500;font-size:.8125rem;display:inline-flex;align-items:center;gap:7px;min-height:40px}
+.batch-actions button:hover{border-color:#A9A9A1}
+.batch-actions button.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.batch-actions button.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep)}
+.batch-actions button.danger:hover{border-color:var(--red);color:var(--red)}
+
+.article{margin:44px 0 0;max-width:68ch}
+.article h2{margin:36px 0 10px;font-family:var(--display);font-size:1.5rem;letter-spacing:-.02em}
+.article h2:first-child{margin-top:0}
+.article p{margin:0 0 12px;color:#3A3E46}
+.article ul{margin:0 0 12px;padding-left:20px;color:#3A3E46}
+.article li{margin:0 0 6px}
+.article strong{font-weight:600;color:var(--ink)}
+.article a{color:var(--blue);text-decoration:underline}
+.article ol{margin:0 0 12px;padding-left:22px;color:#3A3E46}
+
+.faq{margin:14px 0 0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--blue);font-size:1.25rem;line-height:1;flex:none}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{margin:0 0 14px;color:#3A3E46;max-width:62ch}
+
+.related-list{list-style:none;margin:12px 0 0;padding:0}
+.related-list li{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center}
+.related-list .txt{flex:1;font-size:.9375rem}
+.related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
+.related-list .txt a:hover{color:var(--blue);text-decoration:underline}
+.related-list .txt p{margin:2px 0 0;font-size:.8125rem;color:var(--muted)}
+
+footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem}
+footer a{color:inherit}
+footer a:hover{color:var(--blue)}
+
+.toast{
+  position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:#fff;padding:11px 20px;border-radius:100px;
+  font-size:.875rem;opacity:0;pointer-events:none;
+  transition:opacity .2s ease, transform .2s ease;z-index:200;
+  display:flex;align-items:center;gap:8px;
+  box-shadow:0 12px 32px rgba(0,0,0,.28);
+  max-width:90vw;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast svg{width:15px;height:15px;color:var(--green);flex:none}
+
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+@media(max-width:640px){
+  .wrap-wide{padding:16px 14px 56px}
+  .drop-zone{padding:30px 16px}
+  .drop-zone svg{width:40px;height:40px}
+  .drop-zone h2{font-size:1.0625rem}
+  .stage{padding:14px}
+  .controls{padding:12px;gap:10px}
+  .control-group{flex:1 1 100%}
+  .control-group select{flex:1;min-width:0}
+  .result-head{flex-wrap:wrap;gap:10px}
+  .result-actions{width:100%}
+  .result-actions button{flex:1;justify-content:center;min-height:38px}
+  .batch-actions{flex-direction:column;gap:8px}
+  .batch-actions button{width:100%;justify-content:center;min-height:46px}
+  .toast{bottom:16px;font-size:.8125rem;padding:9px 16px}
+}
+.chk label{display:flex;gap:8px;align-items:center;color:var(--ink);cursor:pointer}
+.control-group.chk{min-height:40px}
+.result-msg{padding:14px;color:var(--muted);font-style:italic;font-size:.9375rem}
+textarea.result-body{display:block;width:100%;min-height:170px;max-height:420px;border:0;border-radius:0;resize:vertical;outline:none;white-space:pre-wrap;background:#fff;font-size:.9375rem}
+textarea.result-body:focus{box-shadow:inset 0 0 0 2px rgba(27,77,255,.25)}
+.cam{display:none;width:100%;margin:10px 0 0;min-height:48px;justify-content:center;font-weight:600}
+@media(pointer:coarse){.cam{display:inline-flex}}
+[hidden]{display:none!important}
+.stage,.result-card,.results{min-width:0;max-width:100%}
+@media(max-width:640px){
+  .result-actions{display:grid;grid-template-columns:repeat(2,1fr)}
+  .controls .control-group select{font-size:16px}
+  .control-group select{width:100%;max-width:100%}
+  textarea.result-body{font-size:16px;min-height:200px}
+  .batch-actions{position:sticky;bottom:0;background:var(--surface);padding:10px 0 calc(10px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);margin-top:14px}
+  .toast{bottom:calc(90px + env(safe-area-inset-bottom,0px))}
+}
+</style>
+</head>
+<body>
+<div class="wrap-wide">
+
+  <header class="masthead">
+    <a href="../../index.html" style="display:flex;align-items:center;gap:10px">
+      <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/>
+        <path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/>
+        <path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/>
+        <path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/>
+        <path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/>
+      </svg>
+      <span class="wordmark">ToolNest</span>
+    </a>
+    <a href="../index.html" class="nav-right">All tools →</a>
+  </header>
+
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Image to Text</span>
+  </nav>
+
+  <h1 class="lede">Image to Text (OCR)</h1>
+  <p class="sub">Extract text from any image — screenshots, scans, photos, receipts. AI-powered OCR in 17 languages, running entirely in your browser.</p>
+
+  <div class="badges">
+    <span class="badge privacy">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      100% private
+    </span>
+    <span class="badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      17 languages
+    </span>
+    <span class="badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      Batch supported
+    </span>
+  </div>
+
+  <div class="stage">
+    <div id="intake">
+    <label class="drop-zone" id="dropZone" for="fileInput">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <path d="M21 15l-5-5L5 21"/>
+      </svg>
+      <h2>Drop images here</h2>
+      <p>or tap to choose files · multiple images supported</p>
+      <p class="hint">JPG · PNG · WebP · processed locally, never uploaded</p>
+      <input type="file" id="fileInput" accept="image/*" multiple class="sr">
+    </label>
+    <button type="button" class="cam" id="camBtn">Take a photo</button><input type="file" id="camInput" accept="image/*" capture="environment" class="sr">
+    </div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="langSelect">Language</label>
+        <select id="langSelect">
+          <option value="eng" selected>English</option>
+          <option value="hin">Hindi (हिन्दी)</option>
+          <option value="ben">Bengali (বাংলা)</option>
+          <option value="tam">Tamil (தமிழ்)</option>
+          <option value="tel">Telugu (తెలుగు)</option>
+          <option value="mar">Marathi (मराठी)</option>
+          <option value="guj">Gujarati (ગુજરાતી)</option>
+          <option value="kan">Kannada (ಕನ್ನಡ)</option>
+          <option value="pan">Punjabi (ਪੰਜਾਬੀ)</option>
+          <option value="urd">Urdu (اردو)</option>
+          <option value="ara">Arabic (العربية)</option>
+          <option value="spa">Spanish (Español)</option>
+          <option value="fra">French (Français)</option>
+          <option value="deu">German (Deutsch)</option>
+          <option value="chi_sim">Chinese Simplified (简体)</option>
+          <option value="jpn">Japanese (日本語)</option>
+          <option value="rus">Russian (Русский)</option>
+        </select>
+      </div>
+      <div class="control-group chk" id="engWrap" hidden><label><input type="checkbox" id="engToo" checked> Also read English</label></div>
+      <div class="control-group"><label for="psm">Layout</label><select id="psm"><option value="3">Auto</option><option value="6">Single block</option><option value="4">Single column</option><option value="11">Sparse text</option></select></div>
+      <div class="control-group chk"><label><input type="checkbox" id="enh" checked> Enhance image</label></div>
+    </div>
+
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-head">
+        <div class="spinner"></div>
+        <strong id="progressStage">Preparing OCR engine…</strong>
+        <span class="pct" id="progressPct">0%</span>
+      </div>
+      <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+      <p class="progress-note" id="progressNote">First run downloads the language model. It's cached after that.</p>
+    </div>
+
+    <div class="results" id="results"></div>
+
+    <div class="batch-actions" id="batchActions" hidden>
+      <button id="addMoreBtn">Add more images</button>
+      <button class="primary" id="copyAllBtn">Copy all text</button>
+      <button id="downloadTxtBtn">Download as .txt</button>
+      <button class="danger" id="clearBtn">Clear all</button>
+    </div>
+  </div>
+
+  <article class="article">
+    <h2>How to extract text from an image</h2>
+    <ol>
+      <li>Drop one or more images onto the box above, or tap to browse.</li>
+      <li>Choose the language of the text (tick <strong>Also read English</strong> for mixed text) and, if needed, the layout.</li>
+      <li>Wait for OCR to process. On first use the language model downloads once — it's cached after that.</li>
+      <li>The extracted text appears below each image and is editable. Fix any mistakes, join broken lines, then copy it or download it as a text file.</li>
+    </ol>
+
+    <h2>What works well</h2>
+    <ul>
+      <li><strong>Screenshots</strong> — highest accuracy because text is sharp and clean</li>
+      <li><strong>Scanned documents</strong> — with a flat, well-lit scan</li>
+      <li><strong>Photos of printed pages</strong> — books, receipts, forms, business cards</li>
+      <li><strong>Signs and labels</strong> — product labels, packaging, street signs</li>
+      <li><strong>Handwriting</strong> — works for neat block letters, less reliable for cursive</li>
+    </ul>
+
+    <h2>Tips for best accuracy</h2>
+    <ul>
+      <li><strong>Sharpen the image</strong> — blur and motion reduce accuracy significantly</li>
+      <li><strong>Crop to the text</strong> — remove surrounding noise before uploading</li>
+      <li><strong>Avoid shadows and glare</strong> — even lighting helps a lot</li>
+      <li><strong>Use the right language</strong> — and tick “Also read English” for mixed-language text</li><li><strong>Pick a layout</strong> — “Sparse text” suits screenshots and receipts, “Single block” suits paragraphs</li><li><strong>Keep Enhance image on</strong> — it evens out shadows, boosts contrast and enlarges small text</li>
+      <li><strong>Rotate to upright</strong> — OCR handles slight angles but not upside-down text</li>
+    </ul>
+
+    <h2>Your images never leave your device</h2>
+    <p>The OCR engine (Tesseract) runs entirely in your browser using WebAssembly. No image, no text, no metadata is ever sent to any server. Once the language model has been downloaded, the tool works completely offline.</p>
+
+    <h2>Why the first run is slower</h2>
+    <p>The language model is between 10 and 30 MB depending on the language. It downloads once, is cached by your browser, and reused on every subsequent visit. English is the smallest (~12 MB), Chinese and Japanese the largest (~30 MB).</p>
+
+    <h2>Common questions</h2>
+    <div class="faq">
+      <details><summary>Is this image to text tool free?</summary><p>Yes. Completely free, no daily limit, no signup.</p></details>
+      <details><summary>Does my image get uploaded?</summary><p>No. The OCR engine runs on your device using WebAssembly. Your image never leaves your browser.</p></details>
+      <details><summary>What languages are supported?</summary><p>English, Hindi, Bengali, Tamil, Telugu, Marathi, Gujarati, Kannada, Punjabi, Urdu, Arabic, Spanish, French, German, Chinese Simplified, Japanese and Russian.</p></details>
+      <details><summary>Why is the first run slower?</summary><p>The OCR language model (10–30 MB) downloads once and is cached by your browser. Every image after that is much faster.</p></details>
+      <details><summary>Can I extract text from a screenshot?</summary><p>Yes. Screenshots usually give the best accuracy because they have sharp, clean text.</p></details>
+      <details><summary>Does it read handwriting?</summary><p>It handles neat block letters reasonably well. Cursive and flowing handwriting is harder and often produces errors.</p></details>
+      <details><summary>Can I extract text from a PDF?</summary><p>Convert the PDF to images first using our <a href="../pdf/pdf-to-img.html">PDF to JPG</a> tool, then upload the images here.</p></details>
+      <details><summary>Is there a file size limit?</summary><p>No hard limit, but very large images (over 20 MB) may take longer. Images are automatically downscaled to the optimal size for OCR.</p></details>
+    </div>
+
+    <h2>Related tools</h2>
+    <ul class="related-list">
+      <li><div class="txt"><a href="image-compress.html">Image Compressor</a><p>Reduce image file size without losing quality.</p></div></li>
+      <li><div class="txt"><a href="image-resize.html">Image Resizer</a><p>Resize images to exact dimensions.</p></div></li>
+      <li><div class="txt"><a href="background-remover.html">Background Remover</a><p>Remove image backgrounds with AI.</p></div></li>
+    </ul>
+  </article>
+
+  <footer>
+    <p>
+      ToolNest ·
+      <a href="../../index.html">Home</a> ·
+      <a href="../index.html">All tools</a> ·
+      <a href="../../pages/about.html">About</a> ·
+      <a href="../../pages/privacy.html">Privacy</a>
+    </p>
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  var dropZone = document.getElementById('dropZone');
+  var fileInput = document.getElementById('fileInput');
+  var langSelect = document.getElementById('langSelect');
+  var progressWrap = document.getElementById('progressWrap');
+  var progressStage = document.getElementById('progressStage');
+  var progressPct = document.getElementById('progressPct');
+  var progressBar = document.getElementById('progressBar');
+  var progressNote = document.getElementById('progressNote');
+  var results = document.getElementById('results');
+  var batchActions = document.getElementById('batchActions');
+  var copyAllBtn = document.getElementById('copyAllBtn');
+  var downloadTxtBtn = document.getElementById('downloadTxtBtn');
+  var clearBtn = document.getElementById('clearBtn');
+  var toast = document.getElementById('toast');
+  var engToo = document.getElementById('engToo'), engWrap = document.getElementById('engWrap'), psm = document.getElementById('psm'), enh = document.getElementById('enh');
+  var intake = document.getElementById('intake'), camBtn = document.getElementById('camBtn'), camInput = document.getElementById('camInput'), addMoreBtn = document.getElementById('addMoreBtn');
+  var MOB = window.matchMedia('(pointer:coarse)').matches || innerWidth < 700;
+  function curLang(){ var v = langSelect.value; return (v !== 'eng' && engToo.checked) ? v + '+eng' : v; }
+
+  var queue = [];
+  var worker = null;
+  var workerLang = null;
+  var workerReady = null;
+  var processing = false;
+
+  /* ============================================================
+     Helpers
+     ============================================================ */
+  function flash(msg) {
+    toast.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span>' + msg + '</span>';
+    toast.classList.add('show');
+    clearTimeout(flash._t);
+    flash._t = setTimeout(function(){ toast.classList.remove('show'); }, 2000);
+  }
+
+  function fmtBytes(n) {
+    if (n < 1024) return n + ' B';
+    if (n < 1048576) return (n / 1024).toFixed(0) + ' KB';
+    return (n / 1048576).toFixed(1) + ' MB';
+  }
+
+  function escapeHtml(s) {
+    return String(s || '').replace(/[<>&"]/g, function(c){
+      return { '<':'&lt;', '>':'&gt;', '&':'&amp;', '"':'&quot;' }[c];
+    });
+  }
+
+  function showProgress(stage, pct, note) {
+    progressWrap.classList.add('show');
+    progressStage.textContent = stage;
+    progressPct.textContent = Math.round(pct) + '%';
+    progressBar.style.width = pct + '%';
+    if (note) progressNote.textContent = note;
+  }
+
+  function hideProgress() {
+    setTimeout(function(){
+      progressWrap.classList.remove('show');
+      progressBar.style.width = '0';
+    }, 500);
+  }
+
+  /* ============================================================
+     File input
+     ============================================================ */
+  fileInput.addEventListener('change', function(e){
+    var files = Array.prototype.slice.call(e.target.files);
+    if (files.length) enqueueFiles(files);
+    fileInput.value = '';
+  });
+
+  ['dragenter','dragover'].forEach(function(ev){
+    dropZone.addEventListener(ev, function(e){
+      e.preventDefault();
+      dropZone.classList.add('over');
+    });
+  });
+  ['dragleave','drop'].forEach(function(ev){
+    dropZone.addEventListener(ev, function(e){
+      e.preventDefault();
+      dropZone.classList.remove('over');
+    });
+  });
+  dropZone.addEventListener('drop', function(e){
+    var files = Array.prototype.slice.call(e.dataTransfer.files || []);
+    if (files.length) enqueueFiles(files);
+  });
+
+  /* Paste from clipboard */
+  document.addEventListener('paste', function(e){
+    var items = e.clipboardData && e.clipboardData.items;
+    if (!items) return;
+    var imgs = [];
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].type.indexOf('image') === 0) {
+        var f = items[i].getAsFile();
+        if (f) imgs.push(f);
+      }
+    }
+    if (imgs.length) enqueueFiles(imgs);
+  });
+
+  /* ============================================================
+     Queue
+     ============================================================ */
+  function enqueueFiles(files) {
+    var images = files.filter(function(f){ return /^image\//.test(f.type); });
+    if (!images.length) {
+      flash('No image files found');
+      return;
+    }
+
+    images.forEach(function(file){
+      var id = 'r' + Date.now() + Math.random().toString(36).slice(2, 8);
+      var item = {
+        id: id,
+        file: file,
+        name: file.name,
+        size: file.size,
+        status: 'pending',
+        text: '',
+        confidence: 0,
+        error: null,
+        thumbUrl: null
+      };
+      queue.push(item);
+      addResultCard(item);
+    });
+
+    intake.style.display = 'none';
+    batchActions.hidden = false;
+    processQueue();
+  }
+
+  function addResultCard(item) {
+    var card = document.createElement('div');
+    card.className = 'result-card processing';
+    card.id = 'rc-' + item.id;
+
+    card.innerHTML =
+      '<div class="result-head">' +
+        '<div class="result-thumb" id="thumb-' + item.id + '"></div>' +
+        '<div class="result-info">' +
+          '<p class="result-name" title="' + escapeHtml(item.name) + '">' + escapeHtml(item.name) + '</p>' +
+          '<p class="result-meta" id="meta-' + item.id + '">' + fmtBytes(item.size) + ' · Queued</p>' +
+        '</div>' +
+        '<div class="result-actions">' +
+          '<button class="primary" data-act="copy" disabled>Copy</button>' +
+          '<button data-act="download" disabled>Save</button>' +
+          '<button data-act="join" disabled>Join lines</button>' +
+          '<button data-act="remove">Remove</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="result-msg" id="msg-' + item.id + '">Waiting in queue…</div><textarea class="result-body" id="body-' + item.id + '" hidden spellcheck="false" aria-label="Extracted text"></textarea>';
+
+    results.appendChild(card);
+    var ta = card.querySelector('textarea');
+    ta.addEventListener('input', function(){ item.text = ta.value; setMeta(item); });
+
+    /* Thumbnail */
+    var thumb = document.getElementById('thumb-' + item.id);
+    var url = URL.createObjectURL(item.file);
+    thumb.style.backgroundImage = 'url(' + url + ')';
+    item.thumbUrl = url;
+
+    /* Actions */
+    card.addEventListener('click', function(e){
+      var btn = e.target.closest('button[data-act]');
+      if (!btn) return;
+      var act = btn.getAttribute('data-act');
+      if (act === 'copy') copyItem(item);
+      else if (act === 'download') downloadItem(item);
+      else if (act === 'join') joinItem(item);
+      else if (act === 'remove') removeItem(item);
+    });
+
+    /* Click thumbnail opens in new tab */
+    thumb.addEventListener('click', function(){
+      if (item.thumbUrl) window.open(item.thumbUrl, '_blank');
+    });
+  }
+
+  function setMeta(item) {
+    var m = document.getElementById('meta-' + item.id); if (!m) return;
+    var w = item.text.split(/\s+/).filter(Boolean).length;
+    m.textContent = fmtBytes(item.size) + ' · ' + w + ' words · ' + Math.round(item.confidence) + '% confidence' + (item.confidence < 60 ? ' · low' : '');
+  }
+
+  function joinItem(item) {
+    item.text = item.text.replace(/([^\n])\n(?!\n)/g, '$1 ').trim();
+    document.getElementById('body-' + item.id).value = item.text;
+    setMeta(item); flash('Lines joined');
+  }
+
+  function updateCard(item) {
+    var card = document.getElementById('rc-' + item.id), meta = document.getElementById('meta-' + item.id);
+    var msg = document.getElementById('msg-' + item.id), ta = document.getElementById('body-' + item.id);
+    if (!card || !meta || !msg || !ta) return;
+    var done = item.status === 'done', show = done && !!item.text;
+    card.className = 'result-card ' + item.status;
+    ta.hidden = !show; msg.hidden = show;
+    if (item.status === 'processing') { meta.textContent = fmtBytes(item.size) + ' · Processing…'; msg.textContent = 'Reading text from image…'; }
+    else if (done) { setMeta(item); ta.value = item.text; msg.textContent = 'No text detected. Try another language, Layout: Sparse text, or a clearer image.'; }
+    else if (item.status === 'error') { meta.textContent = fmtBytes(item.size) + ' · Failed'; msg.textContent = item.error || 'Could not process this image.'; }
+    else { meta.textContent = fmtBytes(item.size) + ' · Queued'; msg.textContent = 'Waiting in queue…'; }
+    card.querySelectorAll('[data-act="copy"],[data-act="download"],[data-act="join"]').forEach(function(b){ b.disabled = !show; });
+  }
+
+  /* ---------- image enhancement: orientation, upscale small text, even out lighting, stretch contrast ---------- */
+  function boxBlur(a, w, h, r) {
+    var t = new Uint8Array(a.length), o = new Uint8Array(a.length), k = 2 * r + 1;
+    function pass(s, d, n, stp, cnt, cs) {
+      for (var l = 0; l < cnt; l++) {
+        var b = l * cs, sum = 0, i;
+        for (i = -r; i <= r; i++) sum += s[b + Math.min(n - 1, Math.max(0, i)) * stp];
+        for (i = 0; i < n; i++) { d[b + i * stp] = sum / k; sum += s[b + Math.min(n - 1, i + r + 1) * stp] - s[b + Math.max(0, i - r) * stp]; }
+      }
+    }
+    pass(a, t, w, 1, h, w); pass(t, o, h, w, w, 1);
+    return o;
+  }
+  async function prep(file) {
+    if (!enh.checked) return file;
+    try {
+      var bm = await createImageBitmap(file), long = Math.max(bm.width, bm.height), cap = MOB ? 3000 : 4000, s = 1;
+      if (long < 1600) s = Math.min(3, 1600 / long); else if (long > cap) s = cap / long;
+      var w = Math.round(bm.width * s), h = Math.round(bm.height * s), c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      var x = c.getContext('2d', { willReadFrequently: true });
+      x.imageSmoothingQuality = 'high'; x.fillStyle = '#fff'; x.fillRect(0, 0, w, h); x.drawImage(bm, 0, 0, w, h);
+      var im = x.getImageData(0, 0, w, h), d = im.data, n = w * h, g = new Uint8Array(n), i, sum = 0;
+      for (i = 0; i < n; i++) { g[i] = (d[i * 4] * 0.299 + d[i * 4 + 1] * 0.587 + d[i * 4 + 2] * 0.114) | 0; sum += g[i]; }
+      if (sum / n < 110) for (i = 0; i < n; i++) g[i] = 255 - g[i];          /* light text on dark background */
+      var bg = boxBlur(g, w, h, Math.max(12, Math.round(Math.max(w, h) / 25))), hist = new Uint32Array(256);
+      for (i = 0; i < n; i++) { var v = g[i] / Math.max(40, bg[i]) * 235; v = v > 255 ? 255 : v; g[i] = v; hist[v | 0]++; }
+      var lo = 0, hi = 255, acc = 0;
+      for (i = 0; i < 256; i++) { acc += hist[i]; if (acc > n * 0.01) { lo = i; break; } }
+      acc = 0; for (i = 255; i >= 0; i--) { acc += hist[i]; if (acc > n * 0.01) { hi = i; break; } }
+      if (hi - lo < 30) { lo = 0; hi = 255; }
+      var k = 255 / (hi - lo);
+      for (i = 0; i < n; i++) { var q = (g[i] - lo) * k; q = q < 0 ? 0 : q > 255 ? 255 : q; d[i * 4] = d[i * 4 + 1] = d[i * 4 + 2] = q; d[i * 4 + 3] = 255; }
+      x.putImageData(im, 0, 0);
+      return c;
+    } catch (e) { console.warn('enhance skipped', e); return file; }
+  }
+
+  function removeItem(item) {
+    var idx = queue.indexOf(item);
+    if (idx > -1) queue.splice(idx, 1);
+    if (item.thumbUrl) URL.revokeObjectURL(item.thumbUrl);
+    var card = document.getElementById('rc-' + item.id);
+    if (card) card.remove();
+    if (queue.length === 0) {
+      intake.style.display = 'block';
+      batchActions.hidden = true;
+    }
+  }
+
+  /* ============================================================
+     OCR engine — lazy load Tesseract.js
+     ============================================================ */
+  function loadTesseract() {
+    if (window.Tesseract) return Promise.resolve(window.Tesseract);
+    return new Promise(function(resolve, reject){
+      var s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.0/dist/tesseract.min.js';
+      s.onload = function(){
+        if (window.Tesseract) resolve(window.Tesseract);
+        else reject(new Error('Tesseract.js failed to load'));
+      };
+      s.onerror = function(){
+        /* Fallback CDN */
+        var s2 = document.createElement('script');
+        s2.src = 'https://unpkg.com/tesseract.js@5.1.0/dist/tesseract.min.js';
+        s2.onload = function(){
+          if (window.Tesseract) resolve(window.Tesseract);
+          else reject(new Error('Tesseract.js failed to load'));
+        };
+        s2.onerror = function(){ reject(new Error('Could not load OCR engine')); };
+        document.head.appendChild(s2);
+      };
+      document.head.appendChild(s);
+    });
+  }
+
+  function getWorker(lang) {
+    if (worker && workerLang === lang) return Promise.resolve(worker);
+    if (workerReady) return workerReady.then(function(){
+      /* Language changed — tear down and rebuild */
+      if (workerLang !== lang) return rebuildWorker(lang);
+      return worker;
+    });
+    return rebuildWorker(lang);
+  }
+
+  function rebuildWorker(lang) {
+    if (worker) {
+      worker.terminate().catch(function(){});
+      worker = null;
+      workerLang = null;
+    }
+    workerReady = loadTesseract().then(function(Tesseract){
+      showProgress('Downloading OCR engine…', 5, 'This is a one-time download.');
+      return Tesseract.createWorker(lang, 1, {
+        logger: function(m){
+          if (m.status === 'loading tesseract core') showProgress('Loading OCR core…', 15);
+          else if (m.status === 'initializing tesseract') showProgress('Initializing…', 25);
+          else if (m.status === 'loading language traineddata') showProgress('Downloading ' + lang + ' model…', 25 + Math.round((m.progress || 0) * 50));
+          else if (m.status === 'initializing api') showProgress('Starting engine…', 80);
+          else if (m.status === 'recognizing text') showProgress('Reading text…', 80 + Math.round((m.progress || 0) * 20));
+        }
+      });
+    }).then(function(w){ return w.setParameters({ preserve_interword_spaces: '1' }).then(function(){ return w; }); }).then(function(w){
+      worker = w;
+      workerLang = lang;
+      return w;
+    }).catch(function(err){
+      workerReady = null;
+      throw err;
+    });
+    return workerReady;
+  }
+
+  /* ============================================================
+     Queue processor
+     ============================================================ */
+  async function processQueue() {
+    if (processing) return;
+    processing = true;
+
+    try {
+      var pending = queue.filter(function(x){ return x.status === 'pending'; });
+      if (!pending.length) { processing = false; return; }
+
+      var lang = curLang();
+      var w = await getWorker(lang);
+      progressWrap.classList.remove('show');
+
+      for (var i = 0; i < queue.length; i++) {
+        var item = queue[i];
+        if (item.status !== 'pending') continue;
+
+        item.status = 'processing';
+        updateCard(item);
+
+        try {
+          await w.setParameters({ tessedit_pageseg_mode: psm.value });
+          var result = await w.recognize(await prep(item.file));
+          item.text = (result.data && result.data.text) ? result.data.text.trim() : '';
+          item.confidence = (result.data && result.data.confidence) || 0;
+          item.status = 'done';
+        } catch (err) {
+          console.error('[ocr error]', err);
+          item.status = 'error';
+          item.error = err && err.message ? err.message : 'OCR failed';
+        }
+        updateCard(item);
+        /* Yield to UI */
+        await new Promise(function(r){ setTimeout(r, 20); });
+      }
+
+      var done = queue.filter(function(x){ return x.status === 'done'; }).length;
+      var fail = queue.filter(function(x){ return x.status === 'error'; }).length;
+      if (fail === 0) flash(done + ' image' + (done === 1 ? '' : 's') + ' processed');
+      else flash(done + ' processed · ' + fail + ' failed');
+
+    } catch (err) {
+      console.error(err);
+      flash(err.message || 'Something went wrong');
+      queue.forEach(function(it){
+        if (it.status === 'pending' || it.status === 'processing') {
+          it.status = 'error';
+          it.error = (err && err.message ? err.message : 'OCR engine failed to start') + '. Check your connection and try again.';
+          updateCard(it);
+        }
+      });
+    } finally {
+      processing = false;
+      hideProgress();
+    }
+  }
+
+  /* ============================================================
+     Actions
+     ============================================================ */
+  function copyItem(item) {
+    if (!item.text) return flash('No text to copy');
+    navigator.clipboard.writeText(item.text).then(function(){
+      flash('Copied to clipboard');
+    }).catch(function(){
+      /* Fallback */
+      var ta = document.createElement('textarea');
+      ta.value = item.text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); flash('Copied'); } catch (e) { flash('Copy failed'); }
+      document.body.removeChild(ta);
+    });
+  }
+
+  function downloadItem(item) {
+    if (!item.text) return flash('No text to save');
+    var base = item.name.replace(/\.[^.]+$/, '');
+    triggerDownload(new Blob([item.text], { type: 'text/plain' }), base + '.txt');
+  }
+
+  function triggerDownload(blob, filename) {
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+  }
+
+  copyAllBtn.addEventListener('click', function(){
+    var all = queue.filter(function(x){ return x.status === 'done' && x.text; })
+                   .map(function(x){ return '### ' + x.name + '\n\n' + x.text; })
+                   .join('\n\n---\n\n');
+    if (!all) return flash('No text to copy');
+    navigator.clipboard.writeText(all).then(function(){
+      flash('All text copied');
+    }).catch(function(){
+      flash('Copy failed');
+    });
+  });
+
+  downloadTxtBtn.addEventListener('click', function(){
+    var all = queue.filter(function(x){ return x.status === 'done' && x.text; })
+                   .map(function(x){ return '### ' + x.name + '\n\n' + x.text; })
+                   .join('\n\n---\n\n');
+    if (!all) return flash('No text to save');
+    triggerDownload(new Blob([all], { type: 'text/plain' }), 'extracted-text.txt');
+  });
+
+  clearBtn.addEventListener('click', function(){
+    queue.forEach(function(item){
+      if (item.thumbUrl) URL.revokeObjectURL(item.thumbUrl);
+    });
+    queue = [];
+    results.innerHTML = '';
+    batchActions.hidden = true;
+    intake.style.display = 'block';
+    flash('Cleared');
+  });
+
+  /* Language change — rebuild worker for new language */
+  var relang = function(){
+    engWrap.hidden = langSelect.value === 'eng';
+    try { localStorage.setItem('ocrLang', langSelect.value); } catch (e) {}
+    if (worker && workerLang !== curLang()) {
+      worker.terminate().catch(function(){});
+      worker = null;
+      workerLang = null;
+      workerReady = null;
+    }
+    var pending = queue.filter(function(x){ return x.status === 'done' || x.status === 'error'; });
+    if (pending.length) {
+      /* Reprocess finished items with the new language */
+      pending.forEach(function(item){
+        item.status = 'pending';
+        item.text = '';
+        updateCard(item);
+      });
+      processQueue();
+    }
+  };
+  [langSelect, engToo, enh, psm].forEach(function(el){ el.addEventListener('change', relang); });
+  camBtn.addEventListener('click', function(){ camInput.click(); });
+  camInput.addEventListener('change', function(e){ var f = Array.prototype.slice.call(e.target.files); if (f.length) enqueueFiles(f); camInput.value = ''; });
+  addMoreBtn.addEventListener('click', function(){ fileInput.click(); });
+  try { var sv = localStorage.getItem('ocrLang'); if (sv && langSelect.querySelector('option[value="' + sv + '"]')) langSelect.value = sv; } catch (e) {}
+  engWrap.hidden = langSelect.value === 'eng';
+
+})();
+</script>
+</body>
+</html>
