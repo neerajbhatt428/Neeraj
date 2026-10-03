@@ -47,7 +47,7 @@
     {
       "@type":"FAQPage",
       "mainEntity":[
-        {"@type":"Question","name":"Is this background remover free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is completely free, has no daily limit and runs entirely in your browser."}},
+        {"@type":"Question","name":"Is this Image BG Remover free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is completely free, has no daily limit and runs entirely in your browser."}},
         {"@type":"Question","name":"Does my image get uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The AI model runs on your device using WebAssembly. Your image never leaves your browser."}},
         {"@type":"Question","name":"What image formats are supported?","acceptedAnswer":{"@type":"Answer","text":"JPG, PNG, WebP, AVIF, HEIC, GIF, BMP, TIFF and SVG images are supported. Export as PNG, WebP or JPG with a transparent or custom background."}},
         {"@type":"Question","name":"Why does the first run take longer?","acceptedAnswer":{"@type":"Answer","text":"On first use, the AI model (about 40 MB) is downloaded and cached by your browser. Every image after that is much faster."}}
@@ -442,6 +442,10 @@ body .wrap-wide{max-width:1400px!important}
 /* zoomed image must scroll inside its own box, never widen the page */
 .stage,#editor,.app,.work,.vpw,.vp{min-width:0;max-width:100%}
 .vp{overscroll-behavior:contain}
+@media (max-width:860px),(hover:none) and (pointer:coarse){
+  .mbar{display:flex}.tg #undoBtn,.tg #redoBtn{display:none}
+  #editor{padding-bottom:84px}.toast{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+}
 </style>
 </head>
 <body>
@@ -462,7 +466,7 @@ body .wrap-wide{max-width:1400px!important}
   </header>
 
   <nav class="crumbs" aria-label="Breadcrumb">
-    <a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Image Background Remover</span>
+    <a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Image BG Remover</span>
   </nav>
 
   <h1 class="lede">Image BG Remover</h1>
@@ -557,7 +561,7 @@ body .wrap-wide{max-width:1400px!important}
 
     <h2>Common questions</h2>
     <div class="faq">
-      <details><summary>Is this background remover free?</summary><p>Yes. It is completely free, has no daily limit and runs entirely in your browser.</p></details>
+      <details><summary>Is this Image BG Remover free?</summary><p>Yes. It is completely free, has no daily limit and runs entirely in your browser.</p></details>
       <details><summary>Does my image get uploaded?</summary><p>No. The AI model runs on your device using WebAssembly. Your image never leaves your browser.</p></details>
       <details><summary>What image formats are supported?</summary><p>JPG, PNG, WebP, AVIF, HEIC, GIF, BMP, TIFF and SVG images are supported. Export as PNG, WebP or JPG with a transparent or custom background.</p></details>
       <details><summary>Why does the first run take longer?</summary><p>On first use, the AI model (about 40 MB) is downloaded and cached by your browser. Every image after that is much faster.</p></details>
