@@ -439,6 +439,9 @@ body .wrap-wide{max-width:1400px!important}
   .toast{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
   .kbd{display:none}
 }
+/* zoomed image must scroll inside its own box, never widen the page */
+.stage,#editor,.app,.work,.vpw,.vp{min-width:0;max-width:100%}
+.vp{overscroll-behavior:contain}
 </style>
 </head>
 <body>
