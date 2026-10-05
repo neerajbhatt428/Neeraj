@@ -9,14 +9,11 @@
 <link rel="sitemap" type="application/xml" href="https://qrcodescanner.co.in/sitemap.xml">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#1B4DFF">
-
 <meta property="og:type" content="website">
 <meta property="og:title" content="Delete Pages from PDF — Remove Unwanted Pages Free">
 <meta property="og:description" content="Delete pages from any PDF. Scroll through every page, click to select, download.">
 <meta property="og:url" content="https://qrcodescanner.co.in/tools/pdf/delete-pages.html">
-
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3576991570329575" crossorigin="anonymous"></script>
-
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
@@ -28,7 +25,6 @@
   ]
 }
 </script>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -39,7 +35,6 @@ if (window.pdfjsLib) {
   pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
 }
 </script>
-
 <style>
 :root{
   --paper:#EDEDE9;--surface:#FFFFFF;--ink:#14161A;--muted:#6B7079;--line:#D6D6D0;
@@ -62,8 +57,6 @@ body{
   background-size:28px 28px;
 }
 .wrap{max-width:1400px;margin:0 auto;padding:14px 16px 32px}
-
-/* Header */
 .masthead{display:flex;align-items:center;gap:10px;padding:4px 0 12px}
 .masthead a{color:inherit;text-decoration:none}
 .mark{width:24px;height:24px;flex:none}
@@ -77,10 +70,6 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .lede{margin:0 0 4px;font-family:var(--display);font-weight:700;
   font-size:clamp(1.5rem,3.5vw,2rem);line-height:1.1;letter-spacing:-.03em}
 .sub{margin:0 0 14px;color:var(--muted);max-width:70ch;font-size:.875rem}
-
-/* ============================================================
-   DROP ZONE
-   ============================================================ */
 .stage{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin:0 0 16px}
 .drop-zone{
   display:block;border:2px dashed var(--line);border-radius:var(--radius);
@@ -94,13 +83,9 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .drop-zone p{margin:0;color:var(--muted);font-size:.875rem}
 .drop-zone .hint{font-family:var(--mono);font-size:.6875rem;color:var(--muted);margin:10px 0 0;opacity:.7}
 
-/* ============================================================
-   THREE-COLUMN EDITOR LAYOUT
-   ============================================================ */
 .editor{display:none}
-.editor.show{display:grid;grid-template-columns:230px 1fr 260px;gap:14px;align-items:start}
+.editor.show{display:grid;grid-template-columns:230px minmax(0,1fr) 260px;gap:14px;align-items:start}
 
-/* Common panel */
 .panel{
   background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
   padding:14px;margin:0 0 12px;
@@ -115,13 +100,10 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
   letter-spacing:.05em;background:var(--paper);border:1px solid var(--line);
   border-radius:100px;padding:2px 7px;color:var(--muted);font-weight:500;
 }
-
-/* Left + right sidebars sticky */
 .sidebar{position:sticky;top:14px;max-height:calc(100vh - 28px);overflow-y:auto}
 .sidebar::-webkit-scrollbar{width:6px}
 .sidebar::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
 
-/* File info */
 .file-info-card{
   display:flex;gap:10px;align-items:flex-start;
   padding:10px;background:#FAFAF8;border:1px solid var(--line);
@@ -144,7 +126,6 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 }
 .file-close:hover{color:var(--red)}
 
-/* Mode toggle */
 .toggle-row{
   display:grid;grid-template-columns:1fr 1fr;gap:3px;
   background:#DCDCD6;border:1px solid var(--line);padding:3px;
@@ -158,7 +139,6 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 }
 .toggle-row button[aria-pressed="true"]{background:var(--ink);color:#fff}
 
-/* Range input */
 .field-label{
   display:block;font-family:var(--mono);font-size:.625rem;
   text-transform:uppercase;letter-spacing:.06em;color:var(--muted);
@@ -172,7 +152,6 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 }
 .range-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
 .range-input.invalid{border-color:var(--red);box-shadow:0 0 0 3px rgba(176,35,58,.08)}
-
 .range-hint{
   font-family:var(--mono);font-size:.625rem;color:var(--muted);
   margin:6px 0 0;line-height:1.4;
@@ -182,10 +161,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
   padding:0 4px;font-size:.625rem;
 }
 
-/* Quick buttons */
-.quick-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:4px;
-}
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
 .quick-grid button{
   font-size:.75rem;padding:7px 8px;border-radius:5px;
   background:var(--surface);border:1px solid var(--line);color:var(--ink);
@@ -195,15 +171,12 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 }
 .quick-grid button:hover{border-color:var(--blue);color:var(--blue);background:#F5F7FF}
 
-/* Counter card */
 .counter-card{
   background:#F5F7FF;border:1px solid rgba(27,77,255,.2);
   border-left:3px solid var(--blue);border-radius:var(--radius);
   padding:10px 12px;margin:0 0 12px;
 }
-.counter-card .row{
-  display:flex;align-items:baseline;gap:8px;
-}
+.counter-card .row{display:flex;align-items:baseline;gap:8px}
 .counter-card .num{
   font-family:var(--display);font-weight:700;font-size:1.5rem;
   letter-spacing:-.02em;color:var(--blue);line-height:1;
@@ -214,7 +187,6 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
   margin-top:6px;display:block;
 }
 
-/* Selected pages list (right panel) */
 .selected-list{
   list-style:none;margin:0;padding:0;
   max-height:280px;overflow-y:auto;
@@ -233,11 +205,6 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
   font-family:var(--mono);font-weight:600;color:var(--red);
   font-size:.75rem;flex:0 0 auto;min-width:42px;
 }
-.selected-item .thumb-mini{
-  width:24px;height:32px;flex:none;background:#fff;
-  border:1px solid var(--line);border-radius:2px;
-  background-size:cover;background-position:center;
-}
 .selected-item .sp{flex:1;min-width:0}
 .selected-item .label{color:var(--ink);font-weight:500;font-size:.75rem}
 .selected-item .x{
@@ -254,7 +221,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 }
 
 /* ============================================================
-   CONTINUOUS PDF VIEWER
+   PDF VIEWER — the fix is in this section
    ============================================================ */
 .viewer{
   background:var(--viewer-bg);
@@ -270,6 +237,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
   background:rgba(0,0,0,.2);
   border-bottom:1px solid rgba(255,255,255,.08);
   flex-wrap:wrap;
+  flex-shrink:0;
 }
 .viewer-toolbar .vt-btn{
   height:34px;min-width:34px;padding:0 10px;
@@ -293,9 +261,11 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
   min-width:52px;text-align:center;
 }
 
-/* Scroll area */
+/* The scroll container — pages fit strictly within its width */
 .viewer-scroll{
-  flex:1;overflow-y:auto;overflow-x:hidden;
+  flex:1;min-height:0;
+  overflow-y:auto;
+  overflow-x:hidden;   /* never allow horizontal overflow */
   padding:20px 12px 40px;
   scroll-behavior:smooth;
 }
@@ -304,25 +274,32 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .viewer-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.25);border-radius:5px}
 .viewer-scroll::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.4)}
 
-/* Page wrapper */
+/* Page slot: hard-capped at 100% of the viewer width */
 .page-slot{
   margin:0 auto 20px;
-  width:fit-content;
+  width:100%;
+  max-width:100%;
   position:relative;
-  transition:transform .15s ease;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 .page-slot .page-label{
-  position:absolute;left:0;top:-20px;
+  align-self:flex-start;
   font-family:var(--mono);font-size:.6875rem;
   color:rgba(255,255,255,.7);
   letter-spacing:.05em;text-transform:uppercase;
   display:flex;align-items:center;gap:6px;
+  margin-bottom:6px;
+  padding-left:4px;
 }
 .page-slot .page-label .state-chip{
   background:rgba(176,35,58,.9);color:#fff;
   padding:1px 7px;border-radius:100px;font-size:.625rem;
   font-weight:600;letter-spacing:0;
 }
+
+/* The visual container around the canvas — hard max width */
 .page-slot .page-canvas-wrap{
   position:relative;
   background:#fff;
@@ -330,6 +307,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
   cursor:pointer;
   transition:box-shadow .15s ease;
   overflow:hidden;
+  max-width:100%;
 }
 .page-slot .page-canvas-wrap:hover{
   box-shadow:0 4px 20px rgba(0,0,0,.5);
@@ -342,11 +320,14 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
   background:rgba(176,35,58,.14);
   pointer-events:none;
 }
+
+/* Canvas hard constraint — the actual zoom fix */
 .page-slot canvas{
   display:block;
-  width:100%;height:auto;
+  max-width:100% !important;
+  height:auto !important;
 }
-/* Selection checkmark badge */
+
 .page-slot .page-check{
   position:absolute;top:12px;right:12px;
   width:32px;height:32px;border-radius:50%;
@@ -365,7 +346,6 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
   background:var(--red);border-color:var(--red);
 }
 .page-slot.selected .page-check svg{opacity:1}
-/* Big click hint on hover (desktop only) */
 .page-slot .page-hint{
   position:absolute;bottom:12px;right:12px;
   font-family:var(--mono);font-size:.625rem;
@@ -380,12 +360,11 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
   opacity:1;
   background:var(--red);
 }
-
-/* Loading placeholder */
 .page-slot .page-placeholder{
   background:#fff;
   display:grid;place-items:center;
   color:#c4c4c4;
+  max-width:100%;
 }
 .page-slot .page-placeholder .spin{
   width:24px;height:24px;
@@ -394,9 +373,6 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* ============================================================
-   ACTION BAR (right panel)
-   ============================================================ */
 .action-btn{
   font:inherit;cursor:pointer;border-radius:var(--radius);
   border:1px solid var(--line);background:var(--surface);color:var(--ink);
@@ -408,30 +384,21 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 }
 .action-btn:hover:not([disabled]){border-color:#A9A9A1}
 .action-btn[disabled]{opacity:.4;cursor:not-allowed}
-.action-btn.primary{
-  background:var(--blue);border-color:var(--blue);color:#fff;
-  margin:0 0 8px;
-}
+.action-btn.primary{background:var(--blue);border-color:var(--blue);color:#fff;margin:0 0 8px}
 .action-btn.primary:hover:not([disabled]){background:var(--blue-deep);border-color:var(--blue-deep)}
-.action-btn.danger{
-  background:var(--red);border-color:var(--red);color:#fff;
-  margin:0 0 8px;
-}
+.action-btn.danger{background:var(--red);border-color:var(--red);color:#fff;margin:0 0 8px}
 .action-btn.danger:hover:not([disabled]){background:#8A1B2E;border-color:#8A1B2E}
 .action-btn.ghost{background:transparent}
 .action-btn svg{width:15px;height:15px;flex:none}
 
-/* Progress */
 .progress{height:5px;background:var(--line);border-radius:100px;overflow:hidden;margin:10px 0;display:none}
 .progress.show{display:block}
 .progress-bar{height:100%;background:var(--blue);width:0;transition:width .25s ease}
 
-/* Status */
 .status{margin:10px 0 0;font-family:var(--mono);font-size:.75rem;color:var(--muted);min-height:1.4em;line-height:1.4}
 .status.err{color:var(--red)}
 .status.ok{color:var(--green)}
 
-/* Result card (right panel) */
 .result-card{
   background:linear-gradient(135deg,rgba(14,122,95,.06),rgba(27,77,255,.04));
   border:1px solid rgba(14,122,95,.25);border-left:3px solid var(--green);
@@ -442,19 +409,12 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .result-card .meta{font-family:var(--mono);font-size:.6875rem;color:var(--muted);margin:0 0 12px;word-break:break-all}
 .result-card .meta strong{color:var(--ink)}
 
-/* ============================================================
-   MOBILE — stack panels
-   ============================================================ */
 @media(max-width:1024px){
-  .editor.show{
-    grid-template-columns:1fr;
-    gap:10px;
-  }
+  .editor.show{grid-template-columns:1fr;gap:10px}
   .sidebar{position:static;max-height:none}
   .viewer{height:calc(100vh - 260px);min-height:420px}
 }
 
-/* Small screens: collapse sidebars into sheets */
 @media(max-width:640px){
   .wrap{padding:12px 12px 24px}
   .lede{font-size:1.375rem}
@@ -469,14 +429,10 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
   .viewer-toolbar .vt-btn{padding:0 8px;font-size:.6875rem}
   .selected-list{max-height:180px}
 }
-
 @supports(padding:max(0px)){
   .wrap{padding-bottom:max(32px,env(safe-area-inset-bottom))}
 }
 
-/* ============================================================
-   ARTICLE
-   ============================================================ */
 .article{margin:44px 0 0;max-width:70ch}
 .article h2{margin:32px 0 10px;font-size:1.375rem}
 .article h2:first-child{margin-top:0}
@@ -486,49 +442,28 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .article li{margin:0 0 5px}
 .article strong{font-weight:600;color:var(--ink)}
 .article a{color:var(--blue);text-decoration:underline}
-.article code{font-family:var(--mono);font-size:.85em;background:var(--surface);
-  border:1px solid var(--line);border-radius:3px;padding:1px 5px}
-.article kbd{font-family:var(--mono);font-size:.75rem;background:var(--surface);
-  border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;
-  padding:1px 5px;color:var(--ink)}
-
+.article code{font-family:var(--mono);font-size:.85em;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:1px 5px}
+.article kbd{font-family:var(--mono);font-size:.75rem;background:var(--surface);border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:1px 5px;color:var(--ink)}
 .faq{margin:14px 0 0;border-top:1px solid var(--line)}
 .faq details{border-bottom:1px solid var(--line)}
-.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;
-  display:flex;justify-content:space-between;gap:16px;align-items:center;font-size:.9375rem}
+.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center;font-size:.9375rem}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"+";color:var(--blue);font-size:1.25rem;line-height:1;flex:none}
 .faq details[open] summary::after{content:"\2212"}
 .faq details p{margin:0 0 14px;color:#3A3E46;max-width:62ch;font-size:.875rem}
-
 .related-list{list-style:none;margin:12px 0 0;padding:0}
-.related-list li{background:var(--surface);border:1px solid var(--line);
-  border-radius:var(--radius);padding:11px 13px;margin:0 0 6px;
-  display:flex;gap:12px;align-items:center}
+.related-list li{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:11px 13px;margin:0 0 6px;display:flex;gap:12px;align-items:center}
 .related-list .txt{flex:1;font-size:.875rem}
 .related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
 .related-list .txt a:hover{color:var(--blue);text-decoration:underline}
 .related-list .txt p{margin:2px 0 0;font-size:.75rem;color:var(--muted)}
-.related-list time{font-size:.6875rem;color:var(--muted);flex:none;font-family:var(--mono);
-  text-transform:uppercase;letter-spacing:.05em}
-
-footer{margin:40px 0 0;padding:16px 0 0;border-top:1px solid var(--line);
-  color:var(--muted);font-size:.75rem}
+.related-list time{font-size:.6875rem;color:var(--muted);flex:none;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+footer{margin:40px 0 0;padding:16px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.75rem}
 footer a{color:inherit}
 footer a:hover{color:var(--blue)}
-
-/* Toast */
-.toast{
-  position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);
-  background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;
-  font-size:.8125rem;opacity:0;pointer-events:none;
-  transition:opacity .2s ease,transform .2s ease;z-index:200;
-  display:flex;align-items:center;gap:8px;max-width:90vw;
-  box-shadow:0 12px 32px rgba(0,0,0,.28);
-}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.8125rem;opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease;z-index:200;display:flex;align-items:center;gap:8px;max-width:90vw;box-shadow:0 12px 32px rgba(0,0,0,.28)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast svg{width:14px;height:14px;color:var(--green);flex:none}
-
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -557,7 +492,6 @@ footer a:hover{color:var(--blue)}
 <h1 class="lede">Delete Pages from PDF</h1>
 <p class="sub">Scroll through every page like a normal PDF reader. Click any page to mark it for deletion. Download a clean new file. Nothing is uploaded.</p>
 
-<!-- ============ DROP ZONE ============ -->
 <div class="stage" id="intake">
   <label class="drop-zone" id="dropZone" for="fileInput">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -571,10 +505,8 @@ footer a:hover{color:var(--blue)}
   </label>
 </div>
 
-<!-- ============ EDITOR (3 columns) ============ -->
 <div class="editor" id="editor">
 
-  <!-- ============ LEFT SIDEBAR ============ -->
   <aside class="sidebar">
     <div class="panel">
       <h2>File</h2>
@@ -591,7 +523,6 @@ footer a:hover{color:var(--blue)}
         Start over
       </button>
     </div>
-
     <div class="panel">
       <h2>Mode</h2>
       <div class="toggle-row" role="tablist">
@@ -603,16 +534,12 @@ footer a:hover{color:var(--blue)}
         <strong>Keep:</strong> keep selected, remove the rest
       </p>
     </div>
-
     <div class="panel">
       <h2>Pages</h2>
       <label class="field-label" for="rangeInput">Type a range</label>
       <input type="text" id="rangeInput" class="range-input" placeholder="1, 3, 5-8, 12" spellcheck="false" autocomplete="off">
-      <p class="range-hint">
-        Use commas and dashes: <code>2, 5-8, 12</code>
-      </p>
+      <p class="range-hint">Use commas and dashes: <code>2, 5-8, 12</code></p>
     </div>
-
     <div class="panel">
       <h2>Quick select</h2>
       <div class="quick-grid">
@@ -628,8 +555,7 @@ footer a:hover{color:var(--blue)}
     </div>
   </aside>
 
-  <!-- ============ CENTER: PDF VIEWER ============ -->
-  <main>
+  <main style="min-width:0">
     <div class="viewer" id="viewer">
       <div class="viewer-toolbar">
         <button class="vt-btn" id="zoomOut" title="Zoom out" aria-label="Zoom out">
@@ -647,13 +573,10 @@ footer a:hover{color:var(--blue)}
           Top
         </button>
       </div>
-      <div class="viewer-scroll" id="viewerScroll">
-        <!-- pages inserted here -->
-      </div>
+      <div class="viewer-scroll" id="viewerScroll"></div>
     </div>
   </main>
 
-  <!-- ============ RIGHT SIDEBAR ============ -->
   <aside class="sidebar">
     <div class="panel">
       <h2>Selected <span class="badge" id="selBadge">0</span></h2>
@@ -666,7 +589,6 @@ footer a:hover{color:var(--blue)}
       </div>
       <ul class="selected-list" id="selectedList"></ul>
     </div>
-
     <div class="panel">
       <h2>Action</h2>
       <div class="progress" id="progress"><div class="progress-bar" id="progressBar"></div></div>
@@ -676,7 +598,6 @@ footer a:hover{color:var(--blue)}
       </button>
       <p class="status" id="status" role="status"></p>
     </div>
-
     <div class="result-card" id="resultCard" hidden>
       <h3>✓ New PDF ready</h3>
       <p id="resultMsg">—</p>
@@ -693,7 +614,6 @@ footer a:hover{color:var(--blue)}
 
 </div>
 
-<!-- ============ ARTICLE ============ -->
 <article class="article">
 <h2>How to delete pages from a PDF</h2>
 <ol>
@@ -706,16 +626,14 @@ footer a:hover{color:var(--blue)}
 
 <h2>The layout</h2>
 <ul>
-  <li><strong>Left panel</strong> — file info, mode toggle (delete vs keep), range input, and quick-select shortcuts.</li>
+  <li><strong>Left panel</strong> — file info, mode toggle, range input, and quick-select shortcuts.</li>
   <li><strong>Center</strong> — the PDF viewer. Scroll through all pages continuously, just like any PDF reader.</li>
   <li><strong>Right panel</strong> — a live list of every page you've marked, the counter, and the Delete button.</li>
 </ul>
 
 <h2>Three ways to select pages</h2>
-
 <h3>1. Click pages in the viewer</h3>
-<p>Click or tap any page directly in the viewer. It gets a red overlay and appears in the Selected list. Click again to unmark it. This is the fastest way to pick pages as you scroll.</p>
-
+<p>Click or tap any page directly in the viewer. It gets a red overlay and appears in the Selected list. Click again to unmark it.</p>
 <h3>2. Type a range</h3>
 <p>Use the input field in the left panel. Supported syntax:</p>
 <ul>
@@ -724,52 +642,34 @@ footer a:hover{color:var(--blue)}
   <li><code>5-8</code> — a range</li>
   <li><code>1, 3, 10-15, 20</code> — combined</li>
 </ul>
-
 <h3>3. Use the quick select buttons</h3>
-<ul>
-  <li><strong>All</strong> — every page</li>
-  <li><strong>None</strong> — clear selection</li>
-  <li><strong>Invert</strong> — swap selected/unselected</li>
-  <li><strong>Odd / Even</strong> — every other page (useful for scanned books with blank backs)</li>
-  <li><strong>First 3 / Last 3</strong> — common patterns</li>
-</ul>
+<p>All, None, Invert, Odd, Even, First 3, Last 3.</p>
 
 <h2>Keep mode — delete everything except a few pages</h2>
-<p>The Mode toggle at the top of the left panel has two options:</p>
+<p>The Mode toggle has two options:</p>
 <ul>
   <li><strong>Delete selected</strong> — the pages you mark get removed.</li>
   <li><strong>Keep selected</strong> — the pages you mark stay, everything else goes.</li>
 </ul>
-<p>Keep mode is useful when you want to extract a chapter from a book, save a single signed page from a contract, or keep only the first page of a long report.</p>
 
 <h2>Zoom controls</h2>
-<p>Use <strong>+</strong> and <strong>−</strong> in the viewer toolbar to zoom in and out. <strong>Fit</strong> resets to fit the viewer width. On desktop you can also use <kbd>Ctrl</kbd> + scroll wheel over the viewer.</p>
-
-<h2>Keyboard shortcuts</h2>
-<ul>
-  <li><kbd>Ctrl</kbd>+<kbd>+</kbd> / <kbd>Ctrl</kbd>+<kbd>−</kbd> — zoom in / out</li>
-  <li><kbd>Ctrl</kbd>+<kbd>0</kbd> — fit to width</li>
-</ul>
+<p>Use <strong>+</strong> and <strong>−</strong> in the viewer toolbar to zoom in and out. <strong>Fit</strong> resets to fit the viewer width. Pages always stay inside the viewer — nothing overflows horizontally. On desktop you can also use <kbd>Ctrl</kbd> + scroll wheel over the viewer.</p>
 
 <h2>What happens to the rest of the document</h2>
-<p>The pages you keep are copied exactly as they are. Fonts, images, vector drawings, hyperlinks, form fields and bookmarks are preserved byte-for-byte. No re-compression, no quality loss. The output looks identical to the original, minus the pages you removed.</p>
+<p>The pages you keep are copied exactly as they are. Fonts, images, vector drawings, hyperlinks, form fields and bookmarks are preserved byte-for-byte. No re-compression, no quality loss.</p>
 
 <h2>Your PDF stays on your device</h2>
-<p>The whole tool runs in your browser using <strong>pdf.js</strong> to render the viewer and <strong>pdf-lib</strong> to write the new file. Nothing is uploaded, no account is needed, and the tool works offline once it has loaded. Safe for confidential contracts, medical records and legal documents.</p>
-
-<h2>Works on mobile and desktop</h2>
-<p>On a phone or tablet, the three-column layout stacks vertically — you scroll through the panels as you need them. The viewer still shows all pages continuously, and clicking a page still marks it for deletion. Touch targets are sized for fingers.</p>
+<p>The whole tool runs in your browser using <strong>pdf.js</strong> to render the viewer and <strong>pdf-lib</strong> to write the new file. Nothing is uploaded, no account is needed, and the tool works offline once it has loaded.</p>
 
 <h2>Common questions</h2>
 <div class="faq">
   <details><summary>Is this PDF page remover free?</summary><p>Yes. Completely free, no page limit, no watermarks, no signup.</p></details>
   <details><summary>Are my PDFs uploaded to a server?</summary><p>No. Everything happens in your browser. Your PDF never leaves your device.</p></details>
-  <details><summary>Can I see all pages at once?</summary><p>Yes. The viewer shows every page stacked vertically. Scroll through it like a normal PDF reader.</p></details>
-  <details><summary>How do I select pages to delete?</summary><p>Click or tap any page in the viewer to mark it red. Click again to unmark. You can also type a range like <code>2, 5-8</code> in the left panel.</p></details>
+  <details><summary>Can I see all pages at once?</summary><p>Yes. The viewer shows every page stacked vertically.</p></details>
+  <details><summary>How do I select pages to delete?</summary><p>Click or tap any page in the viewer to mark it red. Click again to unmark. You can also type a range like <code>2, 5-8</code>.</p></details>
   <details><summary>Can I keep only a few pages?</summary><p>Yes. Switch the Mode toggle to <strong>Keep</strong>, select the pages you want to keep, and the tool removes everything else.</p></details>
   <details><summary>Will deleting pages reduce quality?</summary><p>No. Remaining pages are copied exactly as they are.</p></details>
   <details><summary>Does it work on iPhone and Android?</summary><p>Yes. The layout stacks into a single column on smaller screens. Tap pages to select them.</p></details>
-  <details><summary>Is there a page limit?</summary><p>No hard limit. PDFs up to a few hundred pages work well.</p></details>
 </div>
 
 <h2>Related tools</h2>
@@ -812,9 +712,6 @@ function bytes(n){
   return (n/1048576).toFixed(2)+" MB";
 }
 
-/* ============================================================
-   State
-   ============================================================ */
 var state={
   file:null,
   arrayBuffer:null,
@@ -823,11 +720,44 @@ var state={
   selected:new Set(),
   mode:'delete',
   zoom:1,
-  pageSlots:[],     // {el, pageNum, rendered, placeholderH}
+  pageSlots:[],
   observer:null,
   outputBlob:null,
   outputName:''
 };
+
+/* ============================================================
+   Width calculation — this is the ZOOM FIX
+   ============================================================ */
+
+// Available horizontal space inside the viewer scroll area (minus padding)
+function availableWidth(){
+  var scroll = $("viewerScroll");
+  var w = scroll.clientWidth - 24; // 12px padding each side
+  return Math.max(200, w);
+}
+
+// "100%" width — the comfortable reading width at default zoom
+// Never exceeds 720px so pages don't get absurdly wide on huge monitors
+function baseWidth(){
+  return Math.min(availableWidth(), 720);
+}
+
+// What actually gets rendered. Always <= available width.
+// This is the cap that keeps the page INSIDE the box when zoomed.
+function effectiveWidth(){
+  var avail = availableWidth();
+  var wanted = baseWidth() * state.zoom;
+  return Math.min(wanted, avail);
+}
+
+// The maximum zoom the user is allowed to reach before the page would
+// exceed the viewer width. Used to clamp setZoom.
+function maxZoom(){
+  var base = baseWidth();
+  if (base <= 0) return 3;
+  return Math.max(1, availableWidth() / base);
+}
 
 /* ============================================================
    File input
@@ -853,9 +783,6 @@ $("dropZone").addEventListener("drop",function(e){
   if(f)handleFile(f);
 });
 
-/* ============================================================
-   Load PDF
-   ============================================================ */
 function handleFile(file){
   if(!/\.pdf$/i.test(file.name)&&file.type!=="application/pdf"){
     return flash("Please choose a PDF file");
@@ -868,7 +795,6 @@ function handleFile(file){
   state.pageSlots=[];
   $("resultCard").hidden=true;
   say("Loading file…");
-
   var r=new FileReader();
   r.onload=function(){
     state.arrayBuffer=r.result;
@@ -881,19 +807,16 @@ function handleFile(file){
 function bootPdf(){
   if(!window.pdfjsLib)return say("PDF library failed to load.","err");
   var pdfjsLib=window.pdfjsLib;
-
   pdfjsLib.getDocument({data:state.arrayBuffer.slice(0)}).promise
     .then(function(doc){
       state.pdfDoc=doc;
       state.pageCount=doc.numPages;
-
       $("intake").style.display="none";
       $("editor").classList.add("show");
-
       $("fileName").textContent=state.file.name;
       $("fileMeta").textContent=state.pageCount+" page"+(state.pageCount===1?"":"s")+" · "+bytes(state.file.size);
       $("viewerInfo").textContent=state.pageCount+" page"+(state.pageCount===1?"":"s");
-
+      updateZoomUI();
       buildViewer();
       updateModeUI();
       updateSelUI();
@@ -906,33 +829,19 @@ function bootPdf(){
 }
 
 /* ============================================================
-   Build viewer with all pages
+   Build viewer
    ============================================================ */
 function buildViewer(){
   var scroll=$("viewerScroll");
   scroll.innerHTML="";
   state.pageSlots=[];
-
-  // Base display width for pages — fit within viewer
-  var baseW = computeBaseWidth();
-
+  var targetW = effectiveWidth();
   for(var i=1;i<=state.pageCount;i++){
-    var slot = createPageSlot(i, baseW);
+    var slot = createPageSlot(i, targetW);
     scroll.appendChild(slot.el);
     state.pageSlots.push(slot);
   }
-
-  // Setup lazy rendering
   setupObserver();
-}
-
-function computeBaseWidth(){
-  var scroll=$("viewerScroll");
-  var availW = scroll.clientWidth - 40;
-  // Target width for a "page" — cap for readability
-  var maxW = 720;
-  var w = Math.min(availW, maxW);
-  return Math.max(240, w) * state.zoom;
 }
 
 function createPageSlot(n, targetW){
@@ -958,30 +867,28 @@ function createPageSlot(n, targetW){
   hint.textContent="Click to mark for deletion";
   canvasWrap.appendChild(hint);
 
-  // Placeholder before render
   var placeholder = document.createElement("div");
   placeholder.className="page-placeholder";
-  // Rough aspect ratio placeholder (US Letter-ish)
   var ph = Math.round(targetW * 1.294);
   placeholder.style.width = targetW + "px";
   placeholder.style.height = ph + "px";
+  placeholder.style.maxWidth = "100%";
   placeholder.innerHTML = '<div class="spin"></div>';
   canvasWrap.appendChild(placeholder);
 
   var canvas = document.createElement("canvas");
   canvas.style.display = "none";
   canvas.style.width = targetW + "px";
+  canvas.style.maxWidth = "100%";
   canvasWrap.appendChild(canvas);
 
   wrap.appendChild(canvasWrap);
 
-  // Click handler
   canvasWrap.addEventListener("click", function(e){
     e.preventDefault();
     togglePage(n);
   });
 
-  // Keyboard for accessibility
   wrap.tabIndex = 0;
   wrap.setAttribute("role","checkbox");
   wrap.setAttribute("aria-checked","false");
@@ -1003,13 +910,9 @@ function createPageSlot(n, targetW){
   };
 }
 
-/* ============================================================
-   Lazy render via IntersectionObserver
-   ============================================================ */
 function setupObserver(){
   if(state.observer) state.observer.disconnect();
   if(!("IntersectionObserver" in window)){
-    // Fallback: render all pages
     state.pageSlots.forEach(function(s){ renderPage(s); });
     return;
   }
@@ -1027,7 +930,6 @@ function setupObserver(){
     root: $("viewerScroll"),
     rootMargin: "400px 0px"
   });
-
   state.pageSlots.forEach(function(s){
     state.observer.observe(s.el);
   });
@@ -1036,7 +938,7 @@ function setupObserver(){
 function renderPage(slot){
   if(slot.rendered) return;
   if(!state.pdfDoc) return;
-  slot.rendered = true; // prevent duplicate
+  slot.rendered = true;
 
   state.pdfDoc.getPage(slot.pageNum).then(function(page){
     var vp = page.getViewport({scale:1});
@@ -1049,6 +951,7 @@ function renderPage(slot){
     slot.canvas.height = Math.round(svp.height * dpr);
     slot.canvas.style.width = Math.round(svp.width) + "px";
     slot.canvas.style.height = Math.round(svp.height) + "px";
+    slot.canvas.style.maxWidth = "100%";
 
     var ctx = slot.canvas.getContext("2d");
     ctx.fillStyle = "#fff";
@@ -1099,36 +1002,30 @@ function refreshAllPageSlots(){
 }
 
 /* ============================================================
-   Selection UI (right panel)
+   Selection UI
    ============================================================ */
 function updateSelUI(){
   var sel=state.selected.size;
   var total=state.pageCount;
   var effective = state.mode==="delete" ? sel : total - sel;
-
   $("selCount").textContent = String(effective);
   $("selBadge").textContent = String(sel);
   $("selLabel").textContent = state.mode==="delete"
     ? "page"+(effective===1?"":"s")+" marked for deletion"
     : "page"+(effective===1?"":"s")+" will remain after deletion";
-
   var warn=$("selWarn");
   warn.textContent="";
   if(state.mode==="delete"&&sel===total&&total>0)warn.textContent="Cannot delete every page";
   else if(state.mode==="keep"&&sel===0&&total>0)warn.textContent="Select at least one page to keep";
-
   var canApply = state.mode==="delete"
     ? (sel>0 && sel<total)
     : (sel>0 && sel<total);
   if(state.mode==="keep"&&sel===total)canApply=false;
   $("applyBtn").disabled=!canApply;
-
   var lbl = $("applyBtnText");
   lbl.textContent = state.mode==="delete"
     ? (sel===0?"Delete selected pages":"Delete "+sel+" page"+(sel===1?"":"s"))
     : (sel===0?"Keep selected pages":"Keep "+sel+" page"+(sel===1?"":"s"));
-
-  // Selected list
   renderSelectedList();
 }
 
@@ -1153,7 +1050,6 @@ function renderSelectedList(){
         togglePage(n);
         return;
       }
-      // Click row → scroll to that page in the viewer
       var slot = state.pageSlots[n-1];
       if(slot){
         slot.el.scrollIntoView({behavior:"smooth", block:"start"});
@@ -1256,58 +1152,82 @@ document.querySelectorAll("[data-quick]").forEach(function(btn){
 });
 
 /* ============================================================
-   Zoom
+   ZOOM — the fixed version
    ============================================================ */
+
+function updateZoomUI(){
+  $("zoomLevel").textContent = Math.round(state.zoom*100) + "%";
+  var m = maxZoom();
+  $("zoomIn").disabled = state.zoom >= m - 0.001;
+  $("zoomOut").disabled = state.zoom <= 0.35;
+}
+
 function setZoom(z){
-  z = Math.max(0.4, Math.min(2.5, z));
-  if(Math.abs(z-state.zoom) < 0.01) return;
+  var m = maxZoom();
+  z = Math.max(0.35, Math.min(m, z));
+  if (Math.abs(z - state.zoom) < 0.005) return;
   state.zoom = z;
-  $("zoomLevel").textContent = Math.round(z*100)+"%";
-  // Rebuild all page slots at new width — but preserve selection
+  updateZoomUI();
+
+  // Preserve scroll position — find which page is at top
   var scroll = $("viewerScroll");
-  var scrollTop = scroll.scrollTop;
-  // Save which page is at top
   var visiblePage = 1;
   for(var i=0;i<state.pageSlots.length;i++){
-    var slot = state.pageSlots[i];
-    var rect = slot.el.getBoundingClientRect();
-    if(rect.top >= 0){ visiblePage = slot.pageNum; break; }
+    var rect = state.pageSlots[i].el.getBoundingClientRect();
+    if(rect.bottom > 0){ visiblePage = state.pageSlots[i].pageNum; break; }
   }
+  var viewportRect = scroll.getBoundingClientRect();
+  var offsetFromTop = 0;
+  if (state.pageSlots[visiblePage-1]){
+    offsetFromTop = state.pageSlots[visiblePage-1].el.getBoundingClientRect().top - viewportRect.top;
+  }
+
+  // Rebuild with new width
   buildViewer();
   refreshAllPageSlots();
-  // Restore scroll to visible page
-  setTimeout(function(){
+
+  // Restore scroll
+  requestAnimationFrame(function(){
     var target = state.pageSlots[visiblePage-1];
-    if(target) target.el.scrollIntoView({block:"start"});
-  }, 50);
+    if (target){
+      var newTop = target.el.getBoundingClientRect().top - viewportRect.top;
+      scroll.scrollTop += (newTop - offsetFromTop);
+    }
+  });
 }
-$("zoomIn").addEventListener("click",function(){ setZoom(state.zoom+0.15); });
-$("zoomOut").addEventListener("click",function(){ setZoom(state.zoom-0.15); });
-$("zoomFit").addEventListener("click",function(){
+
+$("zoomIn").addEventListener("click", function(){
+  setZoom(state.zoom + 0.15);
+});
+$("zoomOut").addEventListener("click", function(){
+  setZoom(state.zoom - 0.15);
+});
+$("zoomFit").addEventListener("click", function(){
   state.zoom = 1;
-  $("zoomLevel").textContent = "100%";
+  updateZoomUI();
   buildViewer();
   refreshAllPageSlots();
+  $("viewerScroll").scrollTo({top:0, behavior:"smooth"});
 });
-$("goTop").addEventListener("click",function(){
+$("goTop").addEventListener("click", function(){
   $("viewerScroll").scrollTo({top:0, behavior:"smooth"});
 });
 
-/* Ctrl + wheel zoom */
+// Ctrl + wheel zoom
 $("viewerScroll").addEventListener("wheel",function(e){
   if(!(e.ctrlKey||e.metaKey)) return;
   e.preventDefault();
-  setZoom(state.zoom * (e.deltaY<0?1.1:1/1.1));
+  setZoom(state.zoom * (e.deltaY < 0 ? 1.08 : 1/1.08));
 }, {passive:false});
 
-/* Keyboard zoom */
+// Keyboard zoom
 document.addEventListener("keydown",function(e){
   if(!state.pdfDoc) return;
   if(e.target.matches("input,textarea,select")) return;
   if((e.ctrlKey||e.metaKey) && (e.key==="="||e.key==="+")){
-    e.preventDefault(); setZoom(state.zoom+0.15);
+    e.preventDefault(); setZoom(state.zoom + 0.15);
   } else if((e.ctrlKey||e.metaKey) && (e.key==="-"||e.key==="_")){
-    e.preventDefault(); setZoom(state.zoom-0.15);
+    e.preventDefault(); setZoom(state.zoom - 0.15);
   } else if((e.ctrlKey||e.metaKey) && e.key==="0"){
     e.preventDefault(); $("zoomFit").click();
   }
@@ -1319,7 +1239,6 @@ document.addEventListener("keydown",function(e){
 $("applyBtn").addEventListener("click",function(){
   if(!state.arrayBuffer)return flash("Load a PDF first");
   if(!window.PDFLib)return say("PDF library failed to load.","err");
-
   var total=state.pageCount;
   var keep=[];
   if(state.mode==="delete"){
@@ -1329,12 +1248,10 @@ $("applyBtn").addEventListener("click",function(){
     Array.from(state.selected).sort(function(a,b){return a-b;}).forEach(function(n){keep.push(n-1);});
     if(keep.length===0)return flash("Select at least one page to keep");
   }
-
   $("applyBtn").disabled=true;
   $("progress").classList.add("show");
   $("progressBar").style.width="10%";
   say("Building new PDF…");
-
   (async function(){
     try{
       var PDFLib=window.PDFLib;
@@ -1345,12 +1262,10 @@ $("applyBtn").addEventListener("click",function(){
       $("progressBar").style.width="80%";
       var bytesOut=await out.save({useObjectStreams:true});
       $("progressBar").style.width="100%";
-
       state.outputBlob=new Blob([bytesOut],{type:"application/pdf"});
       var base=state.file.name.replace(/\.pdf$/i,"");
       var suffix=state.mode==="delete"?"-pages-removed":"-pages-kept";
       state.outputName=base+suffix+".pdf";
-
       $("resultCard").hidden=false;
       $("resultMsg").innerHTML="Removed <strong>"+(total-keep.length)+"</strong> page"+(total-keep.length===1?"":"s")+
         " · <strong>"+keep.length+"</strong> page"+(keep.length===1?"":"s")+" remain";
@@ -1381,9 +1296,6 @@ $("downloadBtn").addEventListener("click",function(){
   flash("Downloaded");
 });
 
-/* ============================================================
-   Reset
-   ============================================================ */
 function resetAll(){
   state.file=null;
   state.arrayBuffer=null;
@@ -1402,7 +1314,7 @@ function resetAll(){
   $("resultCard").hidden=true;
   $("rangeInput").value="";
   $("rangeInput").classList.remove("invalid");
-  $("zoomLevel").textContent="100%";
+  updateZoomUI();
   say("");
 }
 
@@ -1425,18 +1337,25 @@ $("anotherBtn").addEventListener("click",function(){
 });
 
 /* ============================================================
-   Resize — rebuild page widths
+   Resize — rebuild page widths and re-clamp zoom
    ============================================================ */
 var resizeTimer=null;
 window.addEventListener("resize",function(){
   clearTimeout(resizeTimer);
   resizeTimer=setTimeout(function(){
     if(state.pdfDoc){
+      // If the viewer got narrower, the current zoom might now be too big.
+      var m = maxZoom();
+      if (state.zoom > m) state.zoom = m;
+      updateZoomUI();
       buildViewer();
       refreshAllPageSlots();
     }
   }, 300);
 });
+
+// Initial UI state
+updateZoomUI();
 
 })();
 </script>
