@@ -1,22 +1,28 @@
 {
-  "name": "ToolNest",
-  "short_name": "QR Tools",
-  "description": "Free browser-based tools for text, files, images, PDFs, code and QR codes.",
+  "name": "LocalTools — Free Browser Tools",
+  "short_name": "LocalTools",
+  "description": "Free browser-based tools for text, files, images, PDFs and code. Nothing is uploaded — everything runs locally on your device.",
   "start_url": "/tools/",
   "scope": "/",
   "display": "standalone",
+  "orientation": "any",
   "background_color": "#EDEDE9",
   "theme_color": "#1B4DFF",
+  "categories": ["utilities", "productivity"],
+  "lang": "en",
+  "dir": "ltr",
   "icons": [
     {
       "src": "/assets/img/icons/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "/assets/img/icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
