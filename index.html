@@ -15,12 +15,12 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="LocalTools">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="Free Online Tools & QR Scanner">
-<meta property="og:description" content="Free browser tools — QR scanner, word counter, PDF tools, image tools and more.">
+<meta property="og:title" content="Free Online Tools">
+<meta property="og:description" content="Free browser tools — PDF, image tools, word counter, QR scanner and more.">
 <meta property="og:url" content="https://localtools.co.in/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Free Online Tools & QR Scanner">
-<meta name="twitter:description" content="Free browser tools — QR scanner, word counter, PDF tools and more.">
+<meta name="twitter:title" content="Free Online Tools">
+<meta name="twitter:description" content="Free browser tools — PDF, image tools, word counter, QR scanner and more.">
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3576991570329575" crossorigin="anonymous"></script>
 
@@ -33,7 +33,7 @@
       "@id":"https://localtools.co.in/#website",
       "url":"https://localtools.co.in/",
       "name":"LocalTools",
-      "description":"Free browser tools including a QR code scanner, word counter, PDF utilities and developer helpers.",
+      "description":"Free browser tools including a PDF utilities, Image tools, word counter, QR code scanner and developer helpers.",
       "potentialAction":{
         "@type":"SearchAction",
         "target":"https://localtools.co.in/tools/?q={search_term_string}",
@@ -594,14 +594,55 @@ footer nav a:hover{color:var(--blue);text-decoration:underline}
    ============================================================ */
 
 const TOOLS = [
-  { id:'qr-scanner',    name:'QR Scanner & Generator', desc:'Scan or create QR codes for URLs, Wi-Fi, UPI and contacts.', cat:'generator', path:'/tools/qrscanner/' },
-  { id:'word-counter',  name:'Word Counter',           desc:'Count words, characters, sentences and reading time.',      cat:'text',      path:'/tools/text/word-counter.html' },
-  { id:'case-converter',name:'Case Converter',         desc:'Convert text case — UPPER, lower, Title, Sentence and more.',cat:'text',     path:'/tools/text/case-converter.html' },
-  { id:'json-format',   name:'JSON Formatter',         desc:'Beautify, minify and validate JSON.',                        cat:'developer', path:'/tools/dev/json-format.html' },
-  { id:'json-csv',      name:'JSON ↔ CSV',             desc:'Convert between JSON and CSV, flattening nested objects.',   cat:'convert',   path:'/tools/convert/json-csv.html' },
-  { id:'password',      name:'Password Generator',     desc:'Strong random passwords using cryptographic randomness.',    cat:'security',  path:'/tools/security/password.html' },
-  { id:'pdf-editor',    name:'PDF Editor',             desc:'Edit text, sign, highlight and add images to any PDF.',      cat:'pdf',       path:'/tools/pdf/pdf-editor.html' },
-  { id:'bg-remover',    name:'Background Remover',     desc:'Remove image backgrounds with AI in your browser.',          cat:'image',     path:'/tools/image/background-remover.html' }
+  /* ---------- Text ---------- */
+  { id:'word-counter',    name:'Word Counter',                desc:'Count words, characters, sentences and reading time.',                 cat:'text',      path:'/tools/text/word-counter.html' },
+  { id:'case-converter',  name:'Case Converter',              desc:'Convert text to UPPER, lower, Title and Sentence case.',              cat:'text',      path:'/tools/text/case-converter.html' },
+
+  /* ---------- Convert ---------- */
+  { id:'json-csv',        name:'JSON ↔ CSV',                  desc:'Convert between JSON and CSV instantly.',                             cat:'convert',   path:'/tools/convert/json-csv.html' },
+
+  /* ---------- Developer ---------- */
+  { id:'json-format',     name:'JSON Formatter',              desc:'Beautify, minify and validate JSON.',                                 cat:'dev',       path:'/tools/dev/json-format.html' },
+
+  /* ---------- Security ---------- */
+  { id:'password',        name:'Password Generator',          desc:'Strong random passwords with custom rules.',                          cat:'security',  path:'/tools/security/password.html' },
+
+  /* ---------- Calculators ---------- */
+  { id:'percentage',      name:'Percentage Calculator',       desc:'Solve percentage increase, decrease, and "X% of Y" instantly.',       cat:'calc',      path:'/tools/calc/percentage.html' },
+  { id:'age',             name:'Age Calculator',              desc:'Calculate exact age in years, months, days from any birth date.',     cat:'calc',      path:'/tools/calc/age.html' },
+  { id:'bmi',             name:'BMI Calculator',              desc:'Body Mass Index with healthy weight range guidance.',                 cat:'calc',      path:'/tools/calc/bmi.html' },
+  { id:'loan',            name:'Loan / EMI Calculator',       desc:'Monthly payment, total interest and full payment schedule.',          cat:'calc',      path:'/tools/calc/loan.html' },
+  { id:'date-diff',       name:'Date Difference',             desc:'Days, weeks, months and years between any two dates.',                cat:'calc',      path:'/tools/calc/date-diff.html' },
+  { id:'compound',        name:'Compound Interest',           desc:'Project savings growth with monthly or yearly contributions.',       cat:'calc',      path:'/tools/calc/compound.html' },
+  { id:'gst',             name:'GST Calculator',              desc:'Add or remove GST at any rate. Indian GST rates included.',           cat:'calc',      path:'/tools/calc/gst.html' },
+  { id:'tip',             name:'Tip & Bill Splitter',         desc:'Calculate tip, split the bill equally or by item.',                   cat:'calc',      path:'/tools/calc/tip.html' },
+  { id:'calorie',         name:'Calorie / TDEE Calculator',   desc:'Daily calorie needs based on age, weight, height and activity.',      cat:'calc',      path:'/tools/calc/calorie.html' },
+
+  /* ---------- Image ---------- */
+  { id:'image-compress',  name:'Image Compressor',            desc:'Reduce image file size without losing visible quality.',              cat:'image',     path:'/tools/image/image-compress.html' },
+  { id:'image-resize',    name:'Image Resizer',               desc:'Resize images to exact dimensions or by percentage.',                 cat:'image',     path:'/tools/image/image-resize.html' },
+  { id:'bg-remover',      name:'Background Remover',          desc:'Remove the background from any image with AI.',                       cat:'image',     path:'/tools/image/background-remover.html' },
+  { id:'image-to-text',   name:'Image to Text (OCR)',         desc:'Extract text from images in 17 languages.',                           cat:'image',     path:'/tools/image/image-to-text.html' },
+  { id:'image-convert',   name:'Image Converter',             desc:'Convert between PNG, JPG, WebP and BMP.',                             cat:'image',     path:'/tools/image/image-convert.html' },
+  { id:'image-crop',      name:'Image Cropper',               desc:'Crop images to any ratio — square, 16:9, 4:3, story or custom.',      cat:'image',     path:'/tools/image/image-crop.html' },
+  { id:'image-base64',    name:'Image to Base64',             desc:'Encode an image as Base64 data URL or decode Base64 back.',           cat:'image',     path:'/tools/image/image-base64.html' },
+  { id:'exif',            name:'EXIF Viewer',                 desc:'View and strip metadata from photos — GPS, camera model, date.',      cat:'image',     path:'/tools/image/exif.html' },
+  { id:'favicon',         name:'Favicon Generator',           desc:'Generate all favicon sizes from one image, including .ico.',          cat:'image',     path:'/tools/image/favicon.html' },
+
+  /* ---------- PDF ---------- */
+  { id:'pdf-editor',      name:'PDF Editor',                  desc:'Add text, highlights, images, signatures. Reorder and rotate pages.', cat:'pdf',       path:'/tools/pdf/pdf-editor.html' },
+  { id:'delete-pages',    name:'Delete PDF Pages',            desc:'Remove unwanted pages from any PDF with a full-page viewer.',         cat:'pdf',       path:'/tools/pdf/delete-pages.html' },
+  { id:'pdf-merge',       name:'Merge PDF',                   desc:'Combine multiple PDFs into one file.',                                cat:'pdf',       path:'/tools/pdf/pdf-merge.html' },
+  { id:'pdf-split',       name:'Split PDF',                   desc:'Split a PDF into separate pages, ranges or every N pages.',           cat:'pdf',       path:'/tools/pdf/pdf-split.html' },
+  { id:'pdf-compress',    name:'Compress PDF',                desc:'Reduce PDF file size by re-encoding images.',                         cat:'pdf',       path:'/tools/pdf/pdf-compress.html' },
+  { id:'pdf-rotate',      name:'Rotate PDF',                  desc:'Rotate PDF pages 90°, 180° or 270° and save.',                        cat:'pdf',       path:'/tools/pdf/pdf-rotate.html' },
+  { id:'pdf-to-img',      name:'PDF to JPG',                  desc:'Render PDF pages as JPG or PNG images.',                              cat:'pdf',       path:'/tools/pdf/pdf-to-img.html' },
+  { id:'img-to-pdf',      name:'JPG to PDF',                  desc:'Combine images into a single PDF.',                                   cat:'pdf',       path:'/tools/pdf/img-to-pdf.html' },
+  { id:'pdf-text',        name:'Extract PDF Text',            desc:'Extract all text from a PDF for copy-paste or download.',             cat:'pdf',       path:'/tools/pdf/pdf-text.html' },
+  { id:'pdf-numbers',     name:'Add Page Numbers',            desc:'Add page numbers to the bottom of every page.',                       cat:'pdf',       path:'/tools/pdf/pdf-numbers.html' },
+
+  /* ---------- Generators ---------- */
+  { id:'qr-scanner',      name:'QR Scanner & Generator',      desc:'Scan QR codes with your camera, or create them for URLs, Wi-Fi and UPI.', cat:'generate', path:'/tools/qrscanner/' }
 ];
 
 (function(){
@@ -610,7 +651,7 @@ const TOOLS = [
   let activeIdx = -1;
   let current   = [];
 
-  function esc(s){ return s.replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c])); }
+  function esc(s){ return String(s).replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c])); }
 
   function renderResults(list, query){
     current = list;
@@ -648,7 +689,7 @@ const TOOLS = [
       t.name.toLowerCase().includes(s) ||
       t.desc.toLowerCase().includes(s) ||
       t.cat.toLowerCase().includes(s)
-    ).slice(0, 6);
+    ).slice(0, 8);
   }
 
   let debounce;
