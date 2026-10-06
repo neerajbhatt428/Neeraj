@@ -552,10 +552,10 @@ footer a:hover{color:var(--blue)}
   <p><strong>x!</strong> computes factorials. <strong>nCr</strong> and <strong>nPr</strong> handle combinations and permutations. Example: to compute 5 choose 2, type <code>5 nCr 2</code> = 10.</p>
 
   <h3>Memory</h3>
-  <p>Use <strong>M+</strong> to add the current result to memory, <strong>MR</strong> to recall it, <strong>MC</strong> to clear. The <strong>M</strong> indicator lights up whenever memory contains a value.</p>
+  <p>Use <strong>M+</strong> to add the current result to memory, <strong>MR</strong> to recall it, <strong>MC</strong> to clear. In 2nd mode, <strong>M−</strong> subtracts from memory and <strong>MS</strong> stores a value. The <strong>M</strong> indicator lights up whenever memory contains a value.</p>
 
   <h3>Engineering notation</h3>
-  <p>Press <strong>EXP</strong> to enter scientific notation. For example <code>1.5 EXP -3</code> means 1.5 × 10⁻³ = 0.0015.</p>
+  <p>Press <strong>EXP</strong> to enter scientific notation. For example <code>1.5E-3</code> means 1.5 × 10⁻³ = 0.0015.</p>
 
   <h3>Second functions</h3>
   <p>Tap <strong>2nd</strong> to toggle the second-function layer. The button labels light up in amber to show you the alternate functions. Press again to return.</p>
@@ -566,6 +566,8 @@ footer a:hover{color:var(--blue)}
     <li><kbd>+</kbd> <kbd>−</kbd> <kbd>*</kbd> <kbd>/</kbd> — operators</li>
     <li><kbd>(</kbd> <kbd>)</kbd> — parentheses</li>
     <li><kbd>^</kbd> — power</li>
+    <li><kbd>!</kbd> <kbd>%</kbd> — factorial, percent</li>
+    <li><kbd>s</kbd> <kbd>c</kbd> <kbd>t</kbd> <kbd>l</kbd> <kbd>r</kbd> <kbd>p</kbd> — sin, cos, tan, ln, √, π</li>
     <li><kbd>Enter</kbd> or <kbd>=</kbd> — equals</li>
     <li><kbd>Backspace</kbd> — delete last character</li>
     <li><kbd>Esc</kbd> or <kbd>Delete</kbd> — clear everything</li>
@@ -668,272 +670,140 @@ function gamma(z){
   return Math.sqrt(2 * Math.PI) * Math.pow(t, z + 0.5) * Math.exp(-t) * x;
 }
 function nCr(n, r){
-  if (!Number.isInteger(n) || !Number.isInteger(r)) throw new Error('nCr requires integers');
+  if (!Number.isInteger(n) || !Number.isInteger(r) || n < 0) throw new Error('nCr needs whole numbers');
   if (r < 0 || r > n) return 0;
-  return Math.round(factorial(n) / (factorial(r) * factorial(n - r)));
+  r = Math.min(r, n - r);
+  let v = 1;
+  for (let i = 1; i <= r; i++) v = v * (n - r + i) / i;
+  return Math.round(v);
 }
 function nPr(n, r){
-  if (!Number.isInteger(n) || !Number.isInteger(r)) throw new Error('nPr requires integers');
+  if (!Number.isInteger(n) || !Number.isInteger(r) || n < 0) throw new Error('nPr needs whole numbers');
   if (r < 0 || r > n) return 0;
-  return Math.round(factorial(n) / factorial(n - r));
+  let v = 1;
+  for (let i = 0; i < r; i++) v *= n - i;
+  return v;
 }
+function toRad(x, m){ return m === 'DEG' ? x * Math.PI / 180 : m === 'GRAD' ? x * Math.PI / 200 : x; }
+function fromRad(x, m){ return m === 'DEG' ? x * 180 / Math.PI : m === 'GRAD' ? x * 200 / Math.PI : x; }
+const clean = x => Math.abs(x) < 1e-15 ? 0 : x;
+const numStr = v => v < 0 ? '(' + v + ')' : String(v);
+const need = (ok, msg) => { if (!ok) throw new Error(msg); };
 
-/* ============================================================
-   Angle conversions
-   ============================================================ */
-function toRad(x, mode){
-  if (mode === 'DEG') return x * Math.PI / 180;
-  if (mode === 'GRAD') return x * Math.PI / 200;
-  return x;
-}
-function fromRad(x, mode){
-  if (mode === 'DEG') return x * 180 / Math.PI;
-  if (mode === 'GRAD') return x * 200 / Math.PI;
-  return x;
-}
+const FN = {
+  sin: (x, m) => clean(Math.sin(toRad(x, m))),
+  cos: (x, m) => clean(Math.cos(toRad(x, m))),
+  tan: (x, m) => { const r = toRad(x, m); need(Math.abs(Math.cos(r)) > 1e-12, 'tan undefined here'); return clean(Math.tan(r)); },
+  asin: (x, m) => { need(Math.abs(x) <= 1, 'asin needs −1 to 1'); return fromRad(Math.asin(x), m); },
+  acos: (x, m) => { need(Math.abs(x) <= 1, 'acos needs −1 to 1'); return fromRad(Math.acos(x), m); },
+  atan: (x, m) => fromRad(Math.atan(x), m),
+  sinh: Math.sinh, cosh: Math.cosh, tanh: Math.tanh, asinh: Math.asinh,
+  acosh: x => { need(x >= 1, 'acosh needs ≥ 1'); return Math.acosh(x); },
+  atanh: x => { need(Math.abs(x) < 1, 'atanh needs −1 to 1'); return Math.atanh(x); },
+  ln: x => { need(x > 0, 'ln needs > 0'); return Math.log(x); },
+  log: x => { need(x > 0, 'log needs > 0'); return Math.log10(x); },
+  sqrt: x => { need(x >= 0, '√ of negative'); return Math.sqrt(x); },
+  cbrt: Math.cbrt, abs: Math.abs, exp: Math.exp
+};
 
-/* ============================================================
-   Tokenizer
-   ============================================================ */
-const FUNCS = ['asin','acos','atan','sinh','cosh','tanh','asinh','acosh','atanh',
-               'sin','cos','tan','log','ln','sqrt','cbrt','abs','exp','nCr','nPr','fact','neg'];
-
-function tokenize(str){
-  const tokens = [];
-  let i = 0;
-  while (i < str.length){
-    const c = str[i];
-    if (c === ' '){ i++; continue; }
-    // Number
-    if (/\d/.test(c) || (c === '.' && /\d/.test(str[i+1]||''))){
-      let num = '';
-      while (i < str.length && /[\d.]/.test(str[i])) num += str[i++];
-      tokens.push({ type:'num', value: parseFloat(num) });
-      continue;
+/* Tokenizer: accepts typed (* / -) and keypad (× ÷ −) symbols, 1.5E-3 notation, ʸ√, √, ∛, π */
+function tokenize(s){
+  s = s.replace(/×/g, '*').replace(/÷/g, '/').replace(/[−–]/g, '-');
+  const t = []; let i = 0, m;
+  while (i < s.length){
+    const r = s.slice(i);
+    if ((m = /^\s+/.exec(r))){ i += m[0].length; continue; }
+    if ((m = /^(\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?/.exec(r))){ t.push({k:'n', v:parseFloat(m[0])}); i += m[0].length; continue; }
+    if (r.startsWith('ʸ√')){ t.push({k:'o', v:'root'}); i += 2; continue; }
+    if (r[0] === '√'){ t.push({k:'f', v:'sqrt'}); i++; continue; }
+    if (r[0] === '∛'){ t.push({k:'f', v:'cbrt'}); i++; continue; }
+    if (r[0] === 'π'){ t.push({k:'c', v:Math.PI}); i++; continue; }
+    if ((m = /^[A-Za-z]+/.exec(r))){
+      const w = m[0].toLowerCase();
+      if (w === 'ncr' || w === 'npr') t.push({k:'o', v:w});
+      else if (w === 'ans') t.push({k:'c', v:state.ans});
+      else if (w === 'e') t.push({k:'c', v:Math.E});
+      else if (FN[w]) t.push({k:'f', v:w});
+      else throw new Error('Unknown "' + m[0] + '"');
+      i += m[0].length; continue;
     }
-    // e-notation typed as EXP
-    if (str.slice(i, i+3) === 'EXP'){
-      tokens.push({ type:'op', value:'E' });
-      i += 3;
-      continue;
-    }
-    // Function names (longest match first)
-    let matched = false;
-    for (const fn of FUNCS){
-      if (str.slice(i, i + fn.length).toLowerCase() === fn){
-        tokens.push({ type:'func', value: fn });
-        i += fn.length;
-        matched = true;
-        break;
-      }
-    }
-    if (matched) continue;
-    // Constants
-    if (c === 'π'){ tokens.push({ type:'const', value:'pi' }); i++; continue; }
-    if (c === 'e'){ tokens.push({ type:'const', value:'e' }); i++; continue; }
-    // Operators
-    if ('+-*/^%'.includes(c)){
-      tokens.push({ type:'op', value:c });
-      i++;
-      continue;
-    }
-    // Parens
-    if (c === '('){ tokens.push({ type:'lparen' }); i++; continue; }
-    if (c === ')'){ tokens.push({ type:'rparen' }); i++; continue; }
-    throw new Error('Unexpected "' + c + '"');
+    if ('+-*/^%!()'.includes(r[0])){ t.push({k:'o', v:r[0]}); i++; continue; }
+    throw new Error('Unexpected "' + r[0] + '"');
   }
-  return tokens;
+  return t;
 }
 
-/* Insert implicit multiplication: 2π → 2*π, 2(3) → 2*(3), (2)(3) → (2)*(3) */
-function insertImplicitMul(tokens){
-  const out = [];
-  for (let i = 0; i < tokens.length; i++){
-    out.push(tokens[i]);
-    if (i < tokens.length - 1){
-      const cur = tokens[i], next = tokens[i+1];
-      const curVal = cur.type === 'num' || cur.type === 'const' || cur.type === 'rparen';
-      const nextVal = next.type === 'num' || next.type === 'const' ||
-                      next.type === 'func' || next.type === 'lparen';
-      if (curVal && nextVal) out.push({ type:'op', value:'*' });
+/* Recursive-descent parser: + − < × ÷ / implicit × < nCr nPr < unary − < ^ ʸ√ < ! % < functions.
+   Missing ")" are auto-closed; "200+10%" works like a pocket calculator (= 220). */
+function compute(src, mode){
+  const T = tokenize(src); let p = 0;
+  const isO = v => T[p] && T[p].k === 'o' && T[p].v === v;
+  const startsPrimary = () => { const x = T[p]; return x && (x.k === 'n' || x.k === 'c' || x.k === 'f' || (x.k === 'o' && x.v === '(')); };
+  function expr(){
+    let a = term();
+    while (isO('+') || isO('-')){
+      const op = T[p++].v, s = p;
+      let b = term();
+      if (T[p-1].k === 'o' && T[p-1].v === '%' && p - s >= 2) b = a * b;
+      a = op === '+' ? a + b : a - b;
+    }
+    return a;
+  }
+  function term(){
+    let a = comb();
+    for (;;){
+      if (isO('*')){ p++; a *= comb(); }
+      else if (isO('/')){ p++; const b = comb(); need(b !== 0, 'Division by zero'); a /= b; }
+      else if (startsPrimary()) a *= comb();
+      else return a;
     }
   }
-  return out;
-}
-
-/* Detect unary minus → neg function */
-function handleUnaryMinus(tokens){
-  const out = [];
-  for (let i = 0; i < tokens.length; i++){
-    const t = tokens[i];
-    const prev = out[out.length - 1];
-    if (t.type === 'op' && t.value === '-' &&
-        (!prev || prev.type === 'op' || prev.type === 'lparen' || prev.type === 'func')){
-      out.push({ type:'func', value:'neg' });
-    } else {
-      out.push(t);
+  function comb(){
+    let a = unary();
+    while (T[p] && T[p].k === 'o' && (T[p].v === 'ncr' || T[p].v === 'npr')){
+      const o = T[p++].v, b = unary();
+      a = o === 'ncr' ? nCr(a, b) : nPr(a, b);
+    }
+    return a;
+  }
+  function unary(){
+    if (isO('-')){ p++; return -unary(); }
+    if (isO('+')){ p++; return unary(); }
+    return power();
+  }
+  function power(){
+    const a = post();
+    if (isO('^')){ p++; return Math.pow(a, unary()); }
+    if (isO('root')){
+      p++; const x = unary();
+      need(a !== 0, 'Zero root');
+      if (x < 0){ need(Number.isInteger(a) && a % 2 !== 0, 'Even root of negative'); return -Math.pow(-x, 1 / a); }
+      return Math.pow(x, 1 / a);
+    }
+    return a;
+  }
+  function post(){
+    let a = prim();
+    for (;;){
+      if (isO('!')){ p++; need(a >= 0, 'Factorial of negative'); a = factorial(a); }
+      else if (isO('%')){ p++; a /= 100; }
+      else return a;
     }
   }
-  return out;
-}
-
-/* ============================================================
-   Shunting yard
-   ============================================================ */
-const PRECEDENCE = { '+':1, '-':1, '*':2, '/':2, '%':2, '^':4, 'E':5 };
-const RIGHT_ASSOC = { '^':true, 'E':true };
-
-function toRPN(tokens){
-  const output = [];
-  const stack = [];
-  for (const tok of tokens){
-    if (tok.type === 'num' || tok.type === 'const'){
-      output.push(tok);
-    } else if (tok.type === 'func'){
-      stack.push(tok);
-    } else if (tok.type === 'op'){
-      while (stack.length){
-        const top = stack[stack.length - 1];
-        if (top.type !== 'op') break;
-        const topPrec = PRECEDENCE[top.value];
-        const curPrec = PRECEDENCE[tok.value];
-        if ((!RIGHT_ASSOC[tok.value] && topPrec >= curPrec) ||
-            (RIGHT_ASSOC[tok.value] && topPrec > curPrec)){
-          output.push(stack.pop());
-        } else break;
-      }
-      stack.push(tok);
-    } else if (tok.type === 'lparen'){
-      stack.push(tok);
-    } else if (tok.type === 'rparen'){
-      while (stack.length && stack[stack.length - 1].type !== 'lparen'){
-        output.push(stack.pop());
-      }
-      if (!stack.length) throw new Error('Missing (');
-      stack.pop();
-      if (stack.length && stack[stack.length - 1].type === 'func'){
-        output.push(stack.pop());
-      }
-    }
+  function group(){ p++; const v = expr(); if (isO(')')) p++; return v; }
+  function prim(){
+    const x = T[p];
+    need(x, 'Incomplete expression');
+    if (x.k === 'n' || x.k === 'c'){ p++; return x.v; }
+    if (x.k === 'f'){ p++; return FN[x.v](isO('(') ? group() : unary(), mode); }
+    if (x.k === 'o' && x.v === '(') return group();
+    throw new Error('Unexpected "' + x.v + '"');
   }
-  while (stack.length){
-    const t = stack.pop();
-    if (t.type === 'lparen' || t.type === 'rparen') throw new Error('Unbalanced ( )');
-    output.push(t);
-  }
-  return output;
-}
-
-/* ============================================================
-   RPN evaluator
-   ============================================================ */
-function evalRPN(rpn, angleMode){
-  const stack = [];
-  for (const tok of rpn){
-    if (tok.type === 'num'){
-      stack.push(tok.value);
-    } else if (tok.type === 'const'){
-      stack.push(tok.value === 'pi' ? Math.PI : Math.E);
-    } else if (tok.type === 'func'){
-      if (tok.value === 'neg'){
-        if (!stack.length) throw new Error('Missing number');
-        stack.push(-stack.pop());
-        continue;
-      }
-      if (tok.value === 'fact'){
-        if (!stack.length) throw new Error('Missing number');
-        stack.push(factorial(stack.pop()));
-        continue;
-      }
-      if (tok.value === 'nCr' || tok.value === 'nPr'){
-        if (stack.length < 2) throw new Error('nCr/nPr need two numbers');
-        const r = stack.pop();
-        const n = stack.pop();
-        stack.push(tok.value === 'nCr' ? nCr(n, r) : nPr(n, r));
-        continue;
-      }
-      if (!stack.length) throw new Error('Missing argument');
-      const x = stack.pop();
-      stack.push(applyFunc(tok.value, x, angleMode));
-    } else if (tok.type === 'op'){
-      if (stack.length < 2) throw new Error('Missing number');
-      const b = stack.pop();
-      const a = stack.pop();
-      stack.push(applyOp(tok.value, a, b));
-    }
-  }
-  if (stack.length !== 1) throw new Error('Invalid expression');
-  return stack[0];
-}
-
-function applyOp(op, a, b){
-  switch(op){
-    case '+': return a + b;
-    case '-': return a - b;
-    case '*': return a * b;
-    case '/':
-      if (b === 0) throw new Error('Division by zero');
-      return a / b;
-    case '%':
-      if (b === 0) throw new Error('Modulo by zero');
-      return a % b;
-    case '^': return Math.pow(a, b);
-    case 'E': return a * Math.pow(10, b);
-  }
-  throw new Error('Unknown operator');
-}
-
-function applyFunc(name, x, mode){
-  switch(name){
-    case 'sin': return Math.sin(toRad(x, mode));
-    case 'cos': return Math.cos(toRad(x, mode));
-    case 'tan': {
-      const r = toRad(x, mode);
-      // Guard against tan(90°) = Infinity
-      const c = Math.cos(r);
-      if (Math.abs(c) < 1e-12) throw new Error('tan undefined here');
-      return Math.tan(r);
-    }
-    case 'asin':
-      if (x < -1 || x > 1) throw new Error('asin needs −1 to 1');
-      return fromRad(Math.asin(x), mode);
-    case 'acos':
-      if (x < -1 || x > 1) throw new Error('acos needs −1 to 1');
-      return fromRad(Math.acos(x), mode);
-    case 'atan': return fromRad(Math.atan(x), mode);
-    case 'sinh': return Math.sinh(x);
-    case 'cosh': return Math.cosh(x);
-    case 'tanh': return Math.tanh(x);
-    case 'asinh': return Math.asinh(x);
-    case 'acosh':
-      if (x < 1) throw new Error('acosh needs ≥ 1');
-      return Math.acosh(x);
-    case 'atanh':
-      if (x <= -1 || x >= 1) throw new Error('atanh needs −1 to 1');
-      return Math.atanh(x);
-    case 'ln':
-      if (x <= 0) throw new Error('ln needs > 0');
-      return Math.log(x);
-    case 'log':
-      if (x <= 0) throw new Error('log needs > 0');
-      return Math.log10(x);
-    case 'sqrt':
-      if (x < 0) throw new Error('√ of negative');
-      return Math.sqrt(x);
-    case 'cbrt': return Math.cbrt(x);
-    case 'abs': return Math.abs(x);
-    case 'exp': return Math.exp(x);
-  }
-  throw new Error('Unknown function ' + name);
-}
-
-/* ============================================================
-   Main API
-   ============================================================ */
-function compute(expr, mode){
-  const tokens = handleUnaryMinus(insertImplicitMul(tokenize(expr)));
-  const rpn = toRPN(tokens);
-  return evalRPN(rpn, mode);
+  const v = expr();
+  if (p < T.length) throw new Error('Unexpected "' + T[p].v + '"');
+  need(!Number.isNaN(v), 'Math error');
+  need(Number.isFinite(v), 'Result too large');
+  return v;
 }
 
 /* ============================================================
@@ -945,7 +815,8 @@ const state = {
   second: false,
   memory: 0,
   ans: 0,
-  history: []
+  history: [],
+  fresh: false
 };
 
 const STORAGE_KEY = 'sci_calc_v1';
@@ -981,8 +852,8 @@ const BUTTONS = [
   ['2nd',    'toggleSecond', null, null, 'util'],
   ['DEG',    'cycleAngle',   null, null, 'util'],
   ['MC',     'memClear',     null, null, 'util'],
-  ['MR',     'memRecall',    null, null, 'util'],
-  ['M+',     'memPlus',      null, null, 'util'],
+  ['MR',     'memRecall',    'MS',   'memStore', 'util'],
+  ['M+',     'memPlus',      'M−',   'memMinus', 'util'],
   // Row 2
   ['sin',    'fn:sin',       'sin⁻¹', 'fn:asin', 'fn'],
   ['cos',    'fn:cos',       'cos⁻¹', 'fn:acos', 'fn'],
@@ -1006,7 +877,7 @@ const BUTTONS = [
   ['5',      'digit:5',      null, null, 'num'],
   ['6',      'digit:6',      null, null, 'num'],
   ['×',      'op:*',         null, null, 'op'],
-  ['CE',     'clearEntry',   null, null, 'clear'],
+  ['%',      'pct',          null, null, 'op'],
   // Row 6
   ['1',      'digit:1',      null, null, 'num'],
   ['2',      'digit:2',      null, null, 'num'],
@@ -1023,8 +894,8 @@ const BUTTONS = [
   ['π',      'const:pi',     'e',    'const:e',  'fn'],
   ['(',      'openParen',    null, null, 'op'],
   [')',      'closeParen',   null, null, 'op'],
-  ['|x|',    'fn:abs',       'EXP',  'exp_key',  'fn'],
-  ['ANS',    'ans',          null, null, 'fn']
+  ['EXP',    'exp_key',      '|x|',  'fn:abs',   'fn'],
+  ['ANS',    'ans',          '1/x',  'inv',      'fn']
 ];
 
 /* ============================================================
@@ -1069,6 +940,9 @@ function renderKeypad(){
    ============================================================ */
 function handleAction(action){
   if (!action) return;
+  // After "=", typing a new number/function starts fresh; operators continue from the result
+  if (state.fresh && /^(digit:|dot|fn:(?!fact)|const:|openParen|ans|memRecall|ten_pow)/.test(action)) state.expr = '';
+  if (!['toggleSecond','cycleAngle','equals','memClear','memPlus','memMinus','memStore'].includes(action)) state.fresh = false;
 
   // Digits
   if (action.startsWith('digit:')){
@@ -1090,7 +964,7 @@ function handleAction(action){
     if (op === 'nCr' || op === 'nPr'){
       state.expr += ' ' + op + ' ';
     } else if (op === 'root'){
-      state.expr += ' root(';
+      state.expr += 'ʸ√';
     } else {
       state.expr += op === '*' ? '×' : op === '/' ? '÷' : op === '-' ? '−' : op;
     }
@@ -1156,7 +1030,7 @@ function handleAction(action){
     return;
   }
   if (action === 'exp_key'){
-    state.expr += 'EXP';
+    state.expr += 'E';
     refresh();
     return;
   }
@@ -1177,7 +1051,7 @@ function handleAction(action){
     return;
   }
   if (action === 'ans'){
-    state.expr += String(state.ans);
+    state.expr += numStr(state.ans);
     refresh();
     return;
   }
@@ -1189,7 +1063,7 @@ function handleAction(action){
     return;
   }
   if (action === 'memRecall'){
-    state.expr += String(state.memory);
+    state.expr += numStr(state.memory);
     refresh();
     return;
   }
@@ -1216,6 +1090,17 @@ function handleAction(action){
     updateModeChips();
     recomputePreview();
     saveState();
+    return;
+  }
+  if (action === 'pct'){ state.expr += '%'; refresh(); return; }
+  if (action === 'inv'){ state.expr += '^(−1)'; refresh(); return; }
+  if (action === 'memStore' || action === 'memMinus'){
+    try {
+      const v = compute(state.expr || '0', state.angle);
+      state.memory = action === 'memStore' ? v : state.memory - v;
+      flash(action === 'memStore' ? 'Stored in memory' : 'Subtracted from memory');
+      updateModeChips(); saveState();
+    } catch(e){ toast('Enter a valid value first'); }
     return;
   }
   if (action === 'equals'){
@@ -1288,6 +1173,7 @@ function commitEquals(){
 
   // Replace expression with result so user can chain
   state.expr = fmt(v);
+  state.fresh = true;
   $('displayExpr').textContent = state.expr;
   state.second = false;
   renderKeypad();
@@ -1353,6 +1239,7 @@ $('copyBtn').addEventListener('click', () => {
 /* ============================================================
    Toast
    ============================================================ */
+function flash(msg){ toast(msg); }
 function toast(msg){
   const el = $('toast');
   el.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span>' + escapeHtml(msg) + '</span>';
@@ -1373,7 +1260,9 @@ document.addEventListener('keydown', e => {
     $('copyBtn').click();
     return;
   }
-  if (e.key >= '0' && e.key <= '9'){ state.expr += e.key; refresh(); flashPress(e.key); e.preventDefault(); return; }
+  if (e.key >= '0' && e.key <= '9'){ handleAction('digit:' + e.key); flashPress(e.key); e.preventDefault(); return; }
+  const extra = { '!':'fn:fact', '%':'pct', 'p':'const:pi', 'r':'fn:sqrt', 's':'fn:sin', 'c':'fn:cos', 't':'fn:tan', 'l':'fn:ln' };
+  if (!e.metaKey && !e.ctrlKey && extra[e.key]){ handleAction(extra[e.key]); e.preventDefault(); return; }
   if (e.key === '.'){ handleAction('dot'); flashPress('.'); e.preventDefault(); return; }
   if (e.key === '+'){ handleAction('op:+'); flashPress('+'); e.preventDefault(); return; }
   if (e.key === '-'){ handleAction('op:-'); flashPress('−'); e.preventDefault(); return; }
