@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scientific Calculator Online — Free Engineering &amp; Higher Studies Calculator</title>
+<meta name="description" content="Free scientific calculator for engineering students. Handles trigonometry, logarithms, powers, factorials, permutations, memory, DEG/RAD/GRAD modes, and history. Runs in your browser, no signup.">
+<link rel="canonical" href="https://localtools.co.in/tools/calc/scientific-calculator.html">
+<link rel="sitemap" type="application/xml" href="https://localtools.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#1B4DFF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Scientific Calculator — Free Engineering & Higher Studies Calculator">
+<meta property="og:description" content="Free scientific calculator for engineering students. Trig, logs, powers, factorials, memory, DEG/RAD/GRAD modes.">
+<meta property="og:url" content="https://localtools.co.in/tools/calc/scientific-calculator.html">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3576991570329575" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"WebApplication",
+      "name":"Scientific Calculator",
+      "url":"https://localtools.co.in/tools/calc/scientific-calculator.html",
+      "applicationCategory":"UtilitiesApplication",
+      "operatingSystem":"Any browser",
+      "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+      "featureList":[
+        "Trigonometry with DEG, RAD and GRAD modes",
+        "Inverse and hyperbolic functions",
+        "Logarithms and exponentials",
+        "Powers, roots and factorials",
+        "Combinations and permutations",
+        "Scientific notation with EXP",
+        "Memory storage",
+        "Calculation history",
+        "Keyboard support",
+        "Works offline"
+      ]
+    },
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://localtools.co.in/"},
+        {"@type":"ListItem","position":2,"name":"Tools","item":"https://localtools.co.in/tools/"},
+        {"@type":"ListItem","position":3,"name":"Scientific Calculator","item":"https://localtools.co.in/tools/calc/scientific-calculator.html"}
+      ]
+    },
+    {
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"Is this scientific calculator free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is completely free, runs entirely in your browser, and requires no signup."}},
+        {"@type":"Question","name":"Does it support degrees and radians?","acceptedAnswer":{"@type":"Answer","text":"Yes. Tap the DEG button to cycle between DEG, RAD and GRAD modes. The current mode is always shown on the display."}},
+        {"@type":"Question","name":"Can I do engineering calculations with fractions and scientific notation?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use the EXP button for scientific notation, and the calculator shows precise results for numbers like 1.23E-5."}},
+        {"@type":"Question","name":"Does it store my calculation history?","acceptedAnswer":{"@type":"Answer","text":"Yes. The last 20 calculations are saved in your browser. Click any entry to reuse it."}},
+        {"@type":"Question","name":"Does it work on mobile phones?","acceptedAnswer":{"@type":"Answer","text":"Yes. The layout is designed for touch, with large buttons sized for fingers. It works on iPhone, Android and tablets."}},
+        {"@type":"Question","name":"How do I type mathematical expressions?","acceptedAnswer":{"@type":"Answer","text":"Tap the buttons or use your keyboard. Supported keys include numbers, operators, parentheses, and Enter for equals."}}
+      ]
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/base.css">
+<style>
+:root{
+  --paper:#EDEDE9;--surface:#FFFFFF;--ink:#14161A;--muted:#6B7079;--line:#D6D6D0;
+  --blue:#1B4DFF;--blue-deep:#1338C4;--green:#0E7A5F;--red:#B0233A;--amber:#B87333;
+  --radius:6px;
+  --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --display:"Bricolage Grotesque",var(--sans);
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;
+  background-image:
+    linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 18px 64px}
+.masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
+.masthead a{color:inherit;text-decoration:none}
+.mark{width:26px;height:26px;flex:none}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.masthead .nav-right{margin-left:auto;font-size:.875rem;color:var(--blue);text-decoration:underline;white-space:nowrap}
+.crumbs{font-size:.8125rem;color:var(--muted);margin:0 0 18px;font-family:var(--mono)}
+.crumbs a{color:var(--muted);text-decoration:underline}
+.crumbs a:hover{color:var(--blue)}
+.crumbs span{color:var(--ink)}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
+.lede{margin:0 0 6px;font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.05;letter-spacing:-.03em}
+.sub{margin:0 0 22px;color:var(--muted);max-width:68ch;font-size:1rem}
+
+/* ============================================================
+   CALCULATOR LAYOUT
+   ============================================================ */
+.calc-shell{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:14px;
+  margin:0 0 40px;
+}
+@media(min-width:920px){
+  .calc-shell{grid-template-columns:minmax(0,1fr) 300px;align-items:start}
+}
+
+/* Calculator body */
+.calc{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 4px 24px -12px rgba(20,22,26,.2);
+}
+
+/* ---------- Display ---------- */
+.display{
+  background:#0F1117;
+  color:#fff;
+  padding:16px 18px 14px;
+  position:relative;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.display-modes{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin:0 0 10px;
+  font-family:var(--mono);
+  font-size:.625rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.mode-chip{
+  padding:2px 7px;
+  border-radius:3px;
+  background:rgba(255,255,255,.08);
+  color:rgba(255,255,255,.65);
+  font-weight:500;
+}
+.mode-chip.active{
+  background:var(--blue);
+  color:#fff;
+}
+.mode-chip.warn{
+  background:var(--amber);
+  color:#fff;
+}
+.display-spacer{flex:1}
+.icon-btn{
+  width:26px;height:26px;
+  border-radius:5px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05);
+  color:rgba(255,255,255,.65);
+  cursor:pointer;
+  display:grid;place-items:center;padding:0;
+  transition:background .12s,color .12s;
+}
+.icon-btn:hover{background:rgba(255,255,255,.12);color:#fff}
+.icon-btn svg{width:13px;height:13px}
+.icon-btn.on{background:var(--blue);border-color:var(--blue);color:#fff}
+
+.display-expr{
+  font-family:var(--mono);
+  font-size:1.25rem;
+  font-weight:500;
+  line-height:1.3;
+  min-height:1.7em;
+  word-break:break-all;
+  color:rgba(255,255,255,.85);
+  letter-spacing:.01em;
+  white-space:pre-wrap;
+}
+.display-expr .cursor{
+  display:inline-block;
+  width:2px;
+  height:1.1em;
+  background:var(--blue);
+  animation:blink 1s step-end infinite;
+  vertical-align:text-bottom;
+  margin-left:1px;
+}
+@keyframes blink{50%{opacity:0}}
+.display-result{
+  font-family:var(--mono);
+  font-size:1.75rem;
+  font-weight:600;
+  line-height:1.2;
+  min-height:1.3em;
+  color:#fff;
+  text-align:right;
+  margin:8px 0 0;
+  word-break:break-all;
+  letter-spacing:.005em;
+}
+.display-result.error{color:#FF6B6B;font-size:1.125rem}
+.display-result .note{
+  display:block;
+  font-size:.6875rem;
+  font-weight:400;
+  color:rgba(255,255,255,.4);
+  margin-top:4px;
+  font-family:var(--sans);
+}
+
+/* ---------- Keypad ---------- */
+.keypad{
+  padding:12px;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:6px;
+  background:#FAFAF8;
+}
+@media(max-width:520px){
+  .keypad{padding:8px;gap:5px}
+}
+.key{
+  font:inherit;
+  font-family:var(--sans);
+  font-size:.9375rem;
+  font-weight:500;
+  border-radius:8px;
+  border:1px solid var(--line);
+  background:var(--surface);
+  color:var(--ink);
+  padding:0;
+  height:50px;
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+  transition:background .1s,border-color .1s,transform .08s,color .1s;
+  user-select:none;
+  position:relative;
+}
+@media(max-width:520px){
+  .key{height:46px;font-size:.875rem}
+  .key.tiny{font-size:.75rem}
+}
+.key:hover{border-color:#A9A9A1}
+.key:active,.key.pressed{transform:translateY(1px);background:#F0F0EC}
+.key.num{font-family:var(--mono);font-weight:600;font-size:1.0625rem;background:var(--surface)}
+@media(max-width:520px){.key.num{font-size:1rem}}
+.key.op{
+  background:#EAEAF2;
+  color:var(--blue-deep);
+  font-size:1.0625rem;
+  font-weight:600;
+}
+.key.op:hover{background:#DDDDE8;border-color:#A0A0B8}
+.key.fn{
+  background:#F4F0FF;
+  color:#6A3FBF;
+  font-size:.8125rem;
+  font-weight:600;
+  border-color:#E4DEF5;
+}
+.key.fn:hover{background:#EBE3FF;border-color:#B8A5E5}
+.key.fn sup{font-size:.7em;vertical-align:super}
+.key.util{
+  background:#F0F0EC;
+  color:var(--muted);
+  font-size:.75rem;
+  font-weight:600;
+  letter-spacing:.02em;
+}
+.key.util:hover{background:#E7E7E2;color:var(--ink)}
+.key.util.on{
+  background:var(--blue);
+  border-color:var(--blue);
+  color:#fff;
+}
+.key.eq{
+  background:var(--blue);
+  border-color:var(--blue);
+  color:#fff;
+  font-weight:700;
+  font-size:1.25rem;
+  grid-column:span 1;
+}
+.key.eq:hover{background:var(--blue-deep);border-color:var(--blue-deep)}
+.key.eq:active{background:#0F2FA5}
+.key.clear{
+  background:#FDECE9;
+  color:var(--red);
+  font-weight:600;
+  border-color:#F2D6D1;
+}
+.key.clear:hover{background:#FCDDD6;border-color:#E5B8AF}
+.key.wide{grid-column:span 2}
+.key sup{font-size:.7em;vertical-align:super;margin-left:1px}
+.key sub{font-size:.7em;vertical-align:sub}
+
+/* Two-line label support for 2nd functions */
+.key .top-label{
+  font-size:.6875rem;
+  color:var(--amber);
+  position:absolute;
+  top:3px;left:6px;
+  font-family:var(--mono);
+  font-weight:600;
+  letter-spacing:0;
+}
+
+/* ============================================================
+   HISTORY
+   ============================================================ */
+.history-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:10px;
+  overflow:hidden;
+}
+.history-head{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 14px;
+  border-bottom:1px solid var(--line);
+  background:#FAFAF8;
+}
+.history-head h3{
+  font-family:var(--display);
+  font-weight:700;
+  font-size:.9375rem;
+  letter-spacing:-.01em;
+  margin:0;
+  flex:1;
+}
+.history-head button{
+  font:inherit;
+  font-size:.75rem;
+  color:var(--muted);
+  border:0;
+  background:none;
+  cursor:pointer;
+  padding:4px 8px;
+  border-radius:5px;
+}
+.history-head button:hover{color:var(--red);background:rgba(176,35,58,.06)}
+.history-list{
+  list-style:none;
+  margin:0;
+  padding:6px;
+  max-height:480px;
+  overflow-y:auto;
+}
+.history-item{
+  padding:10px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  transition:background .1s;
+}
+.history-item:hover{background:#F5F5F0}
+.history-item .h-expr{
+  font-family:var(--mono);
+  font-size:.8125rem;
+  color:var(--muted);
+  margin:0 0 2px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.history-item .h-res{
+  font-family:var(--mono);
+  font-size:.9375rem;
+  font-weight:600;
+  color:var(--ink);
+  margin:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  text-align:right;
+}
+.history-item .h-time{
+  font-size:.625rem;
+  color:var(--muted);
+  font-family:var(--mono);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  margin-top:4px;
+}
+.history-empty{
+  padding:32px 16px;
+  text-align:center;
+  color:var(--muted);
+  font-size:.8125rem;
+  font-style:italic;
+}
+@media(max-width:920px){
+  .history-list{max-height:220px}
+}
+
+/* ============================================================
+   INFO TIP BAR
+   ============================================================ */
+.tip-bar{
+  margin:0 0 14px;
+  padding:10px 14px;
+  background:#F5F7FF;
+  border:1px solid rgba(27,77,255,.18);
+  border-left:3px solid var(--blue);
+  border-radius:var(--radius);
+  font-size:.8125rem;
+  color:#3A3E46;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.tip-bar strong{font-weight:600;color:var(--ink)}
+.tip-bar kbd{
+  font-family:var(--mono);
+  font-size:.6875rem;
+  padding:2px 5px;
+  border-radius:3px;
+  background:var(--paper);
+  border:1px solid var(--line);
+  color:var(--ink);
+  margin:0 1px;
+}
+
+/* ============================================================
+   ARTICLE
+   ============================================================ */
+.article{margin:44px 0 0;max-width:70ch}
+.article h2{margin:36px 0 10px;font-size:1.5rem}
+.article h2:first-child{margin-top:0}
+.article h3{font-family:var(--display);font-weight:700;font-size:1.0625rem;margin:24px 0 8px;letter-spacing:-.015em}
+.article p{margin:0 0 12px;color:#3A3E46}
+.article ul,.article ol{margin:0 0 12px;padding-left:22px;color:#3A3E46}
+.article li{margin:0 0 6px}
+.article strong{font-weight:600;color:var(--ink)}
+.article a{color:var(--blue);text-decoration:underline}
+.article code{font-family:var(--mono);font-size:.875em;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:1px 5px}
+.article kbd{font-family:var(--mono);font-size:.75rem;background:var(--surface);border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:1px 5px;color:var(--ink)}
+
+.faq{margin:14px 0 0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center;font-size:1rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--blue);font-size:1.25rem;line-height:1;flex:none}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{margin:0 0 14px;color:#3A3E46;max-width:62ch;font-size:.9375rem}
+
+.related-list{list-style:none;margin:12px 0 0;padding:0}
+.related-list li{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center}
+.related-list .txt{flex:1;font-size:.9375rem}
+.related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
+.related-list .txt a:hover{color:var(--blue);text-decoration:underline}
+.related-list .txt p{margin:2px 0 0;font-size:.8125rem;color:var(--muted)}
+.related-list time{font-size:.75rem;color:var(--muted);flex:none;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+
+footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem}
+footer a{color:inherit}
+footer a:hover{color:var(--blue)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.8125rem;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:200;max-width:90vw;display:flex;align-items:center;gap:8px;box-shadow:0 12px 32px rgba(0,0,0,.28)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast svg{width:14px;height:14px;color:var(--green);flex:none}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <a href="../../index.html" style="display:flex;align-items:center;gap:10px">
+    <svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/><path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/><path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/><path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/><path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/></svg>
+    <span class="wordmark">LocalTools</span>
+  </a>
+  <a href="../index.html" class="nav-right">All tools →</a>
+</header>
+
+<nav class="crumbs" aria-label="Breadcrumb">
+  <a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Scientific Calculator</span>
+</nav>
+
+<h1 class="lede">Scientific Calculator</h1>
+<p class="sub">Built for engineering and science students. Trigonometry, logarithms, powers, factorials, permutations, memory and history — all running in your browser.</p>
+
+<div class="tip-bar">
+  <strong>Tip:</strong> Use your keyboard for speed. Numbers, operators, parentheses all work.
+  Press <kbd>Enter</kbd> for equals, <kbd>Esc</kbd> to clear.
+</div>
+
+<div class="calc-shell">
+
+  <!-- ============ CALCULATOR ============ -->
+  <div class="calc" role="application" aria-label="Scientific calculator">
+
+    <!-- Display -->
+    <div class="display">
+      <div class="display-modes">
+        <span class="mode-chip active" id="angleChip">DEG</span>
+        <span class="mode-chip" id="secondChip" hidden>2ND</span>
+        <span class="mode-chip" id="memChip" hidden>M</span>
+        <span class="display-spacer"></span>
+        <button class="icon-btn" id="copyBtn" title="Copy result" aria-label="Copy result">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        </button>
+      </div>
+      <div class="display-expr" id="displayExpr" aria-live="polite">0</div>
+      <div class="display-result" id="displayResult" aria-live="polite">0</div>
+    </div>
+
+    <!-- Keypad -->
+    <div class="keypad" id="keypad"></div>
+
+  </div>
+
+  <!-- ============ HISTORY ============ -->
+  <div class="history-card">
+    <div class="history-head">
+      <h3>History</h3>
+      <button type="button" id="clearHistory">Clear</button>
+    </div>
+    <ul class="history-list" id="historyList">
+      <li class="history-empty">Your calculations will appear here.</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ============ ARTICLE ============ -->
+<article class="article">
+  <h2>How to use the scientific calculator</h2>
+  <p>Type or tap numbers and operators to build your expression. The result appears live below. Press <kbd>=</kbd> or <kbd>Enter</kbd> to commit the calculation to history.</p>
+
+  <h2>What this calculator handles</h2>
+
+  <h3>Basic arithmetic</h3>
+  <p>Addition, subtraction, multiplication, division, parentheses, and exponents. The order of operations is respected: <code>2 + 3 × 4</code> returns 14, not 20.</p>
+
+  <h3>Trigonometry</h3>
+  <p>sin, cos, tan plus their inverse functions (asin, acos, atan) and hyperbolic variants (sinh, cosh, tanh). Switch between <strong>DEG</strong>, <strong>RAD</strong> and <strong>GRAD</strong> modes using the DEG button in the top-left corner of the keypad. The current mode is always shown on the display.</p>
+
+  <h3>Logarithms and exponentials</h3>
+  <p><strong>ln</strong> is the natural logarithm (base e). <strong>log</strong> is base 10. The second-function layer gives you <strong>e<sup>x</sup></strong> and <strong>10<sup>x</sup></strong>.</p>
+
+  <h3>Powers and roots</h3>
+  <p><strong>x²</strong> squares, <strong>xʸ</strong> raises to any power, <strong>√</strong> takes the square root. The second layer adds <strong>∛</strong> (cube root), <strong>y√x</strong> (any root) and <strong>x³</strong>.</p>
+
+  <h3>Factorials and combinatorics</h3>
+  <p><strong>x!</strong> computes factorials. <strong>nCr</strong> and <strong>nPr</strong> handle combinations and permutations. Example: to compute 5 choose 2, type <code>5 nCr 2</code> = 10.</p>
+
+  <h3>Memory</h3>
+  <p>Use <strong>M+</strong> to add the current result to memory, <strong>MR</strong> to recall it, <strong>MC</strong> to clear. The <strong>M</strong> indicator lights up whenever memory contains a value.</p>
+
+  <h3>Engineering notation</h3>
+  <p>Press <strong>EXP</strong> to enter scientific notation. For example <code>1.5 EXP -3</code> means 1.5 × 10⁻³ = 0.0015.</p>
+
+  <h3>Second functions</h3>
+  <p>Tap <strong>2nd</strong> to toggle the second-function layer. The button labels light up in amber to show you the alternate functions. Press again to return.</p>
+
+  <h2>Keyboard shortcuts</h2>
+  <ul>
+    <li><kbd>0</kbd>–<kbd>9</kbd> — digits</li>
+    <li><kbd>+</kbd> <kbd>−</kbd> <kbd>*</kbd> <kbd>/</kbd> — operators</li>
+    <li><kbd>(</kbd> <kbd>)</kbd> — parentheses</li>
+    <li><kbd>^</kbd> — power</li>
+    <li><kbd>Enter</kbd> or <kbd>=</kbd> — equals</li>
+    <li><kbd>Backspace</kbd> — delete last character</li>
+    <li><kbd>Esc</kbd> or <kbd>Delete</kbd> — clear everything</li>
+  </ul>
+
+  <h2>Common uses for engineering students</h2>
+  <ul>
+    <li><strong>Trig identities and proofs</strong> — verify sin²θ + cos²θ = 1 by trying different angles.</li>
+    <li><strong>Unit conversions</strong> — compute quantities like (100 km/h) × (1000 / 3600) to get m/s.</li>
+    <li><strong>Physics problems</strong> — use EXP for scientific notation, memory for constants.</li>
+    <li><strong>Statistics homework</strong> — mean, standard deviation by typing sums into the calculator.</li>
+    <li><strong>Circuit analysis</strong> — compute impedances with complex numbers using trig and powers.</li>
+    <li><strong>Signal processing</strong> — work with sin/cos values in RAD mode.</li>
+  </ul>
+
+  <h2>Common questions</h2>
+  <div class="faq">
+    <details><summary>Is this scientific calculator free?</summary><p>Yes. It is completely free, runs entirely in your browser, and requires no signup.</p></details>
+    <details><summary>Does it support degrees and radians?</summary><p>Yes. Tap the DEG button to cycle between DEG, RAD and GRAD modes. The current mode is always shown on the display.</p></details>
+    <details><summary>How accurate are the results?</summary><p>Results use JavaScript's 64-bit floating-point numbers, accurate to about 15 significant digits — the same precision as most graphing calculators.</p></details>
+    <details><summary>Does it store my calculation history?</summary><p>Yes. The last 20 calculations are saved in your browser's local storage. Click any entry to reuse the expression.</p></details>
+    <details><summary>Does it work on mobile phones?</summary><p>Yes. Buttons are sized for fingers, and the layout stacks vertically on small screens.</p></details>
+    <details><summary>Can I use it offline?</summary><p>Yes. Once the page has loaded, the calculator works without internet.</p></details>
+    <details><summary>What is the 2nd button for?</summary><p>It reveals alternate functions on the keypad: inverse trig, hyperbolic functions, higher powers, cube root, and combinatorial functions.</p></details>
+    <details><summary>Why does sin(30) show 0.5 in DEG mode but not RAD mode?</summary><p>Because in RAD mode, 30 is interpreted as 30 radians, not 30 degrees. Switch to DEG for angle-based work.</p></details>
+  </div>
+
+  <h2>Related tools</h2>
+  <ul class="related-list">
+    <li><div class="txt"><a href="percentage.html">Percentage Calculator</a><p>Percentages, increases, decreases.</p></div><time>Calc</time></li>
+    <li><div class="txt"><a href="gst.html">GST Calculator</a><p>Add or remove GST at any rate.</p></div><time>Calc</time></li>
+    <li><div class="txt"><a href="compound.html">Compound Interest</a><p>Project savings over time.</p></div><time>Calc</time></li>
+  </ul>
+</article>
+
+<footer>
+  <p>LocalTools · <a href="../../index.html">Home</a> · <a href="../index.html">All tools</a> · <a href="../../pages/about.html">About</a> · <a href="../../pages/privacy.html">Privacy</a></p>
+</footer>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============================================================
+   Helpers
+   ============================================================ */
+const $ = id => document.getElementById(id);
+const fmt = n => {
+  if (!isFinite(n)) {
+    if (n === Infinity) return '∞';
+    if (n === -Infinity) return '−∞';
+    return 'Error';
+  }
+  if (Number.isNaN(n)) return 'Error';
+  if (n === 0) return '0';
+  const a = Math.abs(n);
+  // Very large / very small → scientific notation
+  if (a >= 1e12 || a < 1e-9) {
+    let s = n.toExponential(9);
+    s = s.replace(/\.?0+e/, 'e');
+    return s.replace('e', '×10^').replace('×10^', 'e');
+  }
+  // Otherwise show up to 12 significant figures
+  let s = n.toPrecision(12);
+  if (s.indexOf('.') > -1) s = s.replace(/\.?0+$/, '');
+  if (s.indexOf('e') > -1) {
+    return s;
+  }
+  return s;
+};
+
+/* ============================================================
+   Factorial, gamma, combinatorics
+   ============================================================ */
+function factorial(n){
+  if (n < 0) throw new Error('Factorial of negative');
+  if (!Number.isInteger(n)) return gamma(n + 1);
+  if (n > 170) return Infinity;
+  let r = 1;
+  for (let i = 2; i <= n; i++) r *= i;
+  return r;
+}
+function gamma(z){
+  // Lanczos approximation
+  if (z < 0.5) return Math.PI / (Math.sin(Math.PI * z) * gamma(1 - z));
+  z -= 1;
+  const g = 7;
+  const C = [
+    0.99999999999980993, 676.5203681218851, -1259.1392167224028,
+    771.32342877765313, -176.61502916214059, 12.507343278686905,
+    -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7
+  ];
+  let x = C[0];
+  for (let i = 1; i < g + 2; i++) x += C[i] / (z + i);
+  const t = z + g + 0.5;
+  return Math.sqrt(2 * Math.PI) * Math.pow(t, z + 0.5) * Math.exp(-t) * x;
+}
+function nCr(n, r){
+  if (!Number.isInteger(n) || !Number.isInteger(r)) throw new Error('nCr requires integers');
+  if (r < 0 || r > n) return 0;
+  return Math.round(factorial(n) / (factorial(r) * factorial(n - r)));
+}
+function nPr(n, r){
+  if (!Number.isInteger(n) || !Number.isInteger(r)) throw new Error('nPr requires integers');
+  if (r < 0 || r > n) return 0;
+  return Math.round(factorial(n) / factorial(n - r));
+}
+
+/* ============================================================
+   Angle conversions
+   ============================================================ */
+function toRad(x, mode){
+  if (mode === 'DEG') return x * Math.PI / 180;
+  if (mode === 'GRAD') return x * Math.PI / 200;
+  return x;
+}
+function fromRad(x, mode){
+  if (mode === 'DEG') return x * 180 / Math.PI;
+  if (mode === 'GRAD') return x * 200 / Math.PI;
+  return x;
+}
+
+/* ============================================================
+   Tokenizer
+   ============================================================ */
+const FUNCS = ['asin','acos','atan','sinh','cosh','tanh','asinh','acosh','atanh',
+               'sin','cos','tan','log','ln','sqrt','cbrt','abs','exp','nCr','nPr','fact','neg'];
+
+function tokenize(str){
+  const tokens = [];
+  let i = 0;
+  while (i < str.length){
+    const c = str[i];
+    if (c === ' '){ i++; continue; }
+    // Number
+    if (/\d/.test(c) || (c === '.' && /\d/.test(str[i+1]||''))){
+      let num = '';
+      while (i < str.length && /[\d.]/.test(str[i])) num += str[i++];
+      tokens.push({ type:'num', value: parseFloat(num) });
+      continue;
+    }
+    // e-notation typed as EXP
+    if (str.slice(i, i+3) === 'EXP'){
+      tokens.push({ type:'op', value:'E' });
+      i += 3;
+      continue;
+    }
+    // Function names (longest match first)
+    let matched = false;
+    for (const fn of FUNCS){
+      if (str.slice(i, i + fn.length).toLowerCase() === fn){
+        tokens.push({ type:'func', value: fn });
+        i += fn.length;
+        matched = true;
+        break;
+      }
+    }
+    if (matched) continue;
+    // Constants
+    if (c === 'π'){ tokens.push({ type:'const', value:'pi' }); i++; continue; }
+    if (c === 'e'){ tokens.push({ type:'const', value:'e' }); i++; continue; }
+    // Operators
+    if ('+-*/^%'.includes(c)){
+      tokens.push({ type:'op', value:c });
+      i++;
+      continue;
+    }
+    // Parens
+    if (c === '('){ tokens.push({ type:'lparen' }); i++; continue; }
+    if (c === ')'){ tokens.push({ type:'rparen' }); i++; continue; }
+    throw new Error('Unexpected "' + c + '"');
+  }
+  return tokens;
+}
+
+/* Insert implicit multiplication: 2π → 2*π, 2(3) → 2*(3), (2)(3) → (2)*(3) */
+function insertImplicitMul(tokens){
+  const out = [];
+  for (let i = 0; i < tokens.length; i++){
+    out.push(tokens[i]);
+    if (i < tokens.length - 1){
+      const cur = tokens[i], next = tokens[i+1];
+      const curVal = cur.type === 'num' || cur.type === 'const' || cur.type === 'rparen';
+      const nextVal = next.type === 'num' || next.type === 'const' ||
+                      next.type === 'func' || next.type === 'lparen';
+      if (curVal && nextVal) out.push({ type:'op', value:'*' });
+    }
+  }
+  return out;
+}
+
+/* Detect unary minus → neg function */
+function handleUnaryMinus(tokens){
+  const out = [];
+  for (let i = 0; i < tokens.length; i++){
+    const t = tokens[i];
+    const prev = out[out.length - 1];
+    if (t.type === 'op' && t.value === '-' &&
+        (!prev || prev.type === 'op' || prev.type === 'lparen' || prev.type === 'func')){
+      out.push({ type:'func', value:'neg' });
+    } else {
+      out.push(t);
+    }
+  }
+  return out;
+}
+
+/* ============================================================
+   Shunting yard
+   ============================================================ */
+const PRECEDENCE = { '+':1, '-':1, '*':2, '/':2, '%':2, '^':4, 'E':5 };
+const RIGHT_ASSOC = { '^':true, 'E':true };
+
+function toRPN(tokens){
+  const output = [];
+  const stack = [];
+  for (const tok of tokens){
+    if (tok.type === 'num' || tok.type === 'const'){
+      output.push(tok);
+    } else if (tok.type === 'func'){
+      stack.push(tok);
+    } else if (tok.type === 'op'){
+      while (stack.length){
+        const top = stack[stack.length - 1];
+        if (top.type !== 'op') break;
+        const topPrec = PRECEDENCE[top.value];
+        const curPrec = PRECEDENCE[tok.value];
+        if ((!RIGHT_ASSOC[tok.value] && topPrec >= curPrec) ||
+            (RIGHT_ASSOC[tok.value] && topPrec > curPrec)){
+          output.push(stack.pop());
+        } else break;
+      }
+      stack.push(tok);
+    } else if (tok.type === 'lparen'){
+      stack.push(tok);
+    } else if (tok.type === 'rparen'){
+      while (stack.length && stack[stack.length - 1].type !== 'lparen'){
+        output.push(stack.pop());
+      }
+      if (!stack.length) throw new Error('Missing (');
+      stack.pop();
+      if (stack.length && stack[stack.length - 1].type === 'func'){
+        output.push(stack.pop());
+      }
+    }
+  }
+  while (stack.length){
+    const t = stack.pop();
+    if (t.type === 'lparen' || t.type === 'rparen') throw new Error('Unbalanced ( )');
+    output.push(t);
+  }
+  return output;
+}
+
+/* ============================================================
+   RPN evaluator
+   ============================================================ */
+function evalRPN(rpn, angleMode){
+  const stack = [];
+  for (const tok of rpn){
+    if (tok.type === 'num'){
+      stack.push(tok.value);
+    } else if (tok.type === 'const'){
+      stack.push(tok.value === 'pi' ? Math.PI : Math.E);
+    } else if (tok.type === 'func'){
+      if (tok.value === 'neg'){
+        if (!stack.length) throw new Error('Missing number');
+        stack.push(-stack.pop());
+        continue;
+      }
+      if (tok.value === 'fact'){
+        if (!stack.length) throw new Error('Missing number');
+        stack.push(factorial(stack.pop()));
+        continue;
+      }
+      if (tok.value === 'nCr' || tok.value === 'nPr'){
+        if (stack.length < 2) throw new Error('nCr/nPr need two numbers');
+        const r = stack.pop();
+        const n = stack.pop();
+        stack.push(tok.value === 'nCr' ? nCr(n, r) : nPr(n, r));
+        continue;
+      }
+      if (!stack.length) throw new Error('Missing argument');
+      const x = stack.pop();
+      stack.push(applyFunc(tok.value, x, angleMode));
+    } else if (tok.type === 'op'){
+      if (stack.length < 2) throw new Error('Missing number');
+      const b = stack.pop();
+      const a = stack.pop();
+      stack.push(applyOp(tok.value, a, b));
+    }
+  }
+  if (stack.length !== 1) throw new Error('Invalid expression');
+  return stack[0];
+}
+
+function applyOp(op, a, b){
+  switch(op){
+    case '+': return a + b;
+    case '-': return a - b;
+    case '*': return a * b;
+    case '/':
+      if (b === 0) throw new Error('Division by zero');
+      return a / b;
+    case '%':
+      if (b === 0) throw new Error('Modulo by zero');
+      return a % b;
+    case '^': return Math.pow(a, b);
+    case 'E': return a * Math.pow(10, b);
+  }
+  throw new Error('Unknown operator');
+}
+
+function applyFunc(name, x, mode){
+  switch(name){
+    case 'sin': return Math.sin(toRad(x, mode));
+    case 'cos': return Math.cos(toRad(x, mode));
+    case 'tan': {
+      const r = toRad(x, mode);
+      // Guard against tan(90°) = Infinity
+      const c = Math.cos(r);
+      if (Math.abs(c) < 1e-12) throw new Error('tan undefined here');
+      return Math.tan(r);
+    }
+    case 'asin':
+      if (x < -1 || x > 1) throw new Error('asin needs −1 to 1');
+      return fromRad(Math.asin(x), mode);
+    case 'acos':
+      if (x < -1 || x > 1) throw new Error('acos needs −1 to 1');
+      return fromRad(Math.acos(x), mode);
+    case 'atan': return fromRad(Math.atan(x), mode);
+    case 'sinh': return Math.sinh(x);
+    case 'cosh': return Math.cosh(x);
+    case 'tanh': return Math.tanh(x);
+    case 'asinh': return Math.asinh(x);
+    case 'acosh':
+      if (x < 1) throw new Error('acosh needs ≥ 1');
+      return Math.acosh(x);
+    case 'atanh':
+      if (x <= -1 || x >= 1) throw new Error('atanh needs −1 to 1');
+      return Math.atanh(x);
+    case 'ln':
+      if (x <= 0) throw new Error('ln needs > 0');
+      return Math.log(x);
+    case 'log':
+      if (x <= 0) throw new Error('log needs > 0');
+      return Math.log10(x);
+    case 'sqrt':
+      if (x < 0) throw new Error('√ of negative');
+      return Math.sqrt(x);
+    case 'cbrt': return Math.cbrt(x);
+    case 'abs': return Math.abs(x);
+    case 'exp': return Math.exp(x);
+  }
+  throw new Error('Unknown function ' + name);
+}
+
+/* ============================================================
+   Main API
+   ============================================================ */
+function compute(expr, mode){
+  const tokens = handleUnaryMinus(insertImplicitMul(tokenize(expr)));
+  const rpn = toRPN(tokens);
+  return evalRPN(rpn, mode);
+}
+
+/* ============================================================
+   State
+   ============================================================ */
+const state = {
+  expr: '',
+  angle: 'DEG',
+  second: false,
+  memory: 0,
+  ans: 0,
+  history: []
+};
+
+const STORAGE_KEY = 'sci_calc_v1';
+
+function saveState(){
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      angle: state.angle,
+      memory: state.memory,
+      ans: state.ans,
+      history: state.history
+    }));
+  } catch(e){}
+}
+function loadState(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    if (s.angle && ['DEG','RAD','GRAD'].includes(s.angle)) state.angle = s.angle;
+    if (typeof s.memory === 'number') state.memory = s.memory;
+    if (typeof s.ans === 'number') state.ans = s.ans;
+    if (Array.isArray(s.history)) state.history = s.history.slice(0, 20);
+  } catch(e){}
+}
+
+/* ============================================================
+   Buttons — single source of truth for keypad
+   Each entry: [label, primaryAction, secondLabel?, secondAction?, class]
+   ============================================================ */
+const BUTTONS = [
+  // Row 1
+  ['2nd',    'toggleSecond', null, null, 'util'],
+  ['DEG',    'cycleAngle',   null, null, 'util'],
+  ['MC',     'memClear',     null, null, 'util'],
+  ['MR',     'memRecall',    null, null, 'util'],
+  ['M+',     'memPlus',      null, null, 'util'],
+  // Row 2
+  ['sin',    'fn:sin',       'sin⁻¹', 'fn:asin', 'fn'],
+  ['cos',    'fn:cos',       'cos⁻¹', 'fn:acos', 'fn'],
+  ['tan',    'fn:tan',       'tan⁻¹', 'fn:atan', 'fn'],
+  ['ln',     'fn:ln',        'eˣ',   'fn:exp',   'fn'],
+  ['log',    'fn:log',       '10ˣ',  'ten_pow',  'fn'],
+  // Row 3
+  ['x²',     'sq',           'sinh',  'fn:sinh', 'fn'],
+  ['xʸ',     'op:^',         'cosh',  'fn:cosh', 'fn'],
+  ['√',      'fn:sqrt',      'tanh',  'fn:tanh', 'fn'],
+  ['∛',      'fn:cbrt',      'y√x',   'op:root', 'fn'],
+  ['x!',     'fn:fact',      'nCr',   'op:nCr',  'fn'],
+  // Row 4
+  ['7',      'digit:7',      null, null, 'num'],
+  ['8',      'digit:8',      null, null, 'num'],
+  ['9',      'digit:9',      null, null, 'num'],
+  ['÷',      'op:/',         null, null, 'op'],
+  ['⌫',      'backspace',    null, null, 'clear'],
+  // Row 5
+  ['4',      'digit:4',      null, null, 'num'],
+  ['5',      'digit:5',      null, null, 'num'],
+  ['6',      'digit:6',      null, null, 'num'],
+  ['×',      'op:*',         null, null, 'op'],
+  ['CE',     'clearEntry',   null, null, 'clear'],
+  // Row 6
+  ['1',      'digit:1',      null, null, 'num'],
+  ['2',      'digit:2',      null, null, 'num'],
+  ['3',      'digit:3',      null, null, 'num'],
+  ['−',      'op:-',         null, null, 'op'],
+  ['C',      'clearAll',     null, null, 'clear'],
+  // Row 7
+  ['0',      'digit:0',      null, null, 'num'],
+  ['.',      'dot',          null, null, 'num'],
+  ['±',      'sign',         null, null, 'op'],
+  ['+',      'op:+',         null, null, 'op'],
+  ['=',      'equals',       null, null, 'eq'],
+  // Row 8
+  ['π',      'const:pi',     'e',    'const:e',  'fn'],
+  ['(',      'openParen',    null, null, 'op'],
+  [')',      'closeParen',   null, null, 'op'],
+  ['|x|',    'fn:abs',       'EXP',  'exp_key',  'fn'],
+  ['ANS',    'ans',          null, null, 'fn']
+];
+
+/* ============================================================
+   Render keypad
+   ============================================================ */
+function renderKeypad(){
+  const pad = $('keypad');
+  pad.innerHTML = '';
+  BUTTONS.forEach((row, idx) => {
+    const [label, action, secLabel, secAction, cls] = row;
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'key ' + (cls || '');
+    b.dataset.action = action;
+    b.dataset.idx = idx;
+
+    if (state.second && secLabel){
+      b.innerHTML = '<span class="top-label">' + label + '</span>' + secLabel;
+      b.dataset.action = secAction;
+      b.dataset.sec = '1';
+    } else {
+      b.innerHTML = label;
+      if (secLabel) b.dataset.hasSec = '1';
+    }
+
+    // Adjust classes for second mode
+    if (state.second && secLabel && cls === 'fn'){
+      b.classList.add('second-active');
+    }
+
+    b.addEventListener('click', (e) => {
+      e.preventDefault();
+      handleAction(b.dataset.action);
+    });
+
+    pad.appendChild(b);
+  });
+}
+
+/* ============================================================
+   Action dispatch
+   ============================================================ */
+function handleAction(action){
+  if (!action) return;
+
+  // Digits
+  if (action.startsWith('digit:')){
+    state.expr += action.slice(6);
+    refresh();
+    return;
+  }
+  if (action === 'dot'){
+    // Prevent multiple dots in the current number
+    const lastNum = state.expr.match(/(\d*\.?\d*)$/);
+    if (lastNum && lastNum[0].indexOf('.') === -1){
+      state.expr += lastNum[0] === '' ? '0.' : '.';
+    }
+    refresh();
+    return;
+  }
+  if (action.startsWith('op:')){
+    const op = action.slice(3);
+    if (op === 'nCr' || op === 'nPr'){
+      state.expr += ' ' + op + ' ';
+    } else if (op === 'root'){
+      state.expr += ' root(';
+    } else {
+      state.expr += op === '*' ? '×' : op === '/' ? '÷' : op === '-' ? '−' : op;
+    }
+    refresh();
+    return;
+  }
+  if (action === 'ten_pow'){
+    state.expr += '10^(';
+    refresh();
+    return;
+  }
+  if (action.startsWith('fn:')){
+    const fn = action.slice(3);
+    const map = {
+      sin:'sin(', cos:'cos(', tan:'tan(',
+      asin:'asin(', acos:'acos(', atan:'atan(',
+      sinh:'sinh(', cosh:'cosh(', tanh:'tanh(',
+      ln:'ln(', log:'log(', sqrt:'√(', cbrt:'∛(',
+      abs:'abs(', exp:'exp(', fact:'!'
+    };
+    if (fn === 'fact'){
+      state.expr += '!';
+    } else {
+      state.expr += (map[fn] || fn + '(');
+    }
+    refresh();
+    return;
+  }
+  if (action.startsWith('const:')){
+    const c = action.slice(6);
+    state.expr += c === 'pi' ? 'π' : 'e';
+    refresh();
+    return;
+  }
+  if (action === 'sq'){
+    state.expr += '^2';
+    refresh();
+    return;
+  }
+  if (action === 'sign'){
+    // Wrap in neg or strip
+    if (state.expr.startsWith('−')){
+      state.expr = state.expr.slice(1);
+    } else if (state.expr.match(/^[\d.]/)){
+      state.expr = '−' + state.expr;
+    } else {
+      state.expr += '−';
+    }
+    refresh();
+    return;
+  }
+  if (action === 'openParen'){
+    state.expr += '(';
+    refresh();
+    return;
+  }
+  if (action === 'closeParen'){
+    // Only add if there's an unmatched (
+    const opens = (state.expr.match(/\(/g) || []).length;
+    const closes = (state.expr.match(/\)/g) || []).length;
+    if (opens > closes) state.expr += ')';
+    refresh();
+    return;
+  }
+  if (action === 'exp_key'){
+    state.expr += 'EXP';
+    refresh();
+    return;
+  }
+  if (action === 'backspace'){
+    state.expr = state.expr.slice(0, -1);
+    refresh();
+    return;
+  }
+  if (action === 'clearEntry'){
+    // Remove trailing number
+    state.expr = state.expr.replace(/[\d.]+$/, '');
+    refresh();
+    return;
+  }
+  if (action === 'clearAll'){
+    state.expr = '';
+    refresh();
+    return;
+  }
+  if (action === 'ans'){
+    state.expr += String(state.ans);
+    refresh();
+    return;
+  }
+  if (action === 'memClear'){
+    state.memory = 0;
+    flash('Memory cleared');
+    updateModeChips();
+    saveState();
+    return;
+  }
+  if (action === 'memRecall'){
+    state.expr += String(state.memory);
+    refresh();
+    return;
+  }
+  if (action === 'memPlus'){
+    try {
+      const v = compute(state.expr || '0', state.angle);
+      state.memory += v;
+      flash('Added to memory');
+      updateModeChips();
+      saveState();
+    } catch(e){}
+    return;
+  }
+  if (action === 'toggleSecond'){
+    state.second = !state.second;
+    renderKeypad();
+    updateModeChips();
+    return;
+  }
+  if (action === 'cycleAngle'){
+    const order = ['DEG','RAD','GRAD'];
+    const i = order.indexOf(state.angle);
+    state.angle = order[(i + 1) % order.length];
+    updateModeChips();
+    recomputePreview();
+    saveState();
+    return;
+  }
+  if (action === 'equals'){
+    commitEquals();
+    return;
+  }
+}
+
+/* ============================================================
+   Display updates
+   ============================================================ */
+function refresh(){
+  const exprEl = $('displayExpr');
+  exprEl.textContent = state.expr || '0';
+  recomputePreview();
+  updateModeChips();
+}
+
+function recomputePreview(){
+  const resEl = $('displayResult');
+  resEl.classList.remove('error');
+  if (!state.expr){
+    resEl.textContent = '0';
+    return;
+  }
+  try {
+    const v = compute(state.expr, state.angle);
+    resEl.textContent = fmt(v);
+    resEl.classList.remove('error');
+  } catch(e){
+    resEl.textContent = '—';
+    resEl.classList.remove('error');
+  }
+}
+
+function updateModeChips(){
+  $('angleChip').textContent = state.angle;
+  $('secondChip').hidden = !state.second;
+  $('memChip').hidden = state.memory === 0;
+}
+
+/* ============================================================
+   Equals + history
+   ============================================================ */
+function commitEquals(){
+  if (!state.expr) return;
+  let v;
+  try {
+    v = compute(state.expr, state.angle);
+  } catch(e){
+    const resEl = $('displayResult');
+    resEl.textContent = e.message;
+    resEl.classList.add('error');
+    return;
+  }
+  state.ans = v;
+  const resEl = $('displayResult');
+  resEl.textContent = fmt(v);
+  resEl.classList.remove('error');
+
+  // Push to history
+  state.history.unshift({
+    expr: state.expr,
+    result: fmt(v),
+    ts: Date.now()
+  });
+  state.history = state.history.slice(0, 20);
+  renderHistory();
+  saveState();
+
+  // Replace expression with result so user can chain
+  state.expr = fmt(v);
+  $('displayExpr').textContent = state.expr;
+  state.second = false;
+  renderKeypad();
+  updateModeChips();
+}
+
+/* ============================================================
+   History UI
+   ============================================================ */
+function renderHistory(){
+  const list = $('historyList');
+  if (!state.history.length){
+    list.innerHTML = '<li class="history-empty">Your calculations will appear here.</li>';
+    return;
+  }
+  list.innerHTML = state.history.map((h, i) =>
+    '<li class="history-item" data-i="' + i + '">' +
+      '<p class="h-expr">' + escapeHtml(h.expr) + '</p>' +
+      '<p class="h-res">= ' + escapeHtml(h.result) + '</p>' +
+      '<p class="h-time">' + timeAgo(h.ts) + '</p>' +
+    '</li>'
+  ).join('');
+}
+
+function timeAgo(ts){
+  const s = Math.round((Date.now() - ts) / 1000);
+  if (s < 60) return 'just now';
+  if (s < 3600) return Math.floor(s / 60) + ' min ago';
+  if (s < 86400) return Math.floor(s / 3600) + ' hr ago';
+  return Math.floor(s / 86400) + ' d ago';
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
+}
+
+$('historyList').addEventListener('click', e => {
+  const li = e.target.closest('.history-item');
+  if (!li) return;
+  const h = state.history[parseInt(li.dataset.i, 10)];
+  if (!h) return;
+  state.expr = h.expr;
+  refresh();
+});
+
+$('clearHistory').addEventListener('click', () => {
+  state.history = [];
+  renderHistory();
+  saveState();
+});
+
+/* ============================================================
+   Copy result
+   ============================================================ */
+$('copyBtn').addEventListener('click', () => {
+  const text = $('displayResult').textContent;
+  if (!text || text === '—' || text === 'Error') return;
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(() => toast('Copied')).catch(() => {});
+  }
+});
+
+/* ============================================================
+   Toast
+   ============================================================ */
+function toast(msg){
+  const el = $('toast');
+  el.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span>' + escapeHtml(msg) + '</span>';
+  el.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => el.classList.remove('show'), 1600);
+}
+
+/* ============================================================
+   Keyboard support
+   ============================================================ */
+document.addEventListener('keydown', e => {
+  // Don't hijack typing inside inputs elsewhere on the page
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+  // Ctrl/Cmd + C for copy
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'c'){
+    $('copyBtn').click();
+    return;
+  }
+  if (e.key >= '0' && e.key <= '9'){ state.expr += e.key; refresh(); flashPress(e.key); e.preventDefault(); return; }
+  if (e.key === '.'){ handleAction('dot'); flashPress('.'); e.preventDefault(); return; }
+  if (e.key === '+'){ handleAction('op:+'); flashPress('+'); e.preventDefault(); return; }
+  if (e.key === '-'){ handleAction('op:-'); flashPress('−'); e.preventDefault(); return; }
+  if (e.key === '*'){ handleAction('op:*'); flashPress('×'); e.preventDefault(); return; }
+  if (e.key === '/'){ handleAction('op:/'); flashPress('÷'); e.preventDefault(); return; }
+  if (e.key === '^'){ handleAction('op:^'); flashPress('^'); e.preventDefault(); return; }
+  if (e.key === '('){ handleAction('openParen'); flashPress('('); e.preventDefault(); return; }
+  if (e.key === ')'){ handleAction('closeParen'); flashPress(')'); e.preventDefault(); return; }
+  if (e.key === 'Enter' || e.key === '='){ handleAction('equals'); flashPress('='); e.preventDefault(); return; }
+  if (e.key === 'Backspace'){ handleAction('backspace'); flashPress('⌫'); e.preventDefault(); return; }
+  if (e.key === 'Delete' || e.key === 'Escape'){ handleAction('clearAll'); flashPress('C'); e.preventDefault(); return; }
+});
+
+function flashPress(label){
+  // Briefly highlight the matching on-screen key for feedback
+  const buttons = document.querySelectorAll('.key');
+  for (const b of buttons){
+    const text = b.textContent.trim();
+    if (text === label){
+      b.classList.add('pressed');
+      setTimeout(() => b.classList.remove('pressed'), 120);
+      break;
+    }
+  }
+}
+
+/* ============================================================
+   Init
+   ============================================================ */
+loadState();
+renderKeypad();
+renderHistory();
+updateModeChips();
+$('angleChip').textContent = state.angle;
+$('displayExpr').textContent = state.expr || '0';
+recomputePreview();
+
+// Focus the calculator on load so keyboard input works immediately
+window.addEventListener('load', () => {
+  document.body.tabIndex = -1;
+});
+
+})();
+</script>
+</body>
+</html>
