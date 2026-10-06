@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://qrcodescanner.co.in/sitemap.xml
+Sitemap: https://localtools.co.in/sitemap.xml
