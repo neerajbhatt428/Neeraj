@@ -112,7 +112,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .stat-row .v{font-family:var(--mono);font-weight:600;color:var(--ink)}
 
 /* ============================================================
-   VIEWER (top of center column)
+   VIEWER — portrait, centered
    ============================================================ */
 .viewer-panel{
   background:#3A3E46;
@@ -120,17 +120,22 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
   border-radius:var(--radius);
   overflow:hidden;
   display:flex;flex-direction:column;
-  margin:0 0 12px;
-  height:min(520px,55vh);
-  min-height:340px;
+  margin:0 auto 14px;
+  width:min(100%, 580px);
+  height:min(74vh, 740px);
+  min-height:400px;
 }
 @media(max-width:640px){
-  .viewer-panel{height:min(360px,45vh);min-height:260px}
+  .viewer-panel{
+    width:100%;
+    height:min(65vh, 560px);
+    min-height:340px;
+  }
 }
 .viewer-toolbar{
   display:flex;align-items:center;gap:6px;
-  padding:8px 10px;
-  background:rgba(0,0,0,.25);
+  padding:10px 14px;
+  background:rgba(0,0,0,.28);
   border-bottom:1px solid rgba(255,255,255,.08);
   color:#fff;
   flex-shrink:0;
@@ -208,8 +213,8 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 /* ============================================================
    GRID
    ============================================================ */
-.grid-wrap{background:#4B4F58;border:1px solid var(--line);border-radius:var(--radius);padding:14px}
-.grid-head{display:flex;align-items:center;gap:10px;padding:0 0 12px;color:#fff;font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;flex-wrap:wrap}
+.grid-wrap{background:#4B4F58;border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin:0 auto}
+.grid-head{display:flex;align-items:center;gap:10px;padding:0 0 14px;color:#fff;font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;flex-wrap:wrap;min-height:28px}
 .grid-head .spacer{flex:1;min-width:8px}
 .grid-head .hint{color:rgba(255,255,255,.55)}
 .grid-head .sel-info{
@@ -321,8 +326,8 @@ footer a:hover{color:var(--blue)}
   .lede{font-size:1.375rem}
   .sub{font-size:.8125rem}
   .panel{padding:12px;margin-bottom:8px}
-  .grid-wrap{padding:10px}
-  .viewer-toolbar{padding:6px 8px;gap:4px}
+  .grid-wrap{padding:12px}
+  .viewer-toolbar{padding:8px 10px;gap:4px}
   .viewer-toolbar button{min-width:34px;height:34px;padding:0 8px;font-size:.6875rem}
   .viewer-toolbar .vind{min-width:54px;font-size:.6875rem}
   .viewer-toolbar .vzoomlabel{min-width:42px;font-size:.6875rem}
@@ -499,14 +504,14 @@ footer a:hover{color:var(--blue)}
   </ol>
 
   <h2>Built-in viewer with zoom</h2>
-  <p>The top panel shows a full‑size preview of the page you clicked. Use the ← and → buttons to step through pages, or the + / − buttons to zoom. The <strong>Fit</strong> button snaps the page to the width of the viewer. When you zoom past the viewer’s width, the page scrolls inside the panel — it never spills outside its box.</p>
+  <p>The top panel shows a full-size preview of the page you clicked. Use the ← and → buttons to step through pages, or the + / − buttons to zoom. The <strong>Fit</strong> button snaps the page to fit both the width and height of the viewer. When you zoom past the viewer's size, the page scrolls inside the panel — it never spills outside its box.</p>
 
   <h2>Multi-select and group drag</h2>
   <p>On desktop:</p>
   <ul>
     <li><strong>Click a page</strong> to select just that one and load it in the viewer.</li>
-    <li><strong>Ctrl‑click</strong> (or Cmd‑click on Mac) to add or remove pages from the selection.</li>
-    <li><strong>Shift‑click</strong> to select a range from the last clicked page.</li>
+    <li><strong>Ctrl-click</strong> (or Cmd-click on Mac) to add or remove pages from the selection.</li>
+    <li><strong>Shift-click</strong> to select a range from the last clicked page.</li>
   </ul>
   <p>On mobile or tablet, tap the <strong>Multi</strong> button above the grid. Then tap pages to build a selection. Tap <strong>Clear</strong> to remove all selections.</p>
   <p>Once you have a selection, drag any selected thumbnail — the whole group moves together to wherever you drop it, keeping their relative order.</p>
@@ -529,14 +534,14 @@ footer a:hover{color:var(--blue)}
   <p>Select a page, then click <strong>Blank page</strong>. Blank pages use the same size as the reference page.</p>
 
   <h3>Merge pages from other PDFs</h3>
-  <p>Click <strong>Add PDF</strong> to append another PDF’s pages. Drag them anywhere in the current order.</p>
+  <p>Click <strong>Add PDF</strong> to append another PDF's pages. Drag them anywhere in the current order.</p>
 
   <h2>Why organize in your browser</h2>
   <p>Everything runs on your device. The PDFs are read, reordered and rewritten inside the page. Nothing is uploaded. This makes the tool safe for contracts, bank statements and ID documents.</p>
   <p>Page previews use <strong>pdf.js</strong>, the output is built with <strong>pdf-lib</strong>. Both run entirely in your browser, and the tool works offline after the first load.</p>
 
   <h2>Does organizing reduce quality?</h2>
-  <p>No. Pages you keep are copied exactly as they are — fonts, images, links and form fields all carry through byte‑for‑byte. Rotation is stored as a page‑level instruction. There is no re‑compression.</p>
+  <p>No. Pages you keep are copied exactly as they are — fonts, images, links and form fields all carry through byte-for-byte. Rotation is stored as a page-level instruction. There is no re-compression.</p>
 
   <h2>Common questions</h2>
   <div class="faq">
@@ -662,7 +667,6 @@ async function handleInitialFile(file){
         rotation: 0
       });
     }
-    // Auto-select first page
     if (state.pages.length){
       state.selected.add(state.pages[0].id);
       state.viewerPageId = state.pages[0].id;
@@ -812,13 +816,11 @@ function renderGrid(){
     if (state.selected.has(page.id)) card.classList.add('selected');
     if (page.id === state.viewerPageId) card.classList.add('focused');
 
-    // Selection check circle
     const chk = document.createElement('span');
     chk.className = 'sel-check';
     chk.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
     card.appendChild(chk);
 
-    // Thumbnail
     if (page.kind === 'pdf'){
       const dataUrl = state.thumbCache.get(page.sourceId + ':' + page.pageIndex);
       if (dataUrl){
@@ -874,13 +876,11 @@ function renderGrid(){
       '<button type="button" data-move="1" title="Move down" aria-label="Move down">↓</button>';
     card.appendChild(move);
 
-    // Click to select
     card.addEventListener('click', e => {
       if (e.target.closest('button')) return;
       onPageClick(page.id, e);
     });
 
-    // Action buttons
     card.querySelectorAll('button[data-act]').forEach(btn => {
       btn.addEventListener('click', e => {
         e.stopPropagation();
@@ -922,7 +922,6 @@ function renderGrid(){
       });
     });
 
-    // Mobile move
     card.querySelectorAll('button[data-move]').forEach(btn => {
       btn.addEventListener('click', e => {
         e.stopPropagation();
@@ -937,7 +936,6 @@ function renderGrid(){
       });
     });
 
-    // Drag reorder (single or multi)
     card.addEventListener('dragstart', e => {
       e.dataTransfer.effectAllowed = 'move';
       e.dataTransfer.setData('text/plain', page.id);
@@ -994,7 +992,6 @@ function onPageClick(pageId, e){
   const idx = state.pages.findIndex(p => p.id === pageId);
   if (idx < 0) return;
 
-  // Desktop: use modifier keys
   if (e.shiftKey && state.lastAnchorId){
     const anchorIdx = state.pages.findIndex(p => p.id === state.lastAnchorId);
     if (anchorIdx >= 0){
@@ -1008,7 +1005,7 @@ function onPageClick(pageId, e){
     state.lastAnchorId = pageId;
   } else {
     if (state.selected.size === 1 && state.selected.has(pageId)){
-      // already selected — just focus it
+      // already selected
     } else {
       state.selected.clear();
       state.selected.add(pageId);
@@ -1051,15 +1048,13 @@ $('selClearBtn').addEventListener('click', () => {
 });
 
 /* ============================================================
-   Perform reorder (handles multi-selection)
+   Perform reorder
    ============================================================ */
 function performMove(draggedId, targetId, insertAfter){
-  // Determine which pages are moving
   const movingIds = (state.selected.has(draggedId) && state.selected.size > 1)
     ? new Set(state.selected)
     : new Set([draggedId]);
 
-  // If target is in moving set, bail
   if (movingIds.has(targetId)) return;
 
   const moving = state.pages.filter(p => movingIds.has(p.id));
@@ -1071,7 +1066,6 @@ function performMove(draggedId, targetId, insertAfter){
 
   state.pages = [...remaining.slice(0, insertAt), ...moving, ...remaining.slice(insertAt)];
 
-  // Selection: if it was a multi-move, keep selected; otherwise select the single moved
   if (!(movingIds.size > 1)){
     state.selected.clear();
     state.selected.add(draggedId);
@@ -1086,7 +1080,7 @@ function performMove(draggedId, targetId, insertAfter){
 }
 
 /* ============================================================
-   Viewer
+   Viewer — fits page to both width AND height, accounts for rotation
    ============================================================ */
 let viewerRenderToken = 0;
 
@@ -1120,28 +1114,27 @@ async function renderViewer(){
   wrap.hidden = false;
   empty.hidden = true;
 
-  // Compute display size
-  const padding = 28;
-  const availableW = Math.max(140, scroll.clientWidth - padding);
-  const availableH = Math.max(140, scroll.clientHeight - padding);
+  // Available inner space (subtract scroll padding)
+  const padX = 28;   // 14px left + 14px right
+  const padY = 36;   // 18px top + 18px bottom
+  const availableW = Math.max(140, scroll.clientWidth - padX);
+  const availableH = Math.max(140, scroll.clientHeight - padY);
 
-  // fit-width scale for the page (in points)
-  const fitScale = Math.min(availableW / page.width, 2.5);
+  // Effective dimensions after rotation
+  const rotated = (page.rotation === 90 || page.rotation === 270);
+  const effW = rotated ? page.height : page.width;
+  const effH = rotated ? page.width : page.height;
 
-  // Apply zoom multiplier
+  // Fit to BOTH width and height
+  const fitScale = Math.min(availableW / effW, availableH / effH, 2.5);
   const zoom = state.viewerZoom;
   const displayScale = fitScale * zoom;
-  const displayW = page.width * displayScale;
-  const displayH = page.height * displayScale;
 
-  // Set wrap size (rotation handled by swapping)
-  let cssW = displayW, cssH = displayH;
-  if (page.rotation === 90 || page.rotation === 270){
-    cssW = displayH;
-    cssH = displayW;
-  }
-  wrap.style.width = Math.round(cssW) + 'px';
-  wrap.style.height = Math.round(cssH) + 'px';
+  const displayW = effW * displayScale;
+  const displayH = effH * displayScale;
+
+  wrap.style.width = Math.round(displayW) + 'px';
+  wrap.style.height = Math.round(displayH) + 'px';
 
   $('vZoomLabel').textContent = Math.round(zoom * 100) + '%';
 
@@ -1149,13 +1142,12 @@ async function renderViewer(){
 
   if (page.kind === 'blank'){
     blankNote.hidden = false;
-    // Just a white canvas
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = Math.round(displayW * dpr);
     canvas.height = Math.round(displayH * dpr);
     canvas.style.width = Math.round(displayW) + 'px';
     canvas.style.height = Math.round(displayH) + 'px';
-    canvas.style.transform = 'rotate(' + page.rotation + 'deg)';
+    canvas.style.transform = 'none';
     const ctx = canvas.getContext('2d');
     ctx.fillStyle = '#fff';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -1169,7 +1161,7 @@ async function renderViewer(){
 
   try {
     const pdfPage = await source.pdfjs.getPage(page.pageIndex + 1);
-    if (token !== viewerRenderToken) return; // stale
+    if (token !== viewerRenderToken) return; // stale render
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const renderScale = displayScale * dpr;
@@ -1184,12 +1176,6 @@ async function renderViewer(){
     const ctx = canvas.getContext('2d');
     ctx.fillStyle = '#fff';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Adjust wrap size to match actual rendered viewport (handles rotation)
-    const finalW = canvas.style.width;
-    const finalH = canvas.style.height;
-    wrap.style.width = finalW;
-    wrap.style.height = finalH;
 
     await pdfPage.render({ canvasContext: ctx, viewport: vp }).promise;
   } catch (err){
@@ -1234,14 +1220,12 @@ $('vZoomIn').addEventListener('click', () => setZoom(state.viewerZoom + 0.25));
 $('vZoomOut').addEventListener('click', () => setZoom(state.viewerZoom - 0.25));
 $('vFit').addEventListener('click', () => setZoom(1));
 
-// Ctrl/Cmd + wheel zoom inside the viewer
 $('vScroll').addEventListener('wheel', e => {
   if (!(e.ctrlKey || e.metaKey)) return;
   e.preventDefault();
   setZoom(state.viewerZoom * (e.deltaY < 0 ? 1.12 : 1/1.12));
 }, { passive: false });
 
-// Debounced resize re-render
 let resizeTimer = null;
 window.addEventListener('resize', () => {
   clearTimeout(resizeTimer);
@@ -1367,7 +1351,6 @@ $('downloadBtn').addEventListener('click', () => {
 document.addEventListener('keydown', e => {
   if (e.target.matches('input,textarea,select')) return;
 
-  // Arrow keys for viewer navigation
   if (e.key === 'ArrowLeft' && !e.ctrlKey && !e.metaKey){
     e.preventDefault();
     $('vPrev').click();
@@ -1379,7 +1362,6 @@ document.addEventListener('keydown', e => {
     return;
   }
 
-  // Ctrl/Cmd +/- / 0 for zoom
   if ((e.ctrlKey || e.metaKey) && (e.key === '=' || e.key === '+')){
     e.preventDefault(); $('vZoomIn').click(); return;
   }
@@ -1390,7 +1372,6 @@ document.addEventListener('keydown', e => {
     e.preventDefault(); $('vFit').click(); return;
   }
 
-  // Delete / Backspace to delete all selected
   if ((e.key === 'Delete' || e.key === 'Backspace') && state.selected.size > 0){
     e.preventDefault();
     const count = state.selected.size;
@@ -1406,7 +1387,6 @@ document.addEventListener('keydown', e => {
     return;
   }
 
-  // Escape to deselect
   if (e.key === 'Escape'){
     state.selected.clear();
     state.lastAnchorId = null;
