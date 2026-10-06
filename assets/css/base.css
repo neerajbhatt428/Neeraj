@@ -54,6 +54,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 button{font:inherit;cursor:pointer;border-radius:var(--radius);
   border:1px solid var(--line);background:var(--surface);color:var(--ink);
   padding:11px 16px;font-weight:500;display:inline-flex;align-items:center;gap:8px;
+  touch-action:manipulation;
   transition:border-color .12s ease,background .12s ease}
 button:hover{border-color:#A9A9A1}
 button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
