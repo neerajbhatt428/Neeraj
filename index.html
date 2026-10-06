@@ -369,7 +369,7 @@ const TOOLS = [
   {id:'word-counter',name:'Word Counter',desc:'Count words, characters, sentences and reading time.',cat:'text',path:'/tools/text/word-counter.html'},
   {id:'case-converter',name:'Case Converter',desc:'Change text to UPPER, lower, Title or Sentence case.',cat:'text',path:'/tools/text/case-converter.html'},
   {id:'percentage',name:'Percentage Calculator',desc:'Percentage change and "X% of Y".',cat:'calc',path:'/tools/calc/percentage.html'},
- { id:'sci-calc', name:'Scientific Calculator', desc:'Trig, logs, powers, factorials, permutations, memory. DEG/RAD/GRAD modes.', cat:'calc', path:'/tools/calc/scientific-calculator.html', tags:['scientific','calculator','engineering','trig','log','factorial'] },
+  {id:'sci-calc', name:'Scientific Calculator', desc:'Trig, logs, powers, factorials, permutations, memory. DEG/RAD/GRAD modes.', cat:'calc', path:'/tools/calc/scientific-calculator.html', tags:['scientific','calculator','engineering','trig','log','factorial'] },
   {id:'age',name:'Age Calculator',desc:'Exact age in years, months and days.',cat:'calc',path:'/tools/calc/age.html'},
   {id:'bmi',name:'BMI Calculator',desc:'Body Mass Index with healthy weight range.',cat:'calc',path:'/tools/calc/bmi.html'},
   {id:'loan',name:'Loan / EMI Calculator',desc:'Monthly payment, total interest and schedule.',cat:'calc',path:'/tools/calc/loan.html'},
@@ -381,7 +381,8 @@ const TOOLS = [
   {id:'json-format',name:'JSON Formatter',desc:'Beautify, minify and validate JSON.',cat:'dev',path:'/tools/dev/json-format.html'},
   {id:'json-csv',name:'JSON ↔ CSV',desc:'Convert between JSON and CSV.',cat:'convert',path:'/tools/convert/json-csv.html'},
   {id:'password',name:'Password Generator',desc:'Strong random passwords with custom rules.',cat:'security',path:'/tools/security/password.html'},
-  {id:'qr-scanner',name:'QR Scanner & Generator',desc:'Scan with your camera or create QR codes for URLs, Wi-Fi and UPI.',cat:'generate',path:'/tools/qrscanner/'}
+  {id:'qr-scanner',  name:'QR Code Scanner',   desc:'Scan QR codes with your camera or upload an image.', cat:'generate', path:'/tools/qrscanner/scan.html', tags:['qr','scan','camera'] },
+  {id:'qr-generator',name:'QR Code Generator', desc:'Create QR codes for URLs, Wi-Fi, UPI, email and contacts.', cat:'generate', path:'/tools/qrscanner/generate.html', tags:['qr','generate','create'] }
 ];
 const FEATURED = ['pdf-editor','pdf-merge','pdf-compress','bg-remover','image-compress','qr-scanner','word-counter','json-format'];
 const $ = id => document.getElementById(id);
