@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Free Online Tools — Text, PDF, Image, Dev Utilities</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Free Online Tools: PDF, Image, Text &amp; Calculators | LocalTools</title>
 <meta name="description" content="A growing collection of free browser-based tools. Count words, merge PDFs, compress images, format JSON and more. No signup, no upload — everything runs in your browser.">
 <link rel="canonical" href="https://localtools.co.in/tools/">
 <link rel="sitemap" type="application/xml" href="https://localtools.co.in/sitemap.xml">
@@ -11,7 +11,7 @@
 <meta name="theme-color" content="#1B4DFF">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Free Online Tools — Text, PDF, Image, Dev Utilities">
+<meta property="og:title" content="Free Online Tools: PDF, Image, Text &amp; Calculators | LocalTools">
 <meta property="og:description" content="Free browser-based tools. No signup, no upload, everything runs locally.">
 <meta property="og:url" content="https://localtools.co.in/tools/">
 
@@ -19,31 +19,160 @@
 
 <script type="application/ld+json">
 {
-  "@context":"https://schema.org",
-  "@graph":[
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebSite",
+   "@id": "https://localtools.co.in/#website",
+   "url": "https://localtools.co.in/",
+   "name": "LocalTools",
+   "description": "Free browser-based tools for text, files, images, PDFs and code."
+  },
+  {
+   "@type": "CollectionPage",
+   "@id": "https://localtools.co.in/tools/#collection",
+   "url": "https://localtools.co.in/tools/",
+   "name": "Free Online Tools",
+   "description": "A growing collection of free browser-based tools. No signup, no upload, everything runs locally.",
+   "isPartOf": {
+    "@id": "https://localtools.co.in/#website"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
     {
-      "@type":"WebSite",
-      "@id":"https://localtools.co.in/#website",
-      "url":"https://localtools.co.in/",
-      "name":"LocalTools",
-      "description":"Free browser-based tools for text, files, images, PDFs and code."
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://localtools.co.in/"
     },
     {
-      "@type":"CollectionPage",
-      "@id":"https://localtools.co.in/tools/#collection",
-      "url":"https://localtools.co.in/tools/",
-      "name":"Free Online Tools",
-      "description":"A growing collection of free browser-based tools. No signup, no upload, everything runs locally.",
-      "isPartOf":{"@id":"https://localtools.co.in/#website"}
-    },
-    {
-      "@type":"BreadcrumbList",
-      "itemListElement":[
-        {"@type":"ListItem","position":1,"name":"Home","item":"https://localtools.co.in/"},
-        {"@type":"ListItem","position":2,"name":"Tools","item":"https://localtools.co.in/tools/"}
-      ]
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Tools",
+     "item": "https://localtools.co.in/tools/"
     }
-  ]
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What free tools does LocalTools offer?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "LocalTools has 34 free tools: PDF tools, image tools, text tools, calculators, a JSON formatter, a JSON to CSV converter, a password generator and a QR scanner and generator. New tools are added regularly."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Are my files uploaded to a server?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. Every tool runs inside your browser, so your PDFs, images and text stay on your device. Nothing is uploaded, which is why the tools work without an account."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Which PDF tools are available?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "You can edit a PDF, merge PDFs, split a PDF, compress a PDF, delete pages, rotate pages, convert PDF pages to JPG, turn JPG images into a PDF, extract text and add page numbers."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Which image tools are available?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Image tools include a compressor, resizer, cropper, converter (PNG, JPG, WebP, BMP), background remover, image to text (OCR), image to Base64, EXIF viewer and favicon generator."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How do I merge or split a PDF for free?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Open Merge PDF to combine several files in the order you choose, or open Split PDF to separate pages, page ranges or every N pages. Both run in your browser and the result downloads straight to your device."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can I remove an image background without signing up?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. The Background Remover cuts out the background with AI in your browser. There is no signup and no watermark, and your image is not sent to a server."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How do I compress a PDF or image without losing quality?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Use Compress PDF or Image Compressor, check the result and keep your original. Smaller files re-encode images at a lower size, so very high compression can reduce quality."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Which calculators are included?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Percentage, age, BMI, loan and EMI, date difference, compound interest, GST, tip and bill splitter, and calorie (TDEE) calculators. The GST calculator supports Indian GST rates."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is there a file size limit?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "LocalTools does not set an upload limit because files are never uploaded. Very large PDFs or images depend on your device's memory, so they can be slow on older phones."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do I need to install anything?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. Open any tool in your browser and use it. If you want quick access, you can install LocalTools from your browser menu as an app."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do the tools work offline?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Once LocalTools is installed from your browser menu, most tools keep working without internet. Tools that load a model, such as the background remover or OCR, may need to download it the first time."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does LocalTools work on mobile phones?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. The tools work in modern mobile browsers on Android and iPhone, and the pages are laid out for small screens."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is LocalTools really free?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. All tools are free, with no watermarks and no usage limits. The site is supported by ads."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How accurate are the calculators?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "They use standard formulas and are good for planning and quick checks. For tax, loan or health decisions, confirm the figures with a qualified professional."
+     }
+    }
+   ]
+  }
+ ]
 }
 </script>
 
@@ -54,275 +183,124 @@
 <link rel="manifest" href="/manifest.json">
 
 <style>
-/* ============================================================
-   Tools index — responsive
-   ============================================================ */
+body > .wrap-wide{padding:clamp(16px,2.5vw,28px) clamp(16px,3.5vw,40px) 64px}
 
-body > .wrap-wide{
-  padding:clamp(16px,2.5vw,28px) clamp(16px,3.5vw,40px) 64px;
-}
+/* ---------- category colours (same as home page) ---------- */
+[data-cat=pdf]{--c:#D6402F;--cb:#FDECE9}
+[data-cat=image]{--c:#0E7A5F;--cb:#E3F5EF}
+[data-cat=text]{--c:#B26A00;--cb:#FFF1D9}
+[data-cat=calc]{--c:#7A3FD1;--cb:#F1E8FD}
+[data-cat=dev]{--c:#1B4DFF;--cb:#EDF0FF}
+[data-cat=convert]{--c:#0A7C8C;--cb:#E0F4F7}
+[data-cat=security]{--c:#3A4252;--cb:#EBEDF1}
+[data-cat=generate]{--c:#C2185B;--cb:#FDE8F1}
+[data-cat=media]{--c:#B4530A;--cb:#FDEBDD}
 
-/* ---------- hero: two columns on desktop ---------- */
-.tools-hero{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:18px;
-  margin:0 0 clamp(20px,3vw,32px);
-}
+/* ---------- hero ---------- */
+.tools-hero{display:grid;grid-template-columns:1fr;gap:16px;margin:0 0 clamp(14px,2vw,22px)}
 @media(min-width:880px){
-  .tools-hero{
-    grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
-    column-gap:clamp(32px,4vw,64px);
-    row-gap:16px;
-    align-items:center;
-  }
-  .hero-copy,
-  .hero-search{min-width:0}
+  .tools-hero{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);column-gap:clamp(32px,4vw,64px);row-gap:14px;align-items:center}
+  .hero-copy,.hero-search{min-width:0}
 }
-
-.hero-copy .lede{
-  font-size:clamp(1.75rem,4vw,2.6rem);
-  line-height:1.08;
-  letter-spacing:-.035em;
-  margin:0 0 10px;
-  max-width:22ch;
-}
-.hero-copy .sub{
-  margin:0;
-  font-size:clamp(.9375rem,1.1vw,1rem);
-  line-height:1.55;
-  max-width:48ch;
-}
+.hero-copy .lede{font-size:clamp(1.75rem,4vw,2.6rem);line-height:1.08;letter-spacing:-.035em;margin:0 0 10px;max-width:22ch}
+.hero-copy .sub{margin:0;font-size:clamp(.9375rem,1.1vw,1rem);line-height:1.55;max-width:48ch}
 
 /* ---------- search ---------- */
-.search{
-  position:relative;
-  width:100%;
-}
-.search input{
-  width:100%;
-  font:inherit;
-  font-size:16px;
-  padding:15px 16px 15px 46px;
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:10px;
-  outline:none;
-  color:var(--ink);
-  transition:border-color .15s ease, box-shadow .15s ease;
-  box-shadow:0 2px 0 rgba(20,22,26,.02), 0 12px 32px -20px rgba(20,22,26,.12);
-}
-.search input::placeholder{color:var(--muted)}
-.search input:focus{
-  border-color:var(--blue);
-  box-shadow:0 0 0 4px rgba(27,77,255,.1), 0 12px 32px -18px rgba(20,22,26,.2);
-}
-.search svg{
-  position:absolute;
-  left:16px;top:50%;
-  transform:translateY(-50%);
-  width:17px;height:17px;
-  color:var(--muted);
-  pointer-events:none;
-}
+.finder{position:relative;width:100%}
+.finder input{width:100%;box-sizing:border-box;font:inherit;font-size:16px;padding:15px 50px 15px 48px;background:var(--surface);border:1px solid var(--line);border-radius:10px;outline:none;color:var(--ink);transition:border-color .15s,box-shadow .15s;box-shadow:0 2px 0 rgba(20,22,26,.02),0 12px 32px -20px rgba(20,22,26,.12)}
+.finder input::placeholder{color:var(--muted)}
+.finder input:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(27,77,255,.1),0 12px 32px -18px rgba(20,22,26,.2)}
+.finder .finder-icon{position:absolute;left:17px;top:50%;transform:translateY(-50%);width:17px!important;height:17px!important;color:var(--muted);pointer-events:none}
 
-/* ---------- category pills: full-width row below hero ---------- */
-.cats{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-  margin:4px 0 0;
-}
-@media(min-width:880px){
-  .tools-hero .cats{
-    grid-column:1 / -1;
-    margin-top:8px;
-  }
-}
+/* ---------- category pills ---------- */
+.cats{display:flex;flex-wrap:wrap;gap:7px;margin:4px 0 0}
+@media(min-width:880px){.tools-hero .cats{grid-column:1 / -1;margin-top:6px}}
+.cat{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--surface);border-radius:100px;padding:8px 14px;font-size:.8125rem;color:var(--ink);cursor:pointer;font-weight:500;font-family:inherit;white-space:nowrap;transition:background .12s,border-color .12s,color .12s}
+.cat .dot{width:8px;height:8px;border-radius:50%;background:var(--c,var(--ink))}
+.cat:hover{border-color:var(--c,var(--ink))}
+.cat[aria-pressed="true"]{background:var(--c,var(--ink));border-color:var(--c,var(--ink));color:#fff}
+.cat[aria-pressed="true"] .dot{background:#fff}
+.cat .n{opacity:.65;font-size:.75rem}
+.cat:focus-visible,.tool-card:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 
-.cat{
-  border:1px solid var(--line);
-  background:transparent;
-  border-radius:100px;
-  padding:8px 14px;
-  font-size:.8125rem;
-  color:var(--muted);
-  cursor:pointer;
-  font-weight:500;
-  font-family:inherit;
-  white-space:nowrap;
-  transition:background .12s ease, border-color .12s ease, color .12s ease;
-}
-.cat:hover{color:var(--ink);border-color:#A9A9A1}
-.cat[aria-pressed="true"]{
-  background:var(--ink);
-  border-color:var(--ink);
-  color:#fff;
-}
 
+.finder input::-webkit-search-cancel-button,.finder input::-webkit-search-decoration{-webkit-appearance:none;appearance:none;display:none}
+.finder-kbd{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:.75rem;padding:3px 8px;border-radius:5px;background:var(--paper);border:1px solid var(--line);color:var(--muted);pointer-events:none}
+.finder-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:36px;height:36px;border:0;border-radius:8px;background:transparent;color:var(--muted);display:grid;place-items:center;cursor:pointer}
+.finder-clear:hover{background:var(--paper);color:var(--ink)}
+.finder-clear svg{width:16px;height:16px}
+.finder-clear:focus-visible{outline:2px solid var(--blue)}
+.finder-clear[hidden],.finder-kbd[hidden]{display:none}
+@media(hover:none),(max-width:640px){.finder-kbd{display:none}}
+mark{background:#FFE9A8;color:inherit;border-radius:3px;padding:0 1px}
+.empty strong{display:block;color:var(--ink);font-family:var(--display);font-size:1.0625rem;margin-bottom:6px}
+.empty .try{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px}
+.empty button{font:inherit;font-size:.8125rem;padding:8px 14px;border-radius:100px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.empty button:hover{border-color:var(--blue);color:var(--blue)}
 /* ---------- section label ---------- */
-.section-label{
-  font-family:var(--mono);
-  font-size:.75rem;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-  color:var(--muted);
-  margin:clamp(20px,3vw,32px) 0 0;
-}
+.section-label{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:clamp(14px,2vw,22px) 0 0}
 
 /* ---------- tools grid ---------- */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill, minmax(260px,1fr));
-  gap:clamp(10px,1.2vw,14px);
-  margin:16px 0 0;
-}
-
-.tool-card{
-  display:flex;
-  flex-direction:column;
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:clamp(14px,1.6vw,18px);
-  text-decoration:none;
-  color:inherit;
-  transition:border-color .12s ease, transform .12s ease, box-shadow .12s ease;
-  min-height:132px;
-}
-.tool-card:hover{
-  border-color:var(--blue);
-  transform:translateY(-2px);
-  box-shadow:0 12px 24px -16px rgba(27,77,255,.35);
-}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:clamp(10px,1.2vw,14px);margin:14px 0 0}
+.tool-card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--c,var(--line));border-radius:var(--radius);padding:clamp(14px,1.6vw,18px);text-decoration:none;color:inherit;transition:border-color .12s,transform .12s,box-shadow .12s;min-height:132px}
+.tool-card:hover{border-color:var(--c,var(--blue));transform:translateY(-2px);box-shadow:0 12px 24px -16px var(--c,rgba(27,77,255,.35))}
 .tool-card:active{transform:translateY(0)}
-.tool-card .ico{
-  width:34px;height:34px;
-  border-radius:6px;
-  background:#EDF0FF;
-  display:grid;place-items:center;
-  color:var(--blue);
-  margin:0 0 12px;
-  font-weight:700;
-  font-family:var(--mono);
-  font-size:.8125rem;
-  letter-spacing:.02em;
-  flex:none;
-}
-.tool-card h3{
-  margin:0 0 5px;
-  font-family:var(--display);
-  font-size:1rem;
-  letter-spacing:-.01em;
-  line-height:1.2;
-}
-.tool-card p{
-  margin:0;
-  font-size:.875rem;
-  color:var(--muted);
-  line-height:1.5;
-  display:-webkit-box;
-  -webkit-line-clamp:3;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
-}
-.tool-card .cat-tag{
-  display:inline-block;
-  margin:12px 0 0;
-  font-size:.6875rem;
-  font-family:var(--mono);
-  text-transform:uppercase;
-  letter-spacing:.06em;
-  color:var(--muted);
-  margin-top:auto;
-  padding-top:10px;
+.tool-card .ico{width:36px;height:36px;border-radius:8px;background:var(--cb,#EDF0FF);display:grid;place-items:center;color:var(--c,var(--blue));margin:0 0 12px;flex:none;transition:background .12s,color .12s}
+.tool-card:hover .ico{background:var(--c,var(--blue));color:#fff}
+.tool-card .ico svg{width:18px;height:18px}
+.tool-card h3{margin:0 0 5px;font-family:var(--display);font-size:1rem;letter-spacing:-.01em;line-height:1.2}
+.tool-card p{margin:0;font-size:.875rem;color:var(--muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.tool-card .cat-tag{display:inline-flex;align-items:center;gap:6px;margin-top:auto;padding-top:12px;font-size:.75rem;font-weight:500;color:var(--c,var(--muted))}
+.tool-card .cat-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c,var(--muted))}
+
+.empty{grid-column:1 / -1;text-align:center;padding:60px 20px;color:var(--muted);font-size:.9375rem}
+
+
+/* ---------- page width + base polish ---------- */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body > .wrap-wide{max-width:1240px;margin-left:auto;margin-right:auto;padding-left:max(clamp(16px,3.5vw,40px),env(safe-area-inset-left));padding-right:max(clamp(16px,3.5vw,40px),env(safe-area-inset-right))}
+@media(min-width:1500px){body > .wrap-wide{max-width:1360px}.grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}}
+.tool-card,.cat{-webkit-tap-highlight-color:transparent}
+.cat{min-height:38px}
+
+/* ---------- FAQ ---------- */
+.faq-sec{margin:clamp(36px,5vw,64px) 0 0;padding-top:clamp(24px,3vw,36px);border-top:1px solid var(--line);content-visibility:auto;contain-intrinsic-size:1px 700px}
+.faq-sec h2{font-family:var(--display);font-weight:700;font-size:clamp(1.25rem,2.4vw,1.75rem);letter-spacing:-.025em;margin:0 0 6px}
+.faq-intro{margin:0 0 clamp(14px,2vw,22px);color:var(--muted);font-size:.9375rem;max-width:60ch}
+.faq-grid{display:grid;grid-template-columns:1fr;gap:0 clamp(28px,4vw,56px);align-items:start}
+@media(min-width:820px){.faq-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.faq-grid details{border-top:1px solid var(--line);padding:0}
+.faq-grid details:last-child{border-bottom:1px solid var(--line)}
+@media(min-width:820px){.faq-grid details:nth-last-child(2):nth-child(odd){border-bottom:1px solid var(--line)}}
+.faq-grid summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 2px;min-height:48px;font-weight:500;font-size:.9375rem;line-height:1.4}
+.faq-grid summary::-webkit-details-marker{display:none}
+.faq-grid summary::after{content:"+";flex:none;color:var(--muted);font-size:1.375rem;line-height:1;width:24px;text-align:center}
+.faq-grid details[open] summary::after{content:"\2212";color:var(--blue)}
+.faq-grid summary:hover{color:var(--blue)}
+.faq-grid summary:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:4px}
+.faq-grid p{margin:0;padding:0 38px 18px 2px;color:#3A3E46;font-size:.9375rem;line-height:1.6}
+@media(max-width:640px){
+  .faq-sec{margin-top:32px}
+  .faq-grid summary{padding:15px 0;font-size:.9375rem}
+  .faq-grid p{padding:0 8px 16px 0;font-size:.875rem}
+  footer{padding-bottom:max(0px,env(safe-area-inset-bottom))}
 }
 
-.empty{
-  grid-column:1 / -1;
-  text-align:center;
-  padding:60px 20px;
-  color:var(--muted);
-  font-size:.9375rem;
-}
-
-/* ============================================================
-   MOBILE (< 640px)
-   ============================================================ */
+/* ---------- mobile ---------- */
 @media(max-width:640px){
   body > .wrap-wide{padding:14px 16px 56px}
-
-  .tools-hero{gap:14px;margin-bottom:18px}
-  .hero-copy .sub{margin:0}
-
-  .search input{
-    padding:14px 14px 14px 44px;
-  }
-
-  /* Horizontal-scrolling category pills */
-  .cats{
-    flex-wrap:nowrap;
-    overflow-x:auto;
-    overflow-y:hidden;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
-    margin-left:-16px;
-    margin-right:-16px;
-    padding:4px 16px 10px;
-    scroll-snap-type:x proximity;
-    gap:6px;
-  }
+  .tools-hero{gap:12px;margin-bottom:12px}
+  .finder input{padding:14px 14px 14px 44px}
+  .cats{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-left:-16px;margin-right:-16px;padding:4px 16px 10px;scroll-snap-type:x proximity;gap:6px}
   .cats::-webkit-scrollbar{display:none}
-  .cat{
-    flex:none;
-    scroll-snap-align:start;
-    white-space:nowrap;
-    min-height:36px;
-    padding:9px 15px;
-    font-size:.8125rem;
-    display:inline-flex;
-    align-items:center;
-  }
-
-  /* Single-column compact tool cards */
+  .cat{flex:none;scroll-snap-align:start;min-height:36px;padding:9px 15px}
   .grid{grid-template-columns:1fr;gap:10px}
-  .tool-card{
-    min-height:0;
-    padding:14px;
-    border-radius:10px;
-    display:grid;
-    grid-template-columns:38px 1fr;
-    grid-template-rows:auto auto auto;
-    column-gap:12px;
-    row-gap:2px;
-  }
-  .tool-card .ico{
-    grid-row:1 / span 2;
-    width:38px;height:38px;
-    margin:0;
-    font-size:.75rem;
-  }
-  .tool-card h3{
-    grid-column:2;
-    font-size:.9375rem;
-    margin:0;
-    align-self:center;
-  }
-  .tool-card p{
-    grid-column:2;
-    font-size:.8125rem;
-    -webkit-line-clamp:2;
-    line-height:1.45;
-  }
-  .tool-card .cat-tag{
-    grid-column:2;
-    margin:6px 0 0;
-    padding-top:0;
-    font-size:.625rem;
-  }
+  .tool-card{min-height:0;padding:14px;border-radius:10px;display:grid;grid-template-columns:38px 1fr;grid-template-rows:auto auto auto;column-gap:12px;row-gap:2px}
+  .tool-card .ico{grid-row:1 / span 2;width:38px;height:38px;margin:0}
+  .tool-card h3{grid-column:2;font-size:.9375rem;margin:0;align-self:center}
+  .tool-card p{grid-column:2;font-size:.8125rem;-webkit-line-clamp:2;line-height:1.45}
+  .tool-card .cat-tag{grid-column:2;margin:6px 0 0;padding-top:0;font-size:.6875rem}
 }
-
-/* ---------- small phones ---------- */
 @media(max-width:380px){
   .hero-copy .lede{font-size:1.5rem}
   .tool-card{padding:12px;column-gap:10px}
@@ -330,16 +308,10 @@ body > .wrap-wide{
   .tool-card h3{font-size:.875rem}
   .tool-card p{font-size:.75rem}
 }
-
-/* ---------- reduced motion ---------- */
-@media(prefers-reduced-motion:reduce){
-  *{transition:none !important;animation:none !important}
-}
-
-/* ---------- touch devices ---------- */
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 @media(hover:none){
   .tool-card:hover{transform:none;box-shadow:none;border-color:var(--line)}
-  .tool-card:active{border-color:var(--blue);background:#FAFBFF}
+  .tool-card:active{border-color:var(--c,var(--blue));background:#FAFBFF}
 }
 </style>
 </head>
@@ -347,7 +319,7 @@ body > .wrap-wide{
 <div class="wrap-wide">
 
   <header class="masthead">
-    <a href="/" style="display:flex;align-items:center;gap:10px">
+    <a href="/" style="display:flex;align-items:center;gap:10px" aria-label="LocalTools home">
       <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
         <path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/>
         <path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/>
@@ -367,17 +339,40 @@ body > .wrap-wide{
     </div>
 
     <div class="hero-search">
-      <div class="search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-        <input id="search" type="search" placeholder="Search tools — try 'pdf', 'word', 'json'…" autocomplete="off" spellcheck="false" aria-label="Search tools">
+      <div class="finder">
+        <svg class="finder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input id="search" type="search" placeholder="Search 34 tools, e.g. merge pdf, resize, gst" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" aria-label="Search tools">
+        <kbd class="finder-kbd" id="kbd" aria-hidden="true">/</kbd>
+        <button type="button" class="finder-clear" id="clear" aria-label="Clear search" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
       </div>
     </div>
 
     <div class="cats" id="cats" role="group" aria-label="Tool categories"></div>
   </section>
 
-  <p class="section-label" id="countLabel">All tools</p>
+  <p class="section-label" id="countLabel" aria-live="polite">All tools</p>
   <div class="grid" id="grid"></div>
+
+  <section class="faq-sec" aria-labelledby="faqTitle">
+    <h2 id="faqTitle">Frequently asked questions</h2>
+    <p class="faq-intro">Quick answers about privacy, file types and how the tools work.</p>
+    <div class="faq-grid">
+      <details><summary>What free tools does LocalTools offer?</summary><p>LocalTools has 34 free tools: PDF tools, image tools, text tools, calculators, a JSON formatter, a JSON to CSV converter, a password generator and a QR scanner and generator. New tools are added regularly.</p></details>
+      <details><summary>Are my files uploaded to a server?</summary><p>No. Every tool runs inside your browser, so your PDFs, images and text stay on your device. Nothing is uploaded, which is why the tools work without an account.</p></details>
+      <details><summary>Which PDF tools are available?</summary><p>You can edit a PDF, merge PDFs, split a PDF, compress a PDF, delete pages, rotate pages, convert PDF pages to JPG, turn JPG images into a PDF, extract text and add page numbers.</p></details>
+      <details><summary>Which image tools are available?</summary><p>Image tools include a compressor, resizer, cropper, converter (PNG, JPG, WebP, BMP), background remover, image to text (OCR), image to Base64, EXIF viewer and favicon generator.</p></details>
+      <details><summary>How do I merge or split a PDF for free?</summary><p>Open Merge PDF to combine several files in the order you choose, or open Split PDF to separate pages, page ranges or every N pages. Both run in your browser and the result downloads straight to your device.</p></details>
+      <details><summary>Can I remove an image background without signing up?</summary><p>Yes. The Background Remover cuts out the background with AI in your browser. There is no signup and no watermark, and your image is not sent to a server.</p></details>
+      <details><summary>How do I compress a PDF or image without losing quality?</summary><p>Use Compress PDF or Image Compressor, check the result and keep your original. Smaller files re-encode images at a lower size, so very high compression can reduce quality.</p></details>
+      <details><summary>Which calculators are included?</summary><p>Percentage, age, BMI, loan and EMI, date difference, compound interest, GST, tip and bill splitter, and calorie (TDEE) calculators. The GST calculator supports Indian GST rates.</p></details>
+      <details><summary>Is there a file size limit?</summary><p>LocalTools does not set an upload limit because files are never uploaded. Very large PDFs or images depend on your device's memory, so they can be slow on older phones.</p></details>
+      <details><summary>Do I need to install anything?</summary><p>No. Open any tool in your browser and use it. If you want quick access, you can install LocalTools from your browser menu as an app.</p></details>
+      <details><summary>Do the tools work offline?</summary><p>Once LocalTools is installed from your browser menu, most tools keep working without internet. Tools that load a model, such as the background remover or OCR, may need to download it the first time.</p></details>
+      <details><summary>Does LocalTools work on mobile phones?</summary><p>Yes. The tools work in modern mobile browsers on Android and iPhone, and the pages are laid out for small screens.</p></details>
+      <details><summary>Is LocalTools really free?</summary><p>Yes. All tools are free, with no watermarks and no usage limits. The site is supported by ads.</p></details>
+      <details><summary>How accurate are the calculators?</summary><p>They use standard formulas and are good for planning and quick checks. For tax, loan or health decisions, confirm the figures with a qualified professional.</p></details>
+    </div>
+  </section>
 
   <footer>
     <p>LocalTools · <a href="/">Home</a> · <a href="/pages/about.html">About</a> · <a href="/pages/privacy.html">Privacy</a></p>
@@ -387,16 +382,29 @@ body > .wrap-wide{
 <script>
 const CATEGORIES = [
   { id:'all',      name:'All' },
+  { id:'pdf',      name:'PDF' },
+  { id:'image',    name:'Image' },
   { id:'text',     name:'Text' },
-  { id:'convert',  name:'Convert' },
   { id:'calc',     name:'Calculators' },
   { id:'dev',      name:'Developer' },
-  { id:'image',    name:'Image' },
-  { id:'pdf',      name:'PDF' },
-  { id:'media',    name:'Audio/Video' },
-  { id:'generate', name:'Generators' },
-  { id:'security', name:'Security' }
+  { id:'convert',  name:'Convert' },
+  { id:'security', name:'Security' },
+  { id:'generate', name:'QR & Generators' },
+  { id:'media',    name:'Audio/Video' }
 ];
+
+/* one icon per category, same as the home page */
+const ICONS = {
+  pdf:'<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/>',
+  image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>',
+  text:'<path d="M4 7V5h16v2M9 20h6M12 5v15"/>',
+  calc:'<rect x="6" y="2" width="12" height="20" rx="2"/><path d="M8 6h8M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/>',
+  dev:'<path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>',
+  convert:'<path d="M17 2l4 4-4 4M3 11V9a4 4 0 014-4h14M7 22l-4-4 4-4M21 13v2a4 4 0 01-4 4H3"/>',
+  security:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+  generate:'<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM20 14v7h-3"/>',
+  media:'<rect x="2" y="2" width="20" height="20" rx="2"/><path d="M10 8l6 4-6 4z"/>'
+};
 
 const TOOLS = [
   { id:'word-counter', name:'Word Counter',      desc:'Count words, characters, sentences and reading time.', cat:'text', path:'/tools/text/word-counter.html',  tags:['words','count','characters'] },
@@ -435,6 +443,17 @@ const TOOLS = [
   { id:'pdf-numbers',  name:'Add Page Numbers',   desc:'Add page numbers to the bottom of every page. Choose position and format.', cat:'pdf', path:'/tools/pdf/pdf-numbers.html',  tags:['numbers','pages','footer'] }
 ];
 
+/* keep the same order as the home page */
+const ORDER = ['pdf-editor','pdf-merge','pdf-split','pdf-compress','delete-pages','pdf-rotate','pdf-to-img','img-to-pdf','pdf-text','pdf-numbers',
+  'bg-remover','image-compress','image-resize','image-to-text','image-convert','image-crop','image-base64','exif','favicon',
+  'word-counter','case-conv',
+  'percentage','age','bmi','loan','date-diff','compound','gst','tip','calorie',
+  'json-fmt','json-csv','password','qr-scanner'];
+TOOLS.sort((a,b) => {
+  const i = ORDER.indexOf(a.id), j = ORDER.indexOf(b.id);
+  return (i<0?999:i) - (j<0?999:j);
+});
+
 let activeCat = 'all';
 let query = '';
 
@@ -442,70 +461,126 @@ const grid = document.getElementById('grid');
 const catsEl = document.getElementById('cats');
 const search = document.getElementById('search');
 const countLabel = document.getElementById('countLabel');
+const clearBtn = document.getElementById('clear');
+const kbd = document.getElementById('kbd');
+const esc = s => String(s).replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
+const catName = id => (CATEGORIES.find(c => c.id === id) || {name:id}).name;
 
+const countOf = id => id === 'all' ? TOOLS.length : TOOLS.filter(t => t.cat === id).length;
 function renderCats(){
-  catsEl.innerHTML = CATEGORIES.map(c =>
-    `<button class="cat" data-cat="${c.id}" aria-pressed="${c.id===activeCat}">${c.name}</button>`
+  catsEl.innerHTML = CATEGORIES.filter(c => countOf(c.id) > 0).map(c =>
+    `<button class="cat" data-cat="${c.id}" aria-pressed="${!query && c.id===activeCat}">${c.id==='all'?'':'<span class="dot"></span>'}${c.name}<span class="n">${countOf(c.id)}</span></button>`
   ).join('');
   catsEl.querySelectorAll('.cat').forEach(b => {
     b.onclick = () => {
       activeCat = b.dataset.cat;
+      query = ''; search.value = '';
       renderCats();
       render();
       if (window.innerWidth <= 640){
-        b.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' });
+        const nb = catsEl.querySelector('[aria-pressed="true"]');
+        if (nb) nb.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' });
       }
     };
   });
 }
 
-function matches(t){
-  if (activeCat !== 'all' && t.cat !== activeCat) return false;
-  if (!query) return true;
-  const q = query.toLowerCase();
-  return t.name.toLowerCase().includes(q)
-    || t.desc.toLowerCase().includes(q)
-    || (t.tags||[]).some(x => x.includes(q));
+const words = q => q.toLowerCase().split(/\s+/).filter(Boolean);
+/* every word must match somewhere; name matches rank highest */
+function score(t, ws){
+  const name = t.name.toLowerCase(), desc = t.desc.toLowerCase(), cat = catName(t.cat).toLowerCase();
+  const tags = (t.tags||[]).map(x => x.toLowerCase());
+  let total = 0;
+  for (const w of ws){
+    let s = 0;
+    if (name.startsWith(w)) s = 6;
+    else if (name.split(/[\s\/&()-]+/).some(p => p.startsWith(w))) s = 5;
+    else if (name.includes(w)) s = 4;
+    else if (tags.some(x => x === w)) s = 4;
+    else if (tags.some(x => x.startsWith(w))) s = 3;
+    else if (cat.includes(w)) s = 2;
+    else if (tags.some(x => x.includes(w)) || desc.includes(w)) s = 1;
+    if (!s) return 0;
+    total += s;
+  }
+  return total;
+}
+const reEsc = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function hl(text, ws){
+  if (!ws.length) return esc(text);
+  const re = new RegExp('(' + ws.map(reEsc).join('|') + ')', 'gi');
+  return text.split(re).map((p, i) => i % 2 ? '<mark>' + esc(p) + '</mark>' : esc(p)).join('');
 }
 
 function render(){
-  const list = TOOLS.filter(matches);
-  const catName = CATEGORIES.find(c=>c.id===activeCat).name;
-  countLabel.textContent = activeCat === 'all'
-    ? `All tools (${list.length})`
-    : `${catName} (${list.length})`;
+  const ws = words(query);
+  let list;
+  if (ws.length){
+    /* searching looks at every category, best match first */
+    list = TOOLS.map(t => ({t, s:score(t, ws)})).filter(x => x.s > 0)
+      .sort((a,b) => b.s - a.s).map(x => x.t);
+    countLabel.textContent = `${list.length} ${list.length === 1 ? 'result' : 'results'} for “${query}”`;
+  } else {
+    list = activeCat === 'all' ? TOOLS : TOOLS.filter(t => t.cat === activeCat);
+    countLabel.textContent = activeCat === 'all' ? `All tools (${list.length})` : `${catName(activeCat)} (${list.length})`;
+  }
+  clearBtn.hidden = !search.value;
+  kbd.hidden = !!search.value;
+  renderCats();
 
   if (!list.length){
-    grid.innerHTML = `<div class="empty">No tools match “${query.replace(/[<>&]/g,'')}”.</div>`;
+    grid.innerHTML = `<div class="empty"><strong>No tools match “${esc(query)}”</strong>Check the spelling or try a simpler word.<div class="try"><button type="button" data-clear>Clear search</button><button type="button" data-q="pdf">pdf</button><button type="button" data-q="image">image</button><button type="button" data-q="calculator">calculator</button></div></div>`;
     return;
   }
   grid.innerHTML = list.map(t => `
-    <a class="tool-card" href="${t.path}">
-      <div class="ico">${t.name.slice(0,2).toUpperCase()}</div>
-      <h3>${t.name}</h3>
-      <p>${t.desc}</p>
-      <span class="cat-tag">${t.cat}</span>
+    <a class="tool-card" href="${t.path}" data-cat="${t.cat}">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[t.cat]||ICONS.dev}</svg></div>
+      <h3>${hl(t.name, ws)}</h3>
+      <p>${hl(t.desc, ws)}</p>
+      <span class="cat-tag">${esc(catName(t.cat))}</span>
     </a>
   `).join('');
+}
+
+function setQuery(v, focus){
+  search.value = v; query = v.trim();
+  try { history.replaceState(null, '', query ? '?q=' + encodeURIComponent(query) : location.pathname + location.hash); } catch(e){}
+  render();
+  if (focus) search.focus();
 }
 
 let debounce;
 search.addEventListener('input', e => {
   clearTimeout(debounce);
-  debounce = setTimeout(() => { query = e.target.value.trim(); render(); }, 120);
+  clearBtn.hidden = !search.value; kbd.hidden = !!search.value;
+  debounce = setTimeout(() => setQuery(e.target.value), 100);
 });
-
+clearBtn.addEventListener('click', () => setQuery('', true));
+grid.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.hasAttribute('data-clear')) setQuery('', true);
+  else if (b.dataset.q) setQuery(b.dataset.q, true);
+});
+/* Enter opens the best match when there is exactly one result */
+search.addEventListener('keydown', e => {
+  if (e.key === 'Enter'){
+    e.preventDefault();
+    clearTimeout(debounce); setQuery(search.value);
+    const cards = grid.querySelectorAll('.tool-card');
+    if (cards.length === 1) location.href = cards[0].href;
+    else if (cards.length) cards[0].focus();
+  }
+});
 document.addEventListener('keydown', e => {
-  if (e.key === '/' && document.activeElement !== search){ e.preventDefault(); search.focus(); }
-  if (e.key === 'Escape' && document.activeElement === search){ search.value=''; query=''; render(); search.blur(); }
+  const tag = document.activeElement.tagName;
+  if (e.key === '/' && !/^(INPUT|TEXTAREA|SELECT)$/.test(tag)){ e.preventDefault(); search.focus(); search.select(); }
+  if (e.key === 'Escape' && document.activeElement === search){ if (search.value) setQuery(''); else search.blur(); }
 });
 
 renderCats();
 render();
 
-/* ============================================================
-   Hash-based category links — e.g. /tools/#pdf activates PDF
-   ============================================================ */
+/* Hash-based category links — e.g. /tools/#pdf activates PDF */
 (function(){
   function applyHash(){
     var hash = (location.hash || '').replace('#','').trim();
@@ -515,15 +590,17 @@ render();
     activeCat = hash;
     renderCats();
     render();
-    var grid = document.getElementById('grid');
-    if (grid) {
-      setTimeout(function(){
-        grid.scrollIntoView({ behavior:'smooth', block:'start' });
-      }, 60);
-    }
+    setTimeout(function(){ grid.scrollIntoView({ behavior:'smooth', block:'start' }); }, 60);
   }
   window.addEventListener('load', applyHash);
   window.addEventListener('hashchange', applyHash);
+})();
+search.placeholder = `Search ${TOOLS.length} tools, e.g. merge pdf, resize, gst`;
+
+/* /tools/?q=word — supports the SearchAction in the home page schema */
+(function(){
+  var q = new URLSearchParams(location.search).get('q');
+  if (q) setQuery(q);
 })();
 </script>
 </body>
