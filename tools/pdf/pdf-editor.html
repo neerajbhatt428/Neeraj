@@ -28,20 +28,7 @@
       "applicationCategory":"UtilitiesApplication",
       "operatingSystem":"Any browser",
       "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
-      "featureList":[
-        "Click text to edit it",
-        "Highlight text",
-        "Add text with custom fonts",
-        "Draw rectangles and arrows",
-        "Sticky notes",
-        "Insert images and signatures",
-        "Redact content",
-        "Undo and redo",
-        "Auto-save and session restore",
-        "Page thumbnails",
-        "Zoom in and out",
-        "Vector output keeps text selectable"
-      ]
+      "featureList":["Click text to edit it","Highlight text","Add text with custom fonts","Draw rectangles and arrows","Sticky notes","Insert images and signatures","Redact content","Undo and redo","Auto-save and session restore","Page thumbnails","Zoom in and out","Vector output keeps text selectable"]
     },
     {
       "@type":"BreadcrumbList",
@@ -597,6 +584,31 @@ textarea.inline-input{resize:none;white-space:pre;overflow:hidden;line-height:1.
 .zoom-box input:focus{outline:none;border-color:var(--blue)}
 .inline-input::selection{background:rgba(27,77,255,.28);color:inherit}
 .inline-input{background:rgba(255,255,255,.96);color:inherit;caret-color:#1B4DFF}
+
+/* ===== Layout fixes: contain zoom inside the viewer, full-width aligned content ===== */
+.editor-shell{grid-template-columns:minmax(0,1fr)}
+@media(min-width:1000px){.editor-shell{grid-template-columns:minmax(0,1fr) 300px}}
+.editor-shell > div,.editor-shell > aside{min-width:0}
+.toolbar{width:100%;box-sizing:border-box}
+.viewer{width:100%;max-width:100%;box-sizing:border-box;align-items:flex-start;overscroll-behavior:contain}
+.viewer.empty{align-items:center}
+.page-wrap{flex:none;margin:0 auto}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:16px;margin:40px 0 0;width:100%}
+.info-card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px 22px;min-width:0;line-height:1.6}
+.info-card.wide{grid-column:1 / -1}
+.info-card h2{font-family:var(--display);font-weight:700;font-size:1.125rem;letter-spacing:-.01em;margin:0 0 12px}
+.info-card ol,.info-card ul{margin:0;padding-left:20px}
+.info-card li{margin:0 0 6px;font-size:.9375rem}
+.info-card p{margin:0;font-size:.9375rem;color:#3A3E46}
+.faq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:10px;align-items:start}
+.faq-grid details{border:1px solid var(--line);border-radius:6px;background:#FAFAF8;padding:12px 14px}
+.faq-grid summary{cursor:pointer;font-weight:500;font-size:.9375rem}
+.faq-grid details p{margin:8px 0 0;font-size:.875rem;color:var(--muted)}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px}
+.related-grid a{display:flex;flex-direction:column;gap:2px;border:1px solid var(--line);border-radius:6px;padding:12px 14px;text-decoration:none;color:inherit;background:#FAFAF8;transition:border-color .12s}
+.related-grid a:hover{border-color:var(--blue)}
+.related-grid a span{font-size:.8125rem;color:var(--muted)}
+footer{width:100%}
 </style>
 </head>
 <body>
@@ -810,62 +822,63 @@ textarea.inline-input{resize:none;white-space:pre;overflow:hidden;line-height:1.
     </aside>
   </div>
 
-  <article class="article" style="margin-top:56px;max-width:68ch">
-    <h2>How to use the PDF editor</h2>
-    <ol>
-      <li>Drop a PDF onto the viewer, or click <strong>Choose PDF</strong>.</li>
-      <li>Pick a tool from the toolbar. Hover any tool to see its shortcut key.</li>
-      <li><strong>Edit text</strong> — click any word or number, type the replacement, press Enter.</li>
-      <li><strong>Select</strong> — click any text (original or added) to move, resize or edit it.</li>
-      <li><strong>Highlight / Rect / Arrow / Redact</strong> — drag to draw.</li>
-      <li><strong>Image / Sign</strong> — pick the tool, then click on the page to place.</li>
-      <li><strong>Right-click</strong> any element for Delete, Duplicate, Copy, Bring to front.</li>
-      <li>Press <kbd class="kbd">?</kbd> at any time for the full keyboard shortcut list.</li>
-      <li>Click <strong>Save edited PDF</strong> to download.</li>
-    </ol>
-
-    <h2>Built for real work</h2>
-    <ul>
-      <li><strong>Undo/redo</strong> — 50 steps of history, Ctrl+Z / Ctrl+Shift+Z</li>
-      <li><strong>Auto-save</strong> — your edits are stored in your browser every few seconds</li>
-      <li><strong>Session restore</strong> — close the tab, reopen it, keep working</li>
-            <li><strong>Right-click menu</strong> — duplicate, delete, copy, bring to front</li>
-      <li><strong>Snap to text</strong> — text elements snap to nearby baselines when dragged</li>
-      <li><strong>Quick colors</strong> — one-click yellow/red/green/blue/black</li>
-    </ul>
-
-    <h2>Your work is safe</h2>
-    <p>Every change is auto-saved to your browser's local storage. If you accidentally close the tab, or your computer crashes, reopen this page and you'll be offered to restore your last session. Nothing is ever uploaded.</p>
-
-    <h2>Vector output — text stays sharp</h2>
-    <p>Original PDF pages are copied unchanged into the output, so the original text remains selectable and searchable. Your annotations are added as real vector content — infinitely sharp at any zoom, small file size.</p>
-
-    <h2>Common questions</h2>
-    <div class="faq">
-      <details><summary>Can I edit existing text in the PDF?</summary><p>Yes. Click the Edit text tool, then click any word or number. The tool detects the original text, covers it, and draws your replacement in the same position and style.</p></details>
-      <details><summary>Does the editor upload my PDF?</summary><p>No. Your PDF is read, modified and re-saved entirely inside your browser.</p></details>
-      <details><summary>Will the original text stay selectable?</summary><p>Yes. Original pages are copied into the output unchanged, so selectable text is preserved.</p></details>
-      <details><summary>Does it save my work if I close the tab?</summary><p>Yes. The editor auto-saves to your browser every few seconds. Reopen the page and it offers to restore your previous session.</p></details>
-      <details><summary>Can I undo a mistake?</summary><p>Yes. Ctrl+Z undoes, Ctrl+Shift+Z redoes, up to 50 steps.</p></details>
+  <section class="info" aria-label="About the PDF editor">
+    <div class="info-card">
+      <h2>How to use the PDF editor</h2>
+      <ol>
+        <li>Drop a PDF onto the viewer, or click <strong>Choose PDF</strong>.</li>
+        <li>Pick a tool from the toolbar. Hover any tool to see its shortcut key.</li>
+        <li><strong>Edit text</strong> — click any word or number, type the replacement, press Enter.</li>
+        <li><strong>Select</strong> — click any text (original or added) to move, resize or edit it.</li>
+        <li><strong>Highlight / Rect / Arrow / Redact</strong> — drag to draw.</li>
+        <li><strong>Image / Sign</strong> — pick the tool, then click on the page to place.</li>
+        <li><strong>Right-click</strong> any element for Delete, Duplicate, Copy, Bring to front.</li>
+        <li>Press <kbd class="kbd">?</kbd> at any time for the full keyboard shortcut list.</li>
+        <li>Click <strong>Save edited PDF</strong> to download.</li>
+      </ol>
     </div>
-
-    <h2>Related tools</h2>
-    <ul class="related-list" style="list-style:none;margin:12px 0 0;padding:0">
-      <li style="background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center">
-        <div style="flex:1;font-size:.9375rem"><a href="pdf-merge.html" style="color:inherit;text-decoration:none;font-weight:500">Merge PDF</a><p style="margin:2px 0 0;font-size:.8125rem;color:var(--muted)">Combine multiple PDFs into one file.</p></div>
-      </li>
-      <li style="background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center">
-        <div style="flex:1;font-size:.9375rem"><a href="pdf-split.html" style="color:inherit;text-decoration:none;font-weight:500">Split PDF</a><p style="margin:2px 0 0;font-size:.8125rem;color:var(--muted)">Split into separate pages or ranges.</p></div>
-      </li>
-      <li style="background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center">
-        <div style="flex:1;font-size:.9375rem"><a href="pdf-numbers.html" style="color:inherit;text-decoration:none;font-weight:500">Add Page Numbers</a><p style="margin:2px 0 0;font-size:.8125rem;color:var(--muted)">Number every page automatically.</p></div>
-      </li>
-    </ul>
-  </article>
+    <div class="info-card">
+      <h2>Built for real work</h2>
+      <ul>
+        <li><strong>Undo/redo</strong> — 50 steps of history, Ctrl+Z / Ctrl+Shift+Z</li>
+        <li><strong>Auto-save</strong> — your edits are stored in your browser every few seconds</li>
+        <li><strong>Session restore</strong> — close the tab, reopen it, keep working</li>
+        <li><strong>Right-click menu</strong> — duplicate, delete, copy, bring to front</li>
+        <li><strong>Snap to text</strong> — text elements snap to nearby baselines when dragged</li>
+        <li><strong>Quick colors</strong> — one-click yellow/red/green/blue/black</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h2>Your work is safe</h2>
+      <p>Every change is auto-saved to your browser's local storage. If you accidentally close the tab, or your computer crashes, reopen this page and you'll be offered to restore your last session. Nothing is ever uploaded.</p>
+    </div>
+    <div class="info-card">
+      <h2>Vector output — text stays sharp</h2>
+      <p>Original PDF pages are copied unchanged into the output, so the original text remains selectable and searchable. Your annotations are added as real vector content — infinitely sharp at any zoom, small file size.</p>
+    </div>
+    <div class="info-card wide">
+      <h2>Common questions</h2>
+      <div class="faq-grid">
+        <details><summary>Can I edit existing text in the PDF?</summary><p>Yes. Click the Edit text tool, then click any word or number. The tool detects the original text, covers it, and draws your replacement in the same position and style.</p></details>
+        <details><summary>Does the editor upload my PDF?</summary><p>No. Your PDF is read, modified and re-saved entirely inside your browser.</p></details>
+        <details><summary>Will the original text stay selectable?</summary><p>Yes. Original pages are copied into the output unchanged, so selectable text is preserved.</p></details>
+        <details><summary>Does it save my work if I close the tab?</summary><p>Yes. The editor auto-saves to your browser every few seconds. Reopen the page and it offers to restore your previous session.</p></details>
+        <details><summary>Can I undo a mistake?</summary><p>Yes. Ctrl+Z undoes, Ctrl+Shift+Z redoes, up to 50 steps.</p></details>
+      </div>
+    </div>
+    <div class="info-card wide">
+      <h2>Related tools</h2>
+      <div class="related-grid">
+        <a href="pdf-merge.html"><strong>Merge PDF</strong><span>Combine multiple PDFs into one file.</span></a>
+        <a href="pdf-split.html"><strong>Split PDF</strong><span>Split into separate pages or ranges.</span></a>
+        <a href="pdf-numbers.html"><strong>Add Page Numbers</strong><span>Number every page automatically.</span></a>
+      </div>
+    </div>
+  </section>
 
   <footer style="margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem">
     <p>
-      LocalTools ·
+      ToolNest ·
       <a href="../../index.html" style="color:inherit">Home</a> ·
       <a href="../index.html" style="color:inherit">All tools</a> ·
       <a href="../../pages/about.html" style="color:inherit">About</a> ·
