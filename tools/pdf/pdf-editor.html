@@ -590,6 +590,39 @@ footer{width:100%}
 .viewer.empty .placeholder h2{font-size:1.1875rem;margin-bottom:6px}
 .viewer.empty .placeholder p{font-size:.875rem;margin-bottom:16px}
 .viewer.empty .placeholder .actions .btn{padding:10px 22px}
+
+/* Background color picker in the toolbar */
+.bg-picker{
+  display:inline-flex;align-items:center;gap:4px;
+  font-family:var(--mono);font-size:.6875rem;color:var(--muted);
+  padding:0 4px;
+}
+.bg-picker > span{font-size:.625rem;letter-spacing:.04em}
+.bg-picker input[type="color"]{
+  width:26px;height:26px;padding:2px;border:1px solid var(--line);
+  border-radius:5px;background:none;cursor:pointer;
+}
+.bg-picker button{
+  width:26px;height:26px;padding:0;border-radius:5px;
+  border:1px solid var(--line);background:#fff;color:var(--muted);
+  cursor:pointer;font-size:.8125rem;line-height:1;
+  display:grid;place-items:center;
+}
+.bg-picker button:hover{color:var(--ink)}
+.bg-picker button[aria-pressed="true"]{
+  background:var(--blue);border-color:var(--blue);color:#fff;
+}
+
+/* Text background rendered in the editor */
+.ann-item.text-el.has-bg{padding:0 3px;box-sizing:content-box}
+
+/* Small ⊘ button next to a color input in the inspector */
+.insp-row .mini-btn{
+  flex:none;width:26px;height:26px;padding:0;border:1px solid var(--line);
+  background:#fff;border-radius:4px;cursor:pointer;color:var(--muted);
+  display:grid;place-items:center;font-size:.8125rem;line-height:1;
+}
+.insp-row .mini-btn:hover{color:var(--ink)}
 </style>
 </head>
 <body>
@@ -668,6 +701,12 @@ footer{width:100%}
       <span class="swatch" data-color="#FFE500" style="background:#FFE500" title="Yellow"></span>
     </span>
     <input class="tool-color" type="color" id="colorPicker" value="#000000" title="Custom color">
+    <span class="tool-sep"></span>
+    <span class="bg-picker" title="Background color for new text and edit covers">
+      <span>BG</span>
+      <input type="color" id="bgPicker" value="#FFFFFF" aria-label="Background color">
+      <button type="button" id="bgClearBtn" title="Transparent background" aria-pressed="false">⊘</button>
+    </span>
     <select class="tool-font" id="fontPicker" title="Font">
       <option value="Helvetica, Arial, sans-serif" selected>Helvetica</option>
       <option value="Arial, Helvetica, sans-serif">Arial</option>
@@ -760,6 +799,7 @@ footer{width:100%}
           <div class="insp-row"><label>Y</label><input type="number" id="insY" step="1"></div>
           <div class="insp-row two" id="insWHRow"><div><label>W</label><input type="number" id="insW" step="1"></div><div><label>H</label><input type="number" id="insH" step="1"></div></div>
           <div class="insp-row" id="insColorRow"><label>Color</label><input type="color" id="insColor"></div>
+          <div class="insp-row" id="insBgRow"><label>BG</label><input type="color" id="insBg"><button type="button" class="mini-btn" id="insBgClear" title="Transparent">⊘</button></div>
           <div class="insp-row" id="insFontRow"><label>Font</label>
             <select id="insFont">
               <option value="Helvetica, Arial, sans-serif">Helvetica</option>
@@ -1003,6 +1043,7 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
   var currentPage = 0;
   var activeTool = "select";
   var activeColor = "#000000";
+  var activeBg = "#FFFFFF";  // "" means transparent
   var activeFont = "Helvetica, Arial, sans-serif";
   var activeSize = 12;
   var selected = null;
@@ -1210,6 +1251,8 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
     els.insX = $("insX"); els.insY = $("insY");
     els.insW = $("insW"); els.insH = $("insH");
     els.insColor = $("insColor"); els.insFont = $("insFont");
+    els.insBg = $("insBg"); els.insBgClear = $("insBgClear"); els.insBgRow = $("insBgRow");
+    els.bgPicker = $("bgPicker"); els.bgClearBtn = $("bgClearBtn");
     els.insSize = $("insSize"); els.insText = $("insText");
     els.insStyle = $("insStyle");
     els.insWHRow = $("insWHRow"); els.insColorRow = $("insColorRow");
@@ -1304,6 +1347,22 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
         renderElement(selected.pageIndex, selected.element);
         syncInspector();
         markDirty();
+      }
+    });
+
+    // Background color picker for new text and edit covers
+    els.bgPicker.addEventListener("input", function(){
+      activeBg = els.bgPicker.value;
+      els.bgClearBtn.setAttribute("aria-pressed", "false");
+    });
+    els.bgClearBtn.addEventListener("click", function(){
+      var isClear = els.bgClearBtn.getAttribute("aria-pressed") === "true";
+      if (isClear){
+        els.bgClearBtn.setAttribute("aria-pressed", "false");
+        activeBg = els.bgPicker.value;
+      } else {
+        els.bgClearBtn.setAttribute("aria-pressed", "true");
+        activeBg = "";
       }
     });
 
@@ -1641,6 +1700,12 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
       node.style.lineHeight = el.lr ? String(el.lr) : "";
       node.style.fontStyle = el.italic ? "italic" : "normal";
       node.style.textDecoration = el.underline ? "underline" : "none";
+      if (el.bg){
+        node.style.background = el.bg;
+        node.classList.add("has-bg");
+      } else {
+        node.classList.remove("has-bg");
+      }
     } else if (el.type === "rect"){
       node.style.width = el.w + "px";
       node.style.height = el.h + "px";
@@ -1655,7 +1720,7 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
     } else if (el.type === "redact"){
       node.style.width = el.w + "px";
       node.style.height = el.h + "px";
-      node.style.background = "#000";
+      node.style.background = el.color || "#000";
     } else if (el.type === "note"){
       node.style.width = (el.w || 160) + "px";
       node.style.height = (el.h || 60) + "px";
@@ -1717,7 +1782,7 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
     cover.style.top = d.y + "px";
     cover.style.width = d.w + "px";
     cover.style.height = d.h + "px";
-    cover.style.background = "#fff";
+    cover.style.background = d.color || "#fff";
     cover.style.pointerEvents = "none";
     cover.style.zIndex = "1";
     cover.dataset.cover = "1";
@@ -1978,9 +2043,9 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
     preview.className = "drag-preview";
     preview.style.left = startX + "px";
     preview.style.top = startY + "px";
-    preview.style.border = "2px solid " + (activeTool === "redact" ? "#000" : activeColor);
+    preview.style.border = "2px solid " + activeColor;
     preview.style.background = activeTool === "highlight" ? hexWithAlpha(activeColor, 0.4)
-                          : activeTool === "redact" ? "#000"
+                          : activeTool === "redact" ? activeColor
                           : "transparent";
     if (activeTool === "arrow") preview.style.border = "0";
     p.annLayer.appendChild(preview);
@@ -2009,7 +2074,7 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
       var el;
       if (activeTool === "highlight") el = { id: uid(), type: "highlight", x: px, y: py, w: pw, h: ph, color: activeColor };
       else if (activeTool === "rect") el = { id: uid(), type: "rect", x: px, y: py, w: pw, h: ph, color: activeColor, size: Math.max(2, activeSize/4), style: "solid" };
-      else if (activeTool === "redact") el = { id: uid(), type: "redact", x: px, y: py, w: pw, h: ph };
+      else if (activeTool === "redact") el = { id: uid(), type: "redact", x: px, y: py, w: pw, h: ph, color: activeColor };
       else if (activeTool === "arrow") el = { id: uid(), type: "arrow", x1: startX, y1: startY, x2: cx, y2: cy, color: activeColor, size: Math.max(2, activeSize/4) };
       addElement(pageIndex, el);
     }
@@ -2042,7 +2107,7 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
       input.remove();
       if (!v.trim()) return;
       var sz = activeSize * pscale(pageIndex);
-      var el = { id: uid(), type: "text", x: x, y: y, w: 0, h: sz * 1.2, text: v, color: activeColor, font: activeFont, size: sz, bold: fmt.bold, italic: fmt.italic, underline: fmt.underline };
+      var el = { id: uid(), type: "text", x: x, y: y, w: 0, h: sz * 1.2, text: v, color: activeColor, bg: activeBg, font: activeFont, size: sz, bold: fmt.bold, italic: fmt.italic, underline: fmt.underline };
       addElement(pageIndex, el);
       selected = { pageIndex: pageIndex, element: el };
       showSelectionBox(pageIndex, el);
@@ -2134,7 +2199,7 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
       font: f0.dataset.font || "Helvetica, Arial, sans-serif", bold: !!f0.dataset.bold, italic: !!f0.dataset.italic, color: f0.dataset.color || "#000000" };
   }
   function makeGroupEl(g, text){
-    var el = { id: uid(), type: "text", x: g.x, y: g.ty, w: 0, h: g.fs * 1.2 * text.split("\n").length, text: text, color: g.color, font: g.font, bold: g.bold, italic: g.italic, size: g.fs, original: g.text };
+    var el = { id: uid(), type: "text", x: g.x, y: g.ty, w: 0, h: g.fs * 1.2 * text.split("\n").length, text: text, color: g.color, bg: activeBg, font: g.font, bold: g.bold, italic: g.italic, size: g.fs, original: g.text };
     if (g.lr) el.lr = g.lr;
     return el;
   }
@@ -2163,7 +2228,7 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
       var v = input.value;
       input.remove();
       if (v === g.text || !v.trim()) return;
-      var cover = { x: g.cx, y: g.cy, w: g.cw, h: g.ch };
+      var cover = { x: g.cx, y: g.cy, w: g.cw, h: g.ch, color: activeBg || "#FFFFFF" };
       var el = makeGroupEl(g, v);
       el.coverRef = cover;
       p.deletedTexts.push(cover); addDeletedCover(pageIndex, cover);
@@ -2181,7 +2246,7 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
   function promoteTextSpan(pageIndex, span, para){
     var p = pages[pageIndex], g = groupInfo(pageIndex, span, para);
     if (!g) return null;
-    var cover = { x: g.cx, y: g.cy, w: g.cw, h: g.ch };
+    var cover = { x: g.cx, y: g.cy, w: g.cw, h: g.ch, color: activeBg || "#FFFFFF" };
     var el = makeGroupEl(g, g.text);
     el.coverRef = cover;
     p.deletedTexts.push(cover); addDeletedCover(pageIndex, cover);
@@ -2407,6 +2472,22 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
         markDirty();
       }
     });
+    els.insBg.addEventListener("input", function(){
+      if (!selected) return;
+      if (selected.element.type !== "text") return;
+      selected.element.bg = els.insBg.value;
+      renderElement(selected.pageIndex, selected.element);
+      showSelectionBox(selected.pageIndex, selected.element);
+      markDirty();
+    });
+    els.insBgClear.addEventListener("click", function(){
+      if (!selected) return;
+      if (selected.element.type !== "text") return;
+      selected.element.bg = "";
+      renderElement(selected.pageIndex, selected.element);
+      showSelectionBox(selected.pageIndex, selected.element);
+      markDirty();
+    });
     els.insStyle.addEventListener("change", function(){
       if (!selected) return;
       selected.element.style = els.insStyle.value;
@@ -2427,9 +2508,9 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
     var showWH = ["highlight","rect","redact","image","note"].indexOf(el.type) > -1;
     els.insWHRow.style.display = showWH ? "" : "none";
     if (showWH){ els.insW.value = Math.round(el.w || 0); els.insH.value = Math.round(el.h || 0); }
-    var showColor = el.type !== "image" && el.type !== "redact";
+    var showColor = el.type !== "image";
     els.insColorRow.style.display = showColor ? "" : "none";
-    if (showColor) els.insColor.value = el.color || "#000000";
+    if (showColor) els.insColor.value = el.color || (el.type === "redact" ? "#000000" : "#000000");
     var isText = el.type === "text";
     $("insFmtRow").style.display = isText ? "" : "none";
     $("insRotRow").style.display = el.type === "image" ? "" : "none";
@@ -2438,6 +2519,8 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
     els.insSizeRow.style.display = (isText || el.type === "rect" || el.type === "arrow") ? "" : "none";
     els.insTextRow.style.display = (isText || el.type === "note") ? "" : "none";
     els.insStyleRow.style.display = (el.type === "rect") ? "" : "none";
+    els.insBgRow.style.display = isText ? "" : "none";
+    if (isText) els.insBg.value = el.bg || "#FFFFFF";
     if (isText){ els.insFont.value = el.font || "Helvetica, Arial, sans-serif"; els.insSize.value = Math.round((el.size || 12) / pscale(selected.pageIndex)); els.insText.value = el.text || ""; }
     else if (el.type === "note"){ els.insText.value = el.text || ""; }
     else if (el.type === "rect"){ els.insSize.value = Math.round(el.size || 2); els.insStyle.value = el.style || "solid"; }
@@ -3180,12 +3263,13 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
 
             p.deletedTexts.forEach(function(d){
               var inset = 0.5;
+              var cc = hexToRgb01(d.color || "#FFFFFF");
               outPage.drawRectangle({
                 x: toPdfX(d.x) + inset / s,
                 y: toPdfY(d.y + d.h) + inset / s,
                 width: Math.max(0, (d.w / s) - (inset * 2) / s),
                 height: Math.max(0, (d.h / s) - (inset * 2) / s),
-                color: rgb(1, 1, 1)
+                color: rgb(cc.r, cc.g, cc.b)
               });
             });
 
@@ -3195,6 +3279,26 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
                 var font = await getFont(el.font, el.bold, el.italic);
                 var c = hexToRgb01(el.color);
                 var sizePt = el.size / s;
+                if (el.bg && el.text){
+                  var bgc = hexToRgb01(el.bg);
+                  var bgLines = el.text.split("\n");
+                  var bgMaxW = 0;
+                  bgLines.forEach(function(ln){
+                    try { bgMaxW = Math.max(bgMaxW, font.widthOfTextAtSize(ln, sizePt)); } catch (e){}
+                  });
+                  var bgLh = (el.lr || 1.2) * sizePt;
+                  var bgRectH = bgLh * bgLines.length;
+                  var bgRectW = bgMaxW + (6 / s);
+                  var bgRectX = toPdfX(el.x) - (3 / s);
+                  var bgTopY = toPdfY(el.y);
+                  outPage.drawRectangle({
+                    x: bgRectX,
+                    y: bgTopY - bgRectH,
+                    width: bgRectW,
+                    height: bgRectH,
+                    color: rgb(bgc.r, bgc.g, bgc.b)
+                  });
+                }
                 if (el.underline && el.text){
                   el.text.split("\n").forEach(function(ln, li){
                     try {
@@ -3243,10 +3347,11 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
                   borderDashArray: el.style === "dashed" ? [4, 4] : undefined
                 });
               } else if (el.type === "redact"){
+                var c = hexToRgb01(el.color || "#000000");
                 outPage.drawRectangle({
                   x: toPdfX(el.x), y: toPdfY(el.y + el.h),
                   width: el.w / s, height: el.h / s,
-                  color: rgb(0, 0, 0)
+                  color: rgb(c.r, c.g, c.b)
                 });
               } else if (el.type === "arrow"){
                 var c = hexToRgb01(el.color);
