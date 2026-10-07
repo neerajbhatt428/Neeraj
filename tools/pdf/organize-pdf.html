@@ -21,7 +21,7 @@
     {"@type":"WebApplication","name":"Organize PDF","alternateName":"PDF Page Organizer","url":"https://localtools.co.in/tools/pdf/organize-pdf.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Reorder PDF pages by drag and drop","Rotate pages individually","Delete pages","Duplicate pages","Insert blank pages anywhere","Merge pages from other PDFs","Built-in PDF viewer with zoom","Select multiple pages","Move selected pages together","No upload, runs in browser"]},
     {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localtools.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://localtools.co.in/tools/"},{"@type":"ListItem","position":3,"name":"Organize PDF","item":"https://localtools.co.in/tools/pdf/organize-pdf.html"}]},
     {"@type":"HowTo","name":"How to organize a PDF","description":"Reorder, rotate, delete and add pages to a PDF in your browser.","step":[{"@type":"HowToStep","name":"Open your PDF","text":"Drop the PDF onto the tool or click to browse."},{"@type":"HowToStep","name":"Preview pages","text":"Click any thumbnail to open it in the built-in viewer. Zoom in and out to inspect details."},{"@type":"HowToStep","name":"Rearrange pages","text":"Drag one page or a multi-selection to reorder. Use the rotate, duplicate and delete buttons on each page."},{"@type":"HowToStep","name":"Add pages","text":"Add blank pages or append pages from additional PDFs."},{"@type":"HowToStep","name":"Save","text":"Download the reorganized PDF."}]},
-    {"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this PDF organizer free?","acceptedAnswer":{"@type":"Answer","text":"Yes. Completely free, no page limit, no watermarks, no account required."}},{"@type":"Question","name":"Are my PDFs uploaded to a server?","acceptedAnswer":{"@type":"Answer","text":"No. Every operation happens in your browser. Your PDFs never leave your device."}},{"@type":"Question","name":"Can I select multiple pages and move them together?","acceptedAnswer":{"@type":"Answer","text":"Yes. Ctrl or Cmd-click on desktop, or use the Multi-select toggle, to build a selection and drag them as a group."}},{"@type":"Question","name":"Does zooming the viewer change the PDF?","acceptedAnswer":{"@type":"Answer","text":"No. Zoom only affects the on-screen preview. The file itself is untouched until you save."}}]}
+    {"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this PDF organizer free?","acceptedAnswer":{"@type":"Answer","text":"Yes. Completely free, no page limit, no watermarks, no account required."}},{"@type":"Question","name":"Are my PDFs uploaded to a server?","acceptedAnswer":{"@type":"Answer","text":"No. Every operation happens in your browser. Your PDFs never leave your device."}},{"@type":"Question","name":"Can I select multiple pages and move them together?","acceptedAnswer":{"@type":"Answer","text":"Yes. Click individual pages to add or remove them from the selection, then drag any selected page to move the whole group."}},{"@type":"Question","name":"Does zooming the viewer change the PDF?","acceptedAnswer":{"@type":"Answer","text":"No. Zoom only affects the on-screen preview. The file itself is untouched until you save."}}]}
   ]
 }
 </script>
@@ -72,9 +72,6 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .drop-zone p{margin:0;color:var(--muted);font-size:.875rem}
 .drop-zone .hint{font-family:var(--mono);font-size:.6875rem;color:var(--muted);margin:10px 0 0;opacity:.7}
 
-/* ============================================================
-   EDITOR LAYOUT
-   ============================================================ */
 .editor{display:none}
 .editor.show{display:grid;grid-template-columns:210px minmax(0,1fr) 220px;gap:12px;align-items:start}
 @media(max-width:1100px){
@@ -111,9 +108,6 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .stat-row .l{color:var(--muted)}
 .stat-row .v{font-family:var(--mono);font-weight:600;color:var(--ink)}
 
-/* ============================================================
-   VIEWER — portrait, centered, sized to fit the tightened layout
-   ============================================================ */
 .viewer-panel{
   background:#3A3E46;
   border:1px solid var(--line);
@@ -210,9 +204,6 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
   padding:20px;
 }
 
-/* ============================================================
-   GRID
-   ============================================================ */
 .grid-wrap{background:#4B4F58;border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin:0 auto}
 .grid-head{display:flex;align-items:center;gap:10px;padding:0 0 14px;color:#fff;font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;flex-wrap:wrap;min-height:28px}
 .grid-head .spacer{flex:1;min-width:8px}
@@ -405,7 +396,7 @@ footer a:hover{color:var(--blue)}
         <strong style="color:var(--ink)">Preview:</strong> click a page to open it in the viewer.<br>
         <strong style="color:var(--ink)">Zoom:</strong> + / − / Fit in the viewer toolbar.<br>
         <strong style="color:var(--ink)">Reorder:</strong> drag one or more pages.<br>
-        <strong style="color:var(--ink)">Multi-select:</strong> Ctrl/Cmd+click, Shift+click for a range, or use the Multi button above the grid.<br>
+        <strong style="color:var(--ink)">Select multiple:</strong> click each page you want to add it to the selection. Click again to remove it.<br>
         <strong style="color:var(--ink)">Rotate:</strong> tap ↻ on the page.<br>
         <strong style="color:var(--ink)">Delete:</strong> tap × on the page.<br>
         <strong style="color:var(--ink)">Duplicate:</strong> tap ⧉ on the page.<br>
@@ -450,7 +441,6 @@ footer a:hover{color:var(--blue)}
         <span id="gridCount">0 pages</span>
         <span class="spacer"></span>
         <span class="sel-info" id="selInfo" hidden>0 selected</span>
-        <button class="multi-toggle" id="multiToggle" type="button" aria-pressed="false">Multi</button>
         <button class="multi-toggle" id="selClearBtn" type="button" hidden>Clear</button>
       </div>
       <div class="grid" id="grid"></div>
@@ -496,7 +486,7 @@ footer a:hover{color:var(--blue)}
     <li><strong>Open your PDF.</strong> Drop it onto the box above, or click to choose a file.</li>
     <li><strong>Preview.</strong> Click any thumbnail to load that page in the viewer above. Zoom in with +, out with −, or press Fit to reset.</li>
     <li><strong>Reorder pages.</strong> Drag one thumbnail or a multi-selection to a new position. A blue line shows where it will land.</li>
-    <li><strong>Multi-select.</strong> Ctrl/Cmd-click on desktop to add pages. Shift-click for a range. Or use the <strong>Multi</strong> button above the grid, then tap pages to build a selection.</li>
+    <li><strong>Select multiple pages.</strong> Click each page you want to add to the selection. Click it again to remove it. Every click toggles that one page.</li>
     <li><strong>Rotate, duplicate or delete.</strong> Hover a page and use the icons in the top-right corner. On mobile they are always visible.</li>
     <li><strong>Add blank pages.</strong> Select a page, click <strong>Blank page</strong> to insert one after it. With nothing selected, the blank page is added at the end.</li>
     <li><strong>Add pages from another PDF.</strong> Click <strong>Add PDF</strong>, pick a file, and its pages are appended. Drag them wherever you like.</li>
@@ -506,15 +496,10 @@ footer a:hover{color:var(--blue)}
   <h2>Built-in viewer with zoom</h2>
   <p>The top panel shows a full-size preview of the page you clicked. Use the ← and → buttons to step through pages, or the + / − buttons to zoom. The <strong>Fit</strong> button snaps the page to fit both the width and height of the viewer. When you zoom past the viewer's size, the page scrolls inside the panel — it never spills outside its box.</p>
 
-  <h2>Multi-select and group drag</h2>
-  <p>On desktop:</p>
-  <ul>
-    <li><strong>Click a page</strong> to select just that one and load it in the viewer.</li>
-    <li><strong>Ctrl-click</strong> (or Cmd-click on Mac) to add or remove pages from the selection.</li>
-    <li><strong>Shift-click</strong> to select a range from the last clicked page.</li>
-  </ul>
-  <p>On mobile or tablet, tap the <strong>Multi</strong> button above the grid. Then tap pages to build a selection. Tap <strong>Clear</strong> to remove all selections.</p>
-  <p>Once you have a selection, drag any selected thumbnail — the whole group moves together to wherever you drop it, keeping their relative order.</p>
+  <h2>Selecting multiple pages</h2>
+  <p>Click any page to add it to the selection. Click it again to remove it. There is no range selection — clicking page 1 and then page 9 selects exactly those two, not everything in between. This makes it easy to pick arbitrary pages that aren't next to each other.</p>
+  <p>Once you have a selection, drag any selected page — the whole group moves together to wherever you drop it, keeping their relative order.</p>
+  <p>The current selection count is shown above the grid. Click <strong>Clear</strong> to deselect everything, or press <strong>Escape</strong>.</p>
 
   <h2>What you can do</h2>
 
@@ -528,7 +513,7 @@ footer a:hover{color:var(--blue)}
   <p>The ⧉ icon adds a copy of that page immediately after it. Useful for repeating a form, or keeping a signed copy alongside an unsigned one.</p>
 
   <h3>Delete pages</h3>
-  <p>Click × to remove a page. Press Delete with a page selected. The remaining pages keep their original order.</p>
+  <p>Click × to remove a page. Press Delete with pages selected to remove them all at once.</p>
 
   <h3>Insert blank pages</h3>
   <p>Select a page, then click <strong>Blank page</strong>. Blank pages use the same size as the reference page.</p>
@@ -547,10 +532,10 @@ footer a:hover{color:var(--blue)}
   <div class="faq">
     <details><summary>Is this PDF organizer free?</summary><p>Yes. Completely free, no page limit, no watermarks, no account required.</p></details>
     <details><summary>Are my PDFs uploaded to a server?</summary><p>No. Every operation happens in your browser. Your PDFs never leave your device.</p></details>
-    <details><summary>Can I select multiple pages and move them together?</summary><p>Yes. Ctrl/Cmd-click on desktop to add pages, or use the Multi button above the grid. Drag any selected page and the whole group moves to the drop position.</p></details>
+    <details><summary>Can I select multiple pages and move them together?</summary><p>Yes. Click each page individually to add it to the selection, then drag any selected page to move the whole group. No range selection — every click toggles one page.</p></details>
     <details><summary>Does zooming the viewer change the file?</summary><p>No. Zoom only affects the on-screen preview. The file is written only when you click Save.</p></details>
     <details><summary>Can I add blank pages between existing pages?</summary><p>Yes. Select a page, click Blank page, and the blank page is inserted immediately after it.</p></details>
-    <details><summary>Does it work on iPhone and Android?</summary><p>Yes. Tap Multi to build a selection on touch screens, and use the ↑ ↓ buttons under each page to reorder.</p></details>
+    <details><summary>Does it work on iPhone and Android?</summary><p>Yes. Tap each page to toggle it in the selection, and use the ↑ ↓ buttons under each page to reorder.</p></details>
   </div>
 
   <h2>Related tools</h2>
@@ -607,7 +592,6 @@ const state = {
   lastAnchorId: null,
   viewerPageId: null,
   viewerZoom: 1,
-  multiMode: false,
   thumbCache: new Map(),
   outputBlob: null,
   outputName: ''
@@ -750,11 +734,9 @@ $('resetBtn').addEventListener('click', () => {
   state.lastAnchorId = null;
   state.viewerPageId = null;
   state.viewerZoom = 1;
-  state.multiMode = false;
   state.thumbCache.clear();
   state.outputBlob = null;
   state.outputName = '';
-  $('multiToggle').setAttribute('aria-pressed','false');
   $('resultCard').hidden = true;
   $('editor').classList.remove('show');
   $('intake').style.display = 'block';
@@ -986,34 +968,28 @@ function renderGrid(){
 }
 
 /* ============================================================
-   Multi-selection
+   Page click — individual toggle, no range selection
    ============================================================ */
 function onPageClick(pageId, e){
   const idx = state.pages.findIndex(p => p.id === pageId);
   if (idx < 0) return;
 
-  if (e.shiftKey && state.lastAnchorId){
-    const anchorIdx = state.pages.findIndex(p => p.id === state.lastAnchorId);
-    if (anchorIdx >= 0){
-      if (!(e.ctrlKey || e.metaKey)) state.selected.clear();
-      const [a, b] = anchorIdx < idx ? [anchorIdx, idx] : [idx, anchorIdx];
-      for (let i = a; i <= b; i++) state.selected.add(state.pages[i].id);
+  // Always preview the clicked page in the viewer
+  state.viewerPageId = pageId;
+
+  // Toggle just this page. Clicking a page that isn't selected adds it.
+  // Clicking one that is selected removes it — unless it's the last one,
+  // so there's always at least one page for viewer operations.
+  if (state.selected.has(pageId)){
+    if (state.selected.size > 1){
+      state.selected.delete(pageId);
     }
-  } else if (e.ctrlKey || e.metaKey || state.multiMode){
-    if (state.selected.has(pageId)) state.selected.delete(pageId);
-    else state.selected.add(pageId);
-    state.lastAnchorId = pageId;
   } else {
-    if (state.selected.size === 1 && state.selected.has(pageId)){
-      // already selected
-    } else {
-      state.selected.clear();
-      state.selected.add(pageId);
-    }
-    state.lastAnchorId = pageId;
+    state.selected.add(pageId);
   }
 
-  state.viewerPageId = pageId;
+  state.lastAnchorId = pageId;
+
   renderGrid();
   renderViewer();
   updateSelectionUI();
@@ -1034,15 +1010,14 @@ function updateSelectionUI(){
   $('statSelected').textContent = count;
 }
 
-$('multiToggle').addEventListener('click', () => {
-  state.multiMode = !state.multiMode;
-  $('multiToggle').setAttribute('aria-pressed', String(state.multiMode));
-  flash(state.multiMode ? 'Multi-select ON — tap pages to add' : 'Multi-select off');
-});
-
 $('selClearBtn').addEventListener('click', () => {
+  // Keep only the currently focused page selected
+  const keep = state.viewerPageId && state.pages.find(p => p.id === state.viewerPageId)
+    ? state.viewerPageId
+    : (state.pages[0]?.id || null);
   state.selected.clear();
-  state.lastAnchorId = null;
+  if (keep) state.selected.add(keep);
+  state.lastAnchorId = keep;
   renderGrid();
   updateSelectionUI();
 });
@@ -1080,7 +1055,7 @@ function performMove(draggedId, targetId, insertAfter){
 }
 
 /* ============================================================
-   Viewer — fits page to both width AND height, accounts for rotation
+   Viewer
    ============================================================ */
 let viewerRenderToken = 0;
 
@@ -1180,7 +1155,6 @@ async function renderViewer(){
   }
 }
 
-/* Viewer toolbar */
 $('vPrev').addEventListener('click', () => {
   const idx = state.pages.findIndex(p => p.id === state.viewerPageId);
   if (idx > 0){
@@ -1385,8 +1359,13 @@ document.addEventListener('keydown', e => {
   }
 
   if (e.key === 'Escape'){
+    // Keep only the currently focused page selected
+    const keep = state.viewerPageId && state.pages.find(p => p.id === state.viewerPageId)
+      ? state.viewerPageId
+      : (state.pages[0]?.id || null);
     state.selected.clear();
-    state.lastAnchorId = null;
+    if (keep) state.selected.add(keep);
+    state.lastAnchorId = keep;
     renderGrid();
     updateSelectionUI();
   }
