@@ -446,15 +446,49 @@ const TOOLS = [
   { id:'favicon',        name:'Favicon Generator',  desc:'Generate all favicon sizes from one image, including .ico for legacy browsers.', cat:'image', path:'/tools/image/favicon.html', tags:['favicon','ico','icon','website'] }
 ];
 
-/* keep the same order as the home page */
-const ORDER = ['pdf-editor','pdf-merge','pdf-split','pdf-compress','delete-pages','pdf-rotate','pdf-to-img','img-to-pdf','pdf-text','pdf-numbers',
-  'bg-remover','image-compress','image-resize','image-to-text','image-convert','image-crop','image-base64','exif','favicon',
+/* Display order matches the home page exactly. */
+const ORDER = [
+  /* PDF */
+  'pdf-editor','organize-pdf','pdf-merge','pdf-split','pdf-compress',
+  'delete-pages','pdf-rotate','pdf-to-img','img-to-pdf','pdf-text','pdf-numbers',
+  /* Image */
+  'bg-remover','image-compress','image-resize','image-to-text',
+  'image-convert','image-crop','image-base64','exif','favicon',
+  /* Text */
   'word-counter','case-conv',
-  'percentage','age','bmi','loan','date-diff','compound','gst','tip','calorie',
-  'json-fmt','json-csv','password','qr-scanner'];
-TOOLS.sort((a,b) => {
-  const i = ORDER.indexOf(a.id), j = ORDER.indexOf(b.id);
-  return (i<0?999:i) - (j<0?999:j);
+  /* Calculators */
+  'percentage','sci-calc','age','bmi','loan','date-diff',
+  'compound','gst','tip','calorie',
+  /* Developer */
+  'json-fmt',
+  /* Convert */
+  'json-csv',
+  /* Security */
+  'password',
+  /* QR & Generators */
+  'qr-scanner','qr-generator'
+];
+
+/* Category display order — must match the CATEGORIES array above. */
+const CAT_ORDER = ['pdf','image','text','calc','dev','convert','security','generate','media'];
+
+/* Sort:
+   1. by category, using CAT_ORDER
+   2. within a category, by ORDER position
+   3. fall back to alphabetical for tools missing from ORDER
+   — so a newly added tool lands inside its category automatically. */
+TOOLS.sort((a, b) => {
+  const ca = CAT_ORDER.indexOf(a.cat);
+  const cb = CAT_ORDER.indexOf(b.cat);
+  const catDiff = (ca < 0 ? 999 : ca) - (cb < 0 ? 999 : cb);
+  if (catDiff !== 0) return catDiff;
+
+  const i = ORDER.indexOf(a.id);
+  const j = ORDER.indexOf(b.id);
+  if (i >= 0 && j >= 0) return i - j;
+  if (i >= 0) return -1;
+  if (j >= 0) return 1;
+  return a.name.localeCompare(b.name);
 });
 
 let activeCat = 'all';
