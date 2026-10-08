@@ -223,5 +223,11 @@
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+  <url>
+  <loc>https://localtools.co.in/tools/convert/units-converter.html</loc>
+  <lastmod>2026-10-08</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+</url>
 
 </urlset>
