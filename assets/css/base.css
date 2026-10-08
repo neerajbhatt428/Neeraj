@@ -1,6 +1,6 @@
 /* ============================================================
-   base.css — shared design system for qrcodescanner.co.in
-   Extracted from the QR Scanner page. Reused site-wide.
+   base.css — shared design system for localtools.co.in
+   Every tool page links to this file.
    ============================================================ */
 
 :root{
@@ -20,7 +20,11 @@
 }
 
 *{box-sizing:border-box}
-html,body{margin:0;padding:0}
+html,body{
+  margin:0;padding:0;
+  width:100%;
+  overflow-x:hidden;               /* kills any accidental horizontal scroll */
+}
 body{
   background:var(--paper);
   color:var(--ink);
@@ -28,125 +32,260 @@ body{
   font-size:16px;
   line-height:1.55;
   -webkit-font-smoothing:antialiased;
+  -webkit-text-size-adjust:100%;
   background-image:
     linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),
     linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);
   background-size:28px 28px;
+  min-height:100vh;
 }
 
-.wrap{max-width:660px;margin:0 auto;padding:20px 18px 64px}
-.wrap-wide{max-width:1080px;margin:0 auto;padding:20px 18px 64px}
+/* ============================================================
+   PAGE CONTAINERS — every page uses .wrap or .wrap-wide.
+   Rules below guarantee equal left/right margins on every screen.
+   ============================================================ */
+.wrap,
+.wrap-wide{
+  width:100%;
+  margin-left:auto;
+  margin-right:auto;
+  box-sizing:border-box;
+  padding-top:clamp(16px,2.5vw,28px);
+  padding-bottom:64px;
+  padding-left:clamp(16px,3.5vw,40px);
+  padding-right:clamp(16px,3.5vw,40px);
+}
+.wrap      { max-width:720px }
+.wrap-wide { max-width:1240px }
 
-/* ---------- masthead ---------- */
-.masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
+/* Respect notches and rounded corners on phones */
+@supports (padding: max(0px)){
+  .wrap,
+  .wrap-wide{
+    padding-left:  max(clamp(16px,3.5vw,40px), env(safe-area-inset-left));
+    padding-right: max(clamp(16px,3.5vw,40px), env(safe-area-inset-right));
+  }
+}
+
+/* Never let a child overflow its container horizontally */
+.wrap > *,
+.wrap-wide > *{
+  max-width:100%;
+}
+
+/* Optional utility — center anything as a block */
+.center-block{margin-left:auto;margin-right:auto}
+.text-center{text-align:center}
+
+/* ============================================================
+   MASTHEAD
+   ============================================================ */
+.masthead{
+  display:flex;align-items:center;gap:10px;
+  padding:6px 0 22px;
+  width:100%;
+}
 .mark{width:26px;height:26px;flex:none}
 .wordmark{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
 .masthead a{color:inherit;text-decoration:none}
-.masthead .nav-right{margin-left:auto;font-size:.875rem;color:var(--blue);text-decoration:underline;white-space:nowrap}
+.masthead .nav-right{
+  margin-left:auto;font-size:.875rem;color:var(--blue);
+  text-decoration:underline;white-space:nowrap;
+}
 
-/* ---------- typography ---------- */
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
 h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
-.lede{margin:0 0 6px;font-family:var(--display);font-weight:700;
-  font-size:clamp(2rem,7vw,2.9rem);line-height:1.02;letter-spacing:-.03em;max-width:18ch}
+.lede{
+  margin:0 0 6px;font-family:var(--display);font-weight:700;
+  font-size:clamp(2rem,7vw,2.9rem);line-height:1.02;letter-spacing:-.03em;
+  max-width:18ch;
+}
 .sub{margin:0 0 22px;color:var(--muted);max-width:58ch;font-size:1rem}
 
-/* ---------- buttons ---------- */
-button{font:inherit;cursor:pointer;border-radius:var(--radius);
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+button{
+  font:inherit;cursor:pointer;border-radius:var(--radius);
   border:1px solid var(--line);background:var(--surface);color:var(--ink);
-  padding:11px 16px;font-weight:500;display:inline-flex;align-items:center;gap:8px;
+  padding:11px 16px;font-weight:500;
+  display:inline-flex;align-items:center;gap:8px;
   touch-action:manipulation;
-  transition:border-color .12s ease,background .12s ease}
+  transition:border-color .12s ease,background .12s ease;
+}
 button:hover{border-color:#A9A9A1}
 button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 button[disabled]{opacity:.4;cursor:not-allowed}
 .primary{background:var(--blue);border-color:var(--blue);color:#fff;justify-content:center}
 .primary:hover{background:var(--blue-deep);border-color:var(--blue-deep)}
-.chip{border:1px solid var(--line);background:transparent;border-radius:100px;
-  padding:5px 12px;font-size:.8125rem;color:var(--muted)}
+.chip{
+  border:1px solid var(--line);background:transparent;border-radius:100px;
+  padding:5px 12px;font-size:.8125rem;color:var(--muted);
+}
 .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
 
-/* ---------- form fields ---------- */
+/* ============================================================
+   FORM FIELDS
+   ============================================================ */
 input[type="text"],input[type="number"],input[type="email"],input[type="tel"],
 input[type="url"],input[type="search"],textarea,select{
   width:100%;font:inherit;border:1px solid var(--line);background:var(--surface);
-  color:var(--ink);border-radius:var(--radius);padding:11px 12px;outline:none}
+  color:var(--ink);border-radius:var(--radius);padding:11px 12px;outline:none;
+}
 input:focus,textarea:focus,select:focus{
-  border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
-textarea{min-height:140px;resize:vertical;font-family:var(--mono);font-size:.9375rem;line-height:1.6}
+  border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12);
+}
+textarea{
+  min-height:140px;resize:vertical;
+  font-family:var(--mono);font-size:.9375rem;line-height:1.6;
+}
 
-/* ---------- surfaces ---------- */
-.result{margin:22px 0 0;background:var(--surface);border:1px solid var(--line);
-  border-left:4px solid var(--green);border-radius:var(--radius);padding:18px}
+/* ============================================================
+   SURFACES
+   ============================================================ */
+.result{
+  margin:22px 0 0;background:var(--surface);border:1px solid var(--line);
+  border-left:4px solid var(--green);border-radius:var(--radius);padding:18px;
+}
 .result[hidden]{display:none}
-.section-head{display:flex;align-items:baseline;justify-content:space-between;
-  gap:12px;margin:36px 0 12px}
-.linkish{background:none;border:0;padding:0;color:var(--blue);font-size:.875rem;text-decoration:underline}
+.section-head{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:12px;margin:36px 0 12px;
+}
+.linkish{
+  background:none;border:0;padding:0;color:var(--blue);
+  font-size:.875rem;text-decoration:underline;
+}
 
-/* ---------- stats ---------- */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:18px 0 0}
-.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;text-align:center}
+/* ============================================================
+   STATS
+   ============================================================ */
+.stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:10px;margin:18px 0 0;
+}
+.stat{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius);padding:14px;text-align:center;
+}
 .stat .num{font-family:var(--display);font-weight:700;font-size:1.75rem;letter-spacing:-.02em;line-height:1}
-.stat .lbl{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;
-  letter-spacing:.06em;color:var(--muted);margin:6px 0 0}
+.stat .lbl{
+  font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--muted);margin:6px 0 0;
+}
 
-/* ---------- button rows ---------- */
+/* ============================================================
+   BUTTON ROWS
+   ============================================================ */
 .btnrow{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
 
-/* ---------- article ---------- */
+/* ============================================================
+   ARTICLE
+   ============================================================ */
 .article{margin:44px 0 0;max-width:68ch}
 .article h2{margin:36px 0 10px;font-size:1.5rem}
 .article h2:first-child{margin-top:0}
-.article h3{font-family:var(--display);font-weight:700;font-size:1.0625rem;
-  letter-spacing:-.015em;margin:28px 0 8px}
+.article h3{
+  font-family:var(--display);font-weight:700;font-size:1.0625rem;
+  letter-spacing:-.015em;margin:28px 0 8px;
+}
 .article p{margin:0 0 12px;color:#3A3E46}
 .article ul{margin:0 0 12px;padding-left:20px;color:#3A3E46}
 .article li{margin:0 0 6px}
 .article strong{font-weight:600;color:var(--ink)}
 .article a{color:var(--blue);text-decoration:underline}
-.article code{font-family:var(--mono);font-size:.875em;background:var(--surface);
-  border:1px solid var(--line);border-radius:3px;padding:1px 4px}
+.article code{
+  font-family:var(--mono);font-size:.875em;background:var(--surface);
+  border:1px solid var(--line);border-radius:3px;padding:1px 4px;
+}
 
-/* ---------- FAQ ---------- */
+/* ============================================================
+   FAQ
+   ============================================================ */
 .faq{margin:14px 0 0;border-top:1px solid var(--line)}
 .faq details{border-bottom:1px solid var(--line)}
-.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;
-  display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary{
+  cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;
+  display:flex;justify-content:space-between;gap:16px;align-items:center;
+}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"+";color:var(--blue);font-size:1.25rem;line-height:1;flex:none}
 .faq details[open] summary::after{content:"\2212"}
 .faq summary:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 .faq details p{margin:0 0 14px;color:#3A3E46;max-width:62ch}
 
-/* ---------- footer ---------- */
-footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);
-  color:var(--muted);font-size:.8125rem}
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{
+  margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);
+  color:var(--muted);font-size:.8125rem;
+}
 footer a{color:inherit}
 
-/* ---------- utility ---------- */
+/* ============================================================
+   UTILITY
+   ============================================================ */
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .notes{margin:12px 0 0;color:var(--muted);font-size:.9375rem;max-width:62ch}
 .notes p{margin:0 0 10px}
 
-/* ---------- toast ---------- */
-.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);
-  background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;
-  font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:20}
-.toast.show{opacity:1}
+/* ============================================================
+   TOAST
+   ============================================================ */
+.toast{
+  position:fixed;left:50%;bottom:24px;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:#fff;
+  padding:10px 18px;border-radius:100px;
+  font-size:.875rem;
+  opacity:0;pointer-events:none;
+  transition:opacity .2s ease, transform .2s ease;
+  z-index:200;max-width:90vw;
+  display:flex;align-items:center;gap:8px;
+  box-shadow:0 12px 32px rgba(0,0,0,.28);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast svg{width:15px;height:15px;color:#22E39A;flex:none}
 
-/* ---------- breadcrumbs ---------- */
-.crumbs{font-size:.8125rem;color:var(--muted);margin:0 0 18px;font-family:var(--mono)}
+/* ============================================================
+   BREADCRUMBS
+   ============================================================ */
+.crumbs{
+  font-size:.8125rem;color:var(--muted);
+  margin:0 0 18px;font-family:var(--mono);
+}
 .crumbs a{color:var(--muted);text-decoration:underline}
 .crumbs a:hover{color:var(--blue)}
 .crumbs span{color:var(--ink)}
 
-/* ---------- related tools ---------- */
+/* ============================================================
+   RELATED TOOLS
+   ============================================================ */
 .related-list{list-style:none;margin:12px 0 0;padding:0}
-.related-list li{background:var(--surface);border:1px solid var(--line);
+.related-list li{
+  background:var(--surface);border:1px solid var(--line);
   border-radius:var(--radius);padding:12px 14px;margin:0 0 8px;
-  display:flex;gap:12px;align-items:center}
+  display:flex;gap:12px;align-items:center;
+}
 .related-list .txt{flex:1;font-size:.9375rem}
 .related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
 .related-list .txt a:hover{color:var(--blue);text-decoration:underline}
 .related-list .txt p{margin:2px 0 0;font-size:.8125rem;color:var(--muted)}
-.related-list time{font-size:.75rem;color:var(--muted);flex:none;font-family:var(--mono);
-  text-transform:uppercase;letter-spacing:.05em}
+.related-list time{
+  font-size:.75rem;color:var(--muted);flex:none;
+  font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:640px){
+  .wrap,
+  .wrap-wide{padding-top:14px;padding-bottom:48px}
+  .lede{font-size:clamp(1.5rem,5vw,2rem)}
+  .sub{font-size:.9375rem}
+  .article h2{font-size:1.25rem}
+}
