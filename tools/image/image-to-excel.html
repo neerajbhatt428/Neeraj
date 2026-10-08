@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Image to Excel Converter — Convert JPG & PNG Tables to XLSX Free</title>
-<meta name="description" content="Free image to Excel converter. Turn screenshots, photos and scanned documents into editable XLSX spreadsheets using OCR. Runs in your browser — no upload, no signup.">
+<title>Image to Excel Converter — JPG, PNG & Scan to XLSX Free</title>
+<meta name="description" content="Convert images of tables into editable Excel spreadsheets. Batch upload, OCR preprocessing, grid detection, multi-sheet XLSX export. 100% in your browser — no upload, no signup.">
 <link rel="canonical" href="https://localtools.co.in/tools/image/image-to-excel.html">
 <link rel="sitemap" type="application/xml" href="https://localtools.co.in/sitemap.xml">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -12,7 +12,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Image to Excel Converter — Free Online OCR to XLSX">
-<meta property="og:description" content="Convert images of tables to editable Excel spreadsheets. Runs in your browser, no upload.">
+<meta property="og:description" content="Convert images of tables to editable Excel spreadsheets. Batch, preprocessing, multi-sheet export. Runs in your browser.">
 <meta property="og:url" content="https://localtools.co.in/tools/image/image-to-excel.html">
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3576991570329575" crossorigin="anonymous"></script>
@@ -21,41 +21,15 @@
 {
   "@context":"https://schema.org",
   "@graph":[
-    {
-      "@type":"WebApplication",
-      "name":"Image to Excel Converter",
-      "alternateName":"Image to XLSX",
-      "url":"https://localtools.co.in/tools/image/image-to-excel.html",
-      "applicationCategory":"UtilitiesApplication",
-      "operatingSystem":"Any browser",
-      "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
-      "featureList":[
-        "Convert image to Excel XLSX",
-        "OCR in 12 languages",
-        "Automatic table detection",
-        "Editable preview before export",
-        "Runs entirely in browser",
-        "No signup, no upload"
-      ]
-    },
-    {
-      "@type":"BreadcrumbList",
-      "itemListElement":[
-        {"@type":"ListItem","position":1,"name":"Home","item":"https://localtools.co.in/"},
-        {"@type":"ListItem","position":2,"name":"Tools","item":"https://localtools.co.in/tools/"},
-        {"@type":"ListItem","position":3,"name":"Image to Excel","item":"https://localtools.co.in/tools/image/image-to-excel.html"}
-      ]
-    },
-    {
-      "@type":"FAQPage",
-      "mainEntity":[
-        {"@type":"Question","name":"Is this image to Excel converter free?","acceptedAnswer":{"@type":"Answer","text":"Yes. Completely free, no signup, no watermarks and no page limit."}},
-        {"@type":"Question","name":"Are my images uploaded to a server?","acceptedAnswer":{"@type":"Answer","text":"No. OCR runs entirely in your browser using Tesseract.js. Your image never leaves your device."}},
-        {"@type":"Question","name":"What image formats are supported?","acceptedAnswer":{"@type":"Answer","text":"JPG, PNG, WebP, BMP and most common image formats. Screenshots, photos of printed tables, and scans all work."}},
-        {"@type":"Question","name":"How accurate is the OCR?","acceptedAnswer":{"@type":"Answer","text":"Accuracy depends on image quality. Clear screenshots of tables typically convert with 95%+ accuracy. Photos need good lighting and focus."}},
-        {"@type":"Question","name":"Can I edit the result before downloading?","acceptedAnswer":{"@type":"Answer","text":"Yes. The detected table appears in an editable grid. Click any cell to fix mistakes before exporting to XLSX."}}
-      ]
-    }
+    {"@type":"WebApplication","name":"Image to Excel Converter","alternateName":"Image to XLSX","url":"https://localtools.co.in/tools/image/image-to-excel.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Convert images to XLSX spreadsheets","Batch upload multiple images","Automatic table detection","Image preprocessing for OCR","Crop region selection","Multi-language OCR","Editable preview grid","Export XLSX, CSV, JSON, TSV","Runs entirely in browser","No signup, no upload"]},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localtools.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://localtools.co.in/tools/"},{"@type":"ListItem","position":3,"name":"Image to Excel","item":"https://localtools.co.in/tools/image/image-to-excel.html"}]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is this image to Excel converter free?","acceptedAnswer":{"@type":"Answer","text":"Yes. Completely free, no signup, no watermarks and no page limit."}},
+      {"@type":"Question","name":"Are my images uploaded to a server?","acceptedAnswer":{"@type":"Answer","text":"No. OCR runs entirely in your browser using Tesseract.js. Your images never leave your device."}},
+      {"@type":"Question","name":"Can I convert multiple images at once?","acceptedAnswer":{"@type":"Answer","text":"Yes. Drop up to 20 images and each becomes its own sheet in the exported workbook."}},
+      {"@type":"Question","name":"How accurate is the OCR?","acceptedAnswer":{"@type":"Answer","text":"Clear screenshots of tables typically convert with 95%+ accuracy. Photos need good lighting and focus. Handwritten text will not convert reliably."}},
+      {"@type":"Question","name":"Can I edit the result before downloading?","acceptedAnswer":{"@type":"Answer","text":"Yes. The detected table appears in an editable grid. Click any cell to fix mistakes, then add or remove rows and columns before exporting."}}
+    ]}
   ]
 }
 </script>
@@ -69,187 +43,504 @@
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
 <style>
-/* Tool-specific styles layered on top of base.css */
-.tool-shell{max-width:1080px;margin:0 auto;padding:0 0 64px}
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root{
+  --paper:#EDEDE9;--paper-soft:#F4F4F0;--surface:#FFFFFF;
+  --ink:#14161A;--ink-soft:#3A3E46;
+  --muted:#6B7079;--muted-soft:#8A8E96;
+  --line:#D6D6D0;--line-soft:#E4E4DE;
+  --blue:#1B4DFF;--blue-deep:#1338C4;--blue-soft:#EDF0FF;--blue-tint:#F5F7FF;
+  --green:#0E7A5F;--green-soft:#E3F5EF;
+  --red:#B0233A;--red-soft:#FDECE9;
+  --amber:#B87333;--amber-soft:#FDEBDD;
+  --violet:#7A3FD1;--violet-soft:#F1E8FD;
 
-.stage{
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:10px;
-  box-shadow:0 2px 8px -4px rgba(20,22,26,.1),0 1px 2px rgba(20,22,26,.04);
-  padding:20px;
-  margin:0 0 20px;
-}
-.drop-zone{
-  display:block;
-  border:2px dashed var(--line);
-  border-radius:8px;
-  padding:52px 24px;
-  text-align:center;
-  cursor:pointer;
-  transition:border-color .15s ease, background .15s ease;
-  background:#FAFAF8;
-}
-.drop-zone:hover,.drop-zone.over{border-color:var(--blue);background:#F5F7FF}
-.drop-zone svg{width:46px;height:46px;color:var(--blue);opacity:.55;margin:0 auto 14px;display:block}
-.drop-zone h2{font-family:var(--display);font-weight:700;font-size:1.0625rem;margin:0 0 6px;letter-spacing:-.01em}
-.drop-zone p{margin:0;color:var(--muted);font-size:.875rem}
-.drop-zone .hint{font-family:var(--mono);font-size:.6875rem;color:var(--muted);margin:12px 0 0;opacity:.8;text-transform:uppercase;letter-spacing:.05em}
+  --radius-sm:5px;--radius:6px;--radius-md:8px;--radius-lg:12px;
 
-/* ---- Workspace ---- */
-.workspace{display:none;grid-template-columns:1fr;gap:16px}
-.workspace.show{display:grid}
-@media(min-width:940px){
-  .workspace.show{grid-template-columns:280px minmax(0,1fr);align-items:start}
+  --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --display:"Bricolage Grotesque",var(--sans);
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+
+  --shadow-xs:0 1px 2px rgba(20,22,26,.04);
+  --shadow-sm:0 2px 8px -4px rgba(20,22,26,.1),0 1px 2px rgba(20,22,26,.04);
+  --shadow-md:0 4px 16px -8px rgba(20,22,26,.15);
+  --shadow-lg:0 12px 32px -16px rgba(20,22,26,.22);
 }
 
-.side-panel{
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:10px;
-  box-shadow:0 2px 8px -4px rgba(20,22,26,.08);
-  padding:18px;
-  position:sticky;top:16px;
-  display:flex;flex-direction:column;gap:16px;
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0;height:100%}
+body{
+  background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;
+  background-image:
+    linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);
+  background-size:28px 28px;
 }
+.wrap-wide{max-width:1400px;margin:0 auto;padding:16px 24px 56px}
+@media(max-width:640px){.wrap-wide{padding:12px 16px 40px}}
 
-.panel-title{
-  font-family:var(--display);font-weight:700;font-size:.8125rem;
-  text-transform:uppercase;letter-spacing:.06em;color:var(--muted);
-  margin:0 0 12px;
-  display:flex;align-items:center;justify-content:space-between;gap:8px;
-}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
+.lede{margin:0 0 8px;font-family:var(--display);font-weight:700;font-size:clamp(1.6rem,3.6vw,2.1rem);line-height:1.1;letter-spacing:-.03em}
+.sub{margin:0 0 22px;color:var(--muted);max-width:76ch;font-size:.9375rem;line-height:1.55}
 
-.field{display:block;margin:0 0 14px}
-.field:last-child{margin-bottom:0}
-.field label{
-  display:block;font-size:.75rem;color:var(--muted);
-  font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;
-  margin:0 0 6px;
-}
-.field select,.field input{
-  width:100%;font:inherit;font-size:.875rem;
-  border:1px solid var(--line);background:#fff;color:var(--ink);
-  border-radius:6px;padding:9px 11px;outline:none;
-  transition:border-color .12s ease, box-shadow .12s ease;
-}
-.field select:focus,.field input:focus{
-  border-color:var(--blue);
-  box-shadow:0 0 0 3px rgba(27,77,255,.1);
-}
-.field small{display:block;margin:6px 0 0;font-size:.75rem;color:var(--muted);line-height:1.45}
+.masthead{display:flex;align-items:center;gap:10px;padding:4px 0 16px}
+.masthead a{color:inherit;text-decoration:none}
+.mark{width:24px;height:24px;flex:none}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1rem}
+.masthead .nav-right{margin-left:auto;font-size:.8125rem;color:var(--blue);text-decoration:underline}
+.crumbs{font-size:.75rem;color:var(--muted);margin:0 0 20px;font-family:var(--mono)}
+.crumbs a{color:var(--muted);text-decoration:underline}
+.crumbs a:hover{color:var(--blue)}
+.crumbs span{color:var(--ink)}
 
+/* ============================================================
+   BUTTONS
+   ============================================================ */
 .btn{
-  font:inherit;cursor:pointer;border-radius:6px;
+  font:inherit;cursor:pointer;border-radius:var(--radius);
   border:1px solid var(--line);background:var(--surface);color:var(--ink);
-  padding:10px 14px;font-weight:500;font-size:.8125rem;
+  padding:10px 14px;font-weight:500;font-size:.8125rem;min-height:38px;
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  transition:border-color .12s ease, background .12s ease, box-shadow .12s ease;
-  width:100%;
-  min-height:40px;
+  transition:all .12s ease;white-space:nowrap;
+  box-shadow:var(--shadow-xs);
 }
-.btn:hover:not([disabled]){border-color:var(--muted);background:#FAFAF8}
-.btn[disabled]{opacity:.4;cursor:not-allowed}
+.btn:hover:not([disabled]){border-color:var(--muted-soft);background:var(--paper-soft)}
+.btn:active:not([disabled]){background:var(--paper)}
+.btn[disabled]{opacity:.4;cursor:not-allowed;box-shadow:none}
 .btn.primary{
   background:var(--blue);border-color:var(--blue);color:#fff;
   box-shadow:0 2px 8px -2px rgba(27,77,255,.35);
 }
 .btn.primary:hover:not([disabled]){background:var(--blue-deep);border-color:var(--blue-deep)}
-.btn.danger:hover:not([disabled]){border-color:var(--red);color:var(--red);background:#FDECE9}
+.btn.ghost{background:transparent;box-shadow:none;border-color:transparent}
+.btn.ghost:hover:not([disabled]){background:var(--paper);border-color:var(--line)}
+.btn.danger:hover:not([disabled]){border-color:var(--red);color:var(--red);background:var(--red-soft)}
+.btn.sm{padding:6px 10px;min-height:30px;font-size:.75rem}
+.btn.icon{padding:0;width:34px;height:34px;min-height:34px}
 .btn svg{width:14px;height:14px;flex:none}
 
-/* ---- Preview image ---- */
-.preview-img-wrap{
-  background:#FAFAF8;border:1px solid var(--line);border-radius:6px;
-  padding:8px;text-align:center;
-  max-height:200px;overflow:auto;
+/* ============================================================
+   INTAKE PHASE
+   ============================================================ */
+.intake{max-width:820px;margin:0 auto}
+.drop-zone{
+  display:block;border:2px dashed var(--line);border-radius:12px;
+  padding:64px 24px;text-align:center;cursor:pointer;
+  transition:all .15s ease;background:var(--surface);
+  box-shadow:var(--shadow-sm);
 }
-.preview-img-wrap img{max-width:100%;height:auto;display:block;margin:0 auto;border-radius:4px}
-.file-meta{
-  font-family:var(--mono);font-size:.6875rem;color:var(--muted);
-  text-transform:uppercase;letter-spacing:.04em;
-  margin:8px 0 0;text-align:center;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+.drop-zone:hover,.drop-zone.over{
+  border-color:var(--blue);background:var(--blue-tint);
+  box-shadow:0 4px 24px -8px rgba(27,77,255,.2);
 }
+.drop-zone svg{width:52px;height:52px;color:var(--blue);opacity:.6;margin:0 auto 18px;display:block}
+.drop-zone h2{font-family:var(--display);font-weight:700;font-size:1.125rem;margin:0 0 8px;letter-spacing:-.01em}
+.drop-zone p{margin:0 0 4px;color:var(--muted);font-size:.9375rem}
+.drop-zone .formats{font-family:var(--mono);font-size:.6875rem;color:var(--muted);margin:12px 0 0;text-transform:uppercase;letter-spacing:.05em}
+.drop-zone .privacy{
+  display:inline-flex;align-items:center;gap:6px;
+  margin:20px 0 0;padding:6px 12px;border-radius:100px;
+  background:var(--green-soft);color:var(--green);
+  font-family:var(--mono);font-size:.6875rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.05em;
+}
+.drop-zone .privacy svg{width:13px;height:13px;color:var(--green);opacity:1;margin:0}
 
-/* ---- Progress ---- */
-.progress{height:4px;background:#E4E4DE;border-radius:100px;overflow:hidden;margin:10px 0 0;display:none}
-.progress.show{display:block}
-.progress-bar{height:100%;background:var(--blue);width:0;transition:width .25s ease;border-radius:100px}
-.progress-label{font-family:var(--mono);font-size:.6875rem;color:var(--muted);margin:8px 0 0;text-transform:uppercase;letter-spacing:.04em}
+.intake-features{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:14px;margin:28px 0 0;
+}
+.intake-features .feat{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:10px;padding:16px;
+  box-shadow:var(--shadow-xs);
+}
+.intake-features h3{font-family:var(--display);font-weight:700;font-size:.875rem;margin:0 0 4px}
+.intake-features p{margin:0;font-size:.8125rem;color:var(--muted);line-height:1.45}
 
-/* ---- Preview table ---- */
-.preview-panel{
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:10px;
-  box-shadow:0 2px 8px -4px rgba(20,22,26,.08);
+/* ============================================================
+   WORKSPACE
+   ============================================================ */
+.workspace{display:none;grid-template-columns:320px minmax(0,1fr);gap:16px;align-items:start}
+.workspace.show{display:grid}
+@media(max-width:1100px){.workspace.show{grid-template-columns:1fr}}
+
+/* Sidebar */
+.sidebar{
+  position:sticky;top:16px;max-height:calc(100vh - 32px);
+  overflow-y:auto;overflow-x:hidden;
+  display:flex;flex-direction:column;gap:12px;
+  padding-right:4px;
+}
+.sidebar::-webkit-scrollbar{width:6px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+
+.panel{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:10px;box-shadow:var(--shadow-xs);
   overflow:hidden;
 }
-.preview-header{
-  display:flex;align-items:center;gap:12px;
-  padding:14px 18px;
+.panel-head{
+  display:flex;align-items:center;gap:8px;
+  padding:12px 14px;cursor:pointer;
+  user-select:none;
+  border-bottom:1px solid transparent;
+  transition:background .12s ease;
+}
+.panel-head:hover{background:var(--paper-soft)}
+.panel.open .panel-head{border-bottom-color:var(--line-soft)}
+.panel-head h3{
+  font-family:var(--display);font-weight:700;font-size:.8125rem;
+  letter-spacing:.02em;text-transform:uppercase;color:var(--ink);
+  margin:0;flex:1;
+}
+.panel-head .chev{
+  width:14px;height:14px;color:var(--muted);
+  transition:transform .2s ease;
+}
+.panel.open .panel-head .chev{transform:rotate(90deg)}
+.panel-body{display:none;padding:14px}
+.panel.open .panel-body{display:block}
+
+/* Source list */
+.source-list{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-direction:column;gap:6px;max-height:280px;overflow-y:auto}
+.source-item{
+  display:flex;align-items:center;gap:10px;
+  padding:8px;border-radius:6px;
+  border:1px solid var(--line-soft);
+  background:var(--paper-soft);
+  cursor:pointer;transition:all .12s ease;
+  position:relative;
+}
+.source-item:hover{border-color:var(--muted-soft)}
+.source-item.active{
+  border-color:var(--blue);background:var(--blue-tint);
+  box-shadow:0 0 0 1px var(--blue);
+}
+.source-item .num{
+  width:22px;height:22px;flex:none;border-radius:50%;
+  background:var(--surface);border:1px solid var(--line);
+  display:grid;place-items:center;
+  font-family:var(--mono);font-size:.625rem;font-weight:600;
+  color:var(--muted);
+}
+.source-item.active .num{background:var(--blue);border-color:var(--blue);color:#fff}
+.source-item .thumb{
+  width:32px;height:40px;flex:none;
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:3px;overflow:hidden;
+}
+.source-item .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.source-item .info{flex:1;min-width:0}
+.source-item .name{
+  font-size:.75rem;font-weight:500;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  color:var(--ink);
+}
+.source-item .meta{
+  font-family:var(--mono);font-size:.625rem;color:var(--muted);
+  margin-top:2px;text-transform:uppercase;letter-spacing:.04em;
+}
+.source-item .remove{
+  width:20px;height:20px;flex:none;
+  border-radius:4px;background:transparent;border:0;
+  color:var(--muted);cursor:pointer;
+  display:grid;place-items:center;
+  opacity:0;transition:opacity .12s ease;
+}
+.source-item:hover .remove{opacity:1}
+.source-item .remove:hover{color:var(--red);background:var(--red-soft)}
+.source-item .remove svg{width:12px;height:12px}
+
+/* Field */
+.field{display:block;margin:0 0 12px}
+.field:last-child{margin-bottom:0}
+.field > label{
+  display:block;font-size:.6875rem;color:var(--muted);
+  font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;
+  margin:0 0 5px;
+}
+.field select,.field input[type="text"]{
+  width:100%;font:inherit;font-size:.8125rem;
+  border:1px solid var(--line);background:var(--surface);color:var(--ink);
+  border-radius:6px;padding:8px 10px;outline:none;
+  transition:all .12s ease;
+}
+.field select:focus,.field input:focus{
+  border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.1);
+}
+.field small{display:block;margin:5px 0 0;font-size:.6875rem;color:var(--muted);line-height:1.4}
+
+/* Toggle switches */
+.toggle-list{display:flex;flex-direction:column;gap:2px;margin:0 0 12px}
+.toggle{
+  display:flex;align-items:center;gap:10px;
+  padding:8px;border-radius:6px;
+  cursor:pointer;transition:background .12s ease;
+  user-select:none;
+}
+.toggle:hover{background:var(--paper-soft)}
+.toggle input{position:absolute;opacity:0;pointer-events:none}
+.toggle .switch{
+  position:relative;width:30px;height:18px;flex:none;
+  background:var(--line);border-radius:100px;
+  transition:background .15s ease;
+}
+.toggle .switch::after{
+  content:"";position:absolute;top:2px;left:2px;
+  width:14px;height:14px;border-radius:50%;
+  background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.15);
+  transition:transform .15s ease;
+}
+.toggle input:checked + .switch{background:var(--blue)}
+.toggle input:checked + .switch::after{transform:translateX(12px)}
+.toggle .label{font-size:.8125rem;color:var(--ink);font-weight:500}
+.toggle .hint{font-size:.6875rem;color:var(--muted);margin-left:auto;font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em}
+
+/* Progress */
+.progress-wrap{display:none;padding:12px 0 0}
+.progress-wrap.show{display:block}
+.progress{height:4px;background:var(--line-soft);border-radius:100px;overflow:hidden}
+.progress-bar{height:100%;background:var(--blue);width:0;transition:width .25s ease;border-radius:100px}
+.progress-label{
+  font-family:var(--mono);font-size:.6875rem;color:var(--muted);
+  margin:8px 0 0;text-transform:uppercase;letter-spacing:.04em;
+  display:flex;justify-content:space-between;gap:8px;
+}
+.progress-label .pct{color:var(--ink);font-weight:600}
+
+/* Workspace main area */
+.workspace-main{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;box-shadow:var(--shadow-md);
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  min-height:600px;
+}
+
+/* Top tab bar */
+.view-tabs{
+  display:flex;align-items:center;gap:0;
+  padding:0 12px;
+  background:var(--paper-soft);
   border-bottom:1px solid var(--line);
-  background:#FAFAF8;
-  flex-wrap:wrap;
   min-height:52px;
 }
-.preview-header h3{
-  font-family:var(--display);font-weight:700;font-size:.9375rem;
-  margin:0;letter-spacing:-.01em;
+.view-tab{
+  padding:14px 16px;
+  font:inherit;font-size:.8125rem;font-weight:500;
+  color:var(--muted);background:none;border:0;border-bottom:2px solid transparent;
+  cursor:pointer;transition:all .12s ease;
+  display:inline-flex;align-items:center;gap:7px;
+  margin-bottom:-1px;
 }
-.preview-header .meta{
-  font-family:var(--mono);font-size:.6875rem;color:var(--muted);
-  text-transform:uppercase;letter-spacing:.05em;
-  margin-left:auto;
+.view-tab:hover{color:var(--ink)}
+.view-tab[aria-selected="true"]{
+  color:var(--ink);border-bottom-color:var(--blue);
 }
-.preview-actions{display:flex;gap:8px;flex-wrap:wrap}
+.view-tab svg{width:15px;height:15px}
+.view-tabs .spacer{flex:1}
+.view-tabs .toolbar-group{display:flex;gap:6px;align-items:center}
 
-.table-scroll{
-  max-height:520px;overflow:auto;
+/* View panels */
+.view-panel{display:none;flex:1;min-height:0}
+.view-panel.active{display:flex;flex-direction:column}
+#viewImage, #viewSplit{flex:1;min-height:0}
+
+/* Image view */
+.image-stage{
+  flex:1;min-height:0;
+  background:#F4F4F0;
+  overflow:auto;
+  padding:24px;
+  display:flex;align-items:flex-start;justify-content:center;
+  position:relative;
+}
+.image-wrap{
+  position:relative;display:inline-block;
+  box-shadow:0 8px 32px -12px rgba(20,22,26,.25);
+  border-radius:3px;overflow:hidden;
+  background:#fff;
+  user-select:none;
+  max-width:100%;
+}
+.image-wrap img{display:block;max-width:100%;height:auto}
+.image-wrap.crop-mode{cursor:crosshair}
+.image-overlay{
+  position:absolute;inset:0;
+  pointer-events:none;
+}
+.image-overlay .crop-rect{
+  position:absolute;
+  border:2px solid var(--blue);
+  background:rgba(27,77,255,.08);
+  box-shadow:0 0 0 9999px rgba(20,22,26,.35);
+  pointer-events:none;
+}
+.image-overlay .grid-line{
+  position:absolute;
+  pointer-events:none;
+}
+.image-overlay .grid-line.h{
+  left:0;right:0;height:1px;
+  background:rgba(217,45,32,.5);
+}
+.image-overlay .grid-line.v{
+  top:0;bottom:0;width:1px;
+  background:rgba(27,77,255,.5);
+}
+
+/* Table view — Excel-like */
+.table-stage{
+  flex:1;min-height:0;overflow:auto;
   background:#FAFAF8;
+  position:relative;
 }
-.preview-table{
-  width:100%;border-collapse:collapse;background:#fff;
+.excel-table{
+  width:100%;border-collapse:collapse;
   font-size:.8125rem;
+  background:var(--surface);
 }
-.preview-table th,.preview-table td{
-  border:1px solid var(--line);
-  padding:8px 10px;
-  text-align:left;
-  vertical-align:top;
+.excel-table th,.excel-table td{
+  border:1px solid var(--line-soft);
+  padding:0;
   min-width:90px;
   max-width:320px;
-  word-break:break-word;
+  position:relative;
+  vertical-align:top;
 }
-.preview-table th{
-  background:#F4F4F0;
+.excel-table th{
+  background:var(--paper-soft);
   font-family:var(--mono);font-size:.6875rem;font-weight:600;
-  text-transform:uppercase;letter-spacing:.05em;color:var(--muted);
-  position:sticky;top:0;z-index:1;
-  min-width:36px;
+  text-transform:uppercase;letter-spacing:.04em;color:var(--muted);
+  position:sticky;top:0;z-index:2;
+  min-width:40px;width:40px;
   text-align:center;
+  padding:8px 4px;
 }
-.preview-table td[contenteditable]:focus{
-  outline:2px solid var(--blue);outline-offset:-2px;
-  background:#F5F7FF;
+.excel-table th.row-header{
+  left:0;z-index:3;min-width:36px;width:36px;
 }
-.preview-table td.rownum{
-  background:#F4F4F0;
+.excel-table td.rownum{
+  background:var(--paper-soft);
   font-family:var(--mono);font-size:.6875rem;font-weight:600;
-  text-align:center;color:var(--muted);
-  min-width:36px;
+  color:var(--muted);text-align:center;
+  min-width:36px;width:36px;
+  padding:8px 4px;
+  position:sticky;left:0;z-index:1;
+  user-select:none;
 }
-.preview-table td:empty::before{
-  content:"—";color:#C4C4BE;
+.excel-table td.cell{
+  padding:7px 9px;
+  cursor:cell;
+  min-height:32px;
+  outline:none;
+  word-break:break-word;
+  transition:background .08s ease;
+}
+.excel-table td.cell:hover{background:#FAFBFF}
+.excel-table td.cell.selected{
+  background:var(--blue-tint);
+  box-shadow:inset 0 0 0 2px var(--blue);
+  z-index:1;
+}
+.excel-table td.cell.editing{
+  background:#fff;
+  box-shadow:inset 0 0 0 2px var(--blue);
+  outline:none;
+  cursor:text;
+}
+.excel-table td.cell.num{text-align:right;font-family:var(--mono);font-size:.75rem}
+.excel-table td.cell.date{font-family:var(--mono);font-size:.75rem}
+.excel-table td.cell.empty::before{
+  content:"—";color:#C4C4BE;font-style:italic;
+}
+.excel-table td.cell.low-conf{
+  background:linear-gradient(135deg,#FFF8E1 0%,#FFF8E1 100%);
+}
+.excel-table td.cell.low-conf::after{
+  content:"";position:absolute;top:2px;right:2px;
+  width:5px;height:5px;border-radius:50%;
+  background:var(--amber);
 }
 
-.preview-empty{
+/* Empty state */
+.empty-state{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
   padding:64px 24px;text-align:center;color:var(--muted);
-  font-size:.9375rem;
 }
+.empty-state svg{width:48px;height:48px;color:var(--muted-soft);opacity:.6;margin:0 0 16px}
+.empty-state h3{font-family:var(--display);font-weight:700;font-size:1rem;color:var(--ink);margin:0 0 6px}
+.empty-state p{margin:0;font-size:.875rem;max-width:400px;line-height:1.5}
 
-/* ---- Toast ---- */
+/* Split view */
+.split-container{display:flex;flex-direction:column;flex:1;min-height:0}
+.split-top{flex:1;min-height:0;border-bottom:1px solid var(--line)}
+.split-bottom{flex:1;min-height:0}
+
+/* Bottom bar */
+.bottom-bar{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 16px;
+  background:var(--paper-soft);
+  border-top:1px solid var(--line);
+  flex-wrap:wrap;
+  min-height:56px;
+}
+.bottom-bar .stat{
+  font-family:var(--mono);font-size:.6875rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.05em;
+}
+.bottom-bar .stat strong{color:var(--ink);font-weight:600}
+.bottom-bar .spacer{flex:1;min-width:8px}
+.export-group{display:flex;gap:0;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow-xs)}
+.export-group button{
+  padding:8px 14px;min-height:34px;
+  font:inherit;font-size:.75rem;font-weight:500;
+  background:none;border:0;border-right:1px solid var(--line);
+  color:var(--ink);cursor:pointer;transition:background .12s ease;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.export-group button:last-child{border-right:0}
+.export-group button:hover:not([disabled]){background:var(--paper)}
+.export-group button[disabled]{opacity:.4;cursor:not-allowed}
+.export-group button.primary{
+  background:var(--blue);color:#fff;
+}
+.export-group button.primary:hover:not([disabled]){background:var(--blue-deep)}
+.export-group svg{width:13px;height:13px}
+
+/* Context menu */
+.ctx-menu{
+  position:fixed;z-index:400;
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:8px;padding:4px;
+  box-shadow:0 12px 40px rgba(0,0,0,.18),0 4px 12px rgba(0,0,0,.08);
+  min-width:200px;
+  display:none;
+}
+.ctx-menu.open{display:block}
+.ctx-item{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 12px;border-radius:5px;
+  font-size:.8125rem;color:var(--ink);
+  cursor:pointer;background:none;border:0;width:100%;text-align:left;
+}
+.ctx-item:hover{background:var(--paper)}
+.ctx-item.danger{color:var(--red)}
+.ctx-item.danger:hover{background:var(--red-soft)}
+.ctx-item svg{width:14px;height:14px;opacity:.7;flex:none}
+.ctx-item .shortcut{
+  margin-left:auto;font-family:var(--mono);font-size:.6875rem;
+  color:var(--muted);letter-spacing:.03em;
+}
+.ctx-sep{height:1px;background:var(--line-soft);margin:4px 0}
+
+/* Toast */
 .toast{
   position:fixed;left:50%;bottom:24px;
   transform:translateX(-50%) translateY(20px);
@@ -257,21 +548,71 @@
   padding:10px 18px;border-radius:100px;
   font-size:.8125rem;
   opacity:0;pointer-events:none;
-  transition:opacity .2s ease, transform .2s ease;
-  z-index:200;max-width:90vw;
+  transition:opacity .2s ease,transform .2s ease;
+  z-index:500;max-width:90vw;
   display:flex;align-items:center;gap:8px;
   box-shadow:0 12px 32px rgba(0,0,0,.28);
 }
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast svg{width:14px;height:14px;color:#22E39A;flex:none}
+.toast.warn svg{color:#FFB547}
+.toast.err svg{color:#FF6B6B}
 
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
+/* Article */
+.article{margin:64px 0 0;max-width:72ch}
+.article h2{margin:36px 0 12px;font-size:1.375rem}
+.article h2:first-child{margin-top:0}
+.article h3{font-family:var(--display);font-weight:700;font-size:1rem;margin:24px 0 8px;letter-spacing:-.015em}
+.article p{margin:0 0 12px;color:var(--ink-soft);font-size:.9375rem;line-height:1.65}
+.article ul,.article ol{margin:0 0 14px;padding-left:22px;color:var(--ink-soft);font-size:.9375rem}
+.article li{margin:0 0 6px}
+.article strong{font-weight:600;color:var(--ink)}
+.article a{color:var(--blue);text-decoration:underline;text-underline-offset:2px}
+.faq{margin:16px 0 0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{
+  cursor:pointer;padding:16px 2px;font-weight:500;
+  list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center;
+  font-size:.9375rem;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--muted);font-size:1.25rem;line-height:1;flex:none}
+.faq details[open] summary::after{content:"\2212";color:var(--blue)}
+.faq details p{margin:0 0 18px;color:var(--ink-soft);max-width:62ch;font-size:.875rem;line-height:1.65}
+.related-list{list-style:none;margin:12px 0 0;padding:0}
+.related-list li{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius-md);padding:12px 14px;margin:0 0 8px;
+  display:flex;gap:12px;align-items:center;
+}
+.related-list .txt{flex:1;font-size:.9375rem}
+.related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
+.related-list .txt a:hover{color:var(--blue);text-decoration:underline}
+.related-list .txt p{margin:2px 0 0;font-size:.8125rem;color:var(--muted)}
+.related-list time{
+  font-size:.6875rem;color:var(--muted);flex:none;
+  font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;
+}
+
+footer{
+  margin:48px 0 0;padding:20px 0 0;
+  border-top:1px solid var(--line);
+  color:var(--muted);font-size:.8125rem;
+}
+footer a{color:inherit}
+footer a:hover{color:var(--blue)}
+
 @media(max-width:640px){
-  .drop-zone{padding:40px 18px}
-  .stage{padding:16px}
-  .side-panel{padding:14px}
-  .preview-table th,.preview-table td{padding:6px 8px;font-size:.75rem}
+  .lede{font-size:1.375rem}
+  .sub{font-size:.8125rem;margin-bottom:16px}
+  .drop-zone{padding:44px 18px}
+  .view-tabs{padding:0 8px;overflow-x:auto;scrollbar-width:none}
+  .view-tabs::-webkit-scrollbar{display:none}
+  .view-tab{padding:12px 12px;font-size:.75rem;white-space:nowrap}
+  .bottom-bar{padding:10px 12px;gap:8px}
+  .export-group button{padding:8px 10px;font-size:.6875rem}
 }
 </style>
 </head>
@@ -297,112 +638,270 @@
 </nav>
 
 <h1 class="lede">Image to Excel Converter</h1>
-<p class="sub">Turn a screenshot, photo or scan of a table into an editable Excel spreadsheet. OCR runs in your browser — your image never leaves your device.</p>
+<p class="sub">Turn screenshots, photos and scans of tables into editable Excel spreadsheets. Batch multiple images, preprocess for accuracy, review the detection, and export multi-sheet XLSX. Everything runs in your browser.</p>
 
 <!-- ============ INTAKE ============ -->
-<div class="stage" id="intake">
+<div class="intake" id="intake">
   <label class="drop-zone" id="dropZone" for="fileInput">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
       <rect x="3" y="3" width="18" height="18" rx="2"/>
       <path d="M3 10h18M10 3v18"/>
     </svg>
-    <h2>Drop an image of a table here</h2>
-    <p>or click to choose a file · JPG, PNG, WebP, BMP</p>
-    <p class="hint">Processed locally · never uploaded</p>
-    <input type="file" id="fileInput" accept="image/*" class="sr">
+    <h2>Drop images of tables here</h2>
+    <p>or click to choose files</p>
+    <p class="formats">JPG · PNG · WebP · BMP · up to 20 images</p>
+    <span class="privacy">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      100% private · never uploaded
+    </span>
+    <input type="file" id="fileInput" accept="image/*" multiple class="sr">
   </label>
+
+  <div class="intake-features">
+    <div class="feat">
+      <h3>Batch conversion</h3>
+      <p>Drop up to 20 images. Each becomes its own sheet in the exported workbook.</p>
+    </div>
+    <div class="feat">
+      <h3>Image preprocessing</h3>
+      <p>Auto-enhance, binarize, and upscale to boost OCR accuracy on photos.</p>
+    </div>
+    <div class="feat">
+      <h3>Visual verification</h3>
+      <p>See the detected grid overlaid on the image before you export.</p>
+    </div>
+    <div class="feat">
+      <h3>Full Excel export</h3>
+      <p>Multi-sheet XLSX with auto-sized columns. Also CSV, JSON, and TSV.</p>
+    </div>
+  </div>
 </div>
 
 <!-- ============ WORKSPACE ============ -->
 <div class="workspace" id="workspace">
 
-  <!-- LEFT: options + preview -->
-  <aside class="side-panel">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
 
-    <div>
-      <p class="panel-title">Source image</p>
-      <div class="preview-img-wrap" id="imgPreviewWrap"></div>
-      <p class="file-meta" id="fileMeta">—</p>
+    <!-- Sources -->
+    <div class="panel open" id="panelSources">
+      <div class="panel-head" data-toggle-panel="panelSources">
+        <h3>Images <span id="sourceCount" style="font-weight:500;color:var(--muted);font-size:.75rem;text-transform:none;letter-spacing:0"></span></h3>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </div>
+      <div class="panel-body">
+        <ul class="source-list" id="sourceList"></ul>
+        <button class="btn sm" id="addMoreBtn" type="button" style="width:100%">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          Add more images
+        </button>
+        <input type="file" id="addMoreInput" accept="image/*" multiple class="sr">
+      </div>
     </div>
 
-    <div>
-      <p class="panel-title">OCR settings</p>
-
-      <label class="field">
-        <label for="langSel">Language</label>
-        <select id="langSel">
-          <option value="eng" selected>English</option>
-          <option value="hin">Hindi</option>
-          <option value="spa">Spanish</option>
-          <option value="fra">French</option>
-          <option value="deu">German</option>
-          <option value="por">Portuguese</option>
-          <option value="ita">Italian</option>
-          <option value="rus">Russian</option>
-          <option value="ara">Arabic</option>
-          <option value="chi_sim">Chinese (Simplified)</option>
-          <option value="jpn">Japanese</option>
-          <option value="kor">Korean</option>
-        </select>
-        <small>Language data downloads once (~15 MB) then caches.</small>
-      </label>
-
-      <label class="field">
-        <label for="qualitySel">Image quality</label>
-        <select id="qualitySel">
-          <option value="auto" selected>Auto-detect</option>
-          <option value="sharp">Sharp — screenshot</option>
-          <option value="photo">Photo — needs cleanup</option>
-          <option value="scan">Scan — B&amp;W document</option>
-        </select>
-        <small>Higher quality images convert more accurately.</small>
-      </label>
+    <!-- Preprocessing -->
+    <div class="panel open" id="panelPre">
+      <div class="panel-head" data-toggle-panel="panelPre">
+        <h3>Preprocess</h3>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </div>
+      <div class="panel-body">
+        <div class="toggle-list">
+          <label class="toggle">
+            <input type="checkbox" id="optAuto" checked>
+            <span class="switch"></span>
+            <span class="label">Auto-enhance</span>
+            <span class="hint">Smart</span>
+          </label>
+          <label class="toggle">
+            <input type="checkbox" id="optGray">
+            <span class="switch"></span>
+            <span class="label">Grayscale</span>
+          </label>
+          <label class="toggle">
+            <input type="checkbox" id="optThreshold">
+            <span class="switch"></span>
+            <span class="label">Adaptive threshold</span>
+          </label>
+          <label class="toggle">
+            <input type="checkbox" id="optInvert">
+            <span class="switch"></span>
+            <span class="label">Invert colors</span>
+          </label>
+          <label class="toggle">
+            <input type="checkbox" id="optUpscale">
+            <span class="switch"></span>
+            <span class="label">Upscale 2×</span>
+          </label>
+        </div>
+        <small style="display:block;font-size:.6875rem;color:var(--muted);line-height:1.45">
+          Preprocessing applies only to the OCR pass. Your original image is untouched.
+        </small>
+      </div>
     </div>
 
-    <div style="display:flex;flex-direction:column;gap:8px">
-      <button class="btn primary" id="convertBtn" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        Convert to table
-      </button>
-      <button class="btn" id="resetBtn" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M6 6l1 14a2 2 0 002 2h6a2 2 0 002-2l1-14"/></svg>
-        Choose another image
-      </button>
+    <!-- OCR Settings -->
+    <div class="panel" id="panelOCR">
+      <div class="panel-head" data-toggle-panel="panelOCR">
+        <h3>OCR settings</h3>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </div>
+      <div class="panel-body">
+        <label class="field">
+          <label for="langSel">Language</label>
+          <select id="langSel">
+            <option value="eng" selected>English</option>
+            <option value="hin">Hindi</option>
+            <option value="spa">Spanish</option>
+            <option value="fra">French</option>
+            <option value="deu">German</option>
+            <option value="por">Portuguese</option>
+            <option value="ita">Italian</option>
+            <option value="rus">Russian</option>
+            <option value="ara">Arabic</option>
+            <option value="chi_sim">Chinese (Simplified)</option>
+            <option value="chi_tra">Chinese (Traditional)</option>
+            <option value="jpn">Japanese</option>
+            <option value="kor">Korean</option>
+            <option value="nld">Dutch</option>
+            <option value="tur">Turkish</option>
+          </select>
+          <small>~15 MB model downloads once and caches in your browser.</small>
+        </label>
+
+        <label class="field">
+          <label for="psmSel">Page segmentation</label>
+          <select id="psmSel">
+            <option value="6" selected>Auto — single table block</option>
+            <option value="4">Single column of text</option>
+            <option value="11">Sparse text (no layout)</option>
+            <option value="12">Sparse text with orientation</option>
+            <option value="1">Automatic (with OSD)</option>
+          </select>
+          <small>Try <em>Single column</em> for narrow vertical tables, <em>Sparse</em> for scattered text.</small>
+        </label>
+
+        <label class="field">
+          <label for="whitelistInput">Character whitelist</label>
+          <input type="text" id="whitelistInput" placeholder="e.g. 0123456789.,₹" autocomplete="off" spellcheck="false">
+          <small>Restrict OCR to these characters only. Leave empty for all.</small>
+        </label>
+      </div>
     </div>
 
-    <div>
-      <div class="progress" id="progress"><div class="progress-bar" id="progressBar"></div></div>
-      <p class="progress-label" id="progressLabel" style="display:none">—</p>
+    <!-- Actions -->
+    <div class="panel open" id="panelActions">
+      <div class="panel-body" style="padding-top:14px">
+        <button class="btn primary" id="convertBtn" type="button" style="width:100%;margin-bottom:8px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          Convert all images
+        </button>
+        <button class="btn" id="resetBtn" type="button" style="width:100%">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M6 6l1 14a2 2 0 002 2h6a2 2 0 002-2l1-14"/></svg>
+          Start over
+        </button>
+
+        <div class="progress-wrap" id="progressWrap">
+          <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+          <div class="progress-label">
+            <span id="progressStage">—</span>
+            <span class="pct" id="progressPct">0%</span>
+          </div>
+        </div>
+      </div>
     </div>
 
   </aside>
 
-  <!-- RIGHT: preview table -->
-  <section class="preview-panel">
-    <div class="preview-header">
-      <h3>Detected table</h3>
-      <span class="meta" id="tableMeta">Waiting for conversion</span>
-      <div class="preview-actions">
-        <button class="btn" id="addRowBtn" type="button" disabled style="width:auto;padding:6px 12px;min-height:32px;font-size:.75rem">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-          Row
+  <!-- MAIN AREA -->
+  <section class="workspace-main">
+
+    <!-- View tabs -->
+    <div class="view-tabs" role="tablist">
+      <button class="view-tab" id="tabSplit" role="tab" aria-selected="false" data-view="split">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18"/></svg>
+        Split
+      </button>
+      <button class="view-tab" id="tabImage" role="tab" aria-selected="false" data-view="image">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        Image
+      </button>
+      <button class="view-tab" id="tabTable" role="tab" aria-selected="true" data-view="table">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+        Table
+      </button>
+      <span class="spacer"></span>
+      <div class="toolbar-group">
+        <button class="btn icon" id="undoBtn" title="Undo (Ctrl+Z)" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14l-5-5 5-5"/><path d="M4 9h11a5 5 0 015 5v0a5 5 0 01-5 5H8"/></svg>
         </button>
-        <button class="btn" id="addColBtn" type="button" disabled style="width:auto;padding:6px 12px;min-height:32px;font-size:.75rem">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-          Column
+        <button class="btn icon" id="redoBtn" title="Redo (Ctrl+Shift+Z)" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14l5-5-5-5"/><path d="M20 9H9a5 5 0 00-5 5v0a5 5 0 005 5h7"/></svg>
         </button>
-        <button class="btn primary" id="downloadBtn" type="button" disabled style="width:auto;padding:6px 14px;min-height:32px;font-size:.75rem">
+      </div>
+    </div>
+
+    <!-- Split view -->
+    <div class="view-panel" id="viewSplit" role="tabpanel">
+      <div class="split-container">
+        <div class="split-top">
+          <div class="image-stage" id="imageStageSplit">
+            <div class="empty-state">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+              <h3>No image selected</h3>
+              <p>Add images on the left, then click Convert.</p>
+            </div>
+          </div>
+        </div>
+        <div class="split-bottom">
+          <div class="table-stage" id="tableStageSplit">
+            <div class="empty-state">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+              <h3>No table yet</h3>
+              <p>Click Convert all images to detect tables.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Image view -->
+    <div class="view-panel" id="viewImage" role="tabpanel">
+      <div class="image-stage" id="imageStageFull">
+        <div class="empty-state">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <h3>No image selected</h3>
+          <p>Add images on the left, then click Convert.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table view -->
+    <div class="view-panel active" id="viewTable" role="tabpanel">
+      <div class="table-stage" id="tableStageFull">
+        <div class="empty-state">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+          <h3>No table yet</h3>
+          <p>Click Convert all images to detect tables from your uploads.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="bottom-bar">
+      <span class="stat" id="tableStats">0 rows × 0 cols</span>
+      <span class="spacer"></span>
+      <div class="export-group">
+        <button id="downloadXlsx" type="button" class="primary" disabled title="Export all pages as a multi-sheet workbook">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-          Download XLSX
+          XLSX
         </button>
+        <button id="downloadCsv" type="button" disabled title="Export current page as CSV">CSV</button>
+        <button id="downloadJson" type="button" disabled title="Export all pages as JSON">JSON</button>
+        <button id="downloadTsv" type="button" disabled title="Export current page as TSV (paste into Google Sheets)">TSV</button>
       </div>
     </div>
-    <div class="table-scroll">
-      <div class="preview-empty" id="previewEmpty">
-        Click <strong>Convert to table</strong> to run OCR and detect the table.
-      </div>
-      <table class="preview-table" id="previewTable" hidden></table>
-    </div>
+
   </section>
 
 </div>
@@ -411,52 +910,54 @@
 <article class="article" style="margin-top:56px">
   <h2>How to convert an image to Excel</h2>
   <ol>
-    <li><strong>Upload the image.</strong> Drag a screenshot, photo or scan onto the box above. JPG, PNG, WebP and BMP all work.</li>
-    <li><strong>Pick the language</strong> the text is written in. English is the default. The model downloads once and caches in your browser.</li>
-    <li><strong>Click Convert to table.</strong> OCR extracts every word, then an algorithm groups them into rows and columns using their position on the page.</li>
-    <li><strong>Fix any mistakes.</strong> The detected grid is fully editable. Click any cell and type the correct value.</li>
-    <li><strong>Download as XLSX.</strong> The result opens in Excel, Google Sheets, LibreOffice Calc and Numbers.</li>
+    <li><strong>Upload the images.</strong> Drop up to 20 files, or click to choose. JPG, PNG, WebP and BMP all work. Each becomes a separate sheet in the workbook.</li>
+    <li><strong>Pick the language</strong> the text is written in and optionally restrict the character set (useful for tables that are only numbers).</li>
+    <li><strong>Optional: preprocess.</strong> Toggle auto-enhance, grayscale or threshold for photos. The original is never modified.</li>
+    <li><strong>Convert.</strong> OCR extracts every word with its position, then an algorithm groups them into rows and columns using the visual layout.</li>
+    <li><strong>Review the grid overlay</strong> in the Image view. If the detected lines look wrong, adjust preprocessing and reconvert.</li>
+    <li><strong>Fix any mistakes.</strong> Click a cell, type, or paste from the clipboard. Tab and arrow keys move like Excel.</li>
+    <li><strong>Export.</strong> Multi-sheet XLSX, CSV, JSON or TSV. Files open in Excel, Google Sheets, LibreOffice and Numbers.</li>
   </ol>
 
   <h2>What works best</h2>
   <ul>
     <li><strong>Screenshots of tables</strong> — near-perfect accuracy. This is the ideal case.</li>
-    <li><strong>Photos of printed spreadsheets</strong> — accurate with good lighting and a straight-on angle.</li>
-    <li><strong>Scanned documents</strong> — works well if the scan is 300 DPI or higher and pages are straight.</li>
+    <li><strong>Photos of printed spreadsheets</strong> — accurate with good lighting and a straight-on angle. Try the <em>Adaptive threshold</em> preprocessing.</li>
+    <li><strong>Scanned documents</strong> — works well at 300 DPI or higher.</li>
     <li><strong>Handwritten tables</strong> — poor accuracy. Tesseract is designed for printed text.</li>
-    <li><strong>Rotated or perspective-skewed photos</strong> — the column detection struggles. Straighten the image first.</li>
+    <li><strong>Rotated or perspective-skewed photos</strong> — column detection struggles. Straighten the image first.</li>
   </ul>
 
   <h2>How the table detection works</h2>
-  <p>Tesseract returns each word with its exact pixel position on the image. The tool then runs three passes:</p>
+  <p>OCR returns each word with an exact pixel position. The tool then runs three passes:</p>
   <ol>
-    <li><strong>Row detection.</strong> Words whose vertical centers are within the height of a typical character are grouped into a row.</li>
-    <li><strong>Column detection.</strong> All word left-edges are clustered. Values that fall within a small horizontal distance are treated as the same column.</li>
+    <li><strong>Row detection.</strong> Words whose vertical centers fall within about two-thirds of the average line height are grouped into the same row.</li>
+    <li><strong>Column detection.</strong> All word left-edges are clustered. Groups that fall within 1.6× the average line height are merged.</li>
     <li><strong>Grid assembly.</strong> Each word lands in a row × column cell. Multiple words in the same cell are joined with a space.</li>
   </ol>
   <p>This works best when the source has clear horizontal alignment — which is why screenshots convert far better than photos.</p>
 
-  <h2>Improving accuracy</h2>
+  <h2>Preprocessing explained</h2>
   <ul>
-    <li><strong>Crop tightly</strong> to just the table. Extra content confuses the OCR.</li>
-    <li><strong>Increase contrast.</strong> A light-grey table on a white background often benefits from being boosted before upload.</li>
-    <li><strong>Straighten the image.</strong> Even 5° of tilt breaks column detection.</li>
-    <li><strong>Avoid compression artifacts.</strong> Save screenshots as PNG rather than low-quality JPG.</li>
-    <li><strong>Split large tables.</strong> If the table has more than 30 columns, convert it in halves.</li>
+    <li><strong>Auto-enhance</strong> — sharpens contrast and cleans up noise. Good default.</li>
+    <li><strong>Grayscale</strong> — removes color distraction. Often improves accuracy on colored tables.</li>
+    <li><strong>Adaptive threshold</strong> — converts to pure black and white, using local averages to handle uneven lighting. Excellent for photos.</li>
+    <li><strong>Invert</strong> — for light text on dark backgrounds.</li>
+    <li><strong>Upscale 2×</strong> — boosts accuracy on low-resolution screenshots and small text.</li>
   </ul>
 
-  <h2>Your image stays private</h2>
-  <p>OCR runs entirely in your browser using <strong>Tesseract.js</strong>, a WebAssembly port of the open-source Tesseract engine. Your image is decoded in memory, processed locally, and discarded when you close the tab. Nothing is uploaded to any server. This makes the tool safe for invoices, bank statements and any document you'd rather not send to a third party.</p>
+  <h2>Your images stay private</h2>
+  <p>OCR runs entirely in your browser using <strong>Tesseract.js</strong>, a WebAssembly port of the open-source Tesseract engine. Your images are decoded in memory, processed locally, and discarded when you close the tab. Nothing is uploaded. This makes the tool safe for invoices, bank statements and any document you'd rather not send to a third party.</p>
 
   <h2>Common questions</h2>
   <div class="faq">
     <details><summary>Is this image to Excel converter free?</summary><p>Yes. Completely free, no signup, no watermarks and no page limit.</p></details>
-    <details><summary>Are my images uploaded to a server?</summary><p>No. OCR runs entirely in your browser using Tesseract.js. Your image never leaves your device.</p></details>
-    <details><summary>What image formats are supported?</summary><p>JPG, PNG, WebP, BMP and most common image formats. Screenshots, photos of printed tables, and scans all work.</p></details>
-    <details><summary>How accurate is the OCR?</summary><p>Accuracy depends on image quality. Clear screenshots of tables typically convert with 95%+ accuracy. Photos need good lighting and focus. Handwritten text will not convert reliably.</p></details>
-    <details><summary>Can I edit the result before downloading?</summary><p>Yes. The detected table appears in an editable grid. Click any cell to fix mistakes, then add or remove rows and columns before exporting.</p></details>
-    <details><summary>Does it work on mobile?</summary><p>Yes. The tool works in modern mobile browsers, but large images are slower on phones because your device does the work.</p></details>
-    <details><summary>Can I convert multiple images at once?</summary><p>Not currently. Convert one image at a time and combine the resulting spreadsheets in Excel or Google Sheets.</p></details>
+    <details><summary>Are my images uploaded to a server?</summary><p>No. OCR runs entirely in your browser using Tesseract.js. Your images never leave your device.</p></details>
+    <details><summary>Can I convert multiple images at once?</summary><p>Yes. Drop up to 20 images and each becomes its own sheet in the exported workbook.</p></details>
+    <details><summary>How accurate is the OCR?</summary><p>Clear screenshots of tables typically convert with 95%+ accuracy. Photos need good lighting and focus. Handwritten text will not convert reliably. Preprocessing toggles can help on difficult images.</p></details>
+    <details><summary>Can I edit the result before downloading?</summary><p>Yes. The detected table appears in an editable grid. Click any cell to fix mistakes, add or remove rows and columns, then export.</p></details>
+    <details><summary>Does it work on mobile?</summary><p>Yes. The tool works in modern mobile browsers, but large batches are slower on phones because your device does the work.</p></details>
+    <details><summary>Which export format should I use?</summary><p>XLSX for a fully formatted workbook (one sheet per image), CSV for a single-sheet import, JSON for developers, TSV for pasting directly into Google Sheets.</p></details>
   </div>
 
   <h2>Related tools</h2>
@@ -480,518 +981,1382 @@
 </footer>
 </div>
 
+<!-- Context menu -->
+<div class="ctx-menu" id="ctxMenu">
+  <button class="ctx-item" data-action="insert-row-above">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+    Insert row above
+  </button>
+  <button class="ctx-item" data-action="insert-row-below">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+    Insert row below
+  </button>
+  <button class="ctx-item" data-action="insert-col-left">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+    Insert column left
+  </button>
+  <button class="ctx-item" data-action="insert-col-right">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+    Insert column right
+  </button>
+  <div class="ctx-sep"></div>
+  <button class="ctx-item" data-action="clear-cell">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    Clear cell
+  </button>
+  <button class="ctx-item danger" data-action="delete-row">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M6 6l1 14a2 2 0 002 2h6a2 2 0 002-2l1-14"/></svg>
+    Delete row
+  </button>
+  <button class="ctx-item danger" data-action="delete-col">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M6 6l1 14a2 2 0 002 2h6a2 2 0 002-2l1-14"/></svg>
+    Delete column
+  </button>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
 (function(){
-  "use strict";
-  var $ = function(id){ return document.getElementById(id); };
+"use strict";
 
-  /* ---------------------------------------------------------------
-     DOM refs
-     --------------------------------------------------------------- */
-  var dropZone   = $("dropZone");
-  var fileInput  = $("fileInput");
-  var intake     = $("intake");
-  var workspace  = $("workspace");
+/* ============================================================
+   REFS
+   ============================================================ */
+var $ = function(id){ return document.getElementById(id); };
 
-  var imgWrap    = $("imgPreviewWrap");
-  var fileMeta   = $("fileMeta");
-  var langSel    = $("langSel");
-  var qualitySel = $("qualitySel");
-  var convertBtn = $("convertBtn");
-  var resetBtn   = $("resetBtn");
+var dropZone = $("dropZone");
+var fileInput = $("fileInput");
+var addMoreInput = $("addMoreInput");
+var addMoreBtn = $("addMoreBtn");
 
-  var progressEl    = $("progress");
-  var progressBar   = $("progressBar");
-  var progressLabel = $("progressLabel");
+var intake = $("intake");
+var workspace = $("workspace");
 
-  var previewEmpty  = $("previewEmpty");
-  var previewTable  = $("previewTable");
-  var tableMeta     = $("tableMeta");
-  var addRowBtn     = $("addRowBtn");
-  var addColBtn     = $("addColBtn");
-  var downloadBtn   = $("downloadBtn");
+var sourceList = $("sourceList");
+var sourceCount = $("sourceCount");
 
-  var toast = $("toast");
+var optAuto = $("optAuto");
+var optGray = $("optGray");
+var optThreshold = $("optThreshold");
+var optInvert = $("optInvert");
+var optUpscale = $("optUpscale");
 
-  /* ---------------------------------------------------------------
-     State
-     --------------------------------------------------------------- */
-  var currentImage = null;      // data URL or File
-  var currentFile  = null;      // File object
-  var tableData    = [];        // 2D array of strings
-  var worker       = null;      // Tesseract worker
-  var workerLang   = null;      // language the current worker is set up for
+var langSel = $("langSel");
+var psmSel = $("psmSel");
+var whitelistInput = $("whitelistInput");
 
-  /* ---------------------------------------------------------------
-     Helpers
-     --------------------------------------------------------------- */
-  function flash(msg){
-    toast.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span>' + msg + '</span>';
-    toast.classList.add("show");
-    clearTimeout(flash._t);
-    flash._t = setTimeout(function(){ toast.classList.remove("show"); }, 2200);
+var convertBtn = $("convertBtn");
+var resetBtn = $("resetBtn");
+var progressWrap = $("progressWrap");
+var progressBar = $("progressBar");
+var progressStage = $("progressStage");
+var progressPct = $("progressPct");
+
+var imageStageFull = $("imageStageFull");
+var imageStageSplit = $("imageStageSplit");
+var tableStageFull = $("tableStageFull");
+var tableStageSplit = $("tableStageSplit");
+
+var tableStats = $("tableStats");
+
+var undoBtn = $("undoBtn");
+var redoBtn = $("redoBtn");
+
+var downloadXlsx = $("downloadXlsx");
+var downloadCsv = $("downloadCsv");
+var downloadJson = $("downloadJson");
+var downloadTsv = $("downloadTsv");
+
+var ctxMenu = $("ctxMenu");
+var toast = $("toast");
+
+var viewTabs = document.querySelectorAll(".view-tab");
+var viewPanels = {
+  split: $("viewSplit"),
+  image: $("viewImage"),
+  table: $("viewTable")
+};
+
+/* ============================================================
+   STATE
+   ============================================================ */
+var sources = [];              // { id, file, name, dataUrl, width, height, naturalW, naturalH, processedDataUrl, table, wordData, crop }
+var activeSourceId = null;
+var currentView = "table";
+var worker = null;
+var workerLang = null;
+var workerPsm = null;
+
+var undoStack = [];
+var redoStack = [];
+var MAX_UNDO = 50;
+
+var SESSION_KEY = "img2excel.session.v1";
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+function uid(){
+  return "s" + Math.random().toString(36).slice(2, 9) + Date.now().toString(36).slice(-3);
+}
+function bytes(n){
+  if (n < 1024) return n + " B";
+  if (n < 1048576) return (n / 1024).toFixed(1) + " KB";
+  return (n / 1048576).toFixed(1) + " MB";
+}
+function escapeHtml(s){
+  return String(s == null ? "" : s).replace(/[<>&"]/g, function(c){
+    return {"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[c];
+  });
+}
+function colLetter(n){
+  var s = "";
+  n = n + 1;
+  while (n > 0){
+    var m = (n - 1) % 26;
+    s = String.fromCharCode(65 + m) + s;
+    n = Math.floor((n - 1) / 26);
   }
-  function bytes(n){
-    if (n < 1024) return n + " B";
-    if (n < 1048576) return (n / 1024).toFixed(1) + " KB";
-    return (n / 1048576).toFixed(1) + " MB";
+  return s;
+}
+function flash(msg, kind){
+  toast.className = "toast " + (kind || "");
+  toast.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="' +
+    (kind === "err" ? "M18 6L6 18M6 6l12 12" : kind === "warn" ? "M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" : "M20 6L9 17l-5-5") +
+    '"/></svg><span>' + escapeHtml(msg) + '</span>';
+  toast.classList.add("show");
+  clearTimeout(flash._t);
+  flash._t = setTimeout(function(){ toast.classList.remove("show"); }, 2400);
+}
+function setProgress(pct, stage){
+  if (pct === null || pct === undefined){
+    progressWrap.classList.remove("show");
+    return;
   }
-  function setProgress(pct, label){
-    if (pct === null){
-      progressEl.classList.remove("show");
-      progressLabel.style.display = "none";
-      return;
-    }
-    progressEl.classList.add("show");
-    progressLabel.style.display = "block";
-    progressBar.style.width = Math.max(0, Math.min(100, pct)) + "%";
-    if (label) progressLabel.textContent = label;
+  progressWrap.classList.add("show");
+  progressBar.style.width = Math.max(0, Math.min(100, pct)) + "%";
+  if (stage !== undefined) progressStage.textContent = stage;
+  progressPct.textContent = Math.round(pct) + "%";
+}
+
+/* ============================================================
+   PANEL TOGGLES
+   ============================================================ */
+document.querySelectorAll("[data-toggle-panel]").forEach(function(head){
+  head.addEventListener("click", function(){
+    var panel = $(head.dataset.togglePanel);
+    if (panel) panel.classList.toggle("open");
+  });
+});
+
+/* ============================================================
+   VIEW TABS
+   ============================================================ */
+viewTabs.forEach(function(tab){
+  tab.addEventListener("click", function(){
+    setView(tab.dataset.view);
+  });
+});
+function setView(v){
+  currentView = v;
+  viewTabs.forEach(function(t){
+    t.setAttribute("aria-selected", t.dataset.view === v ? "true" : "false");
+  });
+  Object.keys(viewPanels).forEach(function(k){
+    if (viewPanels[k]) viewPanels[k].classList.toggle("active", k === v);
+  });
+  if (v === "image" || v === "split") renderImageIntoStage();
+  if (v === "table" || v === "split") renderTableIntoStage();
+}
+
+/* ============================================================
+   FILE INTAKE
+   ============================================================ */
+dropZone.addEventListener("click", function(){ fileInput.click(); });
+["dragenter","dragover"].forEach(function(ev){
+  dropZone.addEventListener(ev, function(e){
+    e.preventDefault();
+    dropZone.classList.add("over");
+  });
+});
+["dragleave","drop"].forEach(function(ev){
+  dropZone.addEventListener(ev, function(e){
+    e.preventDefault();
+    dropZone.classList.remove("over");
+  });
+});
+dropZone.addEventListener("drop", function(e){
+  var files = e.dataTransfer && e.dataTransfer.files;
+  if (files && files.length) handleFiles(files);
+});
+fileInput.addEventListener("change", function(){
+  if (fileInput.files && fileInput.files.length) handleFiles(fileInput.files);
+  fileInput.value = "";
+});
+addMoreBtn.addEventListener("click", function(){ addMoreInput.click(); });
+addMoreInput.addEventListener("change", function(){
+  if (addMoreInput.files && addMoreInput.files.length) handleFiles(addMoreInput.files);
+  addMoreInput.value = "";
+});
+
+function handleFiles(files){
+  var arr = Array.prototype.slice.call(files).filter(function(f){
+    return /^image\//.test(f.type);
+  });
+  if (!arr.length){
+    return flash("Please choose image files", "warn");
   }
-
-  /* ---------------------------------------------------------------
-     File input
-     --------------------------------------------------------------- */
-  dropZone.addEventListener("click", function(){ fileInput.click(); });
-
-  ["dragenter","dragover"].forEach(function(ev){
-    dropZone.addEventListener(ev, function(e){
-      e.preventDefault();
-      dropZone.classList.add("over");
-    });
-  });
-  ["dragleave","drop"].forEach(function(ev){
-    dropZone.addEventListener(ev, function(e){
-      e.preventDefault();
-      dropZone.classList.remove("over");
-    });
-  });
-  dropZone.addEventListener("drop", function(e){
-    var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
-    if (f) handleFile(f);
-  });
-  fileInput.addEventListener("change", function(){
-    var f = fileInput.files && fileInput.files[0];
-    if (f) handleFile(f);
-    fileInput.value = "";
-  });
-
-  /* ---------------------------------------------------------------
-     Load the image
-     --------------------------------------------------------------- */
-  function handleFile(file){
-    if (!/^image\//.test(file.type)){
-      return flash("Please choose an image file");
-    }
-    currentFile = file;
-
+  if (sources.length + arr.length > 20){
+    arr = arr.slice(0, 20 - sources.length);
+    flash("Limited to 20 images", "warn");
+  }
+  var pending = arr.length;
+  var readCount = 0;
+  arr.forEach(function(file, idx){
     var reader = new FileReader();
     reader.onload = function(){
-      currentImage = reader.result;
-
-      // Show preview thumbnail
-      imgWrap.innerHTML = "";
-      var img = document.createElement("img");
-      img.src = currentImage;
-      img.alt = file.name;
-      imgWrap.appendChild(img);
-
-      fileMeta.textContent = file.name + " · " + bytes(file.size);
-
-      // Reveal workspace, hide intake
-      intake.style.display = "none";
-      workspace.classList.add("show");
-
-      // Reset any previous conversion
-      resetTableState();
-      setProgress(null);
-      flash("Image loaded. Ready to convert.");
-    };
-    reader.onerror = function(){
-      flash("Could not read this file");
+      var img = new Image();
+      img.onload = function(){
+        sources.push({
+          id: uid(),
+          file: file,
+          name: file.name,
+          size: file.size,
+          dataUrl: reader.result,
+          width: img.width,
+          height: img.height,
+          processedDataUrl: null,
+          table: null,
+          wordData: null,
+          crop: null
+        });
+        readCount++;
+        if (readCount === pending){
+          enterWorkspace();
+          renderSourceList();
+          renderImageIntoStage();
+          renderTableIntoStage();
+          saveSession();
+          flash(arr.length + (arr.length === 1 ? " image loaded" : " images loaded"));
+        }
+      };
+      img.onerror = function(){
+        readCount++;
+        if (readCount === pending){
+          enterWorkspace();
+          renderSourceList();
+        }
+      };
+      img.src = reader.result;
     };
     reader.readAsDataURL(file);
-  }
+  });
+}
 
-  /* ---------------------------------------------------------------
-     Reset helpers
-     --------------------------------------------------------------- */
-  function resetTableState(){
-    tableData = [];
-    previewTable.hidden = true;
-    previewTable.innerHTML = "";
-    previewEmpty.hidden = false;
-    previewEmpty.textContent = "Click Convert to table to run OCR and detect the table.";
-    tableMeta.textContent = "Waiting for conversion";
-    addRowBtn.disabled = true;
-    addColBtn.disabled = true;
-    downloadBtn.disabled = true;
-  }
+function enterWorkspace(){
+  intake.style.display = "none";
+  workspace.classList.add("show");
+  if (!activeSourceId && sources.length) activeSourceId = sources[0].id;
+}
 
-  resetBtn.addEventListener("click", function(){
-    currentImage = null;
-    currentFile = null;
-    imgWrap.innerHTML = "";
-    fileMeta.textContent = "—";
+/* ============================================================
+   SOURCE LIST
+   ============================================================ */
+function renderSourceList(){
+  sourceCount.textContent = sources.length ? "· " + sources.length : "";
+  sourceList.innerHTML = "";
+  sources.forEach(function(s, idx){
+    var li = document.createElement("li");
+    li.className = "source-item" + (s.id === activeSourceId ? " active" : "");
+    li.dataset.id = s.id;
+    li.innerHTML =
+      '<span class="num">' + (idx + 1) + '</span>' +
+      '<span class="thumb"><img src="' + s.dataUrl + '" alt=""></span>' +
+      '<span class="info">' +
+        '<span class="name" title="' + escapeHtml(s.name) + '">' + escapeHtml(s.name) + '</span>' +
+        '<span class="meta">' + bytes(s.size) + (s.table ? " · " + s.table.length + "×" + (s.table[0] ? s.table[0].length : 0) : "") + '</span>' +
+      '</span>' +
+      '<button class="remove" type="button" title="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>';
+    li.addEventListener("click", function(e){
+      if (e.target.closest(".remove")) return;
+      activeSourceId = s.id;
+      renderSourceList();
+      renderImageIntoStage();
+      renderTableIntoStage();
+      saveSession();
+    });
+    li.querySelector(".remove").addEventListener("click", function(e){
+      e.stopPropagation();
+      removeSource(s.id);
+    });
+    sourceList.appendChild(li);
+  });
+  downloadXlsx.disabled = !sources.some(function(s){ return s.table && s.table.length; });
+  downloadJson.disabled = downloadXlsx.disabled;
+  updateDownloadButtonsForActive();
+  updateUndoRedoButtons();
+  updateStats();
+}
+function removeSource(id){
+  sources = sources.filter(function(s){ return s.id !== id; });
+  if (activeSourceId === id){
+    activeSourceId = sources.length ? sources[0].id : null;
+  }
+  if (!sources.length){
     workspace.classList.remove("show");
     intake.style.display = "block";
     resetTableState();
-    setProgress(null);
-    flash("Choose another image");
+    return;
+  }
+  renderSourceList();
+  renderImageIntoStage();
+  renderTableIntoStage();
+  saveSession();
+}
+function getActiveSource(){
+  return sources.find(function(s){ return s.id === activeSourceId; }) || null;
+}
+function updateDownloadButtonsForActive(){
+  var s = getActiveSource();
+  var hasTable = s && s.table && s.table.length;
+  downloadCsv.disabled = !hasTable;
+  downloadTsv.disabled = !hasTable;
+}
+
+/* ============================================================
+   IMAGE PREPROCESSING
+   ============================================================ */
+function preprocessImage(dataUrl, opts){
+  return new Promise(function(resolve){
+    var img = new Image();
+    img.onload = function(){
+      var w = img.width, h = img.height;
+      if (opts.upscale){
+        w *= 2; h *= 2;
+      }
+      var canvas = document.createElement("canvas");
+      canvas.width = w;
+      canvas.height = h;
+      var ctx = canvas.getContext("2d", { willReadFrequently: true });
+      ctx.drawImage(img, 0, 0, w, h);
+
+      var d = ctx.getImageData(0, 0, w, h);
+      var px = d.data;
+      var len = px.length;
+
+      // Auto-enhance: stretch contrast on the luminance channel
+      if (opts.auto){
+        var minL = 255, maxL = 0;
+        for (var i = 0; i < len; i += 4){
+          var l = px[i]*0.299 + px[i+1]*0.587 + px[i+2]*0.114;
+          if (l < minL) minL = l;
+          if (l > maxL) maxL = l;
+        }
+        if (maxL > minL){
+          var scale = 255 / (maxL - minL);
+          for (var i2 = 0; i2 < len; i2 += 4){
+            px[i2]   = Math.max(0, Math.min(255, (px[i2]   - minL) * scale));
+            px[i2+1] = Math.max(0, Math.min(255, (px[i2+1] - minL) * scale));
+            px[i2+2] = Math.max(0, Math.min(255, (px[i2+2] - minL) * scale));
+          }
+        }
+      }
+
+      // Grayscale
+      if (opts.gray || opts.threshold){
+        for (var i3 = 0; i3 < len; i3 += 4){
+          var g = px[i3]*0.299 + px[i3+1]*0.587 + px[i3+2]*0.114;
+          px[i3] = px[i3+1] = px[i3+2] = g;
+        }
+      }
+
+      // Adaptive threshold (simple mean-based)
+      if (opts.threshold){
+        var sum = 0, count = len / 4;
+        for (var i4 = 0; i4 < len; i4 += 4) sum += px[i4];
+        var mean = sum / count;
+        var bias = 8;
+        for (var i5 = 0; i5 < len; i5 += 4){
+          var v = px[i5] > (mean - bias) ? 255 : 0;
+          px[i5] = px[i5+1] = px[i5+2] = v;
+        }
+      }
+
+      // Invert
+      if (opts.invert){
+        for (var i6 = 0; i6 < len; i6 += 4){
+          px[i6]   = 255 - px[i6];
+          px[i6+1] = 255 - px[i6+1];
+          px[i6+2] = 255 - px[i6+2];
+        }
+      }
+
+      ctx.putImageData(d, 0, 0);
+      resolve(canvas.toDataURL("image/png"));
+    };
+    img.onerror = function(){ resolve(dataUrl); };
+    img.src = dataUrl;
   });
+}
 
-  /* ---------------------------------------------------------------
-     Convert button
-     --------------------------------------------------------------- */
-  convertBtn.addEventListener("click", function(){
-    if (!currentImage) return flash("Load an image first");
-    if (!window.Tesseract) return flash("OCR library did not load. Check your connection.");
+/* ============================================================
+   OCR WORKER
+   ============================================================ */
+async function ensureWorker(lang, psm){
+  if (worker && workerLang === lang && workerPsm === psm) return worker;
+  if (worker){
+    try { await worker.terminate(); } catch (e){}
+    worker = null;
+  }
+  worker = await Tesseract.createWorker(lang, 1, {
+    logger: function(m){
+      if (m.status === "loading language traineddata" || m.status === "loading tesseract core"){
+        setProgress(8, "Loading OCR engine");
+      } else if (m.status === "initializing api"){
+        setProgress(14, "Preparing engine");
+      } else if (m.status === "recognizing text"){
+        var p = 20 + Math.round((m.progress || 0) * 70);
+        setProgress(p, "Reading image");
+      }
+    }
+  });
+  // Set PSM and optionally whitelist
+  var params = { tessedit_pageseg_mode: String(psm) };
+  var whitelist = whitelistInput.value.trim();
+  if (whitelist){
+    params.tessedit_char_whitelist = whitelist;
+  }
+  try { await worker.setParameters(params); } catch (e){}
+  workerLang = lang;
+  workerPsm = psm;
+  return worker;
+}
 
-    convertBtn.disabled = true;
-    setProgress(2, "Starting OCR…");
+/* ============================================================
+   CONVERT
+   ============================================================ */
+convertBtn.addEventListener("click", function(){
+  if (!sources.length) return flash("Load images first", "warn");
+  if (!window.Tesseract) return flash("OCR library did not load", "err");
 
-    (async function(){
-      try {
-        var lang = langSel.value;
-        // Create or reuse a worker
-        if (!worker || workerLang !== lang){
-          if (worker){ try { await worker.terminate(); } catch (e){} worker = null; }
-          setProgress(5, "Loading language model (" + lang + ")…");
-          worker = await Tesseract.createWorker(lang, 1, {
-            logger: function(m){
-              if (m.status === "loading language traineddata" || m.status === "loading tesseract core"){
-                setProgress(8, "Loading OCR engine…");
-              } else if (m.status === "initializing api"){
-                setProgress(14, "Preparing engine…");
-              } else if (m.status === "recognizing text"){
-                var pct = 15 + Math.round((m.progress || 0) * 75);
-                setProgress(pct, "Reading the image… " + Math.round((m.progress || 0) * 100) + "%");
-              }
-            }
-          });
-          workerLang = lang;
-        }
+  convertBtn.disabled = true;
+  setProgress(2, "Starting");
 
-        setProgress(20, "Recognizing text…");
+  (async function(){
+    try {
+      var lang = langSel.value;
+      var psm = psmSel.value;
+      var opts = {
+        auto: optAuto.checked,
+        gray: optGray.checked,
+        threshold: optThreshold.checked,
+        invert: optInvert.checked,
+        upscale: optUpscale.checked
+      };
 
-        var ret = await worker.recognize(currentImage);
+      setProgress(4, "Preparing engine");
+      await ensureWorker(lang, psm);
+
+      for (var i = 0; i < sources.length; i++){
+        var s = sources[i];
+        setProgress(20, "Image " + (i + 1) + " of " + sources.length);
+        await delay(0);
+
+        // Preprocess
+        s.processedDataUrl = await preprocessImage(s.dataUrl, opts);
+
+        // OCR
+        var ret = await worker.recognize(s.processedDataUrl);
         var words = (ret.data && ret.data.words) ? ret.data.words : [];
+        s.wordData = words;
 
-        if (!words.length){
-          setProgress(null);
-          convertBtn.disabled = false;
-          previewEmpty.hidden = false;
-          previewEmpty.textContent = "No text detected. Try a clearer image or a different language.";
-          return flash("No text detected");
-        }
-
-        setProgress(93, "Building table…");
+        // Build table
         var table = wordsToTable(words);
-
-        // Clean up totally empty columns and rows
         table = trimEmpty(table);
 
-        if (!table.length){
-          setProgress(null);
-          convertBtn.disabled = false;
-          previewEmpty.textContent = "Could not detect a table. Make sure the image shows text arranged in rows.";
-          return flash("No table detected");
+        if (table.length){
+          s.table = table;
+          // Recalculate cell types
+          autoFormatNumbers(s);
+          // Clear any previous undo history for this source
+          undoStack = undoStack.filter(function(e){ return e.sourceId !== s.id; });
+          redoStack = redoStack.filter(function(e){ return e.sourceId !== s.id; });
+        } else {
+          s.table = null;
         }
 
-        setProgress(100, "Done");
-        tableData = table;
-        renderPreview();
-        addRowBtn.disabled = false;
-        addColBtn.disabled = false;
-        downloadBtn.disabled = false;
-        tableMeta.textContent = table.length + " rows × " + (table[0] ? table[0].length : 0) + " cols";
-        flash("Detected " + table.length + " rows");
-
-        setTimeout(function(){ setProgress(null); }, 800);
-      } catch (err){
-        console.error(err);
-        setProgress(null);
-        flash("Conversion failed: " + (err.message || "unknown error"));
-      } finally {
-        convertBtn.disabled = false;
+        var pct = 20 + Math.round(((i + 1) / sources.length) * 75);
+        setProgress(pct, "Done with image " + (i + 1));
       }
-    })();
+
+      setProgress(100, "Complete");
+      renderSourceList();
+      renderImageIntoStage();
+      renderTableIntoStage();
+      updateStats();
+      saveSession();
+      flash("Converted " + sources.length + " image" + (sources.length === 1 ? "" : "s"));
+      setTimeout(function(){ setProgress(null); }, 1000);
+    } catch (err){
+      console.error(err);
+      flash("Conversion failed: " + (err.message || "unknown"), "err");
+      setProgress(null);
+    } finally {
+      convertBtn.disabled = false;
+    }
+  })();
+});
+
+function delay(ms){
+  return new Promise(function(r){ setTimeout(r, ms); });
+}
+
+/* ============================================================
+   TABLE DETECTION
+   ============================================================ */
+function wordsToTable(words){
+  var ws = words.filter(function(w){
+    return w && w.text && w.text.trim() && (w.confidence === undefined || w.confidence > 30);
+  });
+  if (!ws.length) return [];
+
+  var heights = ws.map(function(w){ return w.bbox.y1 - w.bbox.y0; });
+  var avgH = heights.reduce(function(a,b){ return a+b; }, 0) / heights.length;
+  if (!isFinite(avgH) || avgH <= 0) avgH = 12;
+
+  var items = ws.map(function(w){
+    return {
+      text: w.text,
+      confidence: w.confidence || 0,
+      x0: w.bbox.x0, x1: w.bbox.x1,
+      y0: w.bbox.y0, y1: w.bbox.y1,
+      cx: (w.bbox.x0 + w.bbox.x1) / 2,
+      cy: (w.bbox.y0 + w.bbox.y1) / 2
+    };
   });
 
-  /* ---------------------------------------------------------------
-     Table detection
-     --------------------------------------------------------------- */
-  function wordsToTable(words){
-    // Keep words with reasonable confidence and non-empty text
-    var ws = words.filter(function(w){
-      return w && w.text && w.text.trim() && (w.confidence === undefined || w.confidence > 30);
+  // Row clustering
+  items.sort(function(a, b){ return a.cy - b.cy; });
+  var rows = [];
+  var current = [items[0]];
+  var rowCenter = items[0].cy;
+  for (var i = 1; i < items.length; i++){
+    var it = items[i];
+    if (Math.abs(it.cy - rowCenter) < avgH * 0.65){
+      current.push(it);
+      rowCenter = current.reduce(function(a,w){ return a + w.cy; }, 0) / current.length;
+    } else {
+      rows.push(current);
+      current = [it];
+      rowCenter = it.cy;
+    }
+  }
+  rows.push(current);
+  rows.forEach(function(r){ r.sort(function(a,b){ return a.x0 - b.x0; }); });
+
+  // Column clustering
+  var allX0 = items.map(function(w){ return w.x0; }).sort(function(a,b){ return a - b; });
+  var tol = avgH * 1.6;
+  var clusters = [];
+  var cStart = allX0[0], cEnd = allX0[0];
+  for (var j = 1; j < allX0.length; j++){
+    if (allX0[j] - cEnd > tol){
+      clusters.push((cStart + cEnd) / 2);
+      cStart = allX0[j];
+    }
+    cEnd = allX0[j];
+  }
+  clusters.push((cStart + cEnd) / 2);
+
+  // Merge close clusters
+  var merged = [];
+  clusters.forEach(function(c){
+    if (!merged.length) return merged.push(c);
+    if (c - merged[merged.length-1] < avgH * 0.9){
+      merged[merged.length-1] = (merged[merged.length-1] + c) / 2;
+    } else merged.push(c);
+  });
+  clusters = merged;
+
+  // Assign words to columns
+  rows.forEach(function(r){
+    r.forEach(function(w){
+      var best = 0, bestDist = Infinity;
+      for (var k = 0; k < clusters.length; k++){
+        var d = Math.abs(w.x0 - clusters[k]);
+        if (d < bestDist){ bestDist = d; best = k; }
+      }
+      w.col = best;
     });
-    if (!ws.length) return [];
+  });
 
-    // Compute average word height and char width
-    var heights = ws.map(function(w){ return w.bbox.y1 - w.bbox.y0; });
-    var avgH = heights.reduce(function(a,b){ return a+b; }, 0) / heights.length;
-    if (!isFinite(avgH) || avgH <= 0) avgH = 12;
-
-    // Decorate with centers
-    var items = ws.map(function(w){
-      return {
-        text: w.text,
-        x0: w.bbox.x0,
-        x1: w.bbox.x1,
-        y0: w.bbox.y0,
-        y1: w.bbox.y1,
-        cx: (w.bbox.x0 + w.bbox.x1) / 2,
-        cy: (w.bbox.y0 + w.bbox.y1) / 2
-      };
-    });
-
-    // ---- Step 1: group into rows ----
-    items.sort(function(a, b){ return a.cy - b.cy; });
-
-    var rows = [];
-    var current = [items[0]];
-    var rowCenter = items[0].cy;
-
-    for (var i = 1; i < items.length; i++){
-      var it = items[i];
-      if (Math.abs(it.cy - rowCenter) < avgH * 0.65){
-        current.push(it);
-        // rolling average of row center
-        rowCenter = current.reduce(function(a,w){ return a + w.cy; }, 0) / current.length;
+  // Build grid
+  var table = rows.map(function(r){
+    var cells = new Array(clusters.length).fill("");
+    var confs = new Array(clusters.length).fill(1);
+    r.forEach(function(w){
+      if (cells[w.col]){
+        cells[w.col] += " " + w.text;
+        confs[w.col] = Math.min(confs[w.col], w.confidence / 100);
       } else {
-        rows.push(current);
-        current = [it];
-        rowCenter = it.cy;
+        cells[w.col] = w.text;
+        confs[w.col] = w.confidence / 100;
+      }
+    });
+    return { cells: cells, confs: confs, y0: r[0].y0, x0s: clusters.slice() };
+  });
+
+  // Store confidence metadata on the table via a parallel array
+  table._confs = table.map(function(r){ return r.confs; });
+  table._rowY = table.map(function(r){ return r.y0; });
+  table._colX = clusters.slice();
+
+  // Return only the cell values (2D array) but keep metadata attached as properties
+  var flat = table.map(function(r){ return r.cells; });
+  flat._confs = table._confs;
+  flat._rowY = table._rowY;
+  flat._colX = table._colX;
+  return flat;
+}
+
+function trimEmpty(table){
+  if (!table.length) return table;
+  table = table.filter(function(r){
+    return r.some(function(c){ return c && c.trim(); });
+  });
+  if (!table.length) return table;
+  var cols = table[0].length;
+  var keep = [];
+  for (var c = 0; c < cols; c++){
+    var any = false;
+    for (var r = 0; r < table.length; r++){
+      if (table[r][c] && table[r][c].trim()){ any = true; break; }
+    }
+    keep.push(any);
+  }
+  if (keep.some(function(k){ return !k; })){
+    table = table.map(function(r){
+      return r.filter(function(_, i){ return keep[i]; });
+    });
+  }
+  return table;
+}
+
+/* ============================================================
+   NUMBER / DATE FORMATTING
+   ============================================================ */
+function autoFormatNumbers(source){
+  if (!source.table) return;
+  var t = source.table;
+  for (var r = 0; r < t.length; r++){
+    for (var c = 0; c < t[r].length; c++){
+      var v = t[r][c];
+      if (typeof v !== "string") continue;
+      var trimmed = v.trim();
+      if (!trimmed) continue;
+      // Collapse spaces between digits and commas/dots that OCR might insert
+      var compact = trimmed.replace(/(\d)\s+(?=\d{3}(\D|$))/g, "$1").replace(/(\d)\s+(?=\d)/g, "$1");
+      // Strip common currency symbols but keep them as prefix so Excel treats as text
+      // Actually better: convert to plain number so Excel sees number type
+      var noCurrency = compact.replace(/^[₹$€£¥]\s*/, "");
+      // Detect number
+      if (/^-?[\d,]+(\.\d+)?$/.test(noCurrency)){
+        t[r][c] = noCurrency;
+      } else {
+        t[r][c] = compact;
       }
     }
-    rows.push(current);
+  }
+}
 
-    // Sort each row left-to-right
-    rows.forEach(function(r){ r.sort(function(a,b){ return a.x0 - b.x0; }); });
+/* ============================================================
+   RENDER IMAGE
+   ============================================================ */
+function renderImageIntoStage(){
+  var s = getActiveSource();
+  var stage = currentView === "split" ? imageStageSplit : imageStageFull;
+  if (!stage) return;
 
-    // ---- Step 2: cluster x-left values into columns ----
-    var allX0 = items.map(function(w){ return w.x0; }).sort(function(a,b){ return a - b; });
-    var colTolerance = avgH * 1.6;   // words starting within ~1.6 line heights are the same column
-
-    var clusters = [];
-    var clusterStart = allX0[0];
-    var clusterEnd   = allX0[0];
-
-    for (var j = 1; j < allX0.length; j++){
-      if (allX0[j] - clusterEnd > colTolerance){
-        clusters.push((clusterStart + clusterEnd) / 2);
-        clusterStart = allX0[j];
-      }
-      clusterEnd = allX0[j];
-    }
-    clusters.push((clusterStart + clusterEnd) / 2);
-
-    // Guard against too many columns from noise — merge any cluster that's within 40% of the previous
-    var merged = [];
-    clusters.forEach(function(c){
-      if (!merged.length) return merged.push(c);
-      if (c - merged[merged.length-1] < avgH * 0.9){
-        merged[merged.length-1] = (merged[merged.length-1] + c) / 2;
-      } else {
-        merged.push(c);
-      }
-    });
-    clusters = merged;
-
-    // ---- Step 3: assign each word to its column ----
-    rows.forEach(function(r){
-      r.forEach(function(w){
-        // find nearest cluster to word's x0
-        var best = 0, bestDist = Infinity;
-        for (var k = 0; k < clusters.length; k++){
-          var d = Math.abs(w.x0 - clusters[k]);
-          if (d < bestDist){ bestDist = d; best = k; }
-        }
-        w.col = best;
-      });
-    });
-
-    // ---- Step 4: build the grid ----
-    var table = rows.map(function(r){
-      var cells = new Array(clusters.length).fill("");
-      r.forEach(function(w){
-        if (cells[w.col]){
-          cells[w.col] += " " + w.text;
-        } else {
-          cells[w.col] = w.text;
-        }
-      });
-      return cells;
-    });
-
-    return table;
+  if (!s){
+    stage.innerHTML =
+      '<div class="empty-state">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>' +
+      '<h3>No image selected</h3><p>Add images on the left, then click Convert.</p></div>';
+    return;
   }
 
-  /* ---------------------------------------------------------------
-     Trim empty rows / columns
-     --------------------------------------------------------------- */
-  function trimEmpty(table){
-    if (!table.length) return table;
+  stage.innerHTML = "";
 
-    // Remove rows where every cell is empty
-    table = table.filter(function(r){
-      return r.some(function(c){ return c && c.trim(); });
-    });
+  var wrap = document.createElement("div");
+  wrap.className = "image-wrap";
 
-    // Remove columns where every row is empty
-    if (!table.length) return table;
-    var cols = table[0].length;
-    var keep = [];
-    for (var c = 0; c < cols; c++){
-      var any = false;
-      for (var r = 0; r < table.length; r++){
-        if (table[r][c] && table[r][c].trim()){ any = true; break; }
-      }
-      keep.push(any);
-    }
-    if (keep.some(function(k){ return !k; })){
-      table = table.map(function(r){
-        return r.filter(function(_, i){ return keep[i]; });
+  var img = document.createElement("img");
+  img.src = s.dataUrl;
+  img.alt = s.name;
+  img.draggable = false;
+  wrap.appendChild(img);
+
+  var overlay = document.createElement("div");
+  overlay.className = "image-overlay";
+  wrap.appendChild(overlay);
+
+  stage.appendChild(wrap);
+
+  // Draw grid lines if we have word data
+  if (s.wordData && s.wordData.length && s.table && s.table._rowY && s.table._colX){
+    drawGridOverlay(wrap, img, overlay, s);
+  }
+}
+
+function drawGridOverlay(wrap, img, overlay, s){
+  // Wait for layout
+  requestAnimationFrame(function(){
+    var rect = img.getBoundingClientRect();
+    var wrapRect = wrap.getBoundingClientRect();
+    var scaleX = img.clientWidth / img.naturalWidth;
+    var scaleY = img.clientHeight / img.naturalHeight;
+
+    // Rows — horizontal lines at the top of each row
+    if (s.table._rowY){
+      s.table._rowY.forEach(function(y){
+        var line = document.createElement("div");
+        line.className = "grid-line h";
+        line.style.top = (y * scaleY) + "px";
+        overlay.appendChild(line);
       });
     }
+    // Columns — vertical lines at each cluster x
+    if (s.table._colX){
+      s.table._colX.forEach(function(x){
+        var line = document.createElement("div");
+        line.className = "grid-line v";
+        line.style.left = (x * scaleX) + "px";
+        overlay.appendChild(line);
+      });
+    }
+  });
+}
 
-    return table;
+/* ============================================================
+   RENDER TABLE
+   ============================================================ */
+var selectedCell = { r: 0, c: 0, sourceId: null };
+var editingCell = null;
+
+function renderTableIntoStage(){
+  var s = getActiveSource();
+  var stage = currentView === "split" ? tableStageSplit : tableStageFull;
+  if (!stage) return;
+
+  if (!s || !s.table || !s.table.length){
+    stage.innerHTML =
+      '<div class="empty-state">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>' +
+      '<h3>' + (s ? "No table detected" : "No image selected") + '</h3>' +
+      '<p>' + (s ? "Try different preprocessing or a clearer image." : "Add images on the left, then click Convert.") + '</p></div>';
+    return;
   }
 
-  /* ---------------------------------------------------------------
-     Preview table rendering + editing
-     --------------------------------------------------------------- */
-  function renderPreview(){
-    previewEmpty.hidden = true;
-    previewTable.hidden = false;
+  stage.innerHTML = "";
+  var table = document.createElement("table");
+  table.className = "excel-table";
+  table.dataset.sourceId = s.id;
 
-    if (!tableData.length){
-      previewTable.hidden = true;
-      previewEmpty.hidden = false;
-      previewEmpty.textContent = "Empty table.";
+  var t = s.table;
+  var cols = t[0] ? t[0].length : 0;
+  var confs = t._confs;
+
+  // Header
+  var thead = document.createElement("thead");
+  var htr = document.createElement("tr");
+  var corner = document.createElement("th");
+  corner.className = "row-header";
+  htr.appendChild(corner);
+  for (var c = 0; c < cols; c++){
+    var th = document.createElement("th");
+    th.textContent = colLetter(c);
+    htr.appendChild(th);
+  }
+  thead.appendChild(htr);
+  table.appendChild(thead);
+
+  // Body
+  var tbody = document.createElement("tbody");
+  for (var r = 0; r < t.length; r++){
+    var tr = document.createElement("tr");
+    var rnum = document.createElement("td");
+    rnum.className = "rownum";
+    rnum.textContent = (r + 1);
+    tr.appendChild(rnum);
+    for (var c2 = 0; c2 < cols; c2++){
+      var td = document.createElement("td");
+      td.className = "cell";
+      td.dataset.r = r;
+      td.dataset.c = c2;
+      td.dataset.sourceId = s.id;
+      var val = t[r][c2] == null ? "" : t[r][c2];
+      td.textContent = val;
+      // Cell type detection for styling
+      applyCellType(td, val);
+      // Low confidence marker
+      if (confs && confs[r] && confs[r][c2] !== undefined && confs[r][c2] < 0.65 && val){
+        td.classList.add("low-conf");
+        td.title = "Low OCR confidence";
+      }
+      if (!val) td.classList.add("empty");
+      td.addEventListener("click", function(){ selectCell(this); });
+      td.addEventListener("dblclick", function(){ editCell(this); });
+      td.addEventListener("contextmenu", function(e){ openContextMenu(e, this); });
+      td.addEventListener("blur", function(){ commitEdit(this); });
+      td.addEventListener("keydown", handleCellKeydown);
+      tr.appendChild(td);
+    }
+    tbody.appendChild(tr);
+  }
+  table.appendChild(tbody);
+  stage.appendChild(table);
+
+  // Restore selection
+  requestAnimationFrame(function(){
+    if (selectedCell.sourceId === s.id){
+      var td = stage.querySelector('.cell[data-r="' + selectedCell.r + '"][data-c="' + selectedCell.c + '"]');
+      if (td) td.classList.add("selected");
+    } else {
+      selectedCell = { r: 0, c: 0, sourceId: s.id };
+      var td2 = stage.querySelector('.cell[data-r="0"][data-c="0"]');
+      if (td2) td2.classList.add("selected");
+    }
+  });
+}
+
+function applyCellType(td, val){
+  if (!val) return;
+  var v = String(val).trim();
+  if (/^-?[\d,]+(\.\d+)?$/.test(v)) td.classList.add("num");
+  else if (/^\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4}$/.test(v)) td.classList.add("date");
+  else if (/^\d{4}-\d{2}-\d{2}$/.test(v)) td.classList.add("date");
+}
+
+/* ============================================================
+   CELL SELECTION & EDITING
+   ============================================================ */
+function selectCell(td){
+  document.querySelectorAll('.excel-table .cell.selected').forEach(function(el){
+    el.classList.remove("selected");
+  });
+  td.classList.add("selected");
+  selectedCell = {
+    r: parseInt(td.dataset.r, 10),
+    c: parseInt(td.dataset.c, 10),
+    sourceId: td.dataset.sourceId
+  };
+  td.focus();
+}
+
+function editCell(td){
+  if (editingCell) commitEdit(editingCell);
+  editingCell = td;
+  td.classList.add("editing");
+  td.setAttribute("contenteditable", "true");
+  td.focus();
+  // Select all
+  var range = document.createRange();
+  range.selectNodeContents(td);
+  var sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+}
+
+function commitEdit(td){
+  if (!td) return;
+  td.classList.remove("editing");
+  td.removeAttribute("contenteditable");
+  var s = sources.find(function(x){ return x.id === td.dataset.sourceId; });
+  if (!s || !s.table) return;
+  var r = parseInt(td.dataset.r, 10);
+  var c = parseInt(td.dataset.c, 10);
+  var newVal = td.textContent.trim();
+  var oldVal = s.table[r] ? s.table[r][c] : "";
+  if (newVal === oldVal) {
+    if (!newVal) td.classList.add("empty");
+    editingCell = null;
+    return;
+  }
+  // Push undo
+  pushUndo(s.id, { type: "cell", r: r, c: c, before: oldVal, after: newVal });
+  s.table[r][c] = newVal;
+  applyCellType(td, newVal);
+  td.classList.toggle("empty", !newVal);
+  // Clear low-conf mark once edited
+  td.classList.remove("low-conf");
+  if (editingCell === td) editingCell = null;
+  updateStats();
+  saveSession();
+}
+
+function handleCellKeydown(e){
+  var td = e.currentTarget;
+  var r = parseInt(td.dataset.r, 10);
+  var c = parseInt(td.dataset.c, 10);
+  var s = sources.find(function(x){ return x.id === td.dataset.sourceId; });
+  if (!s || !s.table) return;
+
+  // If editing, let normal typing happen
+  if (td.classList.contains("editing")){
+    if (e.key === "Escape"){
+      e.preventDefault();
+      // Restore original
+      var orig = s.table[r][c];
+      td.textContent = orig;
+      commitEdit(td);
       return;
     }
-
-    var cols = tableData[0].length;
-
-    // Header row: column letters
-    var html = "<thead><tr><th>#</th>";
-    for (var c = 0; c < cols; c++){
-      html += "<th>" + colLetter(c) + "</th>";
+    if (e.key === "Enter" && !e.shiftKey){
+      e.preventDefault();
+      commitEdit(td);
+      // Move down
+      focusCell(td.dataset.sourceId, r + 1, c);
+      return;
     }
-    html += "</tr></thead><tbody>";
+    if (e.key === "Tab"){
+      e.preventDefault();
+      commitEdit(td);
+      focusCell(td.dataset.sourceId, r, c + (e.shiftKey ? -1 : 1));
+      return;
+    }
+    return;
+  }
 
-    tableData.forEach(function(row, r){
-      html += '<tr>';
-      html += '<td class="rownum">' + (r + 1) + '</td>';
-      for (var c2 = 0; c2 < cols; c2++){
-        var val = row[c2] == null ? "" : row[c2];
-        html += '<td contenteditable="true" data-r="' + r + '" data-c="' + c2 + '">' + escapeHtml(val) + '</td>';
+  var handled = true;
+  switch (e.key){
+    case "ArrowUp": focusCell(td.dataset.sourceId, r - 1, c); break;
+    case "ArrowDown": focusCell(td.dataset.sourceId, r + 1, c); break;
+    case "ArrowLeft": focusCell(td.dataset.sourceId, r, c - 1); break;
+    case "ArrowRight": focusCell(td.dataset.sourceId, r, c + 1); break;
+    case "Tab": focusCell(td.dataset.sourceId, r, c + (e.shiftKey ? -1 : 1)); break;
+    case "Enter": focusCell(td.dataset.sourceId, r + 1, c); break;
+    case "Delete":
+    case "Backspace":
+      pushUndo(s.id, { type: "cell", r: r, c: c, before: s.table[r][c], after: "" });
+      s.table[r][c] = "";
+      td.textContent = "";
+      td.classList.add("empty");
+      updateStats();
+      saveSession();
+      break;
+    case "F2":
+      editCell(td);
+      break;
+    default:
+      if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey){
+        editCell(td);
+        td.textContent = "";
+        e.preventDefault();
+        // Insert typed char
+        td.textContent = e.key;
+        // Move caret to end
+        var range = document.createRange();
+        range.selectNodeContents(td);
+        range.collapse(false);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        return;
       }
-      html += '</tr>';
-    });
-    html += "</tbody>";
-
-    previewTable.innerHTML = html;
-
-    // Bind editing
-    previewTable.querySelectorAll('td[contenteditable]').forEach(function(td){
-      td.addEventListener("input", function(){
-        var r = parseInt(td.dataset.r, 10);
-        var c3 = parseInt(td.dataset.c, 10);
-        if (!tableData[r]) tableData[r] = [];
-        tableData[r][c3] = td.textContent;
-      });
-      td.addEventListener("blur", function(){
-        // Re-render this cell's visual (empty cells get the — placeholder)
-        if (!td.textContent.trim()){
-          td.textContent = "";
-        }
-      });
-    });
+      handled = false;
   }
+  if (handled) e.preventDefault();
+}
 
-  function escapeHtml(s){
-    return String(s == null ? "" : s).replace(/[<>&"]/g, function(ch){
-      return {"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[ch];
-    });
-  }
-  function colLetter(n){
-    var s = "";
-    n = n + 1;
-    while (n > 0){
-      var m = (n - 1) % 26;
-      s = String.fromCharCode(65 + m) + s;
-      n = Math.floor((n - 1) / 26);
+function focusCell(sourceId, r, c){
+  var stage = currentView === "split" ? tableStageSplit : tableStageFull;
+  if (!stage) return;
+  var s = sources.find(function(x){ return x.id === sourceId; });
+  if (!s || !s.table) return;
+  var maxR = s.table.length - 1;
+  var maxC = (s.table[0] ? s.table[0].length : 0) - 1;
+  if (r < 0) r = 0;
+  if (c < 0) c = 0;
+  if (r > maxR) r = maxR;
+  if (c > maxC) c = maxC;
+  var td = stage.querySelector('.cell[data-r="' + r + '"][data-c="' + c + '"]');
+  if (td) selectCell(td);
+}
+
+/* ============================================================
+   UNDO / REDO
+   ============================================================ */
+function pushUndo(sourceId, entry){
+  entry.sourceId = sourceId;
+  undoStack.push(entry);
+  if (undoStack.length > MAX_UNDO) undoStack.shift();
+  redoStack = [];
+  updateUndoRedoButtons();
+}
+function updateUndoRedoButtons(){
+  undoBtn.disabled = !undoStack.length;
+  redoBtn.disabled = !redoStack.length;
+}
+function applyInverse(entry, direction){
+  // direction: -1 = undo (use before), +1 = redo (use after)
+  var s = sources.find(function(x){ return x.id === entry.sourceId; });
+  if (!s || !s.table) return;
+  var val = direction === -1 ? entry.before : entry.after;
+  if (entry.type === "cell"){
+    if (!s.table[entry.r]) s.table[entry.r] = [];
+    s.table[entry.r][entry.c] = val;
+  } else if (entry.type === "row"){
+    if (direction === -1){
+      // Undo insert: remove the row
+      s.table.splice(entry.r, 1);
+    } else {
+      // Redo insert: insert the row
+      s.table.splice(entry.r, 0, entry.row);
     }
-    return s;
+  } else if (entry.type === "rowDelete"){
+    if (direction === -1){
+      // Undo delete: insert back
+      s.table.splice(entry.r, 0, entry.row);
+    } else {
+      s.table.splice(entry.r, 1);
+    }
+  } else if (entry.type === "col"){
+    s.table.forEach(function(row){
+      if (direction === -1){
+        row.splice(entry.c, 1);
+      } else {
+        row.splice(entry.c, 0, "");
+      }
+    });
+  } else if (entry.type === "colDelete"){
+    if (direction === -1){
+      s.table.forEach(function(row){ row.splice(entry.c, 0, entry.col[r]); });
+    } else {
+      s.table.forEach(function(row){ row.splice(entry.c, 1); });
+    }
   }
+  renderSourceList();
+  renderTableIntoStage();
+  renderImageIntoStage();
+  updateStats();
+  saveSession();
+}
+undoBtn.addEventListener("click", function(){
+  if (!undoStack.length) return;
+  var e = undoStack.pop();
+  redoStack.push(e);
+  applyInverse(e, -1);
+  updateUndoRedoButtons();
+  flash("Undone");
+});
+redoBtn.addEventListener("click", function(){
+  if (!redoStack.length) return;
+  var e = redoStack.pop();
+  undoStack.push(e);
+  applyInverse(e, 1);
+  updateUndoRedoButtons();
+  flash("Redone");
+});
 
-  /* ---------------------------------------------------------------
-     Add row / column
-     --------------------------------------------------------------- */
-  addRowBtn.addEventListener("click", function(){
-    if (!tableData.length) return;
-    var cols = tableData[0].length;
-    tableData.push(new Array(cols).fill(""));
-    renderPreview();
-    tableMeta.textContent = tableData.length + " rows × " + cols + " cols";
-    flash("Row added");
-  });
+/* ============================================================
+   CONTEXT MENU
+   ============================================================ */
+var ctxTarget = null;
+function openContextMenu(e, td){
+  e.preventDefault();
+  selectCell(td);
+  ctxTarget = td;
+  ctxMenu.style.left = e.clientX + "px";
+  ctxMenu.style.top = e.clientY + "px";
+  ctxMenu.classList.add("open");
+  var r = ctxMenu.getBoundingClientRect();
+  if (r.right > window.innerWidth) ctxMenu.style.left = (window.innerWidth - r.width - 8) + "px";
+  if (r.bottom > window.innerHeight) ctxMenu.style.top = (window.innerHeight - r.height - 8) + "px";
+}
+document.addEventListener("click", function(e){
+  if (!e.target.closest("#ctxMenu")) ctxMenu.classList.remove("open");
+});
+ctxMenu.addEventListener("click", function(e){
+  var btn = e.target.closest(".ctx-item");
+  if (!btn) return;
+  var action = btn.dataset.action;
+  if (!ctxTarget) return;
+  var s = sources.find(function(x){ return x.id === ctxTarget.dataset.sourceId; });
+  if (!s || !s.table) return;
+  var r = parseInt(ctxTarget.dataset.r, 10);
+  var c = parseInt(ctxTarget.dataset.c, 10);
+  var cols = s.table[0] ? s.table[0].length : 0;
 
-  addColBtn.addEventListener("click", function(){
-    if (!tableData.length) return;
-    tableData.forEach(function(r){ r.push(""); });
-    renderPreview();
-    tableMeta.textContent = tableData.length + " rows × " + tableData[0].length + " cols";
-    flash("Column added");
-  });
+  if (action === "insert-row-above"){
+    s.table.splice(r, 0, new Array(cols).fill(""));
+    pushUndo(s.id, { type: "row", r: r, row: new Array(cols).fill("") });
+  } else if (action === "insert-row-below"){
+    s.table.splice(r + 1, 0, new Array(cols).fill(""));
+    pushUndo(s.id, { type: "row", r: r + 1, row: new Array(cols).fill("") });
+  } else if (action === "insert-col-left"){
+    s.table.forEach(function(row){ row.splice(c, 0, ""); });
+    pushUndo(s.id, { type: "col", c: c });
+  } else if (action === "insert-col-right"){
+    s.table.forEach(function(row){ row.splice(c + 1, 0, ""); });
+    pushUndo(s.id, { type: "col", c: c + 1 });
+  } else if (action === "clear-cell"){
+    pushUndo(s.id, { type: "cell", r: r, c: c, before: s.table[r][c], after: "" });
+    s.table[r][c] = "";
+  } else if (action === "delete-row"){
+    if (s.table.length <= 1) return flash("Cannot delete the only row", "warn");
+    pushUndo(s.id, { type: "rowDelete", r: r, row: s.table[r].slice() });
+    s.table.splice(r, 1);
+  } else if (action === "delete-col"){
+    if (cols <= 1) return flash("Cannot delete the only column", "warn");
+    pushUndo(s.id, { type: "colDelete", c: c, col: s.table.map(function(row){ return row[c]; }) });
+    s.table.forEach(function(row){ row.splice(c, 1); });
+  }
+  ctxMenu.classList.remove("open");
+  renderSourceList();
+  renderTableIntoStage();
+  updateStats();
+  saveSession();
+});
 
-  /* ---------------------------------------------------------------
-     Download XLSX
-     --------------------------------------------------------------- */
-  downloadBtn.addEventListener("click", function(){
-    if (!tableData.length) return flash("Nothing to export");
-    if (!window.XLSX) return flash("Excel library did not load. Check your connection.");
+/* ============================================================
+   STATS
+   ============================================================ */
+function updateStats(){
+  var s = getActiveSource();
+  if (!s || !s.table || !s.table.length){
+    tableStats.textContent = "0 rows × 0 cols";
+    return;
+  }
+  tableStats.textContent = s.table.length + " rows × " + (s.table[0] ? s.table[0].length : 0) + " cols";
+}
+function updateDownloadButtons(){
+  updateDownloadButtonsForActive();
+  var any = sources.some(function(s){ return s.table && s.table.length; });
+  downloadXlsx.disabled = !any;
+  downloadJson.disabled = !any;
+}
 
-    try {
-      var ws = XLSX.utils.aoa_to_sheet(tableData);
-
-      // Set column widths based on the longest cell in each column
-      var cols = tableData[0] ? tableData[0].length : 0;
+/* ============================================================
+   EXPORT
+   ============================================================ */
+downloadXlsx.addEventListener("click", function(){
+  if (!window.XLSX) return flash("Excel library did not load", "err");
+  var sheets = sources.filter(function(s){ return s.table && s.table.length; });
+  if (!sheets.length) return flash("Nothing to export", "warn");
+  try {
+    var wb = XLSX.utils.book_new();
+    sheets.forEach(function(s, idx){
+      var ws = XLSX.utils.aoa_to_sheet(s.table);
+      // Column widths
+      var cols = s.table[0] ? s.table[0].length : 0;
       var widths = [];
       for (var c = 0; c < cols; c++){
         var max = 8;
-        for (var r = 0; r < tableData.length; r++){
-          var v = tableData[r][c];
+        for (var r = 0; r < s.table.length; r++){
+          var v = s.table[r][c];
           var len = v ? String(v).length : 0;
           if (len > max) max = Math.min(60, len);
         }
         widths.push({ wch: max + 2 });
       }
       ws["!cols"] = widths;
+      var name = (s.name || "Sheet").replace(/\.[^.]+$/, "").slice(0, 28).replace(/[\[\]\*\?\/\\]/g, "_") || ("Sheet" + (idx + 1));
+      XLSX.utils.book_append_sheet(wb, ws, name);
+    });
+    var base = sheets.length === 1
+      ? (sheets[0].name.replace(/\.[^.]+$/, "") || "image-table")
+      : "image-tables";
+    XLSX.writeFile(wb, base + ".xlsx");
+    flash("Exported " + sheets.length + " sheet" + (sheets.length === 1 ? "" : "s"));
+  } catch (err){
+    console.error(err);
+    flash("Export failed: " + (err.message || "unknown"), "err");
+  }
+});
 
-      var wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+downloadCsv.addEventListener("click", function(){
+  var s = getActiveSource();
+  if (!s || !s.table) return flash("No table on the active image", "warn");
+  var csv = toCsv(s.table, ",");
+  downloadBlob(csv, (s.name.replace(/\.[^.]+$/, "") || "table") + ".csv", "text/csv");
+  flash("CSV downloaded");
+});
 
-      var base = (currentFile && currentFile.name ? currentFile.name.replace(/\.[^.]+$/, "") : "image-table");
-      XLSX.writeFile(wb, base + ".xlsx");
+downloadTsv.addEventListener("click", function(){
+  var s = getActiveSource();
+  if (!s || !s.table) return flash("No table on the active image", "warn");
+  var tsv = toCsv(s.table, "\t");
+  // Copy to clipboard so user can paste directly into Google Sheets
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(tsv).then(function(){
+      flash("TSV copied to clipboard");
+    }).catch(function(){
+      downloadBlob(tsv, (s.name.replace(/\.[^.]+$/, "") || "table") + ".tsv", "text/tab-separated-values");
+      flash("TSV downloaded");
+    });
+  } else {
+    downloadBlob(tsv, (s.name.replace(/\.[^.]+$/, "") || "table") + ".tsv", "text/tab-separated-values");
+    flash("TSV downloaded");
+  }
+});
 
-      flash("Spreadsheet downloaded");
-    } catch (err){
-      console.error(err);
-      flash("Export failed: " + (err.message || "unknown error"));
-    }
+downloadJson.addEventListener("click", function(){
+  var sheets = sources.filter(function(s){ return s.table && s.table.length; });
+  if (!sheets.length) return flash("Nothing to export", "warn");
+  var payload = sheets.map(function(s){
+    var cols = s.table[0] ? s.table[0].length : 0;
+    var headers = [];
+    for (var c = 0; c < cols; c++) headers.push(colLetter(c));
+    var rows = s.table.map(function(row){
+      var obj = {};
+      headers.forEach(function(h, i){ obj[h] = row[i] == null ? "" : row[i]; });
+      return obj;
+    });
+    return { sheet: s.name.replace(/\.[^.]+$/, ""), columns: headers, rows: rows };
   });
+  var json = JSON.stringify(payload.length === 1 ? payload[0] : payload, null, 2);
+  downloadBlob(json, "image-tables.json", "application/json");
+  flash("JSON downloaded");
+});
 
-  /* ---------------------------------------------------------------
-     Cleanup on page unload
-     --------------------------------------------------------------- */
+function toCsv(table, delim){
+  function esc(v){
+    if (v == null) return "";
+    var s = String(v);
+    if (s.indexOf(delim) > -1 || s.indexOf('"') > -1 || s.indexOf("\n") > -1){
+      return '"' + s.replace(/"/g, '""') + '"';
+    }
+    return s;
+  }
+  return table.map(function(row){
+    return row.map(esc).join(delim);
+  }).join("\n");
+}
+function downloadBlob(content, filename, type){
+  var blob = new Blob([content], { type: type });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+resetBtn.addEventListener("click", function(){
+  if (!confirm("Discard all images and start over?")) return;
+  sources = [];
+  activeSourceId = null;
+  undoStack = [];
+  redoStack = [];
+  workspace.classList.remove("show");
+  intake.style.display = "block";
+  resetTableState();
+  renderSourceList();
+  try { localStorage.removeItem(SESSION_KEY); } catch (e){}
+  flash("Cleared");
+});
+function resetTableState(){
+  setProgress(null);
+  updateStats();
+  updateDownloadButtons();
+  updateUndoRedoButtons();
+}
+
+/* ============================================================
+   KEYBOARD SHORTCUTS (global)
+   ============================================================ */
+document.addEventListener("keydown", function(e){
+  var ae = document.activeElement;
+  var inEditable = ae && (ae.isContentEditable || ae.tagName === "INPUT" || ae.tagName === "SELECT" || ae.tagName === "TEXTAREA");
+  if (e.ctrlKey || e.metaKey){
+    if (e.key.toLowerCase() === "z" && !e.shiftKey){
+      if (!inEditable){ e.preventDefault(); undoBtn.click(); }
+    } else if ((e.key.toLowerCase() === "y") || (e.shiftKey && e.key.toLowerCase() === "z")){
+      if (!inEditable){ e.preventDefault(); redoBtn.click(); }
+    } else if (e.key.toLowerCase() === "s"){
+      e.preventDefault();
+      if (!downloadXlsx.disabled) downloadXlsx.click();
+    }
+  }
+});
+
+/* ============================================================
+   SESSION PERSISTENCE
+   ============================================================ */
+function saveSession(){
+  try {
+    var payload = {
+      sources: sources.map(function(s){
+        return {
+          id: s.id,
+          name: s.name,
+          size: s.size,
+          dataUrl: s.dataUrl,
+          table: s.table ? s.table.map(function(r){ return r.slice(); }) : null
+        };
+      }),
+      activeSourceId: activeSourceId,
+      ts: Date.now()
+    };
+    // localStorage has a ~5MB cap; large dataUrls can blow past that
+    localStorage.setItem(SESSION_KEY, JSON.stringify(payload));
+  } catch (e){
+    // Silent fail — session is nice-to-have
+  }
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+function init(){
+  setView("table");
+  renderSourceList();
+  updateDownloadButtons();
+  updateUndoRedoButtons();
+
+  // Restore session if present
+  try {
+    var raw = localStorage.getItem(SESSION_KEY);
+    if (raw){
+      var data = JSON.parse(raw);
+      if (data && data.sources && data.sources.length){
+        sources = data.sources.map(function(s){
+          var t = s.table;
+          if (t) {
+            t._confs = t._confs || null;
+            t._rowY = t._rowY || null;
+            t._colX = t._colX || null;
+          }
+          return {
+            id: s.id, name: s.name, size: s.size,
+            dataUrl: s.dataUrl, file: null,
+            width: 0, height: 0, naturalW: 0, naturalH: 0,
+            processedDataUrl: null, table: t, wordData: null, crop: null
+          };
+        });
+        activeSourceId = data.activeSourceId || (sources[0] && sources[0].id);
+        enterWorkspace();
+        renderSourceList();
+        renderImageIntoStage();
+        renderTableIntoStage();
+        flash("Session restored");
+      }
+    }
+  } catch (e){}
+
+  // Cleanup worker on unload
   window.addEventListener("beforeunload", function(){
     if (worker){ try { worker.terminate(); } catch(e){} }
   });
+}
+
+init();
 
 })();
 </script>
