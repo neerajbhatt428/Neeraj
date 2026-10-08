@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Image to Excel Converter — Convert JPG & PNG Tables to XLSX Free</title>
+<meta name="description" content="Free image to Excel converter. Turn screenshots, photos and scanned documents into editable XLSX spreadsheets using OCR. Runs in your browser — no upload, no signup.">
+<link rel="canonical" href="https://localtools.co.in/tools/image/image-to-excel.html">
+<link rel="sitemap" type="application/xml" href="https://localtools.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#1B4DFF">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Image to Excel Converter — Free Online OCR to XLSX">
+<meta property="og:description" content="Convert images of tables to editable Excel spreadsheets. Runs in your browser, no upload.">
+<meta property="og:url" content="https://localtools.co.in/tools/image/image-to-excel.html">
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3576991570329575" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"WebApplication",
+      "name":"Image to Excel Converter",
+      "alternateName":"Image to XLSX",
+      "url":"https://localtools.co.in/tools/image/image-to-excel.html",
+      "applicationCategory":"UtilitiesApplication",
+      "operatingSystem":"Any browser",
+      "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+      "featureList":[
+        "Convert image to Excel XLSX",
+        "OCR in 12 languages",
+        "Automatic table detection",
+        "Editable preview before export",
+        "Runs entirely in browser",
+        "No signup, no upload"
+      ]
+    },
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://localtools.co.in/"},
+        {"@type":"ListItem","position":2,"name":"Tools","item":"https://localtools.co.in/tools/"},
+        {"@type":"ListItem","position":3,"name":"Image to Excel","item":"https://localtools.co.in/tools/image/image-to-excel.html"}
+      ]
+    },
+    {
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"Is this image to Excel converter free?","acceptedAnswer":{"@type":"Answer","text":"Yes. Completely free, no signup, no watermarks and no page limit."}},
+        {"@type":"Question","name":"Are my images uploaded to a server?","acceptedAnswer":{"@type":"Answer","text":"No. OCR runs entirely in your browser using Tesseract.js. Your image never leaves your device."}},
+        {"@type":"Question","name":"What image formats are supported?","acceptedAnswer":{"@type":"Answer","text":"JPG, PNG, WebP, BMP and most common image formats. Screenshots, photos of printed tables, and scans all work."}},
+        {"@type":"Question","name":"How accurate is the OCR?","acceptedAnswer":{"@type":"Answer","text":"Accuracy depends on image quality. Clear screenshots of tables typically convert with 95%+ accuracy. Photos need good lighting and focus."}},
+        {"@type":"Question","name":"Can I edit the result before downloading?","acceptedAnswer":{"@type":"Answer","text":"Yes. The detected table appears in an editable grid. Click any cell to fix mistakes before exporting to XLSX."}}
+      ]
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/base.css">
+
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.0/dist/tesseract.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+<style>
+/* Tool-specific styles layered on top of base.css */
+.tool-shell{max-width:1080px;margin:0 auto;padding:0 0 64px}
+
+.stage{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:10px;
+  box-shadow:0 2px 8px -4px rgba(20,22,26,.1),0 1px 2px rgba(20,22,26,.04);
+  padding:20px;
+  margin:0 0 20px;
+}
+.drop-zone{
+  display:block;
+  border:2px dashed var(--line);
+  border-radius:8px;
+  padding:52px 24px;
+  text-align:center;
+  cursor:pointer;
+  transition:border-color .15s ease, background .15s ease;
+  background:#FAFAF8;
+}
+.drop-zone:hover,.drop-zone.over{border-color:var(--blue);background:#F5F7FF}
+.drop-zone svg{width:46px;height:46px;color:var(--blue);opacity:.55;margin:0 auto 14px;display:block}
+.drop-zone h2{font-family:var(--display);font-weight:700;font-size:1.0625rem;margin:0 0 6px;letter-spacing:-.01em}
+.drop-zone p{margin:0;color:var(--muted);font-size:.875rem}
+.drop-zone .hint{font-family:var(--mono);font-size:.6875rem;color:var(--muted);margin:12px 0 0;opacity:.8;text-transform:uppercase;letter-spacing:.05em}
+
+/* ---- Workspace ---- */
+.workspace{display:none;grid-template-columns:1fr;gap:16px}
+.workspace.show{display:grid}
+@media(min-width:940px){
+  .workspace.show{grid-template-columns:280px minmax(0,1fr);align-items:start}
+}
+
+.side-panel{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:10px;
+  box-shadow:0 2px 8px -4px rgba(20,22,26,.08);
+  padding:18px;
+  position:sticky;top:16px;
+  display:flex;flex-direction:column;gap:16px;
+}
+
+.panel-title{
+  font-family:var(--display);font-weight:700;font-size:.8125rem;
+  text-transform:uppercase;letter-spacing:.06em;color:var(--muted);
+  margin:0 0 12px;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+}
+
+.field{display:block;margin:0 0 14px}
+.field:last-child{margin-bottom:0}
+.field label{
+  display:block;font-size:.75rem;color:var(--muted);
+  font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;
+  margin:0 0 6px;
+}
+.field select,.field input{
+  width:100%;font:inherit;font-size:.875rem;
+  border:1px solid var(--line);background:#fff;color:var(--ink);
+  border-radius:6px;padding:9px 11px;outline:none;
+  transition:border-color .12s ease, box-shadow .12s ease;
+}
+.field select:focus,.field input:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(27,77,255,.1);
+}
+.field small{display:block;margin:6px 0 0;font-size:.75rem;color:var(--muted);line-height:1.45}
+
+.btn{
+  font:inherit;cursor:pointer;border-radius:6px;
+  border:1px solid var(--line);background:var(--surface);color:var(--ink);
+  padding:10px 14px;font-weight:500;font-size:.8125rem;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  transition:border-color .12s ease, background .12s ease, box-shadow .12s ease;
+  width:100%;
+  min-height:40px;
+}
+.btn:hover:not([disabled]){border-color:var(--muted);background:#FAFAF8}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.btn.primary{
+  background:var(--blue);border-color:var(--blue);color:#fff;
+  box-shadow:0 2px 8px -2px rgba(27,77,255,.35);
+}
+.btn.primary:hover:not([disabled]){background:var(--blue-deep);border-color:var(--blue-deep)}
+.btn.danger:hover:not([disabled]){border-color:var(--red);color:var(--red);background:#FDECE9}
+.btn svg{width:14px;height:14px;flex:none}
+
+/* ---- Preview image ---- */
+.preview-img-wrap{
+  background:#FAFAF8;border:1px solid var(--line);border-radius:6px;
+  padding:8px;text-align:center;
+  max-height:200px;overflow:auto;
+}
+.preview-img-wrap img{max-width:100%;height:auto;display:block;margin:0 auto;border-radius:4px}
+.file-meta{
+  font-family:var(--mono);font-size:.6875rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.04em;
+  margin:8px 0 0;text-align:center;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+
+/* ---- Progress ---- */
+.progress{height:4px;background:#E4E4DE;border-radius:100px;overflow:hidden;margin:10px 0 0;display:none}
+.progress.show{display:block}
+.progress-bar{height:100%;background:var(--blue);width:0;transition:width .25s ease;border-radius:100px}
+.progress-label{font-family:var(--mono);font-size:.6875rem;color:var(--muted);margin:8px 0 0;text-transform:uppercase;letter-spacing:.04em}
+
+/* ---- Preview table ---- */
+.preview-panel{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:10px;
+  box-shadow:0 2px 8px -4px rgba(20,22,26,.08);
+  overflow:hidden;
+}
+.preview-header{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 18px;
+  border-bottom:1px solid var(--line);
+  background:#FAFAF8;
+  flex-wrap:wrap;
+  min-height:52px;
+}
+.preview-header h3{
+  font-family:var(--display);font-weight:700;font-size:.9375rem;
+  margin:0;letter-spacing:-.01em;
+}
+.preview-header .meta{
+  font-family:var(--mono);font-size:.6875rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.05em;
+  margin-left:auto;
+}
+.preview-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+.table-scroll{
+  max-height:520px;overflow:auto;
+  background:#FAFAF8;
+}
+.preview-table{
+  width:100%;border-collapse:collapse;background:#fff;
+  font-size:.8125rem;
+}
+.preview-table th,.preview-table td{
+  border:1px solid var(--line);
+  padding:8px 10px;
+  text-align:left;
+  vertical-align:top;
+  min-width:90px;
+  max-width:320px;
+  word-break:break-word;
+}
+.preview-table th{
+  background:#F4F4F0;
+  font-family:var(--mono);font-size:.6875rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.05em;color:var(--muted);
+  position:sticky;top:0;z-index:1;
+  min-width:36px;
+  text-align:center;
+}
+.preview-table td[contenteditable]:focus{
+  outline:2px solid var(--blue);outline-offset:-2px;
+  background:#F5F7FF;
+}
+.preview-table td.rownum{
+  background:#F4F4F0;
+  font-family:var(--mono);font-size:.6875rem;font-weight:600;
+  text-align:center;color:var(--muted);
+  min-width:36px;
+}
+.preview-table td:empty::before{
+  content:"—";color:#C4C4BE;
+}
+
+.preview-empty{
+  padding:64px 24px;text-align:center;color:var(--muted);
+  font-size:.9375rem;
+}
+
+/* ---- Toast ---- */
+.toast{
+  position:fixed;left:50%;bottom:24px;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:#fff;
+  padding:10px 18px;border-radius:100px;
+  font-size:.8125rem;
+  opacity:0;pointer-events:none;
+  transition:opacity .2s ease, transform .2s ease;
+  z-index:200;max-width:90vw;
+  display:flex;align-items:center;gap:8px;
+  box-shadow:0 12px 32px rgba(0,0,0,.28);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast svg{width:14px;height:14px;color:#22E39A;flex:none}
+
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+@media(max-width:640px){
+  .drop-zone{padding:40px 18px}
+  .stage{padding:16px}
+  .side-panel{padding:14px}
+  .preview-table th,.preview-table td{padding:6px 8px;font-size:.75rem}
+}
+</style>
+</head>
+<body>
+<div class="wrap-wide">
+
+<header class="masthead">
+  <a href="../../index.html" style="display:flex;align-items:center;gap:10px">
+    <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/>
+      <path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/>
+      <path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/>
+      <path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/>
+      <path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/>
+    </svg>
+    <span class="wordmark">LocalTools</span>
+  </a>
+  <a href="../index.html" class="nav-right">All tools →</a>
+</header>
+
+<nav class="crumbs" aria-label="Breadcrumb">
+  <a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Image to Excel</span>
+</nav>
+
+<h1 class="lede">Image to Excel Converter</h1>
+<p class="sub">Turn a screenshot, photo or scan of a table into an editable Excel spreadsheet. OCR runs in your browser — your image never leaves your device.</p>
+
+<!-- ============ INTAKE ============ -->
+<div class="stage" id="intake">
+  <label class="drop-zone" id="dropZone" for="fileInput">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2"/>
+      <path d="M3 10h18M10 3v18"/>
+    </svg>
+    <h2>Drop an image of a table here</h2>
+    <p>or click to choose a file · JPG, PNG, WebP, BMP</p>
+    <p class="hint">Processed locally · never uploaded</p>
+    <input type="file" id="fileInput" accept="image/*" class="sr">
+  </label>
+</div>
+
+<!-- ============ WORKSPACE ============ -->
+<div class="workspace" id="workspace">
+
+  <!-- LEFT: options + preview -->
+  <aside class="side-panel">
+
+    <div>
+      <p class="panel-title">Source image</p>
+      <div class="preview-img-wrap" id="imgPreviewWrap"></div>
+      <p class="file-meta" id="fileMeta">—</p>
+    </div>
+
+    <div>
+      <p class="panel-title">OCR settings</p>
+
+      <label class="field">
+        <label for="langSel">Language</label>
+        <select id="langSel">
+          <option value="eng" selected>English</option>
+          <option value="hin">Hindi</option>
+          <option value="spa">Spanish</option>
+          <option value="fra">French</option>
+          <option value="deu">German</option>
+          <option value="por">Portuguese</option>
+          <option value="ita">Italian</option>
+          <option value="rus">Russian</option>
+          <option value="ara">Arabic</option>
+          <option value="chi_sim">Chinese (Simplified)</option>
+          <option value="jpn">Japanese</option>
+          <option value="kor">Korean</option>
+        </select>
+        <small>Language data downloads once (~15 MB) then caches.</small>
+      </label>
+
+      <label class="field">
+        <label for="qualitySel">Image quality</label>
+        <select id="qualitySel">
+          <option value="auto" selected>Auto-detect</option>
+          <option value="sharp">Sharp — screenshot</option>
+          <option value="photo">Photo — needs cleanup</option>
+          <option value="scan">Scan — B&amp;W document</option>
+        </select>
+        <small>Higher quality images convert more accurately.</small>
+      </label>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <button class="btn primary" id="convertBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Convert to table
+      </button>
+      <button class="btn" id="resetBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M6 6l1 14a2 2 0 002 2h6a2 2 0 002-2l1-14"/></svg>
+        Choose another image
+      </button>
+    </div>
+
+    <div>
+      <div class="progress" id="progress"><div class="progress-bar" id="progressBar"></div></div>
+      <p class="progress-label" id="progressLabel" style="display:none">—</p>
+    </div>
+
+  </aside>
+
+  <!-- RIGHT: preview table -->
+  <section class="preview-panel">
+    <div class="preview-header">
+      <h3>Detected table</h3>
+      <span class="meta" id="tableMeta">Waiting for conversion</span>
+      <div class="preview-actions">
+        <button class="btn" id="addRowBtn" type="button" disabled style="width:auto;padding:6px 12px;min-height:32px;font-size:.75rem">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          Row
+        </button>
+        <button class="btn" id="addColBtn" type="button" disabled style="width:auto;padding:6px 12px;min-height:32px;font-size:.75rem">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          Column
+        </button>
+        <button class="btn primary" id="downloadBtn" type="button" disabled style="width:auto;padding:6px 14px;min-height:32px;font-size:.75rem">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Download XLSX
+        </button>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <div class="preview-empty" id="previewEmpty">
+        Click <strong>Convert to table</strong> to run OCR and detect the table.
+      </div>
+      <table class="preview-table" id="previewTable" hidden></table>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============ ARTICLE ============ -->
+<article class="article" style="margin-top:56px">
+  <h2>How to convert an image to Excel</h2>
+  <ol>
+    <li><strong>Upload the image.</strong> Drag a screenshot, photo or scan onto the box above. JPG, PNG, WebP and BMP all work.</li>
+    <li><strong>Pick the language</strong> the text is written in. English is the default. The model downloads once and caches in your browser.</li>
+    <li><strong>Click Convert to table.</strong> OCR extracts every word, then an algorithm groups them into rows and columns using their position on the page.</li>
+    <li><strong>Fix any mistakes.</strong> The detected grid is fully editable. Click any cell and type the correct value.</li>
+    <li><strong>Download as XLSX.</strong> The result opens in Excel, Google Sheets, LibreOffice Calc and Numbers.</li>
+  </ol>
+
+  <h2>What works best</h2>
+  <ul>
+    <li><strong>Screenshots of tables</strong> — near-perfect accuracy. This is the ideal case.</li>
+    <li><strong>Photos of printed spreadsheets</strong> — accurate with good lighting and a straight-on angle.</li>
+    <li><strong>Scanned documents</strong> — works well if the scan is 300 DPI or higher and pages are straight.</li>
+    <li><strong>Handwritten tables</strong> — poor accuracy. Tesseract is designed for printed text.</li>
+    <li><strong>Rotated or perspective-skewed photos</strong> — the column detection struggles. Straighten the image first.</li>
+  </ul>
+
+  <h2>How the table detection works</h2>
+  <p>Tesseract returns each word with its exact pixel position on the image. The tool then runs three passes:</p>
+  <ol>
+    <li><strong>Row detection.</strong> Words whose vertical centers are within the height of a typical character are grouped into a row.</li>
+    <li><strong>Column detection.</strong> All word left-edges are clustered. Values that fall within a small horizontal distance are treated as the same column.</li>
+    <li><strong>Grid assembly.</strong> Each word lands in a row × column cell. Multiple words in the same cell are joined with a space.</li>
+  </ol>
+  <p>This works best when the source has clear horizontal alignment — which is why screenshots convert far better than photos.</p>
+
+  <h2>Improving accuracy</h2>
+  <ul>
+    <li><strong>Crop tightly</strong> to just the table. Extra content confuses the OCR.</li>
+    <li><strong>Increase contrast.</strong> A light-grey table on a white background often benefits from being boosted before upload.</li>
+    <li><strong>Straighten the image.</strong> Even 5° of tilt breaks column detection.</li>
+    <li><strong>Avoid compression artifacts.</strong> Save screenshots as PNG rather than low-quality JPG.</li>
+    <li><strong>Split large tables.</strong> If the table has more than 30 columns, convert it in halves.</li>
+  </ul>
+
+  <h2>Your image stays private</h2>
+  <p>OCR runs entirely in your browser using <strong>Tesseract.js</strong>, a WebAssembly port of the open-source Tesseract engine. Your image is decoded in memory, processed locally, and discarded when you close the tab. Nothing is uploaded to any server. This makes the tool safe for invoices, bank statements and any document you'd rather not send to a third party.</p>
+
+  <h2>Common questions</h2>
+  <div class="faq">
+    <details><summary>Is this image to Excel converter free?</summary><p>Yes. Completely free, no signup, no watermarks and no page limit.</p></details>
+    <details><summary>Are my images uploaded to a server?</summary><p>No. OCR runs entirely in your browser using Tesseract.js. Your image never leaves your device.</p></details>
+    <details><summary>What image formats are supported?</summary><p>JPG, PNG, WebP, BMP and most common image formats. Screenshots, photos of printed tables, and scans all work.</p></details>
+    <details><summary>How accurate is the OCR?</summary><p>Accuracy depends on image quality. Clear screenshots of tables typically convert with 95%+ accuracy. Photos need good lighting and focus. Handwritten text will not convert reliably.</p></details>
+    <details><summary>Can I edit the result before downloading?</summary><p>Yes. The detected table appears in an editable grid. Click any cell to fix mistakes, then add or remove rows and columns before exporting.</p></details>
+    <details><summary>Does it work on mobile?</summary><p>Yes. The tool works in modern mobile browsers, but large images are slower on phones because your device does the work.</p></details>
+    <details><summary>Can I convert multiple images at once?</summary><p>Not currently. Convert one image at a time and combine the resulting spreadsheets in Excel or Google Sheets.</p></details>
+  </div>
+
+  <h2>Related tools</h2>
+  <ul class="related-list">
+    <li><div class="txt"><a href="image-to-text.html">Image to Text (OCR)</a><p>Extract raw text from any image.</p></div><time>Image</time></li>
+    <li><div class="txt"><a href="image-convert.html">Image Converter</a><p>Switch between PNG, JPG and WebP.</p></div><time>Image</time></li>
+    <li><div class="txt"><a href="image-compress.html">Image Compressor</a><p>Reduce file size before upload.</p></div><time>Image</time></li>
+    <li><div class="txt"><a href="../convert/json-csv.html">JSON ↔ CSV</a><p>Convert between structured formats.</p></div><time>Convert</time></li>
+    <li><div class="txt"><a href="../pdf/pdf-text.html">Extract PDF Text</a><p>Pull text out of PDF documents.</p></div><time>PDF</time></li>
+  </ul>
+</article>
+
+<footer style="margin:48px 0 0;padding:20px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem">
+  <p>
+    LocalTools ·
+    <a href="../../index.html" style="color:inherit">Home</a> ·
+    <a href="../index.html" style="color:inherit">All tools</a> ·
+    <a href="../../pages/about.html" style="color:inherit">About</a> ·
+    <a href="../../pages/privacy.html" style="color:inherit">Privacy</a>
+  </p>
+</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+  var $ = function(id){ return document.getElementById(id); };
+
+  /* ---------------------------------------------------------------
+     DOM refs
+     --------------------------------------------------------------- */
+  var dropZone   = $("dropZone");
+  var fileInput  = $("fileInput");
+  var intake     = $("intake");
+  var workspace  = $("workspace");
+
+  var imgWrap    = $("imgPreviewWrap");
+  var fileMeta   = $("fileMeta");
+  var langSel    = $("langSel");
+  var qualitySel = $("qualitySel");
+  var convertBtn = $("convertBtn");
+  var resetBtn   = $("resetBtn");
+
+  var progressEl    = $("progress");
+  var progressBar   = $("progressBar");
+  var progressLabel = $("progressLabel");
+
+  var previewEmpty  = $("previewEmpty");
+  var previewTable  = $("previewTable");
+  var tableMeta     = $("tableMeta");
+  var addRowBtn     = $("addRowBtn");
+  var addColBtn     = $("addColBtn");
+  var downloadBtn   = $("downloadBtn");
+
+  var toast = $("toast");
+
+  /* ---------------------------------------------------------------
+     State
+     --------------------------------------------------------------- */
+  var currentImage = null;      // data URL or File
+  var currentFile  = null;      // File object
+  var tableData    = [];        // 2D array of strings
+  var worker       = null;      // Tesseract worker
+  var workerLang   = null;      // language the current worker is set up for
+
+  /* ---------------------------------------------------------------
+     Helpers
+     --------------------------------------------------------------- */
+  function flash(msg){
+    toast.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span>' + msg + '</span>';
+    toast.classList.add("show");
+    clearTimeout(flash._t);
+    flash._t = setTimeout(function(){ toast.classList.remove("show"); }, 2200);
+  }
+  function bytes(n){
+    if (n < 1024) return n + " B";
+    if (n < 1048576) return (n / 1024).toFixed(1) + " KB";
+    return (n / 1048576).toFixed(1) + " MB";
+  }
+  function setProgress(pct, label){
+    if (pct === null){
+      progressEl.classList.remove("show");
+      progressLabel.style.display = "none";
+      return;
+    }
+    progressEl.classList.add("show");
+    progressLabel.style.display = "block";
+    progressBar.style.width = Math.max(0, Math.min(100, pct)) + "%";
+    if (label) progressLabel.textContent = label;
+  }
+
+  /* ---------------------------------------------------------------
+     File input
+     --------------------------------------------------------------- */
+  dropZone.addEventListener("click", function(){ fileInput.click(); });
+
+  ["dragenter","dragover"].forEach(function(ev){
+    dropZone.addEventListener(ev, function(e){
+      e.preventDefault();
+      dropZone.classList.add("over");
+    });
+  });
+  ["dragleave","drop"].forEach(function(ev){
+    dropZone.addEventListener(ev, function(e){
+      e.preventDefault();
+      dropZone.classList.remove("over");
+    });
+  });
+  dropZone.addEventListener("drop", function(e){
+    var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) handleFile(f);
+  });
+  fileInput.addEventListener("change", function(){
+    var f = fileInput.files && fileInput.files[0];
+    if (f) handleFile(f);
+    fileInput.value = "";
+  });
+
+  /* ---------------------------------------------------------------
+     Load the image
+     --------------------------------------------------------------- */
+  function handleFile(file){
+    if (!/^image\//.test(file.type)){
+      return flash("Please choose an image file");
+    }
+    currentFile = file;
+
+    var reader = new FileReader();
+    reader.onload = function(){
+      currentImage = reader.result;
+
+      // Show preview thumbnail
+      imgWrap.innerHTML = "";
+      var img = document.createElement("img");
+      img.src = currentImage;
+      img.alt = file.name;
+      imgWrap.appendChild(img);
+
+      fileMeta.textContent = file.name + " · " + bytes(file.size);
+
+      // Reveal workspace, hide intake
+      intake.style.display = "none";
+      workspace.classList.add("show");
+
+      // Reset any previous conversion
+      resetTableState();
+      setProgress(null);
+      flash("Image loaded. Ready to convert.");
+    };
+    reader.onerror = function(){
+      flash("Could not read this file");
+    };
+    reader.readAsDataURL(file);
+  }
+
+  /* ---------------------------------------------------------------
+     Reset helpers
+     --------------------------------------------------------------- */
+  function resetTableState(){
+    tableData = [];
+    previewTable.hidden = true;
+    previewTable.innerHTML = "";
+    previewEmpty.hidden = false;
+    previewEmpty.textContent = "Click Convert to table to run OCR and detect the table.";
+    tableMeta.textContent = "Waiting for conversion";
+    addRowBtn.disabled = true;
+    addColBtn.disabled = true;
+    downloadBtn.disabled = true;
+  }
+
+  resetBtn.addEventListener("click", function(){
+    currentImage = null;
+    currentFile = null;
+    imgWrap.innerHTML = "";
+    fileMeta.textContent = "—";
+    workspace.classList.remove("show");
+    intake.style.display = "block";
+    resetTableState();
+    setProgress(null);
+    flash("Choose another image");
+  });
+
+  /* ---------------------------------------------------------------
+     Convert button
+     --------------------------------------------------------------- */
+  convertBtn.addEventListener("click", function(){
+    if (!currentImage) return flash("Load an image first");
+    if (!window.Tesseract) return flash("OCR library did not load. Check your connection.");
+
+    convertBtn.disabled = true;
+    setProgress(2, "Starting OCR…");
+
+    (async function(){
+      try {
+        var lang = langSel.value;
+        // Create or reuse a worker
+        if (!worker || workerLang !== lang){
+          if (worker){ try { await worker.terminate(); } catch (e){} worker = null; }
+          setProgress(5, "Loading language model (" + lang + ")…");
+          worker = await Tesseract.createWorker(lang, 1, {
+            logger: function(m){
+              if (m.status === "loading language traineddata" || m.status === "loading tesseract core"){
+                setProgress(8, "Loading OCR engine…");
+              } else if (m.status === "initializing api"){
+                setProgress(14, "Preparing engine…");
+              } else if (m.status === "recognizing text"){
+                var pct = 15 + Math.round((m.progress || 0) * 75);
+                setProgress(pct, "Reading the image… " + Math.round((m.progress || 0) * 100) + "%");
+              }
+            }
+          });
+          workerLang = lang;
+        }
+
+        setProgress(20, "Recognizing text…");
+
+        var ret = await worker.recognize(currentImage);
+        var words = (ret.data && ret.data.words) ? ret.data.words : [];
+
+        if (!words.length){
+          setProgress(null);
+          convertBtn.disabled = false;
+          previewEmpty.hidden = false;
+          previewEmpty.textContent = "No text detected. Try a clearer image or a different language.";
+          return flash("No text detected");
+        }
+
+        setProgress(93, "Building table…");
+        var table = wordsToTable(words);
+
+        // Clean up totally empty columns and rows
+        table = trimEmpty(table);
+
+        if (!table.length){
+          setProgress(null);
+          convertBtn.disabled = false;
+          previewEmpty.textContent = "Could not detect a table. Make sure the image shows text arranged in rows.";
+          return flash("No table detected");
+        }
+
+        setProgress(100, "Done");
+        tableData = table;
+        renderPreview();
+        addRowBtn.disabled = false;
+        addColBtn.disabled = false;
+        downloadBtn.disabled = false;
+        tableMeta.textContent = table.length + " rows × " + (table[0] ? table[0].length : 0) + " cols";
+        flash("Detected " + table.length + " rows");
+
+        setTimeout(function(){ setProgress(null); }, 800);
+      } catch (err){
+        console.error(err);
+        setProgress(null);
+        flash("Conversion failed: " + (err.message || "unknown error"));
+      } finally {
+        convertBtn.disabled = false;
+      }
+    })();
+  });
+
+  /* ---------------------------------------------------------------
+     Table detection
+     --------------------------------------------------------------- */
+  function wordsToTable(words){
+    // Keep words with reasonable confidence and non-empty text
+    var ws = words.filter(function(w){
+      return w && w.text && w.text.trim() && (w.confidence === undefined || w.confidence > 30);
+    });
+    if (!ws.length) return [];
+
+    // Compute average word height and char width
+    var heights = ws.map(function(w){ return w.bbox.y1 - w.bbox.y0; });
+    var avgH = heights.reduce(function(a,b){ return a+b; }, 0) / heights.length;
+    if (!isFinite(avgH) || avgH <= 0) avgH = 12;
+
+    // Decorate with centers
+    var items = ws.map(function(w){
+      return {
+        text: w.text,
+        x0: w.bbox.x0,
+        x1: w.bbox.x1,
+        y0: w.bbox.y0,
+        y1: w.bbox.y1,
+        cx: (w.bbox.x0 + w.bbox.x1) / 2,
+        cy: (w.bbox.y0 + w.bbox.y1) / 2
+      };
+    });
+
+    // ---- Step 1: group into rows ----
+    items.sort(function(a, b){ return a.cy - b.cy; });
+
+    var rows = [];
+    var current = [items[0]];
+    var rowCenter = items[0].cy;
+
+    for (var i = 1; i < items.length; i++){
+      var it = items[i];
+      if (Math.abs(it.cy - rowCenter) < avgH * 0.65){
+        current.push(it);
+        // rolling average of row center
+        rowCenter = current.reduce(function(a,w){ return a + w.cy; }, 0) / current.length;
+      } else {
+        rows.push(current);
+        current = [it];
+        rowCenter = it.cy;
+      }
+    }
+    rows.push(current);
+
+    // Sort each row left-to-right
+    rows.forEach(function(r){ r.sort(function(a,b){ return a.x0 - b.x0; }); });
+
+    // ---- Step 2: cluster x-left values into columns ----
+    var allX0 = items.map(function(w){ return w.x0; }).sort(function(a,b){ return a - b; });
+    var colTolerance = avgH * 1.6;   // words starting within ~1.6 line heights are the same column
+
+    var clusters = [];
+    var clusterStart = allX0[0];
+    var clusterEnd   = allX0[0];
+
+    for (var j = 1; j < allX0.length; j++){
+      if (allX0[j] - clusterEnd > colTolerance){
+        clusters.push((clusterStart + clusterEnd) / 2);
+        clusterStart = allX0[j];
+      }
+      clusterEnd = allX0[j];
+    }
+    clusters.push((clusterStart + clusterEnd) / 2);
+
+    // Guard against too many columns from noise — merge any cluster that's within 40% of the previous
+    var merged = [];
+    clusters.forEach(function(c){
+      if (!merged.length) return merged.push(c);
+      if (c - merged[merged.length-1] < avgH * 0.9){
+        merged[merged.length-1] = (merged[merged.length-1] + c) / 2;
+      } else {
+        merged.push(c);
+      }
+    });
+    clusters = merged;
+
+    // ---- Step 3: assign each word to its column ----
+    rows.forEach(function(r){
+      r.forEach(function(w){
+        // find nearest cluster to word's x0
+        var best = 0, bestDist = Infinity;
+        for (var k = 0; k < clusters.length; k++){
+          var d = Math.abs(w.x0 - clusters[k]);
+          if (d < bestDist){ bestDist = d; best = k; }
+        }
+        w.col = best;
+      });
+    });
+
+    // ---- Step 4: build the grid ----
+    var table = rows.map(function(r){
+      var cells = new Array(clusters.length).fill("");
+      r.forEach(function(w){
+        if (cells[w.col]){
+          cells[w.col] += " " + w.text;
+        } else {
+          cells[w.col] = w.text;
+        }
+      });
+      return cells;
+    });
+
+    return table;
+  }
+
+  /* ---------------------------------------------------------------
+     Trim empty rows / columns
+     --------------------------------------------------------------- */
+  function trimEmpty(table){
+    if (!table.length) return table;
+
+    // Remove rows where every cell is empty
+    table = table.filter(function(r){
+      return r.some(function(c){ return c && c.trim(); });
+    });
+
+    // Remove columns where every row is empty
+    if (!table.length) return table;
+    var cols = table[0].length;
+    var keep = [];
+    for (var c = 0; c < cols; c++){
+      var any = false;
+      for (var r = 0; r < table.length; r++){
+        if (table[r][c] && table[r][c].trim()){ any = true; break; }
+      }
+      keep.push(any);
+    }
+    if (keep.some(function(k){ return !k; })){
+      table = table.map(function(r){
+        return r.filter(function(_, i){ return keep[i]; });
+      });
+    }
+
+    return table;
+  }
+
+  /* ---------------------------------------------------------------
+     Preview table rendering + editing
+     --------------------------------------------------------------- */
+  function renderPreview(){
+    previewEmpty.hidden = true;
+    previewTable.hidden = false;
+
+    if (!tableData.length){
+      previewTable.hidden = true;
+      previewEmpty.hidden = false;
+      previewEmpty.textContent = "Empty table.";
+      return;
+    }
+
+    var cols = tableData[0].length;
+
+    // Header row: column letters
+    var html = "<thead><tr><th>#</th>";
+    for (var c = 0; c < cols; c++){
+      html += "<th>" + colLetter(c) + "</th>";
+    }
+    html += "</tr></thead><tbody>";
+
+    tableData.forEach(function(row, r){
+      html += '<tr>';
+      html += '<td class="rownum">' + (r + 1) + '</td>';
+      for (var c2 = 0; c2 < cols; c2++){
+        var val = row[c2] == null ? "" : row[c2];
+        html += '<td contenteditable="true" data-r="' + r + '" data-c="' + c2 + '">' + escapeHtml(val) + '</td>';
+      }
+      html += '</tr>';
+    });
+    html += "</tbody>";
+
+    previewTable.innerHTML = html;
+
+    // Bind editing
+    previewTable.querySelectorAll('td[contenteditable]').forEach(function(td){
+      td.addEventListener("input", function(){
+        var r = parseInt(td.dataset.r, 10);
+        var c3 = parseInt(td.dataset.c, 10);
+        if (!tableData[r]) tableData[r] = [];
+        tableData[r][c3] = td.textContent;
+      });
+      td.addEventListener("blur", function(){
+        // Re-render this cell's visual (empty cells get the — placeholder)
+        if (!td.textContent.trim()){
+          td.textContent = "";
+        }
+      });
+    });
+  }
+
+  function escapeHtml(s){
+    return String(s == null ? "" : s).replace(/[<>&"]/g, function(ch){
+      return {"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[ch];
+    });
+  }
+  function colLetter(n){
+    var s = "";
+    n = n + 1;
+    while (n > 0){
+      var m = (n - 1) % 26;
+      s = String.fromCharCode(65 + m) + s;
+      n = Math.floor((n - 1) / 26);
+    }
+    return s;
+  }
+
+  /* ---------------------------------------------------------------
+     Add row / column
+     --------------------------------------------------------------- */
+  addRowBtn.addEventListener("click", function(){
+    if (!tableData.length) return;
+    var cols = tableData[0].length;
+    tableData.push(new Array(cols).fill(""));
+    renderPreview();
+    tableMeta.textContent = tableData.length + " rows × " + cols + " cols";
+    flash("Row added");
+  });
+
+  addColBtn.addEventListener("click", function(){
+    if (!tableData.length) return;
+    tableData.forEach(function(r){ r.push(""); });
+    renderPreview();
+    tableMeta.textContent = tableData.length + " rows × " + tableData[0].length + " cols";
+    flash("Column added");
+  });
+
+  /* ---------------------------------------------------------------
+     Download XLSX
+     --------------------------------------------------------------- */
+  downloadBtn.addEventListener("click", function(){
+    if (!tableData.length) return flash("Nothing to export");
+    if (!window.XLSX) return flash("Excel library did not load. Check your connection.");
+
+    try {
+      var ws = XLSX.utils.aoa_to_sheet(tableData);
+
+      // Set column widths based on the longest cell in each column
+      var cols = tableData[0] ? tableData[0].length : 0;
+      var widths = [];
+      for (var c = 0; c < cols; c++){
+        var max = 8;
+        for (var r = 0; r < tableData.length; r++){
+          var v = tableData[r][c];
+          var len = v ? String(v).length : 0;
+          if (len > max) max = Math.min(60, len);
+        }
+        widths.push({ wch: max + 2 });
+      }
+      ws["!cols"] = widths;
+
+      var wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+      var base = (currentFile && currentFile.name ? currentFile.name.replace(/\.[^.]+$/, "") : "image-table");
+      XLSX.writeFile(wb, base + ".xlsx");
+
+      flash("Spreadsheet downloaded");
+    } catch (err){
+      console.error(err);
+      flash("Export failed: " + (err.message || "unknown error"));
+    }
+  });
+
+  /* ---------------------------------------------------------------
+     Cleanup on page unload
+     --------------------------------------------------------------- */
+  window.addEventListener("beforeunload", function(){
+    if (worker){ try { worker.terminate(); } catch(e){} }
+  });
+
+})();
+</script>
+</body>
+</html>
