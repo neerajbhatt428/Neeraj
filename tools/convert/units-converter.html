@@ -145,14 +145,24 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 /* ---------- Category pills ---------- */
 .cats-row{
   display:flex;
+  flex-wrap:wrap;
   gap:8px;
-  overflow-x:auto;
   padding:4px 0 20px;
-  margin:0 -4px;
-  scrollbar-width:none;
-  scroll-snap-type:x proximity;
+  margin:0;
 }
-.cats-row::-webkit-scrollbar{display:none}
+@media(max-width:640px){
+  .cats-row{
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    padding:4px 16px 20px;
+    margin:0 -16px;
+    scrollbar-width:none;
+    scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch;
+  }
+  .cats-row::-webkit-scrollbar{display:none}
+  .cat-pill{scroll-snap-align:start}
+}
 .cat-pill{
   display:inline-flex;
   align-items:center;
