@@ -2,31 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Image to Excel Converter — JPG, PNG & Scan to XLSX Free</title>
-<meta name="description" content="Convert screenshots, photos and scans of tables into editable Excel spreadsheets. Auto-detects grid lines, handles dark themes, exports multi-sheet XLSX. 100% in your browser.">
+<meta name="description" content="Convert screenshots, photos and scans of tables into editable Excel spreadsheets. Auto-detects dark themes, runs multiple OCR passes, exports multi-sheet XLSX. Runs entirely in your browser.">
 <link rel="canonical" href="https://localtools.co.in/tools/image/image-to-excel.html">
 <link rel="sitemap" type="application/xml" href="https://localtools.co.in/sitemap.xml">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#1B4DFF">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Image to Excel Converter — Free Online OCR to XLSX">
-<meta property="og:description" content="Convert images of tables to editable Excel spreadsheets. Auto-detects grid lines, handles dark themes, multi-sheet export.">
+<meta property="og:description" content="Convert images of tables to editable Excel spreadsheets. Multi-pass OCR, dark theme support, multi-sheet export.">
 <meta property="og:url" content="https://localtools.co.in/tools/image/image-to-excel.html">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3576991570329575" crossorigin="anonymous"></script>
 <script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@graph":[
-    {"@type":"WebApplication","name":"Image to Excel Converter","url":"https://localtools.co.in/tools/image/image-to-excel.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Convert images to XLSX","Auto-detect dark/light theme","Table grid line detection","Batch multiple images","Multi-language OCR","Editable preview","Export XLSX, CSV, JSON, TSV","Runs in your browser"]},
-    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localtools.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://localtools.co.in/tools/"},{"@type":"ListItem","position":3,"name":"Image to Excel","item":"https://localtools.co.in/tools/image/image-to-excel.html"}]},
-    {"@type":"FAQPage","mainEntity":[
-      {"@type":"Question","name":"Is this image to Excel converter free?","acceptedAnswer":{"@type":"Answer","text":"Yes. Completely free, no signup, no watermark."}},
-      {"@type":"Question","name":"Are my images uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. OCR runs entirely in your browser using Tesseract.js."}},
-      {"@type":"Question","name":"Does it handle dark-themed tables?","acceptedAnswer":{"@type":"Answer","text":"Yes. Auto-detects light-on-dark vs dark-on-light and inverts when needed."}}
-    ]}
-  ]
-}
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Image to Excel Converter","url":"https://localtools.co.in/tools/image/image-to-excel.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Convert images to XLSX","Auto-detect dark tables","Multi-pass OCR","Batch multiple images","Multi-language OCR","Editable preview","Export XLSX, CSV, JSON, TSV"]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localtools.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://localtools.co.in/tools/"},{"@type":"ListItem","position":3,"name":"Image to Excel","item":"https://localtools.co.in/tools/image/image-to-excel.html"}]}]}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,11 +26,10 @@
 <style>
 :root{
   --paper:#EDEDE9;--paper-soft:#F4F4F0;--surface:#FFFFFF;
-  --ink:#14161A;--ink-soft:#3A3E46;
-  --muted:#6B7079;--muted-soft:#8A8E96;
+  --ink:#14161A;--ink-soft:#3A3E46;--muted:#6B7079;--muted-soft:#8A8E96;
   --line:#D6D6D0;--line-soft:#E4E4DE;
   --blue:#1B4DFF;--blue-deep:#1338C4;--blue-soft:#EDF0FF;--blue-tint:#F5F7FF;
-  --green:#0E7A5F;--green-soft:#E3F5EF;
+  --green:#0E7A5F;--green-soft:#E3F5EF;--green-bright:#22B573;
   --red:#B0233A;--red-soft:#FDECE9;
   --amber:#B87333;--amber-soft:#FDEBDD;
   --radius:6px;--radius-md:8px;--radius-lg:12px;
@@ -55,12 +43,7 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 [hidden]{display:none!important}
 html,body{margin:0;padding:0}
-body{
-  background:var(--paper);color:var(--ink);font-family:var(--sans);
-  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;
-  background-image:linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);
-  background-size:28px 28px;
-}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;background-image:linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);background-size:28px 28px}
 .wrap-wide{max-width:1400px;margin:0 auto;padding:16px 24px 56px}
 @media(max-width:640px){.wrap-wide{padding:12px 16px 40px}}
 h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
@@ -75,103 +58,91 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .crumbs a{color:var(--muted);text-decoration:underline}
 .crumbs a:hover{color:var(--blue)}
 .crumbs span{color:var(--ink)}
-.btn{
-  font:inherit;cursor:pointer;border-radius:var(--radius);
-  border:1px solid var(--line);background:var(--surface);color:var(--ink);
-  padding:10px 14px;font-weight:500;font-size:.8125rem;min-height:38px;
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  transition:all .12s ease;white-space:nowrap;box-shadow:var(--shadow-xs);
-}
+.btn{font:inherit;cursor:pointer;border-radius:var(--radius);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:9px 13px;font-weight:500;font-size:.8125rem;min-height:36px;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:all .12s ease;white-space:nowrap;box-shadow:var(--shadow-xs)}
 .btn:hover:not([disabled]){border-color:var(--muted-soft);background:var(--paper-soft)}
 .btn[disabled]{opacity:.4;cursor:not-allowed;box-shadow:none}
 .btn.primary{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 2px 8px -2px rgba(27,77,255,.35)}
-.btn.primary:hover:not([disabled]){background:var(--blue-deep);border-color:var(--blue-deep)}
+.btn.primary:hover:not([disabled]){background:var(--blue-deep)}
 .btn.sm{padding:6px 10px;min-height:30px;font-size:.75rem}
-.btn.icon{padding:0;width:34px;height:34px;min-height:34px}
+.btn.icon{padding:0;width:32px;height:32px;min-height:32px}
 .btn svg{width:14px;height:14px;flex:none}
 
-.intake{max-width:820px;margin:0 auto}
-.drop-zone{
-  display:block;border:2px dashed var(--line);border-radius:12px;
-  padding:64px 24px;text-align:center;cursor:pointer;
-  transition:all .15s ease;background:var(--surface);box-shadow:var(--shadow-sm);
-}
-.drop-zone:hover,.drop-zone.over{border-color:var(--blue);background:var(--blue-tint);box-shadow:0 4px 24px -8px rgba(27,77,255,.2)}
-.drop-zone svg{width:52px;height:52px;color:var(--blue);opacity:.6;margin:0 auto 18px;display:block}
-.drop-zone h2{font-family:var(--display);font-weight:700;font-size:1.125rem;margin:0 0 8px}
+/* Intake */
+.intake{max-width:860px;margin:0 auto}
+.drop-zone{display:block;border:2px dashed var(--line);border-radius:14px;padding:72px 24px;text-align:center;cursor:pointer;transition:all .18s ease;background:var(--surface);box-shadow:var(--shadow-sm)}
+.drop-zone:hover,.drop-zone.over{border-color:var(--blue);background:var(--blue-tint);box-shadow:0 8px 32px -12px rgba(27,77,255,.25);transform:translateY(-2px)}
+.drop-zone svg{width:56px;height:56px;color:var(--blue);opacity:.6;margin:0 auto 20px;display:block}
+.drop-zone h2{font-family:var(--display);font-weight:700;font-size:1.25rem;margin:0 0 8px}
 .drop-zone p{margin:0 0 4px;color:var(--muted);font-size:.9375rem}
-.drop-zone .formats{font-family:var(--mono);font-size:.6875rem;color:var(--muted);margin:12px 0 0;text-transform:uppercase;letter-spacing:.05em}
-.drop-zone .privacy{
-  display:inline-flex;align-items:center;gap:6px;margin:20px 0 0;padding:6px 12px;
-  border-radius:100px;background:var(--green-soft);color:var(--green);
-  font-family:var(--mono);font-size:.6875rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;
-}
+.drop-zone .formats{font-family:var(--mono);font-size:.6875rem;color:var(--muted);margin:14px 0 0;text-transform:uppercase;letter-spacing:.05em}
+.drop-zone .privacy{display:inline-flex;align-items:center;gap:6px;margin:24px 0 0;padding:6px 12px;border-radius:100px;background:var(--green-soft);color:var(--green);font-family:var(--mono);font-size:.6875rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
 .drop-zone .privacy svg{width:13px;height:13px;color:var(--green);opacity:1;margin:0}
-.intake-features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:28px 0 0}
-.intake-features .feat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;box-shadow:var(--shadow-xs)}
-.intake-features h3{font-family:var(--display);font-weight:700;font-size:.875rem;margin:0 0 4px}
-.intake-features p{margin:0;font-size:.8125rem;color:var(--muted);line-height:1.45}
 
-.workspace{display:none;grid-template-columns:320px minmax(0,1fr);gap:16px;align-items:start}
+/* Workspace */
+.workspace{display:none;grid-template-columns:280px minmax(0,1fr);gap:16px;align-items:start}
 .workspace.show{display:grid}
 @media(max-width:1100px){.workspace.show{grid-template-columns:1fr}}
-.sidebar{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding-right:4px}
+.sidebar{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-right:4px}
 .sidebar::-webkit-scrollbar{width:6px}
 .sidebar::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
-.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow-xs);overflow:hidden}
-.panel-body{padding:14px}
-.panel-title{
-  font-family:var(--display);font-weight:700;font-size:.75rem;
-  letter-spacing:.05em;text-transform:uppercase;color:var(--muted);
-  margin:0 0 10px;padding:0 0 8px;border-bottom:1px solid var(--line-soft);
-}
-.source-list{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-direction:column;gap:6px;max-height:280px;overflow-y:auto}
-.source-item{
-  display:flex;align-items:center;gap:10px;padding:8px;border-radius:6px;
-  border:1px solid var(--line-soft);background:var(--paper-soft);cursor:pointer;
-  transition:all .12s ease;
-}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow-xs);padding:14px}
+.panel-title{font-family:var(--display);font-weight:700;font-size:.6875rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.source-list{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-direction:column;gap:6px;max-height:300px;overflow-y:auto}
+.source-item{display:flex;align-items:center;gap:9px;padding:8px;border-radius:6px;border:1px solid var(--line-soft);background:var(--paper-soft);cursor:pointer;transition:all .12s ease;position:relative}
 .source-item:hover{border-color:var(--muted-soft)}
 .source-item.active{border-color:var(--blue);background:var(--blue-tint);box-shadow:0 0 0 1px var(--blue)}
-.source-item .num{width:22px;height:22px;flex:none;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-family:var(--mono);font-size:.625rem;font-weight:600;color:var(--muted)}
+.source-item .num{width:20px;height:20px;flex:none;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-family:var(--mono);font-size:.5625rem;font-weight:600;color:var(--muted)}
 .source-item.active .num{background:var(--blue);border-color:var(--blue);color:#fff}
-.source-item .thumb{width:32px;height:40px;flex:none;background:var(--surface);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.source-item .thumb{width:30px;height:38px;flex:none;background:var(--surface);border:1px solid var(--line);border-radius:3px;overflow:hidden}
 .source-item .thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .source-item .info{flex:1;min-width:0}
-.source-item .name{font-size:.75rem;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink)}
-.source-item .meta{font-family:var(--mono);font-size:.625rem;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.04em}
-.source-item .remove{width:20px;height:20px;flex:none;border-radius:4px;background:transparent;border:0;color:var(--muted);cursor:pointer;display:grid;place-items:center;opacity:0;transition:opacity .12s ease}
+.source-item .name{font-size:.6875rem;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink)}
+.source-item .meta{font-family:var(--mono);font-size:.5625rem;color:var(--muted);margin-top:1px;text-transform:uppercase;letter-spacing:.03em}
+.source-item .remove{width:18px;height:18px;flex:none;border-radius:4px;background:transparent;border:0;color:var(--muted);cursor:pointer;display:grid;place-items:center;opacity:0;transition:opacity .12s}
 .source-item:hover .remove{opacity:1}
 .source-item .remove:hover{color:var(--red);background:var(--red-soft)}
-.source-item .remove svg{width:12px;height:12px}
-.field{display:block;margin:0 0 12px}
+.source-item .remove svg{width:10px;height:10px}
+.field{display:block;margin:0 0 10px}
 .field:last-child{margin-bottom:0}
 .field > label{display:block;font-size:.6875rem;color:var(--muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;margin:0 0 5px}
-.field select,.field input[type="text"]{width:100%;font:inherit;font-size:.8125rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:6px;padding:8px 10px;outline:none;transition:all .12s ease}
+.field select,.field input{width:100%;font:inherit;font-size:.8125rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:6px;padding:7px 9px;outline:none;transition:all .12s ease}
 .field select:focus,.field input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.1)}
-.field small{display:block;margin:5px 0 0;font-size:.6875rem;color:var(--muted);line-height:1.4}
-.toggle-list{display:flex;flex-direction:column;gap:2px;margin:0 0 12px}
-.toggle{display:flex;align-items:center;gap:10px;padding:8px;border-radius:6px;cursor:pointer;transition:background .12s ease;user-select:none}
-.toggle:hover{background:var(--paper-soft)}
-.toggle input{position:absolute;opacity:0;pointer-events:none}
-.toggle .switch{position:relative;width:30px;height:18px;flex:none;background:var(--line);border-radius:100px;transition:background .15s ease}
-.toggle .switch::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.15);transition:transform .15s ease}
-.toggle input:checked + .switch{background:var(--blue)}
-.toggle input:checked + .switch::after{transform:translateX(12px)}
-.toggle .label{font-size:.8125rem;color:var(--ink);font-weight:500}
-.toggle .hint{font-size:.6875rem;color:var(--muted);margin-left:auto;font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em}
-.progress-wrap{display:none;padding:12px 0 0}
-.progress-wrap.show{display:block}
-.progress{height:4px;background:var(--line-soft);border-radius:100px;overflow:hidden}
-.progress-bar{height:100%;background:var(--blue);width:0;transition:width .25s ease;border-radius:100px}
-.progress-label{font-family:var(--mono);font-size:.6875rem;color:var(--muted);margin:8px 0 0;text-transform:uppercase;letter-spacing:.04em;display:flex;justify-content:space-between;gap:8px}
-.progress-label .pct{color:var(--ink);font-weight:600}
+.field small{display:block;margin:4px 0 0;font-size:.6875rem;color:var(--muted);line-height:1.4}
+
+/* Status card - the "confidence" widget */
+.status-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;align-items:flex-start;gap:10px;box-shadow:var(--shadow-xs)}
+.status-card .icon-wrap{width:26px;height:26px;flex:none;border-radius:50%;display:grid;place-items:center}
+.status-card.good .icon-wrap{background:var(--green-soft);color:var(--green)}
+.status-card.warn .icon-wrap{background:var(--amber-soft);color:var(--amber)}
+.status-card.bad .icon-wrap{background:var(--red-soft);color:var(--red)}
+.status-card.busy .icon-wrap{background:var(--blue-soft);color:var(--blue)}
+.status-card.info .icon-wrap{background:var(--paper-soft);color:var(--muted)}
+.status-card .icon-wrap svg{width:15px;height:15px}
+.status-card .body{flex:1;min-width:0}
+.status-card .label{font-weight:600;font-size:.8125rem;line-height:1.3;margin:0 0 2px}
+.status-card .desc{font-size:.75rem;color:var(--muted);line-height:1.4;margin:0}
+.status-card .action{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+.status-card .action .btn{padding:5px 10px;min-height:28px;font-size:.6875rem}
+
+/* Pass switcher */
+.pass-list{display:flex;flex-direction:column;gap:4px;margin-top:8px}
+.pass-item{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:6px;border:1px solid var(--line-soft);background:var(--paper-soft);cursor:pointer;transition:all .12s}
+.pass-item:hover{border-color:var(--muted-soft);background:var(--surface)}
+.pass-item.active{border-color:var(--blue);background:var(--blue-tint)}
+.pass-item .pnum{width:18px;height:18px;flex:none;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-family:var(--mono);font-size:.5625rem;font-weight:700;color:var(--muted)}
+.pass-item.active .pnum{background:var(--blue);border-color:var(--blue);color:#fff}
+.pass-item .pinfo{flex:1;min-width:0}
+.pass-item .plabel{font-size:.75rem;font-weight:500;color:var(--ink);line-height:1.2}
+.pass-item .pscore{font-family:var(--mono);font-size:.5625rem;color:var(--muted);margin-top:1px}
+.pass-item.active .pscore{color:var(--blue)}
+
+/* Workspace main */
 .workspace-main{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-md);overflow:hidden;display:flex;flex-direction:column;min-height:640px}
-.view-tabs{display:flex;align-items:center;gap:0;padding:0 12px;background:var(--paper-soft);border-bottom:1px solid var(--line);min-height:52px}
-.view-tab{padding:14px 16px;font:inherit;font-size:.8125rem;font-weight:500;color:var(--muted);background:none;border:0;border-bottom:2px solid transparent;cursor:pointer;transition:all .12s ease;display:inline-flex;align-items:center;gap:7px;margin-bottom:-1px}
+.view-tabs{display:flex;align-items:center;gap:0;padding:0 12px;background:var(--paper-soft);border-bottom:1px solid var(--line);min-height:50px}
+.view-tab{padding:13px 14px;font:inherit;font-size:.8125rem;font-weight:500;color:var(--muted);background:none;border:0;border-bottom:2px solid transparent;cursor:pointer;transition:all .12s ease;display:inline-flex;align-items:center;gap:6px;margin-bottom:-1px}
 .view-tab:hover{color:var(--ink)}
 .view-tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--blue)}
-.view-tab svg{width:15px;height:15px}
+.view-tab svg{width:14px;height:14px}
 .view-tabs .spacer{flex:1}
 .view-tabs .toolbar-group{display:flex;gap:6px;align-items:center}
 .view-panel{display:none;flex:1;min-height:0}
@@ -181,49 +152,60 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .image-wrap img{display:block;max-width:100%;height:auto}
 .image-overlay{position:absolute;inset:0;pointer-events:none}
 .image-overlay .grid-line{position:absolute;pointer-events:none}
-.image-overlay .grid-line.h{left:0;right:0;height:1px;background:rgba(217,45,32,.45)}
-.image-overlay .grid-line.v{top:0;bottom:0;width:1px;background:rgba(27,77,255,.45)}
+.image-overlay .grid-line.h{left:0;right:0;height:1px;background:rgba(217,45,32,.5)}
+.image-overlay .grid-line.v{top:0;bottom:0;width:1px;background:rgba(27,77,255,.5)}
 .table-stage{flex:1;min-height:0;overflow:auto;background:#FAFAF8;position:relative}
 .excel-table{width:100%;border-collapse:collapse;font-size:.8125rem;background:var(--surface)}
 .excel-table th,.excel-table td{border:1px solid var(--line-soft);padding:0;min-width:90px;max-width:320px;position:relative;vertical-align:top}
-.excel-table th{background:var(--paper-soft);font-family:var(--mono);font-size:.6875rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);position:sticky;top:0;z-index:2;min-width:40px;width:40px;text-align:center;padding:8px 4px}
-.excel-table th.row-header{left:0;z-index:3;min-width:36px;width:36px}
-.excel-table td.rownum{background:var(--paper-soft);font-family:var(--mono);font-size:.6875rem;font-weight:600;color:var(--muted);text-align:center;min-width:36px;width:36px;padding:8px 4px;position:sticky;left:0;z-index:1;user-select:none}
-.excel-table td.cell{padding:7px 9px;cursor:cell;min-height:32px;outline:none;word-break:break-word;transition:background .08s ease}
+.excel-table th{background:var(--paper-soft);font-family:var(--mono);font-size:.625rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);position:sticky;top:0;z-index:2;min-width:36px;width:36px;text-align:center;padding:7px 4px}
+.excel-table th.row-header{left:0;z-index:3;min-width:32px;width:32px}
+.excel-table td.rownum{background:var(--paper-soft);font-family:var(--mono);font-size:.625rem;font-weight:600;color:var(--muted);text-align:center;min-width:32px;width:32px;padding:7px 4px;position:sticky;left:0;z-index:1;user-select:none}
+.excel-table td.cell{padding:6px 8px;cursor:cell;min-height:30px;outline:none;word-break:break-word;transition:background .08s ease}
 .excel-table td.cell:hover{background:#FAFBFF}
 .excel-table td.cell.selected{background:var(--blue-tint);box-shadow:inset 0 0 0 2px var(--blue);z-index:1}
-.excel-table td.cell.editing{background:#fff;box-shadow:inset 0 0 0 2px var(--blue);outline:none;cursor:text}
+.excel-table td.cell.editing{background:#fff;box-shadow:inset 0 0 0 2px var(--blue);cursor:text}
 .excel-table td.cell.num{text-align:right;font-family:var(--mono);font-size:.75rem}
 .excel-table td.cell.date{font-family:var(--mono);font-size:.75rem}
+.excel-table td.cell.lowconf::after{content:"";position:absolute;top:2px;right:2px;width:5px;height:5px;border-radius:50%;background:var(--amber)}
 .excel-table td.cell.empty::before{content:"—";color:#C4C4BE;font-style:italic}
+
 .empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:64px 24px;text-align:center;color:var(--muted)}
 .empty-state svg{width:48px;height:48px;color:var(--muted-soft);opacity:.6;margin:0 0 16px}
 .empty-state h3{font-family:var(--display);font-weight:700;font-size:1rem;color:var(--ink);margin:0 0 6px}
 .empty-state p{margin:0;font-size:.875rem;max-width:400px;line-height:1.5}
-.bottom-bar{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--paper-soft);border-top:1px solid var(--line);flex-wrap:wrap;min-height:56px}
+
+.bottom-bar{display:flex;align-items:center;gap:10px;padding:11px 16px;background:var(--paper-soft);border-top:1px solid var(--line);flex-wrap:wrap;min-height:52px}
 .bottom-bar .stat{font-family:var(--mono);font-size:.6875rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
 .bottom-bar .spacer{flex:1;min-width:8px}
 .export-group{display:flex;gap:0;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow-xs)}
-.export-group button{padding:8px 14px;min-height:34px;font:inherit;font-size:.75rem;font-weight:500;background:none;border:0;border-right:1px solid var(--line);color:var(--ink);cursor:pointer;transition:background .12s ease;display:inline-flex;align-items:center;gap:6px}
+.export-group button{padding:7px 13px;min-height:32px;font:inherit;font-size:.75rem;font-weight:500;background:none;border:0;border-right:1px solid var(--line);color:var(--ink);cursor:pointer;transition:background .12s ease;display:inline-flex;align-items:center;gap:6px}
 .export-group button:last-child{border-right:0}
 .export-group button:hover:not([disabled]){background:var(--paper)}
 .export-group button[disabled]{opacity:.4;cursor:not-allowed}
 .export-group button.primary{background:var(--blue);color:#fff}
 .export-group button.primary:hover:not([disabled]){background:var(--blue-deep)}
 .export-group svg{width:13px;height:13px}
-.ctx-menu{position:fixed;z-index:400;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:4px;box-shadow:0 12px 40px rgba(0,0,0,.18);min-width:200px;display:none}
+
+/* Progress overlay */
+.progress-overlay{position:absolute;inset:0;background:rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;z-index:5;backdrop-filter:blur(4px)}
+.progress-overlay .spinner{width:32px;height:32px;border:3px solid var(--line);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.progress-overlay .msg{font-family:var(--mono);font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+
+.ctx-menu{position:fixed;z-index:400;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:4px;box-shadow:0 12px 40px rgba(0,0,0,.18);min-width:190px;display:none}
 .ctx-menu.open{display:block}
-.ctx-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:5px;font-size:.8125rem;color:var(--ink);cursor:pointer;background:none;border:0;width:100%;text-align:left}
+.ctx-item{display:flex;align-items:center;gap:9px;padding:7px 11px;border-radius:5px;font-size:.8125rem;color:var(--ink);cursor:pointer;background:none;border:0;width:100%;text-align:left}
 .ctx-item:hover{background:var(--paper)}
 .ctx-item.danger{color:var(--red)}
 .ctx-item.danger:hover{background:var(--red-soft)}
-.ctx-item svg{width:14px;height:14px;opacity:.7;flex:none}
 .ctx-sep{height:1px;background:var(--line-soft);margin:4px 0}
+
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.8125rem;opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease;z-index:500;max-width:90vw;display:flex;align-items:center;gap:8px;box-shadow:0 12px 32px rgba(0,0,0,.28)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast svg{width:14px;height:14px;color:#22E39A;flex:none}
 .toast.warn svg{color:#FFB547}
 .toast.err svg{color:#FF6B6B}
+
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .article{margin:64px 0 0;max-width:72ch}
 .article h2{margin:36px 0 12px;font-size:1.375rem}
@@ -236,13 +218,13 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .article a{color:var(--blue);text-decoration:underline}
 .faq{margin:16px 0 0;border-top:1px solid var(--line)}
 .faq details{border-bottom:1px solid var(--line)}
-.faq summary{cursor:pointer;padding:16px 2px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center;font-size:.9375rem}
+.faq summary{cursor:pointer;padding:15px 2px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center;font-size:.9375rem}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"+";color:var(--muted);font-size:1.25rem;line-height:1;flex:none}
 .faq details[open] summary::after{content:"\2212";color:var(--blue)}
-.faq details p{margin:0 0 18px;color:var(--ink-soft);max-width:62ch;font-size:.875rem;line-height:1.65}
+.faq details p{margin:0 0 16px;color:var(--ink-soft);max-width:62ch;font-size:.875rem;line-height:1.65}
 .related-list{list-style:none;margin:12px 0 0;padding:0}
-.related-list li{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center}
+.related-list li{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:11px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center}
 .related-list .txt{flex:1;font-size:.9375rem}
 .related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
 .related-list .txt a:hover{color:var(--blue);text-decoration:underline}
@@ -253,11 +235,12 @@ footer a{color:inherit}
 footer a:hover{color:var(--blue)}
 @media(max-width:640px){
   .lede{font-size:1.375rem}
-  .drop-zone{padding:44px 18px}
-  .view-tabs{padding:0 8px;overflow-x:auto}
-  .view-tab{padding:12px 12px;font-size:.75rem;white-space:nowrap}
+  .drop-zone{padding:48px 20px}
+  .view-tabs{padding:0 8px;overflow-x:auto;scrollbar-width:none}
+  .view-tabs::-webkit-scrollbar{display:none}
+  .view-tab{padding:12px 11px;font-size:.75rem;white-space:nowrap}
   .bottom-bar{padding:10px 12px;gap:8px}
-  .export-group button{padding:8px 10px;font-size:.6875rem}
+  .export-group button{padding:7px 10px;font-size:.6875rem}
 }
 </style>
 </head>
@@ -283,7 +266,7 @@ footer a:hover{color:var(--blue)}
 </nav>
 
 <h1 class="lede">Image to Excel Converter</h1>
-<p class="sub">Turn screenshots, photos and scans of tables into editable Excel spreadsheets. Auto-detects grid lines, handles dark-themed tables, exports multi-sheet XLSX. Everything runs in your browser.</p>
+<p class="sub">Drop an image of a table — get an editable spreadsheet. Auto-detects dark themes, runs multiple OCR passes, picks the best result. Everything runs in your browser, nothing is uploaded.</p>
 
 <div class="intake" id="intake">
   <label class="drop-zone" id="dropZone" for="fileInput">
@@ -291,130 +274,83 @@ footer a:hover{color:var(--blue)}
       <rect x="3" y="3" width="18" height="18" rx="2"/>
       <path d="M3 10h18M10 3v18"/>
     </svg>
-    <h2>Drop images of tables here</h2>
-    <p>or click to choose files</p>
-    <p class="formats">JPG · PNG · WebP · BMP · up to 20 images</p>
+    <h2>Drop an image of a table</h2>
+    <p>or click to choose a file · or paste from clipboard</p>
+    <p class="formats">JPG · PNG · WebP · BMP · Screenshots · Photos</p>
     <span class="privacy">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      100% private · never uploaded
+      Nothing leaves your device
     </span>
     <input type="file" id="fileInput" accept="image/*" multiple class="sr">
   </label>
-
-  <div class="intake-features">
-    <div class="feat">
-      <h3>Auto theme detection</h3>
-      <p>Handles dark headers, alternating row colors and light text on dark backgrounds.</p>
-    </div>
-    <div class="feat">
-      <h3>Grid line detection</h3>
-      <p>Finds real table borders using projection analysis — no guessing.</p>
-    </div>
-    <div class="feat">
-      <h3>Batch processing</h3>
-      <p>Drop up to 20 images. Each becomes its own sheet in the exported workbook.</p>
-    </div>
-    <div class="feat">
-      <h3>Multi-format export</h3>
-      <p>Multi-sheet XLSX with auto-sized columns. Also CSV, JSON and TSV.</p>
-    </div>
-  </div>
 </div>
 
 <div class="workspace" id="workspace">
 
   <aside class="sidebar">
-
     <div class="panel">
-      <div class="panel-body">
-        <p class="panel-title">Images <span id="sourceCount" style="font-weight:500;color:var(--muted);font-size:.75rem;text-transform:none;letter-spacing:0"></span></p>
-        <ul class="source-list" id="sourceList"></ul>
-        <button class="btn sm" id="addMoreBtn" type="button" style="width:100%">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
-          Add more images
-        </button>
-        <input type="file" id="addMoreInput" accept="image/*" multiple class="sr">
+      <p class="panel-title">Images <span id="sourceCount" style="font-weight:500;color:var(--muted);text-transform:none;letter-spacing:0"></span></p>
+      <ul class="source-list" id="sourceList"></ul>
+      <button class="btn sm" id="addMoreBtn" type="button" style="width:100%">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+        Add more
+      </button>
+      <input type="file" id="addMoreInput" accept="image/*" multiple class="sr">
+    </div>
+
+    <div class="status-card info" id="statusCard">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
+      <div class="body">
+        <p class="label" id="statusLabel">Ready</p>
+        <p class="desc" id="statusDesc">Drop an image to begin.</p>
+        <div class="action" id="statusActions"></div>
       </div>
     </div>
 
-    <div class="panel">
-      <div class="panel-body">
-        <p class="panel-title">Detection</p>
-        <div class="toggle-list">
-          <label class="toggle">
-            <input type="checkbox" id="optAuto" checked>
-            <span class="switch"></span>
-            <span class="label">Auto-enhance</span>
-            <span class="hint">Smart</span>
-          </label>
-          <label class="toggle">
-            <input type="checkbox" id="optAutoInvert" checked>
-            <span class="switch"></span>
-            <span class="label">Auto-invert dark</span>
-            <span class="hint">Recommended</span>
-          </label>
-          <label class="toggle">
-            <input type="checkbox" id="optGrid" checked>
-            <span class="switch"></span>
-            <span class="label">Detect grid lines</span>
-            <span class="hint">Accurate</span>
-          </label>
-          <label class="toggle">
-            <input type="checkbox" id="optDeskew">
-            <span class="switch"></span>
-            <span class="label">Remove watermark noise</span>
-          </label>
-          <label class="toggle">
-            <input type="checkbox" id="optUpscale">
-            <span class="switch"></span>
-            <span class="label">Upscale 2×</span>
-            <span class="hint">Low-res</span>
-          </label>
-        </div>
-      </div>
+    <div class="panel" id="passPanel" hidden>
+      <p class="panel-title">OCR attempts</p>
+      <div class="pass-list" id="passList"></div>
     </div>
 
     <div class="panel">
-      <div class="panel-body">
-        <p class="panel-title">OCR settings</p>
-        <label class="field">
-          <label for="langSel">Language</label>
-          <select id="langSel">
-            <option value="eng" selected>English</option>
-            <option value="hin">Hindi</option>
-            <option value="spa">Spanish</option>
-            <option value="fra">French</option>
-            <option value="deu">German</option>
-            <option value="por">Portuguese</option>
-            <option value="ita">Italian</option>
-            <option value="rus">Russian</option>
-            <option value="ara">Arabic</option>
-            <option value="chi_sim">Chinese (Simplified)</option>
-            <option value="jpn">Japanese</option>
-            <option value="kor">Korean</option>
-          </select>
-          <small>~15 MB model downloads once, then caches in your browser.</small>
-        </label>
-      </div>
+      <p class="panel-title">Options</p>
+      <label class="field">
+        <label for="langSel">Language</label>
+        <select id="langSel">
+          <option value="eng" selected>English</option>
+          <option value="hin">Hindi</option>
+          <option value="spa">Spanish</option>
+          <option value="fra">French</option>
+          <option value="deu">German</option>
+          <option value="por">Portuguese</option>
+          <option value="ita">Italian</option>
+          <option value="rus">Russian</option>
+          <option value="ara">Arabic</option>
+          <option value="chi_sim">Chinese (Simplified)</option>
+          <option value="jpn">Japanese</option>
+          <option value="kor">Korean</option>
+        </select>
+        <small>Model downloads once (~15 MB) then caches.</small>
+      </label>
+      <label class="field">
+        <label for="colOverride">Expected columns</label>
+        <input type="text" id="colOverride" placeholder="Auto-detect" autocomplete="off" spellcheck="false">
+        <small>Wrong column count? Type the correct number and re-run.</small>
+      </label>
     </div>
 
     <div class="panel">
-      <div class="panel-body">
-        <button class="btn primary" id="convertBtn" type="button" style="width:100%;margin-bottom:8px">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          Convert all images
-        </button>
-        <button class="btn" id="resetBtn" type="button" style="width:100%">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M6 6l1 14a2 2 0 002 2h6a2 2 0 002-2l1-14"/></svg>
-          Start over
-        </button>
-        <div class="progress-wrap" id="progressWrap">
-          <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
-          <div class="progress-label"><span id="progressStage">—</span><span class="pct" id="progressPct">0%</span></div>
-        </div>
-      </div>
+      <button class="btn primary" id="tryAgainBtn" type="button" style="width:100%;margin-bottom:8px" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4M3 11V9a4 4 0 014-4h14M7 22l-4-4 4-4M21 13v2a4 4 0 01-4 4H3"/></svg>
+        Try harder
+      </button>
+      <button class="btn" id="resetBtn" type="button" style="width:100%">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M6 6l1 14a2 2 0 002 2h6a2 2 0 002-2l1-14"/></svg>
+        Start over
+      </button>
     </div>
-
   </aside>
 
   <section class="workspace-main">
@@ -443,8 +379,8 @@ footer a:hover{color:var(--blue)}
       <div class="image-stage" id="imageStage">
         <div class="empty-state">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-          <h3>No image selected</h3>
-          <p>Add images on the left, then click Convert.</p>
+          <h3>No image yet</h3>
+          <p>Drop an image on the left to begin.</p>
         </div>
       </div>
     </div>
@@ -453,8 +389,8 @@ footer a:hover{color:var(--blue)}
       <div class="table-stage" id="tableStage">
         <div class="empty-state">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
-          <h3>No table yet</h3>
-          <p>Click Convert all images to detect tables from your uploads.</p>
+          <h3>Table appears here</h3>
+          <p>OCR runs automatically after you drop an image.</p>
         </div>
       </div>
     </div>
@@ -463,7 +399,7 @@ footer a:hover{color:var(--blue)}
       <span class="stat" id="tableStats">0 rows × 0 cols</span>
       <span class="spacer"></span>
       <div class="export-group">
-        <button id="downloadXlsx" type="button" class="primary" disabled title="Export all pages as multi-sheet XLSX">
+        <button id="downloadXlsx" type="button" class="primary" disabled title="Export all as multi-sheet XLSX">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
           XLSX
         </button>
@@ -480,64 +416,43 @@ footer a:hover{color:var(--blue)}
 <article class="article" style="margin-top:56px">
   <h2>How to convert an image to Excel</h2>
   <ol>
-    <li><strong>Upload the images.</strong> Drop up to 20 files, or click to choose. Each becomes a separate sheet in the workbook.</li>
-    <li><strong>Pick the language</strong> and leave <em>Auto-invert dark</em> enabled if your tables have dark headers or dark themes.</li>
-    <li><strong>Convert.</strong> The tool detects table borders, extracts text from each cell, and assembles a grid.</li>
-    <li><strong>Review the overlay</strong> in the Image tab. Red lines mark detected rows, blue lines mark columns.</li>
-    <li><strong>Fix any mistakes.</strong> Click a cell, type, or paste from the clipboard. Tab and arrow keys move like Excel.</li>
-    <li><strong>Export.</strong> Multi-sheet XLSX, CSV, JSON or TSV.</li>
+    <li><strong>Drop the image.</strong> Screenshots, photos or scans. Multiple images become multiple sheets.</li>
+    <li><strong>Wait a moment.</strong> OCR runs automatically — you'll see the result in a few seconds.</li>
+    <li><strong>Check the confidence badge.</strong> Green means it looks good. Yellow means review a few cells. Red means try a different attempt.</li>
+    <li><strong>Try a different attempt if needed.</strong> Four OCR passes run in the background. Click any to preview it.</li>
+    <li><strong>Fix any cells.</strong> Click, type, Tab, Enter, arrow keys — just like Excel. Right-click for row/column operations.</li>
+    <li><strong>Export.</strong> XLSX for a formatted workbook, or CSV / JSON / TSV.</li>
   </ol>
 
-  <h2>What it handles well</h2>
+  <h2>Why it works on hard images</h2>
+  <p>Most image-to-Excel tools try one approach and hope it works. This tool runs four different OCR passes and scores each on cell density, confidence and grid regularity, then presents the best one. You can switch to any of the others if the automatic choice is wrong.</p>
   <ul>
-    <li><strong>Dark-themed tables</strong> — dark headers, alternating row colors, light text on dark backgrounds. The tool inverts these automatically.</li>
-    <li><strong>Excel and Google Sheets screenshots</strong> — near-perfect accuracy.</li>
-    <li><strong>Styled tables with bold headers</strong> — grid line detection finds the actual borders.</li>
-    <li><strong>Numbers with commas and decimals</strong> — cleaned up and left as numbers so Excel treats them as numbers.</li>
-    <li><strong>Watermarks</strong> — filtered out as low-confidence noise when they overlay cell content.</li>
-    <li><strong>Filter dropdown arrows</strong> (▼ ▾) — stripped from header cells.</li>
+    <li><strong>Dark tables</strong> — polarity detection inverts before OCR.</li>
+    <li><strong>Alternating row colours</strong> — adaptive threshold normalises them.</li>
+    <li><strong>Watermarks</strong> — filtered out by word-height analysis.</li>
+    <li><strong>UI dropdown arrows</strong> — stripped from header cells.</li>
+    <li><strong>Numbers with commas</strong> — cleaned so Excel treats them as numbers.</li>
   </ul>
-
-  <h2>How the detection works</h2>
-  <p>The tool runs a five-stage pipeline on every image:</p>
-  <ol>
-    <li><strong>Polarity detection.</strong> A histogram analysis using Otsu's method determines whether the image is dark-on-light or light-on-dark. If dark-on-light, it inverts.</li>
-    <li><strong>Grid detection.</strong> A projection profile of the luminance across each row and column finds sharp transitions, which correspond to table borders. This gives exact cell coordinates.</li>
-    <li><strong>OCR.</strong> Tesseract extracts every word with its bounding box.</li>
-    <li><strong>Cell assignment.</strong> Each word is assigned to the cell whose bounds contain it. If grid detection failed, falls back to clustering by word positions.</li>
-    <li><strong>Cleanup.</strong> Numbers with OCR artifacts (spaces inside numbers, stray characters) are corrected. Watermark noise and dropdown arrows are filtered.</li>
-  </ol>
-
-  <h2>Why this handles dark tables</h2>
-  <p>Tesseract is trained on dark text on light backgrounds. The typical failure mode on a dark table is that OCR returns garbage or nothing at all. This tool detects dark themes automatically and inverts them before OCR, so dark headers and alternating row stripes don't confuse the engine.</p>
 
   <h2>Common questions</h2>
   <div class="faq">
-    <details><summary>Is this tool free?</summary><p>Yes. Completely free, no signup, no watermarks and no page limit.</p></details>
-    <details><summary>Are my images uploaded?</summary><p>No. OCR runs entirely in your browser using Tesseract.js. Your images never leave your device.</p></details>
-    <details><summary>Does it handle dark tables?</summary><p>Yes. The tool detects light-on-dark polarity automatically and inverts before OCR.</p></details>
-    <details><summary>How accurate is the OCR?</summary><p>Clear screenshots convert with 95%+ accuracy. Photos need good lighting and focus. Handwritten text will not convert reliably.</p></details>
-    <details><summary>Can I edit the result before downloading?</summary><p>Yes. The table is fully editable — click any cell, use arrow keys, Tab, Enter, Delete. Right-click for row/column operations.</p></details>
-    <details><summary>What if the detection fails on my image?</summary><p>Try turning off Auto-invert if the table is already light-themed, or toggle Detect grid lines. For photos, enable Auto-enhance and Upscale 2×.</p></details>
+    <details><summary>Is it free?</summary><p>Yes. No signup, no watermark, no page limit.</p></details>
+    <details><summary>Are my images uploaded?</summary><p>No. Everything runs in your browser using Tesseract.js. Your images never leave your device.</p></details>
+    <details><summary>Why multiple OCR attempts?</summary><p>Different images need different preprocessing. Instead of guessing, the tool tries several and shows the best result — you can pick a different one with one click.</p></details>
+    <details><summary>What about handwriting?</summary><p>Tesseract is designed for printed text. Handwriting will not convert reliably — no free browser tool handles it well.</p></details>
+    <details><summary>Can I edit the result?</summary><p>Yes. Click any cell, use arrow keys, Tab, Enter. Right-click for insert/delete row or column.</p></details>
   </div>
 
   <h2>Related tools</h2>
   <ul class="related-list">
     <li><div class="txt"><a href="image-to-text.html">Image to Text (OCR)</a><p>Extract raw text from any image.</p></div><time>Image</time></li>
     <li><div class="txt"><a href="image-convert.html">Image Converter</a><p>Switch between PNG, JPG and WebP.</p></div><time>Image</time></li>
-    <li><div class="txt"><a href="../convert/json-csv.html">JSON ↔ CSV</a><p>Convert between structured formats.</p></div><time>Convert</time></li>
     <li><div class="txt"><a href="../pdf/pdf-text.html">Extract PDF Text</a><p>Pull text out of PDF documents.</p></div><time>PDF</time></li>
   </ul>
 </article>
 
 <footer style="margin:48px 0 0;padding:20px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem">
-  <p>
-    LocalTools ·
-    <a href="../../index.html" style="color:inherit">Home</a> ·
-    <a href="../index.html" style="color:inherit">All tools</a> ·
-    <a href="../../pages/about.html" style="color:inherit">About</a> ·
-    <a href="../../pages/privacy.html" style="color:inherit">Privacy</a>
-  </p>
+  <p>LocalTools · <a href="../../index.html" style="color:inherit">Home</a> · <a href="../index.html" style="color:inherit">All tools</a> · <a href="../../pages/about.html" style="color:inherit">About</a> · <a href="../../pages/privacy.html" style="color:inherit">Privacy</a></p>
 </footer>
 </div>
 
@@ -547,7 +462,6 @@ footer a:hover{color:var(--blue)}
   <button class="ctx-item" data-action="insert-col-left">Insert column left</button>
   <button class="ctx-item" data-action="insert-col-right">Insert column right</button>
   <div class="ctx-sep"></div>
-  <button class="ctx-item" data-action="clear-cell">Clear cell</button>
   <button class="ctx-item danger" data-action="delete-row">Delete row</button>
   <button class="ctx-item danger" data-action="delete-col">Delete column</button>
 </div>
@@ -557,42 +471,48 @@ footer a:hover{color:var(--blue)}
 <script>
 (function(){
 "use strict";
-
 var $ = function(id){ return document.getElementById(id); };
-var dropZone = $("dropZone"), fileInput = $("fileInput");
-var addMoreInput = $("addMoreInput"), addMoreBtn = $("addMoreBtn");
-var intake = $("intake"), workspace = $("workspace");
-var sourceList = $("sourceList"), sourceCount = $("sourceCount");
-var optAuto = $("optAuto"), optAutoInvert = $("optAutoInvert"), optGrid = $("optGrid");
-var optDeskew = $("optDeskew"), optUpscale = $("optUpscale");
-var langSel = $("langSel");
-var convertBtn = $("convertBtn"), resetBtn = $("resetBtn");
-var progressWrap = $("progressWrap"), progressBar = $("progressBar");
-var progressStage = $("progressStage"), progressPct = $("progressPct");
-var imageStage = $("imageStage"), tableStage = $("tableStage");
-var tableStats = $("tableStats");
-var undoBtn = $("undoBtn"), redoBtn = $("redoBtn");
-var downloadXlsx = $("downloadXlsx"), downloadCsv = $("downloadCsv");
-var downloadJson = $("downloadJson"), downloadTsv = $("downloadTsv");
-var ctxMenu = $("ctxMenu"), toast = $("toast");
-var viewTabs = document.querySelectorAll(".view-tab");
-var viewPanels = { image: $("viewImage"), table: $("viewTable") };
 
-var sources = [];
-var activeSourceId = null;
-var currentView = "table";
-var worker = null, workerLang = null;
-var undoStack = [], redoStack = [], MAX_UNDO = 50;
-var selectedCell = { r: 0, c: 0, sourceId: null };
-var editingCell = null;
-var ctxTarget = null;
+/* ============================================================
+   REFS
+   ============================================================ */
+var dropZone=$("dropZone"), fileInput=$("fileInput"), addMoreInput=$("addMoreInput"), addMoreBtn=$("addMoreBtn");
+var intake=$("intake"), workspace=$("workspace");
+var sourceList=$("sourceList"), sourceCount=$("sourceCount");
+var statusCard=$("statusCard"), statusLabel=$("statusLabel"), statusDesc=$("statusDesc"), statusActions=$("statusActions");
+var passPanel=$("passPanel"), passList=$("passList");
+var langSel=$("langSel"), colOverride=$("colOverride");
+var tryAgainBtn=$("tryAgainBtn"), resetBtn=$("resetBtn");
+var imageStage=$("imageStage"), tableStage=$("tableStage");
+var tableStats=$("tableStats");
+var undoBtn=$("undoBtn"), redoBtn=$("redoBtn");
+var downloadXlsx=$("downloadXlsx"), downloadCsv=$("downloadCsv"), downloadJson=$("downloadJson"), downloadTsv=$("downloadTsv");
+var ctxMenu=$("ctxMenu"), toast=$("toast");
+var viewTabs=document.querySelectorAll(".view-tab");
+var viewPanels={ image:$("viewImage"), table:$("viewTable") };
 
-/* ---------- Utils ---------- */
-function uid(){ return "s" + Math.random().toString(36).slice(2,9) + Date.now().toString(36).slice(-3); }
-function bytes(n){ if (n<1024) return n+" B"; if (n<1048576) return (n/1024).toFixed(1)+" KB"; return (n/1048576).toFixed(1)+" MB"; }
+/* ============================================================
+   STATE
+   ============================================================ */
+var sources=[];
+var activeSourceId=null;
+var currentView="table";
+var worker=null, workerLang=null;
+var undoStack=[], redoStack=[], MAX_UNDO=50;
+var selectedCell={r:0,c:0,sourceId:null};
+var editingCell=null;
+var ctxTarget=null;
+var cancelled=false;
+
+/* ============================================================
+   UTILS
+   ============================================================ */
+function uid(){ return "s"+Math.random().toString(36).slice(2,9); }
+function bytes(n){ if(n<1024)return n+" B"; if(n<1048576)return(n/1024).toFixed(1)+" KB"; return(n/1048576).toFixed(1)+" MB"; }
 function esc(s){ return String(s==null?"":s).replace(/[<>&"]/g,function(c){return{"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[c];}); }
 function colLetter(n){ var s=""; n=n+1; while(n>0){var m=(n-1)%26; s=String.fromCharCode(65+m)+s; n=Math.floor((n-1)/26);} return s; }
 function delay(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
+
 function flash(msg, kind){
   toast.className = "toast " + (kind||"");
   var path = kind==="err" ? "M18 6L6 18M6 6l12 12" :
@@ -601,462 +521,460 @@ function flash(msg, kind){
   toast.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="'+path+'"/></svg><span>'+esc(msg)+'</span>';
   toast.classList.add("show");
   clearTimeout(flash._t);
-  flash._t = setTimeout(function(){ toast.classList.remove("show"); }, 2400);
+  flash._t = setTimeout(function(){ toast.classList.remove("show"); }, 2600);
 }
-function setProgress(pct, stage){
-  if (pct === null || pct === undefined){ progressWrap.classList.remove("show"); return; }
-  progressWrap.classList.add("show");
-  progressBar.style.width = Math.max(0,Math.min(100,pct)) + "%";
-  if (stage !== undefined) progressStage.textContent = stage;
-  progressPct.textContent = Math.round(pct) + "%";
+
+function setStatus(kind, label, desc, actions){
+  statusCard.className = "status-card " + kind;
+  var icons = {
+    info:'<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>',
+    good:'<path d="M20 6L9 17l-5-5"/>',
+    warn:'<path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>',
+    bad:'<path d="M18 6L6 18M6 6l12 12"/>',
+    busy:'<path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>'
+  };
+  statusCard.querySelector(".icon-wrap svg").innerHTML = icons[kind] || icons.info;
+  statusLabel.textContent = label;
+  statusDesc.textContent = desc;
+  statusActions.innerHTML = "";
+  if (actions) actions.forEach(function(a){
+    var btn = document.createElement("button");
+    btn.className = "btn" + (a.primary ? " primary" : "");
+    btn.textContent = a.label;
+    btn.onclick = a.onClick;
+    statusActions.appendChild(btn);
+  });
 }
 
 /* ============================================================
    VISION PIPELINE
    ============================================================ */
-
-/**
- * Otsu's method — finds the optimal threshold that separates
- * a histogram into two classes with maximum between-class variance.
- */
 function otsuThreshold(hist){
-  var total = 0, i;
-  for (i = 0; i < 256; i++) total += hist[i];
+  var total=0, i;
+  for (i=0;i<256;i++) total+=hist[i];
   if (!total) return 128;
-  var sum = 0;
-  for (i = 0; i < 256; i++) sum += i * hist[i];
-  var sumB = 0, wB = 0, max = 0, threshold = 128;
-  for (i = 0; i < 256; i++){
-    wB += hist[i];
-    if (wB === 0) continue;
-    var wF = total - wB;
-    if (wF === 0) break;
-    sumB += i * hist[i];
-    var mB = sumB / wB;
-    var mF = (sum - sumB) / wF;
-    var between = wB * wF * (mB - mF) * (mB - mF);
-    if (between > max){ max = between; threshold = i; }
+  var sum=0;
+  for (i=0;i<256;i++) sum+=i*hist[i];
+  var sumB=0, wB=0, max=0, threshold=128;
+  for (i=0;i<256;i++){
+    wB+=hist[i];
+    if (!wB) continue;
+    var wF=total-wB;
+    if (!wF) break;
+    sumB+=i*hist[i];
+    var mB=sumB/wB, mF=(sum-sumB)/wF;
+    var between=wB*wF*(mB-mF)*(mB-mF);
+    if (between>max){ max=between; threshold=i; }
   }
   return threshold;
 }
 
-/**
- * Full preprocessing pipeline.
- * Returns { dataUrl, inverted, threshold } — dataUrl is the cleaned image.
- */
-function preprocess(dataUrl, opts){
+// Process an image with a given recipe.
+// Returns { dataUrl, width, height, inverted }
+function processImage(dataUrl, recipe){
   return new Promise(function(resolve){
-    var img = new Image();
-    img.onload = function(){
-      var w = img.width, h = img.height;
-      if (opts.upscale){ w *= 2; h *= 2; }
-      var cv = document.createElement("canvas");
-      cv.width = w; cv.height = h;
-      var ctx = cv.getContext("2d", { willReadFrequently: true });
-      ctx.drawImage(img, 0, 0, w, h);
-      var imageData = ctx.getImageData(0, 0, w, h);
-      var px = imageData.data;
-      var len = px.length;
+    var img=new Image();
+    img.onload=function(){
+      var w=img.width, h=img.height;
+      if (recipe.upscale){ w*=2; h*=2; }
+      var cv=document.createElement("canvas");
+      cv.width=w; cv.height=h;
+      var ctx=cv.getContext("2d",{willReadFrequently:true});
+      ctx.drawImage(img,0,0,w,h);
+      var d=ctx.getImageData(0,0,w,h);
+      var px=d.data, len=px.length;
 
-      // Step 1: build histogram of luminance
-      var hist = new Array(256).fill(0);
-      var lum = new Uint8Array(len / 4);
-      for (var i = 0, j = 0; i < len; i += 4, j++){
-        var l = px[i]*0.299 + px[i+1]*0.587 + px[i+2]*0.114;
-        lum[j] = l;
-        hist[l | 0]++;
+      // Luminance + histogram
+      var hist=new Array(256).fill(0);
+      var lum=new Uint8Array(len/4);
+      for (var i=0,j=0; i<len; i+=4,j++){
+        var l=px[i]*0.299+px[i+1]*0.587+px[i+2]*0.114;
+        lum[j]=l; hist[l|0]++;
+      }
+      var otsu=otsuThreshold(hist);
+
+      // Polarity
+      var dark=0, light=0;
+      for (var k=0; k<lum.length; k++) (lum[k]<otsu?dark++:light++);
+      var inverted = recipe.autoInvert && dark>light;
+
+      // Grayscale
+      for (var m=0; m<len; m+=4){
+        var g=lum[m/4];
+        px[m]=px[m+1]=px[m+2]=g;
       }
 
-      // Step 2: Otsu threshold
-      var otsu = otsuThreshold(hist);
-
-      // Step 3: polarity detection — count pixels below and above threshold
-      var dark = 0, light = 0;
-      for (var k = 0; k < lum.length; k++){
-        if (lum[k] < otsu) dark++; else light++;
-      }
-      var inverted = false;
-      // If dark pixels dominate, the image is likely light-on-dark → invert
-      if (opts.autoInvert && dark > light){
-        inverted = true;
-      }
-
-      // Step 4: apply transformations
-      // Grayscale (always — OCR works best on grayscale)
-      for (var m = 0; m < len; m += 4){
-        var g = lum[m / 4];
-        px[m] = px[m+1] = px[m+2] = g;
-      }
-
-      // Invert if needed
+      // Invert
       if (inverted){
-        for (var n = 0; n < len; n += 4){
-          px[n] = 255 - px[n];
-          px[n+1] = 255 - px[n+1];
-          px[n+2] = 255 - px[n+2];
+        for (var n=0; n<len; n+=4){
+          px[n]=255-px[n]; px[n+1]=255-px[n+1]; px[n+2]=255-px[n+2];
         }
       }
 
-      // Auto-enhance: contrast stretch
-      if (opts.auto){
-        var minL = 255, maxL = 0;
-        for (var p = 0; p < len; p += 4){
-          var v = px[p];
-          if (v < minL) minL = v;
-          if (v > maxL) maxL = v;
+      // Contrast stretch
+      if (recipe.auto){
+        var minL=255, maxL=0;
+        for (var p=0; p<len; p+=4){
+          var v=px[p];
+          if (v<minL) minL=v;
+          if (v>maxL) maxL=v;
         }
-        if (maxL > minL && maxL - minL < 200){
-          var scale = 255 / (maxL - minL);
-          for (var q = 0; q < len; q += 4){
-            var v2 = Math.max(0, Math.min(255, (px[q] - minL) * scale));
-            px[q] = px[q+1] = px[q+2] = v2;
+        if (maxL>minL && maxL-minL<220){
+          var sc=255/(maxL-minL);
+          for (var q=0; q<len; q+=4){
+            var v2=Math.max(0, Math.min(255, (px[q]-minL)*sc));
+            px[q]=px[q+1]=px[q+2]=v2;
           }
         }
       }
 
-      ctx.putImageData(imageData, 0, 0);
-      resolve({
-        dataUrl: cv.toDataURL("image/png"),
-        width: w,
-        height: h,
-        inverted: inverted,
-        threshold: otsu
-      });
-    };
-    img.onerror = function(){ resolve({ dataUrl: dataUrl, width: 0, height: 0, inverted: false, threshold: 0 }); };
-    img.src = dataUrl;
-  });
-}
-
-/**
- * Detect horizontal and vertical grid lines using projection profiles.
- * Returns { rows: [y0, y1, y2, ...], cols: [x0, x1, x2, ...] }
- * where each pair of consecutive values is a cell boundary.
- */
-function detectGrid(dataUrl){
-  return new Promise(function(resolve){
-    var img = new Image();
-    img.onload = function(){
-      var w = img.width, h = img.height;
-      var cv = document.createElement("canvas");
-      cv.width = w; cv.height = h;
-      var ctx = cv.getContext("2d", { willReadFrequently: true });
-      ctx.drawImage(img, 0, 0);
-      var px = ctx.getImageData(0, 0, w, h).data;
-
-      // Build luminance array
-      var lum = new Float32Array(w * h);
-      for (var i = 0, j = 0; i < px.length; i += 4, j++){
-        lum[j] = px[i]*0.299 + px[i+1]*0.587 + px[i+2]*0.114;
-      }
-
-      // Row darkness profile: for each row, how "dark" is it on average?
-      // A table border line is a row that's much darker than its neighbors.
-      var rowDark = new Float32Array(h);
-      for (var y = 0; y < h; y++){
-        var sum = 0;
-        var base = y * w;
-        for (var x = 0; x < w; x++) sum += lum[base + x];
-        rowDark[y] = sum / w;
-      }
-
-      // Column darkness profile
-      var colDark = new Float32Array(w);
-      for (var x2 = 0; x2 < w; x2++){
-        var sum2 = 0;
-        for (var y2 = 0; y2 < h; y2++) sum2 += lum[y2 * w + x2];
-        colDark[x2] = sum2 / h;
-      }
-
-      var rows = findPeaks(rowDark, h);
-      var cols = findPeaks(colDark, w);
-
-      // Sanity check: we need at least 2 of each to form a table
-      if (rows.length < 2 || cols.length < 2){
-        return resolve({ rows: [], cols: [] });
-      }
-
-      resolve({ rows: rows, cols: cols });
-    };
-    img.onerror = function(){ resolve({ rows: [], cols: [] }); };
-    img.src = dataUrl;
-  });
-}
-
-/**
- * Find peaks (local minima in brightness = dark lines) in a 1D profile.
- */
-function findPeaks(profile, length){
-  var peaks = [];
-  // Compute mean and stdev
-  var mean = 0;
-  for (var i = 0; i < length; i++) mean += profile[i];
-  mean /= length;
-  var variance = 0;
-  for (var i2 = 0; i2 < length; i2++) variance += (profile[i2]-mean)*(profile[i2]-mean);
-  var std = Math.sqrt(variance / length);
-
-  // A line is significantly darker than the mean
-  var threshold = mean - std * 1.2;
-
-  var minGap = Math.max(8, length * 0.008);
-  var inPeak = false;
-  var peakStart = 0;
-  var peakEnd = 0;
-
-  for (var y = 0; y < length; y++){
-    if (profile[y] < threshold){
-      if (!inPeak){ inPeak = true; peakStart = y; }
-      peakEnd = y;
-    } else {
-      if (inPeak){
-        // Close the peak — find its center
-        var peakY = Math.round((peakStart + peakEnd) / 2);
-        if (!peaks.length || peakY - peaks[peaks.length-1] >= minGap){
-          peaks.push(peakY);
-        } else {
-          // Merge with previous
-          peaks[peaks.length-1] = Math.round((peaks[peaks.length-1] + peakY) / 2);
+      // Adaptive threshold — mean based with local window fallback
+      if (recipe.binarize){
+        // Compute global mean
+        var sum=0, cnt=len/4;
+        for (var s2=0; s2<len; s2+=4) sum+=px[s2];
+        var mean=sum/cnt;
+        var bias=8;
+        for (var s3=0; s3<len; s3+=4){
+          var v3 = px[s3] > (mean - bias) ? 255 : 0;
+          px[s3]=px[s3+1]=px[s3+2]=v3;
         }
-        inPeak = false;
       }
-    }
-  }
-  if (inPeak){
-    var py = Math.round((peakStart + peakEnd) / 2);
-    if (!peaks.length || py - peaks[peaks.length-1] >= minGap) peaks.push(py);
-  }
 
-  return peaks;
+      ctx.putImageData(d, 0, 0);
+      resolve({ dataUrl: cv.toDataURL("image/png"), width: w, height: h, inverted: inverted });
+    };
+    img.onerror=function(){ resolve({ dataUrl: dataUrl, width: 0, height: 0, inverted: false }); };
+    img.src = dataUrl;
+  });
 }
 
 /* ============================================================
-   TABLE DETECTION — grid-based primary, clustering fallback
+   TABLE BUILDING — cluster words into rows/cols
    ============================================================ */
+function filterWords(words, recipe){
+  var valid = words.filter(function(w){ return w && w.text && w.text.trim(); });
+  if (!valid.length) return [];
+  var heights = valid.map(function(w){ return w.bbox.y1-w.bbox.y0; }).sort(function(a,b){return a-b;});
+  var medianH = heights[Math.floor(heights.length/2)] || 12;
 
-/**
- * Assign OCR words to cells using detected grid.
- * Returns 2D array of strings.
- */
-function gridToTable(words, grid){
-  var rows = grid.rows, cols = grid.cols;
-  if (rows.length < 2 || cols.length < 2) return null;
-
-  // cells[r][c] = array of words in that cell
-  var rCount = rows.length - 1;
-  var cCount = cols.length - 1;
-  var cells = [];
-  for (var i = 0; i < rCount; i++){
-    cells.push([]);
-    for (var j = 0; j < cCount; j++) cells[i].push([]);
-  }
-
-  words.forEach(function(w){
-    if (!w.text || !w.text.trim()) return;
-    if (w.confidence !== undefined && w.confidence < 20) return;
-    var cx = (w.bbox.x0 + w.bbox.x1) / 2;
-    var cy = (w.bbox.y0 + w.bbox.y1) / 2;
-    // Find which row band contains cy
-    var rIdx = -1;
-    for (var r = 0; r < rCount; r++){
-      if (cy >= rows[r] && cy < rows[r+1]){ rIdx = r; break; }
-    }
-    var cIdx = -1;
-    for (var c = 0; c < cCount; c++){
-      if (cx >= cols[c] && cx < cols[c+1]){ cIdx = c; break; }
-    }
-    if (rIdx === -1 || cIdx === -1) return;
-    cells[rIdx][cIdx].push(w);
+  return valid.filter(function(w){
+    if (w.confidence !== undefined && w.confidence < (recipe.minConf || 35)) return false;
+    var h = w.bbox.y1 - w.bbox.y0;
+    if (h > medianH * 2.5) return false;  // watermark spans
+    if (h < 4) return false;
+    if (w.text.length <= 1 && !/[\dA-Za-z]/.test(w.text)) return false;
+    return true;
   });
-
-  // Assemble strings
-  var table = cells.map(function(rowCells){
-    return rowCells.map(function(cellWords){
-      cellWords.sort(function(a, b){ return a.bbox.x0 - b.bbox.x0; });
-      return cellWords.map(function(w){ return w.text; }).join(" ").trim();
-    });
-  });
-
-  return table;
 }
 
-/**
- * Fallback: cluster words into rows and columns by position.
- */
-function clusterToTable(words){
-  var ws = words.filter(function(w){
-    return w && w.text && w.text.trim() && (w.confidence === undefined || w.confidence > 30);
-  });
-  if (!ws.length) return [];
-
-  var heights = ws.map(function(w){ return w.bbox.y1 - w.bbox.y0; });
-  var avgH = heights.reduce(function(a,b){ return a+b; }, 0) / heights.length;
-  if (!isFinite(avgH) || avgH <= 0) avgH = 12;
+function wordsToTable(words, recipe){
+  var ws = filterWords(words, recipe);
+  if (!ws.length) return null;
+  var heights = ws.map(function(w){ return w.bbox.y1-w.bbox.y0; });
+  heights.sort(function(a,b){return a-b;});
+  var medianH = heights[Math.floor(heights.length/2)] || 12;
 
   var items = ws.map(function(w){
     return {
-      text: w.text, confidence: w.confidence || 0,
-      x0: w.bbox.x0, x1: w.bbox.x1,
-      y0: w.bbox.y0, y1: w.bbox.y1,
-      cx: (w.bbox.x0 + w.bbox.x1) / 2,
-      cy: (w.bbox.y0 + w.bbox.y1) / 2
+      text: w.text,
+      confidence: w.confidence || 0,
+      x0: w.bbox.x0,
+      cy: (w.bbox.y0+w.bbox.y1)/2,
+      h: w.bbox.y1-w.bbox.y0
     };
   });
 
-  // Row clustering
-  items.sort(function(a,b){ return a.cy - b.cy; });
-  var rowGroups = [];
-  var cur = [items[0]];
-  var rowCenter = items[0].cy;
-  for (var i = 1; i < items.length; i++){
-    var it = items[i];
-    if (Math.abs(it.cy - rowCenter) < avgH * 0.65){
+  // Sort by Y and cluster into rows
+  items.sort(function(a,b){ return a.cy-b.cy; });
+  var rows=[], cur=[items[0]], cy=items[0].cy;
+  var rowTol = medianH * (recipe.rowTol || 0.55);
+  for (var i=1; i<items.length; i++){
+    var it=items[i];
+    if (Math.abs(it.cy-cy) < rowTol){
       cur.push(it);
-      rowCenter = cur.reduce(function(a,w){ return a + w.cy; }, 0) / cur.length;
+      cy = cur.reduce(function(a,w){return a+w.cy;},0)/cur.length;
     } else {
-      rowGroups.push(cur);
-      cur = [it];
-      rowCenter = it.cy;
+      rows.push(cur);
+      cur=[it]; cy=it.cy;
     }
   }
-  rowGroups.push(cur);
-  rowGroups.forEach(function(r){ r.sort(function(a,b){ return a.x0 - b.x0; }); });
+  rows.push(cur);
+  rows.forEach(function(r){ r.sort(function(a,b){return a.x0-b.x0;}); });
 
-  // Column clustering
-  var allX0 = items.map(function(w){ return w.x0; }).sort(function(a,b){ return a-b; });
-  var tol = avgH * 1.8;
-  var clusters = [];
-  var cs = allX0[0], ce = allX0[0];
-  for (var j = 1; j < allX0.length; j++){
-    if (allX0[j] - ce > tol){ clusters.push((cs+ce)/2); cs = allX0[j]; }
-    ce = allX0[j];
-  }
-  clusters.push((cs+ce)/2);
+  // Columns
+  var colCount = recipe.forceCols || 0;
+  var colBounds, clusters=[];
 
-  // Merge close clusters
-  var merged = [];
-  clusters.forEach(function(c){
-    if (!merged.length) return merged.push(c);
-    if (c - merged[merged.length-1] < avgH * 0.9) merged[merged.length-1] = (merged[merged.length-1]+c)/2;
-    else merged.push(c);
-  });
-  clusters = merged;
-
-  // Assign to columns
-  rowGroups.forEach(function(r){
-    r.forEach(function(w){
-      var best = 0, bd = Infinity;
-      for (var k = 0; k < clusters.length; k++){
-        var d = Math.abs(w.x0 - clusters[k]);
-        if (d < bd){ bd = d; best = k; }
+  if (colCount){
+    // Even columns from min to max
+    var allX = items.map(function(w){ return w.x0; });
+    var minX = Math.min.apply(null, allX);
+    var maxX = Math.max.apply(null, allX);
+    var step = (maxX-minX) / colCount;
+    colBounds = [];
+    for (var k=0; k<=colCount; k++) colBounds.push(minX + k*step);
+  } else {
+    // Natural breaks via left-edge gaps
+    var lefts = items.map(function(w){ return w.x0; }).sort(function(a,b){return a-b;});
+    var gaps=[];
+    for (var j=1; j<lefts.length; j++) gaps.push({at:j, gap:lefts[j]-lefts[j-1]});
+    var gapVals = gaps.map(function(g){return g.gap;}).sort(function(a,b){return a-b;});
+    var medGap = gapVals[Math.floor(gapVals.length/2)] || 1;
+    var breakThreshold = Math.max(medGap * (recipe.colGap || 3.5), medianH * 1.5);
+    clusters = [];
+    for (var k2=0; k2<gaps.length; k2++){
+      if (gaps[k2].gap >= breakThreshold){
+        clusters.push((lefts[gaps[k2].at-1]+lefts[gaps[k2].at])/2);
       }
-      w.col = best;
-    });
+    }
+    var minX2 = lefts[0] - medianH;
+    var maxX2 = lefts[lefts.length-1] + medianH;
+    colBounds = [minX2].concat(clusters).concat([maxX2]);
+  }
+
+  var cCount = colBounds.length - 1;
+  if (cCount < 1) cCount = 1;
+
+  // Assign words to columns
+  items.forEach(function(w){
+    var col = 0;
+    for (var m=0; m<cCount; m++){
+      if (w.x0 >= colBounds[m] && w.x0 < colBounds[m+1]){ col=m; return; }
+    }
+    w.col = cCount - 1;
+  });
+  items.forEach(function(w){
+    if (w.col === undefined){
+      for (var m2=0; m2<cCount; m2++){
+        if (w.x0 >= colBounds[m2] && w.x0 < colBounds[m2+1]){ w.col=m2; return; }
+      }
+      w.col = cCount - 1;
+    }
   });
 
-  // Build 2D array
-  var table = rowGroups.map(function(r){
-    var cells = new Array(clusters.length).fill("");
+  // Build 2D array with confidence side channel
+  var confs = [];
+  var table = rows.map(function(r){
+    var cells = new Array(cCount).fill("");
+    var rowConfs = new Array(cCount).fill(1);
     r.forEach(function(w){
-      if (cells[w.col]) cells[w.col] += " " + w.text;
-      else cells[w.col] = w.text;
+      if (cells[w.col]) {
+        cells[w.col] += " " + w.text;
+        rowConfs[w.col] = Math.min(rowConfs[w.col], w.confidence/100);
+      } else {
+        cells[w.col] = w.text;
+        rowConfs[w.col] = w.confidence/100;
+      }
     });
+    confs.push(rowConfs);
     return cells;
   });
 
-  table._colX = clusters.slice();
+  table._confs = confs;
+  table._colX = colBounds;
+  table._rowY = rows.map(function(r){ return r[0].cy - medianH/2; });
   return table;
 }
 
-/**
- * Clean up common OCR artifacts in cell values.
- */
-function cleanupTable(table){
+/* ============================================================
+   CLEANUP
+   ============================================================ */
+function cleanup(table){
   if (!table) return table;
-  for (var r = 0; r < table.length; r++){
-    for (var c = 0; c < table[r].length; c++){
-      var v = table[r][c];
-      if (typeof v !== "string") continue;
-      var s = v.trim();
-      if (!s){ table[r][c] = ""; continue; }
-
-      // Remove filter dropdown arrows and similar noise characters
-      s = s.replace(/[\u25BC\u25B2\u25BE\u25B4\u25C0\u25B6\u25B8\u25B9\u27A4\u2193\u2191\u2192\u2190\u25BD\u25B3\uFF0B\uFF0D]/g, "");
-
-      // Remove box drawing characters
-      s = s.replace(/[\u2500-\u257F]/g, "");
-
-      // Collapse multiple spaces
-      s = s.replace(/\s{2,}/g, " ").trim();
-
-      // Fix numbers: "1 , 234.50" → "1,234.50"
-      if (/[\d]/.test(s)){
-        var compact = s.replace(/(\d)\s*,\s*(\d)/g, "$1,$2")
-                       .replace(/(\d)\s*\.\s*(\d)/g, "$1.$2")
-                       .replace(/(\d)\s+(\d)/g, "$1$2");
-        // If the whole thing parses as a number, use the compact form
-        if (/^-?[\d,]+(\.\d+)?$/.test(compact)){
-          s = compact;
-        }
+  for (var r=0; r<table.length; r++){
+    for (var c=0; c<table[r].length; c++){
+      var s = String(table[r][c]||"").trim();
+      if (!s){ table[r][c]=""; continue; }
+      // UI glyphs
+      s = s.replace(/[\u25A0-\u25FF\u2190-\u21FF\uFF0B\uFF0D]/g,"");
+      s = s.replace(/[\u2500-\u257F]/g,"");
+      s = s.replace(/^[\|!]+|[\|!]+$/g,"");
+      // Watermark phrases
+      s = s.replace(/\bPage\s*\d+\b/gi,"");
+      s = s.replace(/\s{2,}/g," ").trim();
+      // Fix numbers
+      if (/\d/.test(s)){
+        var compact = s.replace(/(\d)\s*,\s*(\d)/g,"$1,$2")
+                       .replace(/(\d)\s*\.\s*(\d)/g,"$1.$2")
+                       .replace(/(\d)\s+(\d)/g,"$1$2");
+        if (/^-?[\d,]+(\.\d+)?$/.test(compact)) s = compact;
       }
-
-      // Trim trailing commas/dots
-      s = s.replace(/[,;.]+$/, "").trim();
-
-      table[r][c] = s;
+      s = s.replace(/^[,;.]+|[,;.]+$/g,"").trim();
+      s = s.replace(/\s{2,}/g," ").trim();
+      table[r][c]=s;
     }
   }
   return table;
 }
 
-/**
- * Remove rows and columns that are completely empty.
- */
 function trimEmpty(table){
-  if (!table || !table.length) return table || [];
-  table = table.filter(function(r){
-    return r.some(function(c){ return c && c.trim(); });
-  });
+  if (!table || !table.length) return table||[];
+  table = table.filter(function(r){ return r.some(function(c){ return c&&c.trim(); }); });
   if (!table.length) return table;
   var cols = table[0].length;
   var keep = [];
-  for (var c = 0; c < cols; c++){
-    var any = false;
-    for (var r = 0; r < table.length; r++){
-      if (table[r][c] && table[r][c].trim()){ any = true; break; }
+  for (var c=0; c<cols; c++){
+    var any=false;
+    for (var r=0; r<table.length; r++){
+      if (table[r][c] && table[r][c].trim()){ any=true; break; }
     }
     keep.push(any);
   }
   if (keep.some(function(k){ return !k; })){
-    table = table.map(function(r){
-      return r.filter(function(_, i){ return keep[i]; });
-    });
+    table = table.map(function(r){ return r.filter(function(_,i){ return keep[i]; }); });
   }
   return table;
 }
 
 /* ============================================================
-   TESSERACT WORKER
+   SCORING — pick the best pass
+   ============================================================ */
+function scoreTable(table){
+  if (!table || !table.length || !table[0] || !table[0].length) return 0;
+  var rows = table.length, cols = table[0].length;
+  var filled = 0, total = rows*cols;
+  var confSum = 0, confCount = 0;
+
+  for (var r=0; r<rows; r++){
+    for (var c=0; c<cols; c++){
+      if (table[r][c] && table[r][c].trim()){
+        filled++;
+        if (table._confs && table._confs[r] && table._confs[r][c] !== undefined){
+          confSum += table._confs[r][c];
+          confCount++;
+        }
+      }
+    }
+  }
+
+  var score = 0;
+  // Cell density — reward tables that are well-filled
+  var density = filled/total;
+  score += density * 40;
+
+  // Cell count in a reasonable range
+  if (filled >= 6 && filled <= 2000) score += 10;
+  if (filled < 6) score -= 20;
+
+  // Column count sanity
+  if (cols >= 2 && cols <= 30) score += 10;
+  if (cols === 1) score -= 15;
+  if (cols > 30) score -= 20;
+
+  // Row count sanity
+  if (rows >= 2 && rows <= 500) score += 5;
+  if (rows < 2) score -= 15;
+
+  // Confidence
+  if (confCount > 0){
+    var avgConf = confSum/confCount;
+    score += avgConf * 30;
+  }
+
+  // Regular grid bonus — variance of column widths
+  if (rows >= 2){
+    // Do first-column entries look like headers or identifiers?
+    var firstCol = [];
+    for (var r2=0; r2<Math.min(rows, 20); r2++){
+      if (table[r2][0]) firstCol.push(table[r2][0]);
+    }
+    if (firstCol.length > 3){
+      var shortRatio = firstCol.filter(function(v){ return v.length < 30; }).length/firstCol.length;
+      if (shortRatio > 0.7) score += 8;
+    }
+  }
+
+  return score;
+}
+
+/* ============================================================
+   OCR WORKER
    ============================================================ */
 async function ensureWorker(lang){
   if (worker && workerLang === lang) return worker;
-  if (worker){ try { await worker.terminate(); } catch(e){} worker = null; }
-  worker = await Tesseract.createWorker(lang, 1, {
-    logger: function(m){
-      if (m.status === "loading language traineddata" || m.status === "loading tesseract core") setProgress(8, "Loading OCR engine");
-      else if (m.status === "initializing api") setProgress(14, "Preparing engine");
-      else if (m.status === "recognizing text"){
-        var p = 25 + Math.round((m.progress || 0) * 65);
-        setProgress(p, "Reading image");
-      }
-    }
-  });
-  try {
-    // PSM 6 = assume single uniform block of text (good default)
-    await worker.setParameters({ tessedit_pageseg_mode: "6" });
-  } catch(e){}
+  if (worker){ try { await worker.terminate(); } catch(e){} worker=null; }
+  worker = await Tesseract.createWorker(lang, 1);
   workerLang = lang;
   return worker;
+}
+
+async function ocrWith(dataUrl, psm, lang){
+  await ensureWorker(lang);
+  try { await worker.setParameters({ tessedit_pageseg_mode: String(psm) }); } catch(e){}
+  var ret = await worker.recognize(dataUrl);
+  return (ret.data && ret.data.words) ? ret.data.words : [];
+}
+
+/* ============================================================
+   RECIPES — the four attempts
+   ============================================================ */
+function getRecipes(){
+  var forceCols = parseInt(colOverride.value, 10) || 0;
+  return [
+    { id:"a", label:"Standard", desc:"Original image, single block", auto:true, autoInvert:true, binarize:false, upscale:false, psm:6, forceCols:forceCols, minConf:35, colGap:3.5, rowTol:0.55 },
+    { id:"b", label:"High contrast", desc:"Binarised, single block", auto:true, autoInvert:true, binarize:true, upscale:false, psm:6, forceCols:forceCols, minConf:40, colGap:4, rowTol:0.5 },
+    { id:"c", label:"Sparse text", desc:"For scattered layouts", auto:true, autoInvert:true, binarize:false, upscale:false, psm:11, forceCols:forceCols, minConf:30, colGap:3, rowTol:0.65 },
+    { id:"d", label:"Upscaled 2×", desc:"For small or low-res images", auto:true, autoInvert:true, binarize:true, upscale:true, psm:6, forceCols:forceCols, minConf:40, colGap:4.5, rowTol:0.5 }
+  ];
+}
+
+/* ============================================================
+   CONVERT — runs recipes, keeps best
+   ============================================================ */
+async function convertSource(source, recipes, only){
+  var lang = langSel.value;
+  var attempts = [];
+  var best = null, bestScore = -Infinity;
+
+  for (var i=0; i<recipes.length; i++){
+    if (cancelled) return null;
+    var rec = recipes[i];
+    if (only && only.indexOf(rec.id) === -1) continue;
+
+    setStatus("busy", "Analysing…", rec.label + " — pass " + (i+1) + " of " + recipes.length);
+
+    var processed;
+    try {
+      processed = await processImage(source.dataUrl, rec);
+    } catch (e){ continue; }
+
+    var words;
+    try {
+      words = await ocrWith(processed.dataUrl, rec.psm, lang);
+    } catch (e){ continue; }
+
+    var table = wordsToTable(words, rec);
+    table = cleanup(table);
+    table = trimEmpty(table);
+    if (!table || !table.length || !table[0].length) continue;
+
+    var sc = scoreTable(table);
+    attempts.push({
+      id: rec.id,
+      label: rec.label,
+      desc: rec.desc,
+      table: table,
+      score: sc,
+      processedUrl: processed.dataUrl,
+      inverted: processed.inverted,
+      grid: { rows: table._rowY || [], cols: table._colX || [] }
+    });
+
+    if (sc > bestScore){
+      bestScore = sc;
+      best = attempts[attempts.length-1];
+    }
+  }
+
+  source.attempts = attempts;
+  source.activeAttemptId = best ? best.id : null;
+  source.table = best ? best.table : null;
+  source.wordData = null;  // not needed for viewer
+  source.grid = best ? best.grid : { rows:[], cols:[] };
+  source.processedUrl = best ? best.processedUrl : null;
+  source.inverted = best ? best.inverted : false;
+  return best;
 }
 
 /* ============================================================
@@ -1083,35 +1001,44 @@ addMoreInput.addEventListener("change", function(){
   addMoreInput.value = "";
 });
 
+// Paste support
+document.addEventListener("paste", function(e){
+  var items = e.clipboardData && e.clipboardData.items;
+  if (!items) return;
+  var files = [];
+  for (var i=0; i<items.length; i++){
+    if (items[i].type.indexOf("image") === 0){
+      var f = items[i].getAsFile();
+      if (f) files.push(f);
+    }
+  }
+  if (files.length) handleFiles(files);
+});
+
 function handleFiles(files){
   var arr = Array.prototype.slice.call(files).filter(function(f){ return /^image\//.test(f.type); });
   if (!arr.length) return flash("Please choose image files", "warn");
   if (sources.length + arr.length > 20) arr = arr.slice(0, 20 - sources.length);
 
-  var pending = arr.length, readCount = 0;
+  var pending = arr.length, done = 0;
   arr.forEach(function(file){
     var reader = new FileReader();
     reader.onload = function(){
       var img = new Image();
       img.onload = function(){
         sources.push({
-          id: uid(), file: file, name: file.name, size: file.size,
+          id: uid(), name: file.name, size: file.size,
           dataUrl: reader.result,
           width: img.width, height: img.height,
-          processedDataUrl: null, table: null, wordData: null, grid: null, inverted: false
+          attempts: null, activeAttemptId: null, table: null,
+          grid: { rows:[], cols:[] }, processedUrl: null, inverted: false
         });
-        readCount++;
-        if (readCount === pending){
-          enterWorkspace();
-          renderSourceList();
-          renderImage();
-          renderTable();
-          flash(arr.length + (arr.length===1?" image loaded":" images loaded"));
-        }
+        done++;
+        if (done === pending) onAllLoaded();
       };
       img.onerror = function(){
-        readCount++;
-        if (readCount === pending){ enterWorkspace(); renderSourceList(); }
+        done++;
+        if (done === pending) onAllLoaded();
       };
       img.src = reader.result;
     };
@@ -1119,10 +1046,74 @@ function handleFiles(files){
   });
 }
 
-function enterWorkspace(){
+async function onAllLoaded(){
   intake.style.display = "none";
   workspace.classList.add("show");
   if (!activeSourceId && sources.length) activeSourceId = sources[0].id;
+  renderSourceList();
+  renderImage();
+  renderTable();
+  updateStats();
+
+  // Auto-convert the first unconverted source
+  var firstNew = sources.find(function(s){ return !s.attempts; });
+  if (firstNew){
+    setStatus("busy", "Reading table…", "This usually takes 3–8 seconds.");
+    await convertSource(firstNew, getRecipes());
+    renderSourceList();
+    if (activeSourceId === firstNew.id){
+      renderImage();
+      renderTable();
+    }
+    finalizeStatus(firstNew);
+  }
+}
+
+function finalizeStatus(source){
+  if (!source.attempts || !source.attempts.length){
+    setStatus("bad", "No table detected",
+      "Try a clearer image, or use the image-to-text tool for plain text.",
+      [
+        { label:"Try harder", primary:true, onClick: function(){ retrySource(source); } },
+        { label:"Reset", onClick: function(){ resetAll(); } }
+      ]);
+    return;
+  }
+
+  var best = source.attempts.find(function(a){ return a.id === source.activeAttemptId; }) || source.attempts[0];
+  var score = best.score;
+
+  if (score >= 55){
+    setStatus("good", "Looks good",
+      "The table looks clean. Review a few cells if you like, then export.");
+  } else if (score >= 30){
+    setStatus("warn", "Review a few cells",
+      "Detection is decent but not perfect. Check the highlighted cells.",
+      [
+        { label:"See other attempts", primary:true, onClick: function(){ focusPassPanel(); } }
+      ]);
+  } else {
+    setStatus("warn", "Hard image",
+      "Try a different attempt below, or set the column count manually.",
+      [
+        { label:"See attempts", primary:true, onClick: function(){ focusPassPanel(); } }
+      ]);
+  }
+  updatePassPanel();
+}
+
+function focusPassPanel(){
+  passPanel.hidden = false;
+  passPanel.scrollIntoView({ behavior:"smooth", block:"nearest" });
+}
+
+async function retrySource(source){
+  cancelled = false;
+  setStatus("busy", "Trying harder…", "Running all passes again.");
+  await convertSource(source, getRecipes());
+  renderSourceList(); renderImage(); renderTable();
+  finalizeStatus(source);
+  flash("Done");
 }
 
 /* ============================================================
@@ -1134,10 +1125,8 @@ function renderSourceList(){
   sources.forEach(function(s, idx){
     var li = document.createElement("li");
     li.className = "source-item" + (s.id === activeSourceId ? " active" : "");
-    li.dataset.id = s.id;
     var meta = bytes(s.size);
-    if (s.table && s.table.length) meta += " · " + s.table.length + "×" + (s.table[0] ? s.table[0].length : 0);
-    if (s.inverted) meta += " · inverted";
+    if (s.table && s.table.length) meta += " · " + s.table.length + "×" + (s.table[0]?s.table[0].length:0);
     li.innerHTML =
       '<span class="num">' + (idx+1) + '</span>' +
       '<span class="thumb"><img src="' + s.dataUrl + '" alt=""></span>' +
@@ -1145,148 +1134,35 @@ function renderSourceList(){
         '<span class="name" title="' + esc(s.name) + '">' + esc(s.name) + '</span>' +
         '<span class="meta">' + meta + '</span>' +
       '</span>' +
-      '<button class="remove" type="button" title="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>';
+      '<button class="remove" title="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>';
     li.addEventListener("click", function(e){
       if (e.target.closest(".remove")) return;
       activeSourceId = s.id;
-      renderSourceList();
-      renderImage();
-      renderTable();
+      renderSourceList(); renderImage(); renderTable(); updateStats(); updatePassPanel();
+      if (s.attempts) finalizeStatus(s);
     });
     li.querySelector(".remove").addEventListener("click", function(e){
       e.stopPropagation();
-      removeSource(s.id);
+      sources = sources.filter(function(x){ return x.id !== s.id; });
+      if (activeSourceId === s.id) activeSourceId = sources.length ? sources[0].id : null;
+      if (!sources.length){
+        workspace.classList.remove("show");
+        intake.style.display = "block";
+        setStatus("info", "Ready", "Drop an image to begin.");
+        passPanel.hidden = true;
+        updateStats(); updateDownloads();
+        return;
+      }
+      renderSourceList(); renderImage(); renderTable(); updateStats(); updateDownloads(); updatePassPanel();
     });
     sourceList.appendChild(li);
   });
-  downloadXlsx.disabled = !sources.some(function(s){ return s.table && s.table.length; });
-  downloadJson.disabled = downloadXlsx.disabled;
-  updateActiveDownloads();
-  updateUndoRedo();
-  updateStats();
+  updateDownloads();
 }
-function removeSource(id){
-  sources = sources.filter(function(s){ return s.id !== id; });
-  if (activeSourceId === id) activeSourceId = sources.length ? sources[0].id : null;
-  if (!sources.length){
-    workspace.classList.remove("show");
-    intake.style.display = "block";
-    setProgress(null);
-    return;
-  }
-  renderSourceList(); renderImage(); renderTable();
-}
+
 function getActive(){
   return sources.find(function(s){ return s.id === activeSourceId; }) || null;
 }
-function updateActiveDownloads(){
-  var s = getActive();
-  var has = s && s.table && s.table.length;
-  downloadCsv.disabled = !has;
-  downloadTsv.disabled = !has;
-}
-
-/* ============================================================
-   VIEW TABS
-   ============================================================ */
-viewTabs.forEach(function(tab){
-  tab.addEventListener("click", function(){ setView(tab.dataset.view); });
-});
-function setView(v){
-  currentView = v;
-  viewTabs.forEach(function(t){
-    t.setAttribute("aria-selected", t.dataset.view === v ? "true" : "false");
-  });
-  Object.keys(viewPanels).forEach(function(k){
-    if (viewPanels[k]) viewPanels[k].classList.toggle("active", k === v);
-  });
-  if (v === "image") renderImage();
-  if (v === "table") renderTable();
-}
-
-/* ============================================================
-   CONVERT
-   ============================================================ */
-convertBtn.addEventListener("click", function(){
-  if (!sources.length) return flash("Load images first", "warn");
-  if (!window.Tesseract) return flash("OCR library did not load", "err");
-  convertBtn.disabled = true;
-  setProgress(2, "Starting");
-
-  (async function(){
-    try {
-      var lang = langSel.value;
-      var opts = {
-        auto: optAuto.checked,
-        autoInvert: optAutoInvert.checked,
-        grid: optGrid.checked,
-        deskew: optDeskew.checked,
-        upscale: optUpscale.checked
-      };
-
-      setProgress(4, "Loading engine");
-      await ensureWorker(lang);
-
-      for (var i = 0; i < sources.length; i++){
-        var s = sources[i];
-        setProgress(20, "Image " + (i+1) + " of " + sources.length);
-        await delay(0);
-
-        // Preprocess
-        var pre = await preprocess(s.dataUrl, opts);
-        s.processedDataUrl = pre.dataUrl;
-        s.inverted = pre.inverted;
-
-        // Detect grid lines on the processed (possibly inverted) image
-        var grid = { rows: [], cols: [] };
-        if (opts.grid){
-          grid = await detectGrid(pre.dataUrl);
-        }
-        s.grid = grid;
-
-        // OCR
-        var ret = await worker.recognize(pre.dataUrl);
-        var words = (ret.data && ret.data.words) ? ret.data.words : [];
-        s.wordData = words;
-
-        // Build table — grid-based if possible, else clustering
-        var table = null;
-        if (grid.rows.length >= 2 && grid.cols.length >= 2){
-          table = gridToTable(words, grid);
-        }
-        if (!table || !table.length || table.every(function(r){ return r.every(function(c){ return !c; }); })){
-          table = clusterToTable(words);
-        }
-
-        table = cleanupTable(table);
-        table = trimEmpty(table);
-
-        if (table && table.length && table[0] && table[0].length){
-          s.table = table;
-          undoStack = undoStack.filter(function(e){ return e.sourceId !== s.id; });
-          redoStack = redoStack.filter(function(e){ return e.sourceId !== s.id; });
-        } else {
-          s.table = null;
-        }
-
-        var pct = 20 + Math.round(((i+1) / sources.length) * 75);
-        setProgress(pct, "Image " + (i+1) + " done");
-      }
-
-      setProgress(100, "Complete");
-      renderSourceList(); renderImage(); renderTable();
-      updateStats();
-      flash("Converted " + sources.length + " image" + (sources.length===1?"":"s"));
-      setTimeout(function(){ setProgress(null); }, 1000);
-    } catch (err){
-      console.error(err);
-      flash("Conversion failed: " + (err.message || "unknown"), "err");
-      setProgress(null);
-    } finally {
-      convertBtn.disabled = false;
-    }
-  })();
-});
 
 /* ============================================================
    IMAGE VIEW
@@ -1294,15 +1170,14 @@ convertBtn.addEventListener("click", function(){
 function renderImage(){
   var s = getActive();
   if (!s){
-    imageStage.innerHTML = '<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><h3>No image selected</h3><p>Add images on the left.</p></div>';
+    imageStage.innerHTML = '<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><h3>No image</h3><p>Add an image on the left.</p></div>';
     return;
   }
   imageStage.innerHTML = "";
-
   var wrap = document.createElement("div");
   wrap.className = "image-wrap";
   var img = document.createElement("img");
-  img.src = s.processedDataUrl || s.dataUrl;
+  img.src = s.processedUrl || s.dataUrl;
   img.alt = s.name;
   img.draggable = false;
   wrap.appendChild(img);
@@ -1310,24 +1185,22 @@ function renderImage(){
   var overlay = document.createElement("div");
   overlay.className = "image-overlay";
   wrap.appendChild(overlay);
-
   imageStage.appendChild(wrap);
 
-  // Draw grid lines from detected grid
   if (s.grid && (s.grid.rows.length || s.grid.cols.length)){
     requestAnimationFrame(function(){
-      var scaleX = img.clientWidth / img.naturalWidth;
-      var scaleY = img.clientHeight / img.naturalHeight;
+      var sx = img.clientWidth / img.naturalWidth;
+      var sy = img.clientHeight / img.naturalHeight;
       s.grid.rows.forEach(function(y){
         var line = document.createElement("div");
         line.className = "grid-line h";
-        line.style.top = (y * scaleY) + "px";
+        line.style.top = (y*sy) + "px";
         overlay.appendChild(line);
       });
       s.grid.cols.forEach(function(x){
         var line = document.createElement("div");
         line.className = "grid-line v";
-        line.style.left = (x * scaleX) + "px";
+        line.style.left = (x*sx) + "px";
         overlay.appendChild(line);
       });
     });
@@ -1340,47 +1213,38 @@ function renderImage(){
 function renderTable(){
   var s = getActive();
   if (!s || !s.table || !s.table.length){
-    tableStage.innerHTML = '<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg><h3>' + (s ? "No table detected" : "No image selected") + '</h3><p>' + (s ? "Try different preprocessing or a clearer image." : "Add images on the left.") + '</p></div>';
+    tableStage.innerHTML = '<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg><h3>' + (s ? "No table detected" : "Waiting for an image") + '</h3><p>' + (s ? "Try a different OCR pass on the left." : "Drop an image to begin.") + '</p></div>';
     return;
   }
 
   tableStage.innerHTML = "";
   var table = document.createElement("table");
   table.className = "excel-table";
-
   var t = s.table;
   var cols = t[0] ? t[0].length : 0;
 
   var thead = document.createElement("thead");
   var htr = document.createElement("tr");
-  var corner = document.createElement("th");
-  corner.className = "row-header";
+  var corner = document.createElement("th"); corner.className = "row-header";
   htr.appendChild(corner);
-  for (var c = 0; c < cols; c++){
-    var th = document.createElement("th");
-    th.textContent = colLetter(c);
-    htr.appendChild(th);
+  for (var c=0; c<cols; c++){
+    var th = document.createElement("th"); th.textContent = colLetter(c); htr.appendChild(th);
   }
-  thead.appendChild(htr);
-  table.appendChild(thead);
+  thead.appendChild(htr); table.appendChild(thead);
 
   var tbody = document.createElement("tbody");
-  for (var r = 0; r < t.length; r++){
+  for (var r=0; r<t.length; r++){
     var tr = document.createElement("tr");
-    var rnum = document.createElement("td");
-    rnum.className = "rownum";
-    rnum.textContent = (r+1);
-    tr.appendChild(rnum);
-    for (var c2 = 0; c2 < cols; c2++){
+    var rn = document.createElement("td"); rn.className = "rownum"; rn.textContent = (r+1); tr.appendChild(rn);
+    for (var c2=0; c2<cols; c2++){
       var td = document.createElement("td");
       td.className = "cell";
-      td.dataset.r = r;
-      td.dataset.c = c2;
-      td.dataset.sourceId = s.id;
+      td.dataset.r = r; td.dataset.c = c2;
       var val = t[r][c2] == null ? "" : t[r][c2];
       td.textContent = val;
       applyCellType(td, val);
       if (!val) td.classList.add("empty");
+      if (t._confs && t._confs[r] && t._confs[r][c2] !== undefined && t._confs[r][c2] < 0.6 && val) td.classList.add("lowconf");
       td.addEventListener("click", function(){ selectCell(this); });
       td.addEventListener("dblclick", function(){ editCell(this); });
       td.addEventListener("contextmenu", function(e){ openCtxMenu(e, this); });
@@ -1397,15 +1261,10 @@ function renderTable(){
     if (selectedCell.sourceId === s.id){
       var td = tableStage.querySelector('.cell[data-r="'+selectedCell.r+'"][data-c="'+selectedCell.c+'"]');
       if (td) td.classList.add("selected");
-      else {
-        selectedCell = { r:0, c:0, sourceId: s.id };
-        var td2 = tableStage.querySelector('.cell[data-r="0"][data-c="0"]');
-        if (td2) td2.classList.add("selected");
-      }
     } else {
       selectedCell = { r:0, c:0, sourceId: s.id };
-      var td3 = tableStage.querySelector('.cell[data-r="0"][data-c="0"]');
-      if (td3) td3.classList.add("selected");
+      var t0 = tableStage.querySelector('.cell[data-r="0"][data-c="0"]');
+      if (t0) t0.classList.add("selected");
     }
   });
 }
@@ -1414,7 +1273,7 @@ function applyCellType(td, val){
   if (!val) return;
   var v = String(val).trim();
   if (/^-?[\d,]+(\.\d+)?$/.test(v)) td.classList.add("num");
-  else if (/^\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4}$/.test(v)) td.classList.add("date");
+  else if (/^\d{1,2}[\/\-.]\d{1,2}[\/\-.]\d{2,4}$/.test(v)) td.classList.add("date");
   else if (/^\d{4}-\d{2}-\d{2}$/.test(v)) td.classList.add("date");
 }
 
@@ -1431,55 +1290,55 @@ function editCell(td){
   if (editingCell) commitEdit(editingCell);
   editingCell = td;
   td.classList.add("editing");
-  td.setAttribute("contenteditable", "true");
+  td.setAttribute("contenteditable","true");
   td.focus();
   var range = document.createRange();
   range.selectNodeContents(td);
   var sel = window.getSelection();
-  sel.removeAllRanges();
-  sel.addRange(range);
+  sel.removeAllRanges(); sel.addRange(range);
 }
 function commitEdit(td){
   if (!td) return;
   td.classList.remove("editing");
   td.removeAttribute("contenteditable");
-  var s = sources.find(function(x){ return x.id === td.dataset.sourceId; });
+  var s = sources.find(function(x){ return x.id === activeSourceId; });
   if (!s || !s.table) return;
   var r = parseInt(td.dataset.r,10), c = parseInt(td.dataset.c,10);
   var newVal = td.textContent.trim();
   var oldVal = s.table[r] ? s.table[r][c] : "";
-  if (newVal === oldVal){ if (!newVal) td.classList.add("empty"); editingCell = null; return; }
-  pushUndo(s.id, { type: "cell", r: r, c: c, before: oldVal, after: newVal });
+  if (newVal === oldVal){ if (!newVal) td.classList.add("empty"); editingCell=null; return; }
+  pushUndo({ r:r, c:c, before:oldVal, after:newVal, sourceId: s.id });
   s.table[r][c] = newVal;
   applyCellType(td, newVal);
   td.classList.toggle("empty", !newVal);
+  td.classList.remove("lowconf");
   if (editingCell === td) editingCell = null;
   updateStats();
 }
 function handleCellKey(e){
   var td = e.currentTarget;
   var r = parseInt(td.dataset.r,10), c = parseInt(td.dataset.c,10);
-  var s = sources.find(function(x){ return x.id === td.dataset.sourceId; });
+  var s = sources.find(function(x){ return x.id === activeSourceId; });
   if (!s || !s.table) return;
 
   if (td.classList.contains("editing")){
     if (e.key === "Escape"){ e.preventDefault(); td.textContent = s.table[r][c]; commitEdit(td); return; }
-    if (e.key === "Enter" && !e.shiftKey){ e.preventDefault(); commitEdit(td); focusCell(td.dataset.sourceId, r+1, c); return; }
-    if (e.key === "Tab"){ e.preventDefault(); commitEdit(td); focusCell(td.dataset.sourceId, r, c + (e.shiftKey?-1:1)); return; }
+    if (e.key === "Enter" && !e.shiftKey){ e.preventDefault(); commitEdit(td); focusCell(r+1, c); return; }
+    if (e.key === "Tab"){ e.preventDefault(); commitEdit(td); focusCell(r, c + (e.shiftKey?-1:1)); return; }
     return;
   }
 
   var handled = true;
   switch (e.key){
-    case "ArrowUp": focusCell(td.dataset.sourceId, r-1, c); break;
-    case "ArrowDown": focusCell(td.dataset.sourceId, r+1, c); break;
-    case "ArrowLeft": focusCell(td.dataset.sourceId, r, c-1); break;
-    case "ArrowRight": focusCell(td.dataset.sourceId, r, c+1); break;
-    case "Tab": focusCell(td.dataset.sourceId, r, c + (e.shiftKey?-1:1)); break;
-    case "Enter": focusCell(td.dataset.sourceId, r+1, c); break;
+    case "ArrowUp": focusCell(r-1, c); break;
+    case "ArrowDown": focusCell(r+1, c); break;
+    case "ArrowLeft": focusCell(r, c-1); break;
+    case "ArrowRight": focusCell(r, c+1); break;
+    case "Tab": focusCell(r, c + (e.shiftKey?-1:1)); break;
+    case "Enter": focusCell(r+1, c); break;
     case "Delete": case "Backspace":
-      pushUndo(s.id, { type: "cell", r: r, c: c, before: s.table[r][c], after: "" });
-      s.table[r][c] = ""; td.textContent = ""; td.classList.add("empty"); updateStats();
+      pushUndo({ r:r, c:c, before:s.table[r][c], after:"", sourceId:s.id });
+      s.table[r][c] = ""; td.textContent=""; td.classList.add("empty"); updateStats();
       break;
     case "F2": editCell(td); break;
     default:
@@ -1491,16 +1350,15 @@ function handleCellKey(e){
         range.selectNodeContents(td);
         range.collapse(false);
         var sel = window.getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
+        sel.removeAllRanges(); sel.addRange(range);
         return;
       }
       handled = false;
   }
   if (handled) e.preventDefault();
 }
-function focusCell(sourceId, r, c){
-  var s = sources.find(function(x){ return x.id === sourceId; });
+function focusCell(r, c){
+  var s = getActive();
   if (!s || !s.table) return;
   var maxR = s.table.length - 1;
   var maxC = (s.table[0] ? s.table[0].length : 0) - 1;
@@ -1513,8 +1371,7 @@ function focusCell(sourceId, r, c){
 /* ============================================================
    UNDO / REDO
    ============================================================ */
-function pushUndo(sourceId, entry){
-  entry.sourceId = sourceId;
+function pushUndo(entry){
   undoStack.push(entry);
   if (undoStack.length > MAX_UNDO) undoStack.shift();
   redoStack = [];
@@ -1524,32 +1381,23 @@ function updateUndoRedo(){
   undoBtn.disabled = !undoStack.length;
   redoBtn.disabled = !redoStack.length;
 }
-function applyEntry(entry, dir){
-  var s = sources.find(function(x){ return x.id === entry.sourceId; });
-  if (!s || !s.table) return;
-  var val = dir === -1 ? entry.before : entry.after;
-  if (entry.type === "cell"){ if (!s.table[entry.r]) s.table[entry.r] = []; s.table[entry.r][entry.c] = val; }
-  else if (entry.type === "row"){ if (dir === -1) s.table.splice(entry.r, 1); else s.table.splice(entry.r, 0, entry.row); }
-  else if (entry.type === "rowDelete"){ if (dir === -1) s.table.splice(entry.r, 0, entry.row); else s.table.splice(entry.r, 1); }
-  else if (entry.type === "col"){ s.table.forEach(function(row){ if (dir === -1) row.splice(entry.c, 1); else row.splice(entry.c, 0, ""); }); }
-  else if (entry.type === "colDelete"){ s.table.forEach(function(row){ if (dir === -1) row.splice(entry.c, 0, entry.col[row._i]||""); else row.splice(entry.c, 1); }); }
-  renderSourceList(); renderTable(); renderImage(); updateStats();
-}
 undoBtn.addEventListener("click", function(){
   if (!undoStack.length) return;
   var e = undoStack.pop();
   redoStack.push(e);
-  applyEntry(e, -1);
+  var s = sources.find(function(x){ return x.id === e.sourceId; });
+  if (s && s.table){ s.table[e.r][e.c] = e.before; }
+  renderTable(); updateStats();
   updateUndoRedo();
-  flash("Undone");
 });
 redoBtn.addEventListener("click", function(){
   if (!redoStack.length) return;
   var e = redoStack.pop();
   undoStack.push(e);
-  applyEntry(e, 1);
+  var s = sources.find(function(x){ return x.id === e.sourceId; });
+  if (s && s.table){ s.table[e.r][e.c] = e.after; }
+  renderTable(); updateStats();
   updateUndoRedo();
-  flash("Redone");
 });
 
 /* ============================================================
@@ -1570,33 +1418,123 @@ document.addEventListener("click", function(e){ if (!e.target.closest("#ctxMenu"
 ctxMenu.addEventListener("click", function(e){
   var btn = e.target.closest(".ctx-item");
   if (!btn || !ctxTarget) return;
-  var s = sources.find(function(x){ return x.id === ctxTarget.dataset.sourceId; });
+  var s = getActive();
   if (!s || !s.table) return;
   var r = parseInt(ctxTarget.dataset.r,10), c = parseInt(ctxTarget.dataset.c,10);
   var cols = s.table[0] ? s.table[0].length : 0;
   var action = btn.dataset.action;
 
-  if (action === "insert-row-above"){ s.table.splice(r, 0, new Array(cols).fill("")); pushUndo(s.id, { type:"row", r:r, row:new Array(cols).fill("") }); }
-  else if (action === "insert-row-below"){ s.table.splice(r+1, 0, new Array(cols).fill("")); pushUndo(s.id, { type:"row", r:r+1, row:new Array(cols).fill("") }); }
-  else if (action === "insert-col-left"){ s.table.forEach(function(row){ row.splice(c, 0, ""); }); pushUndo(s.id, { type:"col", c:c }); }
-  else if (action === "insert-col-right"){ s.table.forEach(function(row){ row.splice(c+1, 0, ""); }); pushUndo(s.id, { type:"col", c:c+1 }); }
-  else if (action === "clear-cell"){ pushUndo(s.id, { type:"cell", r:r, c:c, before:s.table[r][c], after:"" }); s.table[r][c] = ""; }
-  else if (action === "delete-row"){ if (s.table.length <= 1) return flash("Cannot delete the only row", "warn"); pushUndo(s.id, { type:"rowDelete", r:r, row:s.table[r].slice() }); s.table.splice(r, 1); }
-  else if (action === "delete-col"){ if (cols <= 1) return flash("Cannot delete the only column", "warn"); var col = s.table.map(function(row){ return row[c]; }); pushUndo(s.id, { type:"colDelete", c:c, col:col }); s.table.forEach(function(row){ row.splice(c, 1); }); }
+  if (action === "insert-row-above"){ s.table.splice(r, 0, new Array(cols).fill("")); }
+  else if (action === "insert-row-below"){ s.table.splice(r+1, 0, new Array(cols).fill("")); }
+  else if (action === "insert-col-left"){ s.table.forEach(function(row){ row.splice(c, 0, ""); }); }
+  else if (action === "insert-col-right"){ s.table.forEach(function(row){ row.splice(c+1, 0, ""); }); }
+  else if (action === "delete-row"){ if (s.table.length<=1) return flash("Cannot delete the only row","warn"); s.table.splice(r,1); }
+  else if (action === "delete-col"){ if (cols<=1) return flash("Cannot delete the only column","warn"); s.table.forEach(function(row){ row.splice(c,1); }); }
 
   ctxMenu.classList.remove("open");
   renderSourceList(); renderTable(); updateStats();
 });
 
 /* ============================================================
+   PASS PANEL
+   ============================================================ */
+function updatePassPanel(){
+  var s = getActive();
+  if (!s || !s.attempts || s.attempts.length < 2){
+    passPanel.hidden = true;
+    return;
+  }
+  passPanel.hidden = false;
+  passList.innerHTML = "";
+  s.attempts.sort(function(a,b){ return b.score - a.score; });
+  s.attempts.forEach(function(a, i){
+    var li = document.createElement("div");
+    li.className = "pass-item" + (a.id === s.activeAttemptId ? " active" : "");
+    li.innerHTML =
+      '<span class="pnum">' + (i+1) + '</span>' +
+      '<span class="pinfo">' +
+        '<span class="plabel">' + esc(a.label) + '</span>' +
+        '<span class="pscore">Score ' + Math.round(a.score) + ' · ' + a.table.length + '×' + (a.table[0]?a.table[0].length:0) + '</span>' +
+      '</span>';
+    li.addEventListener("click", function(){
+      s.activeAttemptId = a.id;
+      s.table = a.table;
+      s.grid = a.grid;
+      s.processedUrl = a.processedUrl;
+      s.inverted = a.inverted;
+      renderSourceList(); renderImage(); renderTable(); updateStats(); updatePassPanel();
+      finalizeStatus(s);
+    });
+    passList.appendChild(li);
+  });
+}
+
+/* ============================================================
    STATS
    ============================================================ */
 function updateStats(){
   var s = getActive();
-  if (!s || !s.table || !s.table.length){ tableStats.textContent = "0 rows × 0 cols"; return; }
-  tableStats.textContent = s.table.length + " rows × " + (s.table[0] ? s.table[0].length : 0) + " cols";
+  if (!s || !s.table || !s.table.length){
+    tableStats.textContent = "0 rows × 0 cols";
+    return;
+  }
+  tableStats.textContent = s.table.length + " rows × " + (s.table[0]?s.table[0].length:0) + " cols";
+  updateDownloads();
 }
-updateActiveDownloads();
+function updateDownloads(){
+  var s = getActive();
+  var has = s && s.table && s.table.length;
+  var any = sources.some(function(x){ return x.table && x.table.length; });
+  downloadCsv.disabled = !has;
+  downloadTsv.disabled = !has;
+  downloadXlsx.disabled = !any;
+  downloadJson.disabled = !any;
+}
+
+/* ============================================================
+   VIEW TABS
+   ============================================================ */
+viewTabs.forEach(function(tab){
+  tab.addEventListener("click", function(){
+    var v = tab.dataset.view;
+    currentView = v;
+    viewTabs.forEach(function(t){ t.setAttribute("aria-selected", t.dataset.view === v ? "true" : "false"); });
+    Object.keys(viewPanels).forEach(function(k){
+      if (viewPanels[k]) viewPanels[k].classList.toggle("active", k === v);
+    });
+    if (v === "image") renderImage();
+    if (v === "table") renderTable();
+  });
+});
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+tryAgainBtn.addEventListener("click", function(){
+  var s = getActive();
+  if (!s) return;
+  tryAgainBtn.disabled = true;
+  retrySource(s).finally(function(){ tryAgainBtn.disabled = false; });
+});
+
+resetBtn.addEventListener("click", function(){
+  if (!confirm("Discard all images and start over?")) return;
+  sources = [];
+  activeSourceId = null;
+  undoStack = []; redoStack = [];
+  workspace.classList.remove("show");
+  intake.style.display = "block";
+  passPanel.hidden = true;
+  setStatus("info", "Ready", "Drop an image to begin.");
+  updateUndoRedo();
+});
+
+/* Enable "try again" whenever a source exists */
+var origRenderSourceList = renderSourceList;
+renderSourceList = function(){
+  origRenderSourceList();
+  tryAgainBtn.disabled = !sources.length;
+};
 
 /* ============================================================
    EXPORT
@@ -1611,28 +1549,28 @@ downloadXlsx.addEventListener("click", function(){
       var ws = XLSX.utils.aoa_to_sheet(s.table);
       var cols = s.table[0] ? s.table[0].length : 0;
       var widths = [];
-      for (var c = 0; c < cols; c++){
+      for (var c=0; c<cols; c++){
         var max = 8;
-        for (var r = 0; r < s.table.length; r++){
+        for (var r=0; r<s.table.length; r++){
           var v = s.table[r][c];
           var len = v ? String(v).length : 0;
           if (len > max) max = Math.min(60, len);
         }
-        widths.push({ wch: max + 2 });
+        widths.push({ wch: max+2 });
       }
       ws["!cols"] = widths;
-      var name = (s.name || "Sheet").replace(/\.[^.]+$/,"").slice(0,28).replace(/[\[\]\*\?\/\\]/g,"_") || ("Sheet"+(idx+1));
+      var name = (s.name || "Sheet").replace(/\.[^.]+$/,"").slice(0,28).replace(/[\[\]*?\/\\]/g,"_") || ("Sheet"+(idx+1));
       XLSX.utils.book_append_sheet(wb, ws, name);
     });
-    var base = sheets.length === 1 ? (sheets[0].name.replace(/\.[^.]+$/,"") || "image-table") : "image-tables";
+    var base = sheets.length===1 ? (sheets[0].name.replace(/\.[^.]+$/,"")||"image-table") : "image-tables";
     XLSX.writeFile(wb, base + ".xlsx");
     flash("Exported " + sheets.length + " sheet" + (sheets.length===1?"":"s"));
-  } catch (err){ flash("Export failed: " + (err.message||"unknown"), "err"); }
+  } catch (err){ flash("Export failed", "err"); }
 });
 downloadCsv.addEventListener("click", function(){
   var s = getActive();
   if (!s || !s.table) return flash("No table", "warn");
-  downloadBlob(toDelim(s.table, ","), (s.name.replace(/\.[^.]+$/,"")||"table") + ".csv", "text/csv");
+  downloadBlob(toDelim(s.table, ","), (s.name.replace(/\.[^.]+$/,"")||"table")+".csv", "text/csv");
   flash("CSV downloaded");
 });
 downloadTsv.addEventListener("click", function(){
@@ -1641,9 +1579,9 @@ downloadTsv.addEventListener("click", function(){
   var tsv = toDelim(s.table, "\t");
   if (navigator.clipboard && navigator.clipboard.writeText){
     navigator.clipboard.writeText(tsv).then(function(){ flash("TSV copied to clipboard"); })
-      .catch(function(){ downloadBlob(tsv, (s.name.replace(/\.[^.]+$/,"")||"table") + ".tsv", "text/tab-separated-values"); flash("TSV downloaded"); });
+      .catch(function(){ downloadBlob(tsv, (s.name.replace(/\.[^.]+$/,"")||"table")+".tsv", "text/tab-separated-values"); flash("TSV downloaded"); });
   } else {
-    downloadBlob(tsv, (s.name.replace(/\.[^.]+$/,"")||"table") + ".tsv", "text/tab-separated-values");
+    downloadBlob(tsv, (s.name.replace(/\.[^.]+$/,"")||"table")+".tsv", "text/tab-separated-values");
     flash("TSV downloaded");
   }
 });
@@ -1653,7 +1591,7 @@ downloadJson.addEventListener("click", function(){
   var payload = sheets.map(function(s){
     var cols = s.table[0] ? s.table[0].length : 0;
     var headers = [];
-    for (var c = 0; c < cols; c++) headers.push(colLetter(c));
+    for (var c=0; c<cols; c++) headers.push(colLetter(c));
     var rows = s.table.map(function(row){
       var obj = {};
       headers.forEach(function(h, i){ obj[h] = row[i] == null ? "" : row[i]; });
@@ -1665,41 +1603,25 @@ downloadJson.addEventListener("click", function(){
   flash("JSON downloaded");
 });
 function toDelim(table, d){
-  function esc(v){
+  function e(v){
     if (v == null) return "";
     var s = String(v);
     if (s.indexOf(d) > -1 || s.indexOf('"') > -1 || s.indexOf("\n") > -1) return '"' + s.replace(/"/g,'""') + '"';
     return s;
   }
-  return table.map(function(row){ return row.map(esc).join(d); }).join("\n");
+  return table.map(function(row){ return row.map(e).join(d); }).join("\n");
 }
 function downloadBlob(content, filename, type){
   var blob = new Blob([content], { type: type });
   var url = URL.createObjectURL(blob);
   var a = document.createElement("a");
   a.href = url; a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
   setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
 }
 
 /* ============================================================
-   RESET
-   ============================================================ */
-resetBtn.addEventListener("click", function(){
-  if (!confirm("Discard all images and start over?")) return;
-  sources = []; activeSourceId = null;
-  undoStack = []; redoStack = [];
-  workspace.classList.remove("show");
-  intake.style.display = "block";
-  setProgress(null);
-  updateStats(); updateActiveDownloads(); updateUndoRedo();
-  flash("Cleared");
-});
-
-/* ============================================================
-   GLOBAL SHORTCUTS
+   SHORTCUTS
    ============================================================ */
 document.addEventListener("keydown", function(e){
   var ae = document.activeElement;
@@ -1714,12 +1636,8 @@ document.addEventListener("keydown", function(e){
 /* ============================================================
    INIT
    ============================================================ */
-setView("table");
-renderSourceList();
-updateUndoRedo();
-updateStats();
-
 window.addEventListener("beforeunload", function(){
+  cancelled = true;
   if (worker){ try { worker.terminate(); } catch(e){} }
 });
 
