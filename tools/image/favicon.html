@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Favicon Generator — Free Online Favicon Maker for Every Browser</title>
+<meta name="description" content="Free online favicon generator. Upload one image and download a complete package — favicon.ico, PNG icons, Apple touch icon, Android icons, manifest.json and ready-to-paste HTML. Everything runs in your browser.">
+<link rel="canonical" href="https://localtools.co.in/tools/image/favicon.html">
+<link rel="sitemap" type="application/xml" href="https://localtools.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#1B4DFF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Favicon Generator — Every Size, Ready to Download">
+<meta property="og:description" content="Generate a complete favicon package in your browser. ICO, PNG, Apple touch, Android, manifest.json.">
+<meta property="og:url" content="https://localtools.co.in/tools/image/favicon.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Favicon Generator","url":"https://localtools.co.in/tools/image/favicon.html","applicationCategory":"DeveloperApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localtools.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://localtools.co.in/tools/"},{"@type":"ListItem","position":3,"name":"Favicon Generator","item":"https://localtools.co.in/tools/image/favicon.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What sizes do I need for a favicon?","acceptedAnswer":{"@type":"Answer","text":"At minimum: 16x16 and 32x32 for browser tabs, 180x180 for Apple touch icon, 192x192 and 512x512 for Android and PWAs. The .ico file bundles 16, 32 and 48 together."}},{"@type":"Question","name":"Is the favicon generator free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is free, runs entirely in your browser, and you can generate unlimited icons."}},{"@type":"Question","name":"Do I need to upload my logo?","acceptedAnswer":{"@type":"Answer","text":"No. Drop an image onto the page. It never leaves your device — all processing happens locally."}},{"@type":"Question","name":"What image format should I start with?","acceptedAnswer":{"@type":"Answer","text":"A square PNG with transparent background works best. Aim for at least 512x512 pixels for crisp results at every size."}}]}]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<style>
+:root{--paper:#EDEDE9;--surface:#FFFFFF;--ink:#14161A;--muted:#6B7079;--line:#D6D6D0;--blue:#1B4DFF;--blue-deep:#1338C4;--green:#0E7A5F;--red:#B0233A;--amber:#B87333;--radius:6px;--sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--display:"Bricolage Grotesque",var(--sans);--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;background-image:linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);background-size:28px 28px}
+.wrap{max-width:800px;margin:0 auto;padding:20px 18px 64px}
+.masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
+.masthead a{color:inherit;text-decoration:none}
+.mark{width:26px;height:26px;flex:none}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.masthead .nav-right{margin-left:auto;font-size:.875rem;color:var(--blue);text-decoration:underline;white-space:nowrap}
+.crumbs{font-size:.8125rem;color:var(--muted);margin:0 0 18px;font-family:var(--mono)}
+.crumbs a{color:var(--muted);text-decoration:underline}
+.crumbs a:hover{color:var(--blue)}
+.crumbs span{color:var(--ink)}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
+.lede{margin:0 0 6px;font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.05;letter-spacing:-.03em}
+.sub{margin:0 0 22px;color:var(--muted);max-width:68ch;font-size:1rem}
+.fc-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:0 0 14px}
+.fc-card h2{font-family:var(--display);font-weight:700;font-size:1.0625rem;letter-spacing:-.01em;margin:0 0 14px}
+.fc-drop{border:2px dashed var(--line);border-radius:var(--radius);padding:36px 20px;text-align:center;background:#F7F7F3;transition:border-color .15s ease,background .15s ease;cursor:pointer}
+.fc-drop:hover,.fc-drop.dragover{border-color:var(--blue);background:rgba(27,77,255,.04)}
+.fc-drop .icon{font-size:2.5rem;line-height:1;margin:0 0 8px;color:var(--blue)}
+.fc-drop strong{display:block;font-family:var(--display);font-weight:700;font-size:1.0625rem;margin:0 0 4px}
+.fc-drop p{margin:0;color:var(--muted);font-size:.875rem}
+.fc-drop .formats{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin-top:8px}
+.fc-source{display:flex;gap:16px;align-items:center;padding:14px;background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius);margin:0 0 14px}
+.fc-source img{flex:none;width:80px;height:80px;object-fit:contain;background:#fff;border-radius:6px;border:1px solid var(--line);padding:4px}
+.fc-source-info{flex:1;min-width:0}
+.fc-source-info .nm{font-family:var(--mono);font-size:.8125rem;font-weight:600;word-break:break-all;margin:0 0 4px}
+.fc-source-info .meta{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin:0}
+.fc-controls{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 12px}
+.fc-field{flex:1 1 180px;min-width:0;display:flex;flex-direction:column;gap:4px}
+.fc-field label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.fc-field input,.fc-field select{width:100%;padding:10px 12px;font-family:var(--mono);font-size:.9375rem;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);outline:none;transition:border-color .15s ease,box-shadow .15s ease}
+.fc-field input:focus,.fc-field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.fc-field .unit-hint{font-family:var(--mono);font-size:.625rem;color:var(--muted);text-transform:none;letter-spacing:0}
+.fc-bg-row{display:flex;align-items:center;gap:8px}
+.fc-bg-row input[type="color"]{width:44px;height:38px;padding:2px;border:1px solid var(--line);border-radius:var(--radius);cursor:pointer;background:#fff}
+.fc-bg-row select{flex:1;min-width:0}
+.fc-check-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:10px 0 0;padding:10px 12px;background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius);font-size:.8125rem;color:var(--ink)}
+.fc-check{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none}
+.fc-check input{accent-color:var(--blue);cursor:pointer}
+.fc-preview{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:12px;margin:0 0 14px}
+.fc-preview-item{background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius);padding:12px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px}
+.fc-preview-item .thumb{width:64px;height:64px;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:4px;padding:4px;image-rendering:pixelated;image-rendering:crisp-edges}
+.fc-preview-item .thumb img{max-width:100%;max-height:100%;display:block}
+.fc-preview-item .sz{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.fc-preview-item .nm{font-family:var(--mono);font-size:.6875rem;color:var(--ink);word-break:break-all}
+.fc-browser-preview{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:0 0 14px}
+.fc-bp{background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius);padding:12px}
+.fc-bp .label{font-family:var(--mono);font-size:.625rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 8px}
+.fc-bp .tab{background:#fff;border:1px solid var(--line);border-radius:6px 6px 0 0;padding:8px 10px;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.75rem}
+.fc-bp .tab img{width:16px;height:16px;display:block}
+.fc-bp .tab.dark{background:#1E1E1E;color:#fff;border-color:#2A2A2A}
+.fc-bp .tab.dark .title{color:#fff}
+.fc-bp .title{color:#333;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.fc-bp .tab.dark img{background:transparent}
+.fc-actions{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.fc-actions button{font-size:.8125rem;padding:9px 14px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--ink);cursor:pointer;font-family:inherit;font-weight:500;transition:background .12s ease,border-color .12s ease,color .12s ease;display:inline-flex;align-items:center;gap:6px}
+.fc-actions button:hover{border-color:var(--blue);color:var(--blue)}
+.fc-actions button.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.fc-actions button.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep);color:#fff}
+.fc-actions button.danger:hover{border-color:var(--red);color:var(--red)}
+.fc-snippets{margin:0 0 14px}
+.fc-snippet{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);margin:0 0 10px;overflow:hidden}
+.fc-snippet-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;background:#F7F7F3;border-bottom:1px solid var(--line)}
+.fc-snippet-head .lbl{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.fc-snippet-head button{font-size:.6875rem;padding:5px 10px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--blue);cursor:pointer;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+.fc-snippet-head button:hover{background:rgba(27,77,255,.08);border-color:var(--blue)}
+.fc-snippet pre{margin:0;padding:14px;font-family:var(--mono);font-size:.75rem;line-height:1.55;color:var(--ink);overflow-x:auto;background:#FBFBF8}
+.article{margin:44px 0 0;max-width:72ch}
+.article h2{margin:36px 0 10px;font-size:1.5rem}
+.article h2:first-child{margin-top:0}
+.article p{margin:0 0 12px;color:#3A3E46}
+.article ul{margin:0 0 12px;padding-left:20px;color:#3A3E46}
+.article li{margin:0 0 6px}
+.article strong{font-weight:600;color:var(--ink)}
+.article a{color:var(--blue);text-decoration:underline}
+.article code{font-family:var(--mono);font-size:.875em;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:1px 4px}
+.article table{width:100%;border-collapse:collapse;margin:0 0 14px;font-size:.875rem}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.article th{background:#F7F7F3;font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+.faq{margin:14px 0 0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--blue);font-size:1.25rem;line-height:1;flex:none}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{margin:0 0 14px;color:#3A3E46;max-width:62ch}
+.related-list{list-style:none;margin:12px 0 0;padding:0}
+.related-list li{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center}
+.related-list .txt{flex:1}
+.related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
+.related-list .txt a:hover{color:var(--blue);text-decoration:underline}
+.related-list .txt p{margin:2px 0 0;font-size:.8125rem;color:var(--muted)}
+.related-list time{font-size:.75rem;color:var(--muted);flex:none;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem}
+footer a{color:inherit}
+footer a:hover{color:var(--blue)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:200}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+<a href="../../index.html" style="display:flex;align-items:center;gap:10px">
+<svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/><path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/><path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/><path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/><path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/></svg>
+<span class="wordmark">LocalTools</span>
+</a>
+<a href="/" class="nav-right">Home →</a>
+</header>
+
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Favicon Generator</span></nav>
+
+<h1 class="lede">Favicon Generator</h1>
+<p class="sub">Upload one square image and download a complete favicon package — ICO, PNG icons for every platform, Apple touch icon, Android icons, manifest.json and ready-to-paste HTML. Nothing is uploaded.</p>
+
+<div class="fc-card" id="dropCard">
+<h2>Upload your logo</h2>
+<div class="fc-drop" id="drop">
+<div class="icon">⬆</div>
+<strong>Drop a square image here or click to browse</strong>
+<p>Aim for at least 512 × 512 px — PNG with transparency works best</p>
+<div class="formats">PNG · JPG · WebP · HEIC · No upload · Unlimited icons</div>
+<input type="file" id="fileInput" accept="image/*,.heic,.heif" hidden>
+</div>
+</div>
+
+<div class="fc-card" id="settingsCard" hidden>
+<h2>Icon appearance</h2>
+
+<div class="fc-controls">
+<div class="fc-field">
+<label for="siteName">Site name (for manifest)</label>
+<input type="text" id="siteName" placeholder="My Website" value="My Website">
+</div>
+<div class="fc-field">
+<label for="themeColor">Theme color</label>
+<input type="color" id="themeColor" value="#1B4DFF">
+</div>
+<div class="fc-field">
+<label>Background for transparency</label>
+<div class="fc-bg-row">
+<input type="color" id="bgColor" value="#FFFFFF">
+<select id="bgMode">
+<option value="keep" selected>Keep transparent (PNG/ICO)</option>
+<option value="white">White</option>
+<option value="black">Black</option>
+<option value="custom">Custom color</option>
+</select>
+</div>
+<span class="unit-hint">Only used if you want a solid background</span>
+</div>
+</div>
+
+<div class="fc-controls">
+<div class="fc-field">
+<label for="padding">Padding (% of size)</label>
+<select id="padding">
+<option value="0">0% — fill the whole square</option>
+<option value="5">5% — tight padding</option>
+<option value="10" selected>10% — balanced</option>
+<option value="15">15% — breathing room</option>
+<option value="20">20% — small logo, big margin</option>
+</select>
+</div>
+<div class="fc-field">
+<label for="radius">Corner radius (% of size)</label>
+<select id="radius">
+<option value="0" selected>0% — square corners</option>
+<option value="10">10% — subtle rounding</option>
+<option value="20">20% — rounded</option>
+<option value="30">30% — very rounded</option>
+<option value="50">50% — circle</option>
+</select>
+</div>
+</div>
+
+<div class="fc-check-row">
+<label class="fc-check">
+<input type="checkbox" id="genIco" checked>
+Generate favicon.ico (16 + 32 + 48 bundled)
+</label>
+<label class="fc-check">
+<input type="checkbox" id="genPng" checked>
+Generate PNG icons for every platform
+</label>
+<label class="fc-check">
+<input type="checkbox" id="genManifest" checked>
+Generate manifest.json and browserconfig.xml
+</label>
+</div>
+</div>
+
+<div class="fc-card" id="previewCard" hidden>
+<h2>Preview</h2>
+
+<div class="fc-browser-preview">
+<div class="fc-bp">
+<div class="label">Browser tab (light)</div>
+<div class="tab">
+<img id="tabImg" alt="">
+<span class="title" id="tabTitle">My Website</span>
+</div>
+</div>
+<div class="fc-bp">
+<div class="label">Browser tab (dark)</div>
+<div class="tab dark">
+<img id="tabImgDark" alt="">
+<span class="title" id="tabTitleDark">My Website</span>
+</div>
+</div>
+<div class="fc-bp">
+<div class="label">iPhone home screen</div>
+<div class="tab" style="border-radius:20px;padding:10px;flex-direction:column;gap:6px;justify-content:center;height:100px">
+<img id="appleImg" style="width:48px;height:48px;border-radius:12px" alt="">
+<span class="title" style="font-size:.75rem">My Website</span>
+</div>
+</div>
+</div>
+
+<div class="fc-preview" id="previewGrid"></div>
+
+<div class="fc-actions">
+<button class="primary" id="downloadZip">Download favicon package (.zip)</button>
+<button id="downloadIco">Download favicon.ico only</button>
+<button class="danger" id="clearBtn">Clear</button>
+</div>
+</div>
+
+<div class="fc-card" id="snippetsCard" hidden>
+<h2>HTML for your &lt;head&gt;</h2>
+<p style="margin:0 0 14px;color:var(--muted);font-size:.875rem">Copy these lines into the <code>&lt;head&gt;</code> section of your HTML.</p>
+
+<div class="fc-snippets">
+<div class="fc-snippet">
+<div class="fc-snippet-head">
+<span class="lbl">Basic favicon links</span>
+<button data-copy="snippetBasic">Copy</button>
+</div>
+<pre id="snippetBasic"></pre>
+</div>
+
+<div class="fc-snippet">
+<div class="fc-snippet-head">
+<span class="lbl">Full snippet (all platforms)</span>
+<button data-copy="snippetFull">Copy</button>
+</div>
+<pre id="snippetFull"></pre>
+</div>
+
+<div class="fc-snippet">
+<div class="fc-snippet-head">
+<span class="lbl">manifest.json</span>
+<button data-copy="snippetManifest">Copy</button>
+</div>
+<pre id="snippetManifest"></pre>
+</div>
+</div>
+</div>
+
+<article class="article">
+<h2>How to use the favicon generator</h2>
+<p>Drop a square logo onto the page — ideally at least 512 × 512 pixels with a transparent background. The tool generates every favicon size you need, previews them across light and dark browser tabs, and packages them into a single ZIP file. Copy the HTML snippet into your page's <code>&lt;head&gt;</code>, drop the files at your site root, and you're done.</p>
+<p>Everything runs in your browser. Your logo never leaves your device.</p>
+
+<h2>What's in the package</h2>
+<table>
+<thead><tr><th>File</th><th>Size</th><th>Used by</th></tr></thead>
+<tbody>
+<tr><td>favicon.ico</td><td>16 + 32 + 48 bundled</td><td>Legacy browsers, Windows taskbar, bookmarks</td></tr>
+<tr><td>favicon-16x16.png</td><td>16 × 16</td><td>Browser tabs</td></tr>
+<tr><td>favicon-32x32.png</td><td>32 × 32</td><td>Browser tabs on HiDPI screens, bookmarks</td></tr>
+<tr><td>favicon-48x48.png</td><td>48 × 48</td><td>Windows taskbar</td></tr>
+<tr><td>favicon-96x96.png</td><td>96 × 96</td><td>Google TV, some desktop icons</td></tr>
+<tr><td>apple-touch-icon.png</td><td>180 × 180</td><td>iOS home screen</td></tr>
+<tr><td>android-chrome-192x192.png</td><td>192 × 192</td><td>Android home screen</td></tr>
+<tr><td>android-chrome-512x512.png</td><td>512 × 512</td><td>Android splash screen, PWA install</td></tr>
+<tr><td>mstile-150x150.png</td><td>150 × 150</td><td>Windows tile (IE11, Edge legacy)</td></tr>
+<tr><td>manifest.json</td><td>—</td><td>PWA configuration</td></tr>
+<tr><td>browserconfig.xml</td><td>—</td><td>Windows tiles configuration</td></tr>
+<tr><td>html-snippet.txt</td><td>—</td><td>Copy-paste into your &lt;head&gt;</td></tr>
+</tbody>
+</table>
+
+<h2>How to install</h2>
+<ol style="padding-left:20px;color:#3A3E46">
+<li>Download the ZIP and unzip it</li>
+<li>Upload every file to the <strong>root folder</strong> of your website (same level as index.html)</li>
+<li>Open the <code>html-snippet.txt</code> file and copy its contents into your page's <code>&lt;head&gt;</code></li>
+<li>Hard refresh your browser (Ctrl+Shift+R) to see the new icon</li>
+</ol>
+<p>Some browsers cache favicons aggressively. If you don't see the update immediately, clear your browser cache or open the site in an incognito window.</p>
+
+<h2>Why so many sizes?</h2>
+<p>Different platforms read favicons at different resolutions:</p>
+<ul>
+<li><strong>16×16</strong> — the classic browser tab icon since the 1990s</li>
+<li><strong>32×32</strong> — used by high-DPI (Retina) screens for crisp tabs</li>
+<li><strong>48×48</strong> — Windows taskbar</li>
+<li><strong>180×180</strong> — Apple's recommended size for iOS home screen shortcuts</li>
+<li><strong>192×192 and 512×512</strong> — required by Android and Progressive Web Apps</li>
+</ul>
+<p>Modern browsers pick the best one automatically if you list them all in the <code>&lt;head&gt;</code>.</p>
+
+<h2>Why ICO is still needed</h2>
+<p>The <code>.ico</code> format bundles multiple PNGs at different sizes into one file. Old browsers and Windows shortcuts read it directly, and it's the traditional fallback when no other icon is specified. This tool generates one that bundles 16, 32, and 48-pixel versions together.</p>
+
+<h2>Design tips</h2>
+<ul>
+<li><strong>Start with a square image.</strong> Non-square images get centred with letterboxing or stretched, depending on the settings.</li>
+<li><strong>Keep it simple.</strong> At 16×16 pixels, only the boldest shapes are recognisable. Detailed logos turn to mush.</li>
+<li><strong>Use a transparent background if you can.</strong> It looks native on any browser theme, light or dark.</li>
+<li><strong>Test at small sizes.</strong> The preview panel shows exactly what your icon will look like in a tab — if it isn't readable there, it needs to be simplified.</li>
+<li><strong>Pad generously.</strong> Icons that fill the entire square look cramped. 10–15% padding usually looks better.</li>
+</ul>
+
+<h2>Common questions</h2>
+<div class="faq">
+<details><summary>What sizes do I need for a favicon?</summary><p>At minimum: 16×16 and 32×32 for browser tabs, 180×180 for Apple touch icon, 192×192 and 512×512 for Android and PWAs. The .ico file bundles 16, 32 and 48 together.</p></details>
+<details><summary>Is the favicon generator free?</summary><p>Yes. It is free, runs entirely in your browser, and you can generate unlimited icons.</p></details>
+<details><summary>Do I need to upload my logo?</summary><p>No. Drop an image onto the page. It never leaves your device — all processing happens locally.</p></details>
+<details><summary>What image format should I start with?</summary><p>A square PNG with transparent background works best. Aim for at least 512×512 pixels for crisp results at every size.</p></details>
+<details><summary>Does it support HEIC?</summary><p>Yes. iPhone HEIC photos are decoded in-browser before generation.</p></details>
+<details><summary>How long until the new favicon shows up?</summary><p>Once you upload the files and update the HTML, most modern browsers show the new icon within minutes. If yours doesn't, clear the cache or use an incognito window. Search engines re-crawl favicons over days to weeks.</p></details>
+<details><summary>Can I use an SVG favicon?</summary><p>Yes. Modern browsers support <code>&lt;link rel="icon" type="image/svg+xml" href="favicon.svg"&gt;</code> which scales perfectly at any size. This tool doesn't generate SVG, but you can upload your existing SVG alongside the generated PNGs. The HTML snippet includes an optional SVG line.</p></details>
+<details><summary>Will my favicon look good on dark mode?</summary><p>The preview panel shows both light and dark tabs. If your icon has a transparent background and is drawn in dark lines, it disappears on dark tabs. Either use a solid background colour, or include a small lighter outline.</p></details>
+</div>
+
+<h2>Related tools</h2>
+<ul class="related-list">
+<li><div class="txt"><a href="image-resize.html">Image Resizer</a><p>Resize to exact dimensions or presets.</p></div><time>Image</time></li>
+<li><div class="txt"><a href="image-convert.html">Image Converter</a><p>Convert between PNG, JPG, WebP, HEIC.</p></div><time>Image</time></li>
+<li><div class="txt"><a href="image-crop.html">Image Cropper</a><p>Crop to a perfect square first.</p></div><time>Image</time></li>
+</ul>
+</article>
+
+<footer>
+<p>LocalTools · <a href="../../index.html">Home</a> · <a href="/">Home</a> · <a href="../../pages/about.html">About</a> · <a href="../../pages/privacy.html">Privacy</a></p>
+</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/png-to-ico@2.0.0/dist/png-to-ico.js"></script>
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+var toast=$("toast");
+function flash(m){toast.textContent=m;toast.classList.add("show");clearTimeout(flash._t);flash._t=setTimeout(function(){toast.classList.remove("show");},2000);}
+
+/* ---------- STATE ---------- */
+var sourceFile=null;
+var sourceBitmap=null;
+var generatedFiles={};   // name → Blob
+
+/* ---------- HELPERS ---------- */
+function fmtSize(bytes){
+  if(bytes<1024)return bytes+" B";
+  if(bytes<1024*1024)return (bytes/1024).toFixed(1)+" KB";
+  return (bytes/(1024*1024)).toFixed(2)+" MB";
+}
+function isHeic(file){
+  var n=(file.name||"").toLowerCase();
+  var t=(file.type||"").toLowerCase();
+  return n.endsWith(".heic")||n.endsWith(".heif")||t==="image/heic"||t==="image/heif";
+}
+
+/* ---------- WAIT FOR heic2any ---------- */
+function waitForHeic2Any(){
+  if(window.heic2any)return Promise.resolve();
+  return new Promise(function(resolve,reject){
+    var tries=0;
+    var iv=setInterval(function(){
+      tries++;
+      if(window.heic2any){clearInterval(iv);resolve();}
+      else if(tries>200){clearInterval(iv);reject(new Error("HEIC decoder failed to load"));}
+    },50);
+  });
+}
+
+/* ---------- READ IMAGE ---------- */
+function blobToImage(blobOrUrl){
+  return new Promise(function(resolve,reject){
+    var url=typeof blobOrUrl==="string"?blobOrUrl:URL.createObjectURL(blobOrUrl);
+    var img=new Image();
+    img.onload=function(){
+      if(typeof blobOrUrl!=="string")URL.revokeObjectURL(url);
+      resolve(img);
+    };
+    img.onerror=function(){
+      if(typeof blobOrUrl!=="string")URL.revokeObjectURL(url);
+      reject(new Error("Cannot decode image"));
+    };
+    img.src=url;
+  });
+}
+
+function fileToImage(file){
+  return new Promise(function(resolve,reject){
+    var reader=new FileReader();
+    reader.onload=function(e){
+      blobToImage(e.target.result).then(resolve).catch(reject);
+    };
+    reader.onerror=function(){reject(new Error("Could not read file"));};
+    reader.readAsDataURL(file);
+  });
+}
+
+/* ---------- HANDLE UPLOAD ---------- */
+function handleFile(file){
+  if(!/^image\//.test(file.type)&&!isHeic(file)){
+    return flash("That's not an image");
+  }
+  sourceFile=file;
+  var loadPromise;
+  if(isHeic(file)){
+    loadPromise=waitForHeic2Any().then(function(){
+      return window.heic2any({blob:file,toType:"image/png",quality:0.95});
+    }).then(function(result){
+      var blob=Array.isArray(result)?result[0]:result;
+      return blobToImage(blob);
+    });
+  } else {
+    loadPromise=fileToImage(file);
+  }
+  loadPromise.then(function(img){
+    sourceBitmap=img;
+    $("settingsCard").hidden=false;
+    generateAll();
+  }).catch(function(err){
+    flash(err.message||"Cannot load image");
+  });
+}
+
+/* ---------- CANVAS PIPELINE ---------- */
+function renderIcon(size){
+  if(!sourceBitmap)return null;
+  var canvas=document.createElement("canvas");
+  canvas.width=size;
+  canvas.height=size;
+  var ctx=canvas.getContext("2d");
+
+  var padPct=parseFloat($("padding").value)/100;
+  var radiusPct=parseFloat($("radius").value)/100;
+  var bgMode=$("bgMode").value;
+  var bgColor=$("bgColor").value;
+  var pad=Math.round(size*padPct);
+  var inner=size-pad*2;
+  var radius=Math.round(size*radiusPct);
+
+  // Rounded rect path helper
+  function roundRect(x,y,w,h,r){
+    ctx.beginPath();
+    if(r<=0){ctx.rect(x,y,w,h);return;}
+    ctx.moveTo(x+r,y);
+    ctx.lineTo(x+w-r,y);
+    ctx.arcTo(x+w,y,x+w,y+r,r);
+    ctx.lineTo(x+w,y+h-r);
+    ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
+    ctx.lineTo(x+r,y+h);
+    ctx.arcTo(x,y+h,x,y+h-r,r);
+    ctx.lineTo(x,y+r);
+    ctx.arcTo(x,y,x+r,y,r);
+    ctx.closePath();
+  }
+
+  // Background
+  if(bgMode!=="keep"||radius>0){
+    // Fill white/black/custom when requested, or when we need to clip a radius
+    ctx.save();
+    roundRect(0,0,size,size,radius);
+    if(bgMode==="white")ctx.fillStyle="#FFFFFF";
+    else if(bgMode==="black")ctx.fillStyle="#000000";
+    else if(bgMode==="custom")ctx.fillStyle=bgColor;
+    else ctx.fillStyle="transparent";
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // Clip to rounded rect (if radius)
+  if(radius>0){
+    ctx.save();
+    roundRect(0,0,size,size,radius);
+    ctx.clip();
+  }
+
+  // Draw source scaled and centered in the padded area
+  var sw=sourceBitmap.naturalWidth;
+  var sh=sourceBitmap.naturalHeight;
+  var side=Math.max(sw,sh);
+  var sx=(side-sw)/2;
+  var sy=(side-sh)/2;
+  ctx.imageSmoothingEnabled=true;
+  ctx.imageSmoothingQuality="high";
+  ctx.drawImage(sourceBitmap,sx,sy,side,side,pad,pad,inner,inner);
+
+  if(radius>0)ctx.restore();
+
+  return canvas;
+}
+
+function canvasToBlob(canvas,mime,quality){
+  return new Promise(function(resolve){
+    canvas.toBlob(function(blob){resolve(blob);},mime,quality);
+  });
+}
+
+/* ---------- GENERATE ALL ---------- */
+var SIZES=[
+  {name:"favicon-16x16.png",size:16},
+  {name:"favicon-32x32.png",size:32},
+  {name:"favicon-48x48.png",size:48},
+  {name:"favicon-96x96.png",size:96},
+  {name:"apple-touch-icon.png",size:180},
+  {name:"android-chrome-192x192.png",size:192},
+  {name:"android-chrome-512x512.png",size:512},
+  {name:"mstile-150x150.png",size:150}
+];
+
+async function generateAll(){
+  if(!sourceBitmap)return;
+  generatedFiles={};
+
+  // Wait for png-to-ico to load if it hasn't yet
+  var pngToIco=window.pngToIco;
+  if(!pngToIco){
+    // Retry for a couple of seconds
+    for(var t=0;t<40&&!pngToIco;t++){
+      await new Promise(function(r){setTimeout(r,50);});
+      pngToIco=window.pngToIco;
+    }
+  }
+
+  // PNG icons
+  for(var i=0;i<SIZES.length;i++){
+    var entry=SIZES[i];
+    var canvas=renderIcon(entry.size);
+    if(!canvas)continue;
+    var blob=await canvasToBlob(canvas,"image/png");
+    generatedFiles[entry.name]=blob;
+  }
+
+  // ICO file — bundles 16, 32, 48
+  if($("genIco").checked&&pngToIco){
+    try{
+      var png16=await canvasToBlob(renderIcon(16),"image/png");
+      var png32=await canvasToBlob(renderIcon(32),"image/png");
+      var png48=await canvasToBlob(renderIcon(48),"image/png");
+      var icoBuffer=await pngToIco([png16,png32,png48]);
+      generatedFiles["favicon.ico"]=new Blob([icoBuffer],{type:"image/x-icon"});
+    }catch(e){
+      console.warn("ICO generation failed:",e);
+    }
+  }
+
+  // Preview
+  renderPreview();
+
+  // Snippets
+  renderSnippets();
+
+  // Manifest + browserconfig
+  if($("genManifest").checked){
+    var siteName=$("siteName").value||"My Website";
+    var themeColor=$("themeColor").value||"#1B4DFF";
+
+    var manifest={
+      name:siteName,
+      short_name:siteName.slice(0,12),
+      icons:[
+        {src:"/android-chrome-192x192.png",sizes:"192x192",type:"image/png"},
+        {src:"/android-chrome-512x512.png",sizes:"512x512",type:"image/png"}
+      ],
+      theme_color:themeColor,
+      background_color:"#FFFFFF",
+      display:"standalone"
+    };
+    generatedFiles["manifest.json"]=new Blob([JSON.stringify(manifest,null,2)],{type:"application/json"});
+
+    var browserconfig='<?xml version="1.0" encoding="utf-8"?>\n'+
+      '<browserconfig>\n'+
+      '  <msapplication>\n'+
+      '    <tile>\n'+
+      '      <square150x150logo src="/mstile-150x150.png"/>\n'+
+      '      <TileColor>'+themeColor+'</TileColor>\n'+
+      '    </tile>\n'+
+      '  </msapplication>\n'+
+      '</browserconfig>';
+    generatedFiles["browserconfig.xml"]=new Blob([browserconfig],{type:"application/xml"});
+
+    generatedFiles["html-snippet.txt"]=new Blob([getFullSnippet()],{type:"text/plain"});
+  }
+
+  $("previewCard").hidden=false;
+  $("snippetsCard").hidden=false;
+  flash("Generated "+Object.keys(generatedFiles).length+" files");
+}
+
+/* ---------- PREVIEW ---------- */
+function renderPreview(){
+  // Tab previews
+  var img16=generatedFiles["favicon-16x16.png"];
+  var img32=generatedFiles["favicon-32x32.png"];
+  if(img16){
+    $("tabImg").src=URL.createObjectURL(img16);
+    $("tabImgDark").src=URL.createObjectURL(img16);
+  }
+  var imgApple=generatedFiles["apple-touch-icon.png"];
+  if(imgApple)$("appleImg").src=URL.createObjectURL(imgApple);
+
+  var name=$("siteName").value||"My Website";
+  $("tabTitle").textContent=name;
+  $("tabTitleDark").textContent=name;
+
+  // Grid of generated sizes
+  var grid=$("previewGrid");
+  grid.innerHTML="";
+  Object.keys(generatedFiles).forEach(function(name){
+    if(!/\.(png|ico)$/.test(name))return;
+    var blob=generatedFiles[name];
+    var item=document.createElement("div");
+    item.className="fc-preview-item";
+    var thumb=document.createElement("div");
+    thumb.className="thumb";
+    var img=document.createElement("img");
+    img.src=URL.createObjectURL(blob);
+    img.alt=name;
+    thumb.appendChild(img);
+    var sz=document.createElement("div");
+    sz.className="sz";
+    sz.textContent=fmtSize(blob.size);
+    var nm=document.createElement("div");
+    nm.className="nm";
+    nm.textContent=name;
+    item.appendChild(thumb);
+    item.appendChild(sz);
+    item.appendChild(nm);
+    grid.appendChild(item);
+  });
+}
+
+/* ---------- SNIPPETS ---------- */
+function getBasicSnippet(){
+  return [
+    '<link rel="icon" href="/favicon.ico" sizes="any">',
+    '<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">',
+    '<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">'
+  ].join("\n");
+}
+
+function getFullSnippet(){
+  return [
+    '<!-- Favicons -->',
+    '<link rel="icon" href="/favicon.ico" sizes="any">',
+    '<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">',
+    '<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">',
+    '<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">',
+    '<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">',
+    '<!-- Apple touch icon -->',
+    '<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">',
+    '<!-- Android and PWA -->',
+    '<link rel="manifest" href="/manifest.json">',
+    '<link rel="mask-icon" href="/favicon-96x96.png" color="'+($("themeColor").value||"#1B4DFF")+'">',
+    '<!-- Windows tile -->',
+    '<meta name="msapplication-TileColor" content="'+($("themeColor").value||"#1B4DFF")+'">',
+    '<meta name="msapplication-config" content="/browserconfig.xml">',
+    '<!-- Theme color -->',
+    '<meta name="theme-color" content="'+($("themeColor").value||"#1B4DFF")+'">'
+  ].join("\n");
+}
+
+function renderSnippets(){
+  $("snippetBasic").textContent=getBasicSnippet();
+  $("snippetFull").textContent=getFullSnippet();
+
+  var name=$("siteName").value||"My Website";
+  var manifest={
+    name:name,
+    short_name:name.slice(0,12),
+    icons:[
+      {src:"/android-chrome-192x192.png",sizes:"192x192",type:"image/png"},
+      {src:"/android-chrome-512x512.png",sizes:"512x512",type:"image/png"}
+    ],
+    theme_color:$("themeColor").value||"#1B4DFF",
+    background_color:"#FFFFFF",
+    display:"standalone"
+  };
+  $("snippetManifest").textContent=JSON.stringify(manifest,null,2);
+}
+
+/* ---------- COPY ---------- */
+document.querySelectorAll("[data-copy]").forEach(function(b){
+  b.addEventListener("click",function(){
+    var el=$(b.getAttribute("data-copy"));
+    if(!el)return;
+    copyText(el.textContent||el.innerText||"","Copied");
+  });
+});
+
+function copyText(t,msg){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(function(){flash(msg||"Copied");}).catch(function(){fbCopy(t,msg);});
+  } else fbCopy(t,msg);
+}
+function fbCopy(t,msg){
+  var ta=document.createElement("textarea");
+  ta.value=t;ta.style.position="fixed";ta.style.opacity="0";
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand("copy");flash(msg||"Copied");}catch(e){flash("Copy failed");}
+  document.body.removeChild(ta);
+}
+
+/* ---------- DOWNLOADS ---------- */
+$("downloadZip").addEventListener("click",function(){
+  var keys=Object.keys(generatedFiles);
+  if(!keys.length)return flash("Nothing to download");
+  if(!window.JSZip)return flash("ZIP library not loaded");
+
+  var zip=new JSZip();
+  keys.forEach(function(name){
+    zip.file(name,generatedFiles[name]);
+  });
+  // Also include a README
+  var readme='Favicon Package\n'+
+    '================\n\n'+
+    'Generated: '+(new Date()).toLocaleString()+'\n'+
+    'Site: '+($("siteName").value||"My Website")+'\n\n'+
+    'INSTALL\n'+
+    '-------\n'+
+    '1. Upload every file to the root of your website\n'+
+    '   (the same folder as index.html)\n'+
+    '2. Copy the contents of html-snippet.txt into your\n'+
+    '   HTML <head> section\n'+
+    '3. Hard refresh your browser (Ctrl+Shift+R)\n\n'+
+    'FILES\n'+
+    '-----\n'+
+    keys.map(function(k){return "  "+k+"  ("+fmtSize(generatedFiles[k].size)+")";}).join("\n")+
+    '\n\nGenerated by LocalTools';
+  zip.file("README.txt",readme);
+
+  zip.generateAsync({type:"blob"}).then(function(blob){
+    var a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download="favicon-package-"+new Date().toISOString().slice(0,10)+".zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(a.href);},2000);
+    flash("Downloaded favicon-package.zip");
+  });
+});
+
+$("downloadIco").addEventListener("click",function(){
+  var blob=generatedFiles["favicon.ico"];
+  if(!blob)return flash("favicon.ico not generated");
+  var a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="favicon.ico";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+  flash("Downloaded favicon.ico");
+});
+
+$("clearBtn").addEventListener("click",function(){
+  sourceFile=null;
+  sourceBitmap=null;
+  generatedFiles={};
+  $("settingsCard").hidden=true;
+  $("previewCard").hidden=true;
+  $("snippetsCard").hidden=true;
+  $("previewGrid").innerHTML="";
+  flash("Cleared");
+});
+
+/* ---------- EVENT WIRING ---------- */
+["siteName","themeColor","bgColor","bgMode","padding","radius","genIco","genPng","genManifest"].forEach(function(id){
+  var el=$(id);
+  if(el){
+    el.addEventListener("input",regenerate);
+    el.addEventListener("change",regenerate);
+  }
+});
+
+var regenTimer=null;
+function regenerate(){
+  if(!sourceBitmap)return;
+  clearTimeout(regenTimer);
+  regenTimer=setTimeout(function(){
+    generateAll();
+  },250);
+}
+
+/* ---------- DROP ZONE ---------- */
+var drop=$("drop");
+var fileInput=$("fileInput");
+drop.addEventListener("click",function(){fileInput.click();});
+drop.addEventListener("dragover",function(e){e.preventDefault();drop.classList.add("dragover");});
+drop.addEventListener("dragleave",function(){drop.classList.remove("dragover");});
+drop.addEventListener("drop",function(e){
+  e.preventDefault();
+  drop.classList.remove("dragover");
+  var f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];
+  if(f)handleFile(f);
+});
+fileInput.addEventListener("change",function(){
+  if(fileInput.files&&fileInput.files[0])handleFile(fileInput.files[0]);
+  fileInput.value="";
+});
+document.addEventListener("paste",function(e){
+  var items=e.clipboardData&&e.clipboardData.items;
+  if(!items)return;
+  for(var i=0;i<items.length;i++){
+    if(items[i].type.indexOf("image")===0){
+      var f=items[i].getAsFile();
+      if(f){handleFile(f);return;}
+    }
+  }
+});
+
+})();
+</script>
+</body>
+</html>
