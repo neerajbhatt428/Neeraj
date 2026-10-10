@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JSON Formatter & Validator — Beautify, Minify, Validate Online</title>
+<meta name="description" content="Free online JSON formatter, validator and beautifier with line numbers. Beautify, minify, sort keys, convert to YAML, view statistics and jump straight to syntax errors. Shows every error at once. Runs entirely in your browser.">
+<link rel="canonical" href="https://localtools.co.in/tools/dev/json-format.html">
+<link rel="sitemap" type="application/xml" href="https://localtools.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#1B4DFF">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="JSON Formatter & Validator">
+<meta property="og:description" content="Beautify, minify, validate, sort and convert JSON — with line numbers and all errors shown at once.">
+<meta property="og:url" content="https://localtools.co.in/tools/dev/json-format.html">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"WebApplication",
+      "name":"JSON Formatter & Validator",
+      "url":"https://localtools.co.in/tools/dev/json-format.html",
+      "applicationCategory":"DeveloperApplication",
+      "operatingSystem":"Any browser",
+      "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+      "featureList":[
+        "JSON beautify",
+        "JSON minify",
+        "JSON validation with all errors shown",
+        "Sort keys",
+        "JSON to YAML",
+        "Error line highlighting",
+        "Missing comma detection",
+        "Go to error",
+        "File upload",
+        "URL sharing",
+        "Statistics"
+      ]
+    },
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://localtools.co.in/"},
+        {"@type":"ListItem","position":2,"name":"Tools","item":"https://localtools.co.in/tools/"},
+        {"@type":"ListItem","position":3,"name":"JSON Formatter","item":"https://localtools.co.in/tools/dev/json-format.html"}
+      ]
+    },
+    {
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"Is this JSON formatter free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is free, unlimited and runs entirely in your browser."}},
+        {"@type":"Question","name":"Is my JSON uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. All processing happens locally in your browser. Nothing is sent to any server."}},
+        {"@type":"Question","name":"Does it show all errors at once?","acceptedAnswer":{"@type":"Answer","text":"Yes. Missing-comma errors are detected by analyzing the JSON structure, so every affected line is highlighted at once."}},
+        {"@type":"Question","name":"Can I convert JSON to YAML?","acceptedAnswer":{"@type":"Answer","text":"Yes. Click Copy as YAML to get the YAML representation of your JSON."}},
+        {"@type":"Question","name":"Can it handle large files?","acceptedAnswer":{"@type":"Answer","text":"It handles files up to roughly 10 MB comfortably in a browser. Larger files may slow down the page."}}
+      ]
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --paper:#EDEDE9;
+  --surface:#FFFFFF;
+  --ink:#14161A;
+  --muted:#6B7079;
+  --line:#D6D6D0;
+  --blue:#1B4DFF;
+  --blue-deep:#1338C4;
+  --green:#0E7A5F;
+  --red:#B0233A;
+  --red-deep:#8F1C2E;
+  --amber:#B87333;
+  --amber-deep:#7A4A15;
+  --amber-bg:rgba(184,115,51,.10);
+  --amber-border:rgba(184,115,51,.32);
+  --radius:6px;
+  --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --display:"Bricolage Grotesque",var(--sans);
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  background-image:
+    linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+.wrap{max-width:900px;margin:0 auto;padding:20px 18px 64px}
+
+.masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
+.masthead a{color:inherit;text-decoration:none}
+.mark{width:26px;height:26px;flex:none}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.masthead .nav-right{margin-left:auto;font-size:.875rem;color:var(--blue);text-decoration:underline;white-space:nowrap}
+
+.crumbs{font-size:.8125rem;color:var(--muted);margin:0 0 18px;font-family:var(--mono)}
+.crumbs a{color:var(--muted);text-decoration:underline}
+.crumbs a:hover{color:var(--blue)}
+.crumbs span{color:var(--ink)}
+
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
+.lede{margin:0 0 6px;font-family:var(--display);font-weight:700;
+  font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.05;letter-spacing:-.03em}
+.sub{margin:0 0 22px;color:var(--muted);max-width:68ch;font-size:1rem}
+
+button{font:inherit;cursor:pointer;border-radius:var(--radius);
+  border:1px solid var(--line);background:var(--surface);color:var(--ink);
+  padding:10px 14px;font-weight:500;display:inline-flex;align-items:center;gap:7px;
+  transition:border-color .12s ease,background .12s ease,color .12s ease;
+  font-size:.9375rem}
+button:hover{border-color:#A9A9A1}
+button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+button[disabled]{opacity:.4;cursor:not-allowed}
+.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep)}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:14px}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 12px}
+.toolbar .sep{flex:1}
+
+.editor-shell{
+  display:flex;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:var(--surface);
+  height:440px;
+  overflow:hidden;
+  position:relative;
+  font-family:var(--mono);
+  font-size:.875rem;
+  line-height:1.6;
+  transition:border-color .15s ease,box-shadow .15s ease;
+}
+.editor-shell:focus-within{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(27,77,255,.12);
+}
+.editor-shell.valid{ border-left:3px solid var(--green); }
+.editor-shell.invalid{ border-left:3px solid var(--red); }
+
+.line-gutter{
+  flex:0 0 auto;
+  min-width:58px;
+  background:#F7F7F3;
+  border-right:1px solid var(--line);
+  overflow:hidden;
+  position:relative;
+  user-select:none;
+}
+.gutter-content{
+  position:relative;
+  padding:12px 0;
+  will-change:transform;
+  transform:translateY(0);
+}
+.line-numbers{
+  text-align:right;
+  padding:0 12px 0 8px;
+  color:var(--muted);
+  font-family:var(--mono);
+  font-size:.875rem;
+  line-height:1.6;
+  white-space:pre;
+}
+.line-gutter::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:24px;
+  background:linear-gradient(to bottom,rgba(247,247,243,0),#F7F7F3);
+  pointer-events:none;
+}
+
+.editor-area{
+  flex:1;
+  position:relative;
+  overflow:hidden;
+  min-width:0;
+}
+.error-layer{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:1;
+}
+.error-layer-content{
+  position:absolute;
+  top:0;left:0;right:0;
+  will-change:transform;
+  transform:translateY(0);
+}
+.error-line-marker{
+  position:absolute;
+  left:0;right:0;
+  background:rgba(176,35,58,.10);
+  border-left:3px solid var(--red);
+  pointer-events:none;
+}
+.error-line-marker::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:1px;
+  background:rgba(176,35,58,.18);
+}
+.hint-line-marker{
+  position:absolute;
+  left:0;right:0;
+  background:var(--amber-bg);
+  border-left:3px solid var(--amber);
+  pointer-events:none;
+}
+.hint-line-marker::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:1px;
+  background:var(--amber-border);
+}
+
+.editor-area textarea{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  outline:0;
+  padding:12px 14px;
+  margin:0;
+  resize:none;
+  font-family:var(--mono);
+  font-size:.875rem;
+  line-height:1.6;
+  color:var(--ink);
+  z-index:2;
+  overflow:auto;
+  white-space:pre;
+  tab-size:2;
+  -moz-tab-size:2;
+  caret-color:var(--blue);
+}
+.editor-area textarea:focus{ box-shadow:none; border:0; outline:0; }
+.editor-area textarea::placeholder{ color:var(--muted); opacity:.7; }
+
+#measureMirror{
+  position:absolute;
+  left:-99999px;
+  top:0;
+  visibility:hidden;
+  pointer-events:none;
+  white-space:pre;
+  margin:0;
+  border:0;
+  overflow:hidden;
+  box-sizing:content-box;
+  font-variant-ligatures:none;
+}
+
+.status-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:12px 0 0;
+  font-family:var(--mono);font-size:.8125rem;color:var(--muted)}
+.status-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;
+  border-radius:4px;background:#F7F7F3;border:1px solid var(--line)}
+.status-chip.ok{color:var(--green);border-color:rgba(14,122,95,.3);background:rgba(14,122,95,.06)}
+.status-chip.bad{color:var(--red);border-color:rgba(176,35,58,.3);background:rgba(176,35,58,.06)}
+.status-chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+
+.error-detail{
+  margin:10px 0 0;
+  padding:12px 14px;
+  background:rgba(176,35,58,.06);
+  border:1px solid rgba(176,35,58,.25);
+  border-left:3px solid var(--red);
+  border-radius:var(--radius);
+  font-size:.8125rem;
+  color:var(--red-deep);
+  line-height:1.5;
+}
+.error-detail[hidden]{ display:none; }
+.error-detail-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:8px;
+  flex-wrap:wrap;
+}
+.error-detail-head strong{
+  text-transform:uppercase;
+  font-size:.6875rem;
+  letter-spacing:.06em;
+  font-weight:600;
+  font-family:var(--mono);
+}
+.goto-error-btn{
+  border:0;padding:5px 10px;background:var(--red);color:#fff;font-size:.75rem;
+  border-radius:4px;cursor:pointer;font-family:inherit;font-weight:500;
+  transition:background .12s ease;
+  display:inline-flex;align-items:center;gap:5px;
+}
+.goto-error-btn:hover{background:var(--red-deep)}
+.goto-error-btn[hidden]{display:none}
+
+.error-msg-primary{
+  font-family:var(--mono);
+  color:var(--red-deep);
+  margin:0 0 10px;
+  word-break:break-word;
+  white-space:pre-wrap;
+}
+.error-msg-primary .loc{
+  display:inline-block;
+  background:rgba(176,35,58,.15);
+  padding:1px 6px;
+  border-radius:3px;
+  margin-right:6px;
+  font-weight:600;
+  color:var(--red);
+}
+
+.hint-block{
+  margin:10px 0 0;
+  padding:10px 12px;
+  background:var(--amber-bg);
+  border:1px solid var(--amber-border);
+  border-left:3px solid var(--amber);
+  border-radius:4px;
+  font-family:var(--sans);
+  font-size:.8125rem;
+  color:var(--amber-deep);
+  line-height:1.5;
+}
+.hint-block[hidden]{ display:none; }
+.hint-block strong{
+  color:var(--amber-deep);
+  font-weight:600;
+}
+.hint-block p{ margin:0 0 6px; }
+.hint-block p:last-child{ margin-bottom:0; }
+
+.hint-lines{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin:8px 0 0;
+}
+.hint-line-btn{
+  background:#fff;
+  border:1px solid var(--amber-border);
+  color:var(--amber-deep);
+  font-family:var(--mono);
+  font-size:.75rem;
+  font-weight:600;
+  padding:3px 9px;
+  border-radius:100px;
+  cursor:pointer;
+  transition:background .12s ease,border-color .12s ease;
+}
+.hint-line-btn:hover{
+  background:var(--amber-bg);
+  border-color:var(--amber);
+}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;margin:12px 0 0}
+.stat{background:var(--surface);padding:12px 14px}
+.stat .lbl{font-family:var(--mono);font-size:.625rem;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--muted);margin:0 0 4px}
+.stat .val{font-family:var(--display);font-weight:700;font-size:1.125rem;
+  letter-spacing:-.01em;line-height:1;margin:0}
+
+.opts{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:12px 0 0;
+  padding:12px;background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius)}
+.opts label{font-size:.875rem;color:var(--muted);display:flex;align-items:center;gap:8px}
+.opts select{padding:6px 10px;font-size:.875rem;border:1px solid var(--line);
+  background:#fff;border-radius:5px;font-family:inherit;color:inherit}
+.opts select:focus{outline:none;border-color:var(--blue)}
+.opts input[type="checkbox"]{accent-color:var(--blue);cursor:pointer;width:16px;height:16px}
+
+.drop-overlay{position:fixed;inset:0;background:rgba(27,77,255,.08);backdrop-filter:blur(2px);
+  display:none;align-items:center;justify-content:center;z-index:100;pointer-events:none}
+.drop-overlay.active{display:flex}
+.drop-overlay-inner{background:var(--surface);padding:32px 48px;border-radius:12px;
+  border:2px dashed var(--blue);text-align:center;box-shadow:0 24px 48px rgba(27,77,255,.15)}
+.drop-overlay strong{display:block;font-family:var(--display);font-size:1.25rem;margin-bottom:4px}
+.drop-overlay p{color:var(--muted);margin:0;font-size:.9375rem}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);
+  background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;
+  font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:200}
+.toast.show{opacity:1}
+
+.kbd{font-family:var(--mono);font-size:.6875rem;padding:2px 6px;border-radius:3px;
+  background:#F0F0EC;border:1px solid var(--line);color:var(--muted)}
+
+.article{margin:44px 0 0;max-width:72ch}
+.article h2{margin:36px 0 10px;font-size:1.5rem}
+.article h2:first-child{margin-top:0}
+.article h3{font-family:var(--display);font-weight:700;font-size:1.0625rem;
+  letter-spacing:-.015em;margin:28px 0 8px}
+.article p{margin:0 0 12px;color:#3A3E46}
+.article ul{margin:0 0 12px;padding-left:20px;color:#3A3E46}
+.article li{margin:0 0 6px}
+.article strong{font-weight:600;color:var(--ink)}
+.article a{color:var(--blue);text-decoration:underline}
+.article code{font-family:var(--mono);font-size:.875em;background:var(--surface);
+  border:1px solid var(--line);border-radius:3px;padding:1px 4px}
+
+.faq{margin:14px 0 0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;
+  display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--blue);font-size:1.25rem;line-height:1;flex:none}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{margin:0 0 14px;color:#3A3E46;max-width:62ch}
+
+.related-list{list-style:none;margin:12px 0 0;padding:0}
+.related-list li{background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius);padding:12px 14px;margin:0 0 8px;
+  display:flex;gap:12px;align-items:center}
+.related-list .txt{flex:1}
+.related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
+.related-list .txt a:hover{color:var(--blue);text-decoration:underline}
+.related-list .txt p{margin:2px 0 0;font-size:.8125rem;color:var(--muted)}
+.related-list time{font-size:.75rem;color:var(--muted);flex:none;font-family:var(--mono);
+  text-transform:uppercase;letter-spacing:.05em}
+
+footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);
+  color:var(--muted);font-size:.8125rem}
+footer a{color:inherit}
+footer a:hover{color:var(--blue)}
+
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+@media(max-width:640px){
+  .toolbar .sep{display:none}
+  .toolbar button{flex:1 1 calc(50% - 4px);justify-content:center}
+  .editor-shell{height:340px;font-size:.8125rem}
+  .line-numbers,.editor-area textarea{font-size:.8125rem}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <a href="../../index.html" style="display:flex;align-items:center;gap:10px">
+      <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/>
+        <path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/>
+        <path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/>
+        <path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/>
+        <path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/>
+      </svg>
+      <span class="wordmark">LocalTools</span>
+    </a>
+    <a href="/" class="nav-right">Home →</a>
+  </header>
+
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>JSON Formatter</span>
+  </nav>
+
+  <h1 class="lede">JSON Formatter & Validator</h1>
+  <p class="sub">Beautify, minify, validate and analyse JSON in your browser. Every missing-comma error is highlighted at once — no more fixing them one at a time.</p>
+
+  <section class="panel">
+
+    <div class="toolbar">
+      <button class="primary" id="beautifyBtn" title="Ctrl+Enter">Beautify</button>
+      <button class="primary" id="minifyBtn" title="Ctrl+M">Minify</button>
+      <button id="validateBtn">Validate</button>
+      <button id="sortBtn">Sort keys</button>
+      <button id="yamlBtn">Copy as YAML</button>
+      <span class="sep"></span>
+      <button id="sampleBtn">Sample</button>
+      <button id="uploadBtn">Upload</button>
+      <button id="downloadBtn" title="Ctrl+S">Download</button>
+      <button id="copyBtn" title="Ctrl+Shift+C">Copy</button>
+      <button id="shareBtn">Share</button>
+      <button id="clearBtn" title="Ctrl+K">Clear</button>
+      <input type="file" id="fileInput" accept=".json,.txt,application/json,text/plain" class="sr">
+    </div>
+
+    <div class="editor-shell" id="editorShell">
+      <div class="line-gutter" aria-hidden="true">
+        <div class="gutter-content" id="gutterContent">
+          <div class="line-numbers" id="lineNumbers">1</div>
+        </div>
+      </div>
+      <div class="editor-area">
+        <div class="error-layer" aria-hidden="true">
+          <div class="error-layer-content" id="errorLayerContent"></div>
+        </div>
+        <textarea id="input"
+          wrap="off"
+          spellcheck="false"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          aria-label="JSON input"
+          placeholder='Paste or type JSON here. Try "Sample" to see how it works.'></textarea>
+      </div>
+    </div>
+
+    <div id="measureMirror" aria-hidden="true"></div>
+
+    <div class="status-bar" id="statusBar">
+      <span class="status-chip" id="statusChip">
+        <span class="dot"></span>
+        <span id="statusText">Empty</span>
+      </span>
+      <span id="sizeChip" style="display:none"></span>
+    </div>
+
+    <div class="error-detail" id="errorDetail" hidden>
+      <div class="error-detail-head">
+        <strong id="errorDetailTitle">Syntax error</strong>
+        <button type="button" class="goto-error-btn" id="gotoErrorBtn">Go to error →</button>
+      </div>
+
+      <p class="error-msg-primary" id="errorMsgPrimary"></p>
+
+      <div class="hint-block" id="hintBlock" hidden>
+        <p><strong id="hintHeadline">Possible cause:</strong> <span id="hintBody"></span></p>
+        <div class="hint-lines" id="hintLines"></div>
+      </div>
+    </div>
+
+    <div class="stats" id="statsPanel" style="display:none">
+      <div class="stat"><p class="lbl">Bytes</p><p class="val" id="statBytes">0</p></div>
+      <div class="stat"><p class="lbl">Chars</p><p class="val" id="statChars">0</p></div>
+      <div class="stat"><p class="lbl">Lines</p><p class="val" id="statLines">0</p></div>
+      <div class="stat"><p class="lbl">Keys</p><p class="val" id="statKeys">0</p></div>
+      <div class="stat"><p class="lbl">Max depth</p><p class="val" id="statDepth">0</p></div>
+      <div class="stat"><p class="lbl">Arrays</p><p class="val" id="statArrays">0</p></div>
+      <div class="stat"><p class="lbl">Objects</p><p class="val" id="statObjects">0</p></div>
+    </div>
+
+    <div class="opts">
+      <label for="indentSel">Indent:
+        <select id="indentSel">
+          <option value="2" selected>2 spaces</option>
+          <option value="4">4 spaces</option>
+          <option value="\t">Tab</option>
+          <option value="0">None (minified)</option>
+        </select>
+      </label>
+      <label>
+        <input type="checkbox" id="autoValidate" checked>
+        Auto-validate as I type
+      </label>
+    </div>
+  </section>
+
+  <article class="article">
+    <h2>How to use the JSON formatter</h2>
+    <p>Paste your JSON into the editor, drop a <code>.json</code> file anywhere on the page, or click <strong>Upload</strong>. Line numbers appear on the left, and the status chip below the editor tells you instantly whether your JSON is valid. Then:</p>
+    <ul>
+      <li><strong>Beautify</strong> — add indentation so you can read it</li>
+      <li><strong>Minify</strong> — strip all whitespace to save bytes</li>
+      <li><strong>Sort keys</strong> — arrange every object's keys alphabetically, recursively</li>
+      <li><strong>Copy as YAML</strong> — get the YAML equivalent for Kubernetes, Docker Compose, GitHub Actions</li>
+      <li><strong>Share</strong> — copies a URL containing your JSON, so you can send it to a colleague</li>
+    </ul>
+
+    <h2>All missing commas found at once</h2>
+    <p>Most JSON validators stop at the first syntax error. This tool goes further: when the parser reports a missing comma, it scans your whole document and highlights <em>every</em> line that has the same problem — so you can fix them all in one pass instead of repeating the cycle eight times.</p>
+    <p>Each suspect line is highlighted in amber, and clickable line-number buttons appear in the error panel below the editor.</p>
+
+    <h2>Why does the parser point to a different line than the one I edited?</h2>
+    <p>If you delete a comma at the end of line 3, the parser doesn't know that — it only knows that when it reached the first character of line 4, it was expecting <code>,</code> or <code>}</code> and got something else. So it reports the error on <em>line 4</em>. That's how every JSON parser works — V8, Node, Python, Rust, Go.</p>
+    <p>This tool detects that specific case and highlights both the parser error line and the likely source line, plus every other line with the same issue.</p>
+
+    <h2>Keyboard shortcuts</h2>
+    <ul>
+      <li><span class="kbd">Ctrl</span>+<span class="kbd">Enter</span> — Beautify</li>
+      <li><span class="kbd">Ctrl</span>+<span class="kbd">M</span> — Minify</li>
+      <li><span class="kbd">Ctrl</span>+<span class="kbd">S</span> — Download as file</li>
+      <li><span class="kbd">Ctrl</span>+<span class="kbd">Shift</span>+<span class="kbd">C</span> — Copy result</li>
+      <li><span class="kbd">Ctrl</span>+<span class="kbd">K</span> — Clear</li>
+      <li><span class="kbd">Tab</span> — Indent (inserts spaces or tab)</li>
+    </ul>
+
+    <h2>Works on any device, anywhere</h2>
+    <p>The tool works completely offline after the first visit. It has no backend, no account requirement and no upload step. Your data never leaves your browser, which means it's safe for sensitive payloads, private API responses and confidential configuration files.</p>
+
+    <h2>Common questions</h2>
+    <div class="faq">
+      <details><summary>Is this JSON formatter free?</summary><p>Yes. It is free, unlimited and runs entirely in your browser.</p></details>
+      <details><summary>Is my JSON uploaded anywhere?</summary><p>No. All processing happens locally. Nothing is sent to any server.</p></details>
+      <details><summary>Does it show all errors at once?</summary><p>Yes. Missing-comma errors are detected by scanning the whole document, so every affected line is highlighted at once — not just the first one the parser trips over.</p></details>
+      <details><summary>Why is the error on line 4 when I removed the comma on line 3?</summary><p>The parser only reports where the unexpected token appears. This tool also finds the line that's likely missing a comma and highlights it in amber.</p></details>
+      <details><summary>Can I convert JSON to YAML?</summary><p>Yes. Click <strong>Copy as YAML</strong> to get the YAML representation of your JSON on the clipboard.</p></details>
+      <details><summary>Can it handle large files?</summary><p>It handles files up to roughly 10 MB comfortably in a browser. Larger files may slow down the page.</p></details>
+    </div>
+
+    <h2>Related tools</h2>
+    <ul class="related-list">
+      <li><div class="txt"><a href="../convert/json-csv.html">JSON ↔ CSV</a><p>Convert between JSON and CSV, including nested arrays like GST returns.</p></div><time>Convert</time></li>
+      <li><div class="txt"><a href="../text/case-converter.html">Case Converter</a><p>Convert text case instantly.</p></div><time>Text</time></li>
+      <li><div class="txt"><a href="../security/password.html">Password Generator</a><p>Strong random passwords.</p></div><time>Security</time></li>
+    </ul>
+  </article>
+
+  <footer>
+    <p>
+      LocalTools ·
+      <a href="../../index.html">Home</a> ·
+      <a href="/">Home</a> ·
+      <a href="../../pages/about.html">About</a> ·
+      <a href="../../pages/privacy.html">Privacy</a>
+    </p>
+  </footer>
+</div>
+
+<div class="drop-overlay" id="dropOverlay">
+  <div class="drop-overlay-inner">
+    <strong>Drop JSON file here</strong>
+    <p>Release to load it into the editor</p>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+
+var $ = function(id){ return document.getElementById(id); };
+var inputEl         = $("input");
+var editorShell     = $("editorShell");
+var lineNumbersEl   = $("lineNumbers");
+var gutterContentEl = $("gutterContent");
+var errorLayerEl    = $("errorLayerContent");
+var statusChip      = $("statusChip");
+var statusText      = $("statusText");
+var errorDetail     = $("errorDetail");
+var errorDetailTitle= $("errorDetailTitle");
+var errorMsgPrimary = $("errorMsgPrimary");
+var hintBlock       = $("hintBlock");
+var hintHeadline    = $("hintHeadline");
+var hintBody        = $("hintBody");
+var hintLinesEl     = $("hintLines");
+var gotoErrorBtn    = $("gotoErrorBtn");
+var sizeChip        = $("sizeChip");
+var statsPanel      = $("statsPanel");
+var indentSel       = $("indentSel");
+var autoValid       = $("autoValidate");
+var fileInput       = $("fileInput");
+var dropOverlay     = $("dropOverlay");
+var toast           = $("toast");
+
+var currentErrorLine = null;
+var currentErrorCol  = null;
+var currentSuspects  = [];
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+function flash(msg){
+  toast.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(flash._t);
+  flash._t = setTimeout(function(){ toast.classList.remove("show"); }, 1800);
+}
+function num(n){ return n.toLocaleString(); }
+
+function bytes(str){
+  if (window.TextEncoder) return new TextEncoder().encode(str).length;
+  var b = 0;
+  for (var i = 0; i < str.length; i++){
+    var c = str.charCodeAt(i);
+    if (c < 0x80) b += 1;
+    else if (c < 0x800) b += 2;
+    else if (c < 0xD800 || c >= 0xE000) b += 3;
+    else { i++; b += 4; }
+  }
+  return b;
+}
+
+function countLines(text){
+  var n = 1;
+  for (var i = 0; i < text.length; i++){
+    if (text.charCodeAt(i) === 10) n++;
+  }
+  return n;
+}
+
+function escHtml(s){
+  return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+    return { "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c];
+  });
+}
+
+/* ============================================================
+   ACCURATE LINE POSITION MEASUREMENT (mirror technique)
+   ============================================================ */
+var cachedLineHeight = 0;
+var mirrorValueCache = null;
+var measureMirror = null;
+
+function getMeasureMirror(){
+  if (!measureMirror) measureMirror = document.getElementById("measureMirror");
+  return measureMirror;
+}
+
+function syncMirrorStyles(mirror){
+  var cs = getComputedStyle(inputEl);
+  mirror.style.fontFamily    = cs.fontFamily;
+  mirror.style.fontSize      = cs.fontSize;
+  mirror.style.fontWeight    = cs.fontWeight;
+  mirror.style.fontStyle     = cs.fontStyle;
+  mirror.style.letterSpacing = cs.letterSpacing;
+  mirror.style.lineHeight    = cs.lineHeight;
+  mirror.style.paddingTop    = cs.paddingTop;
+  mirror.style.paddingBottom = cs.paddingBottom;
+  mirror.style.paddingLeft   = cs.paddingLeft;
+  mirror.style.paddingRight  = cs.paddingRight;
+  mirror.style.tabSize       = cs.tabSize || "2";
+}
+
+function lineStartOffset(text, lineNumber){
+  if (lineNumber <= 1) return 0;
+  var line = 1;
+  for (var i = 0; i < text.length; i++){
+    if (text.charCodeAt(i) === 10){
+      line++;
+      if (line === lineNumber) return i + 1;
+    }
+  }
+  return -1;
+}
+
+function refreshMirrorIfNeeded(){
+  var mirror = getMeasureMirror();
+  if (!mirror) return false;
+  if (mirrorValueCache === inputEl.value) return true;
+  syncMirrorStyles(mirror);
+  mirror.textContent = inputEl.value;
+  mirrorValueCache = inputEl.value;
+  return true;
+}
+
+function getLineY(lineNumber){
+  if (!lineNumber || lineNumber < 1) return -1;
+
+  if (refreshMirrorIfNeeded()){
+    var mirror = getMeasureMirror();
+    var text = inputEl.value;
+    var offset = lineStartOffset(text, lineNumber);
+
+    if (offset >= 0 && text.length > 0){
+      var node = mirror.firstChild;
+      if (node){
+        var start = offset;
+        var end = start + 1;
+        if (start >= text.length){
+          start = text.length - 1;
+          end = text.length;
+        }
+        try {
+          var range = document.createRange();
+          range.setStart(node, start);
+          range.setEnd(node, end);
+          var rect = range.getBoundingClientRect();
+          var mirrorRect = mirror.getBoundingClientRect();
+          var y = rect.top - mirrorRect.top;
+          if (isFinite(y)) return y;
+        } catch (e){}
+      }
+    }
+  }
+
+  var lh = measureLineHeight();
+  var pad = parseFloat(getComputedStyle(inputEl).paddingTop) || 0;
+  return pad + (lineNumber - 1) * lh;
+}
+
+function measureLineHeight(){
+  if (cachedLineHeight > 0) return cachedLineHeight;
+
+  var mirror = getMeasureMirror();
+  if (mirror){
+    var saved = mirror.textContent;
+    syncMirrorStyles(mirror);
+    mirror.textContent = "X\nX";
+    var node = mirror.firstChild;
+    if (node){
+      try {
+        var r1 = document.createRange();
+        r1.setStart(node, 0); r1.setEnd(node, 1);
+        var top1 = r1.getBoundingClientRect().top;
+
+        var r2 = document.createRange();
+        r2.setStart(node, 2); r2.setEnd(node, 3);
+        var top2 = r2.getBoundingClientRect().top;
+
+        var lh = top2 - top1;
+        if (lh > 0 && isFinite(lh)) cachedLineHeight = lh;
+      } catch(e){}
+    }
+    mirror.textContent = saved;
+    mirrorValueCache = null;
+  }
+
+  if (!cachedLineHeight){
+    var cs = getComputedStyle(inputEl);
+    cachedLineHeight = parseFloat(cs.lineHeight) || 22.4;
+  }
+  return cachedLineHeight;
+}
+
+function getPadTop(){
+  return parseFloat(getComputedStyle(inputEl).paddingTop) || 0;
+}
+
+/* ============================================================
+   LINE NUMBERS
+   ============================================================ */
+var lastLineCount = -1;
+
+function updateLineNumbers(){
+  var count = countLines(inputEl.value);
+  if (count === lastLineCount) return;
+  lastLineCount = count;
+  var buf = new Array(count);
+  for (var i = 0; i < count; i++) buf[i] = i + 1;
+  lineNumbersEl.textContent = buf.join("\n");
+}
+
+/* ============================================================
+   SCROLL SYNC
+   ============================================================ */
+function syncScroll(){
+  var st = Math.round(inputEl.scrollTop);
+  var tr = "translateY(" + (-st) + "px)";
+  gutterContentEl.style.transform = tr;
+  errorLayerEl.style.transform = tr;
+}
+
+/* ============================================================
+   MARKERS — multiple error lines + suspect lines
+   ============================================================ */
+function renderMarkers(errorLine, suspectLines){
+  errorLayerEl.innerHTML = "";
+  var lh = measureLineHeight();
+  var pad = getPadTop();
+
+  var drawn = {};
+
+  // Suspects (amber) first
+  if (suspectLines && suspectLines.length){
+    suspectLines.forEach(function(ln){
+      if (drawn["s" + ln]) return;
+      drawn["s" + ln] = true;
+      var y = getLineY(ln);
+      if (y < 0) y = pad + (ln - 1) * lh;
+      var marker = document.createElement("div");
+      marker.className = "hint-line-marker";
+      marker.style.top = y + "px";
+      marker.style.height = lh + "px";
+      errorLayerEl.appendChild(marker);
+    });
+  }
+
+  // Parser error (red) on top
+  if (errorLine){
+    var ye = getLineY(errorLine);
+    if (ye < 0) ye = pad + (errorLine - 1) * lh;
+    var marker2 = document.createElement("div");
+    marker2.className = "error-line-marker";
+    marker2.style.top = ye + "px";
+    marker2.style.height = lh + "px";
+    errorLayerEl.appendChild(marker2);
+  }
+}
+
+function scrollToLine(lineNumber, selectCol){
+  if (!lineNumber) return;
+  var lh = measureLineHeight();
+  var y = getLineY(lineNumber);
+  if (y < 0) y = getPadTop() + (lineNumber - 1) * lh;
+  var target = y - (inputEl.clientHeight / 2) + (lh / 2);
+  var maxScroll = Math.max(0, inputEl.scrollHeight - inputEl.clientHeight);
+  if (target < 0) target = 0;
+  if (target > maxScroll) target = maxScroll;
+  inputEl.scrollTop = Math.round(target);
+  syncScroll();
+
+  if (selectCol){
+    var lines = inputEl.value.split("\n");
+    var pos = 0;
+    var upTo = Math.min(lineNumber - 1, lines.length);
+    for (var i = 0; i < upTo; i++){
+      pos += lines[i].length + 1;
+    }
+    pos += Math.max(0, selectCol - 1);
+    if (pos > inputEl.value.length) pos = inputEl.value.length;
+    try {
+      inputEl.focus();
+      inputEl.setSelectionRange(pos, Math.min(pos + 1, inputEl.value.length));
+    } catch (e){}
+  }
+}
+
+function goToError(){
+  if (!currentErrorLine) return;
+  scrollToLine(currentErrorLine, currentErrorCol);
+  setTimeout(function(){ scrollToLine(currentErrorLine, null); }, 0);
+}
+gotoErrorBtn.addEventListener("click", function(e){
+  e.preventDefault();
+  goToError();
+});
+
+/* ============================================================
+   ERROR MESSAGE PARSING
+   ============================================================ */
+function formatError(msg, text){
+  // V8: "… (line X column Y)"
+  var m = msg.match(/\(line (\d+) column (\d+)\)/);
+  if (m){
+    var clean = msg.replace(/\s*\(line \d+ column \d+\)\s*$/, "").replace(/\s*at position \d+\s*$/, "");
+    return { display: clean, line: parseInt(m[1],10), col: parseInt(m[2],10) };
+  }
+  // Firefox: "at line X column Y"
+  m = msg.match(/line (\d+) column (\d+)/i);
+  if (m){
+    return { display: msg, line: parseInt(m[1],10), col: parseInt(m[2],10) };
+  }
+  // Fallback: "at position N"
+  m = msg.match(/at position (\d+)/);
+  if (m){
+    var pos = parseInt(m[1], 10);
+    var before = text.substring(0, pos);
+    var line = countLines(before);
+    var lastNl = before.lastIndexOf("\n");
+    var col = pos - lastNl;
+    return { display: msg, line: line, col: col };
+  }
+  return { display: msg, line: null, col: null };
+}
+
+/* ============================================================
+   MISSING-COMMA SUSPECT SCANNER
+   ============================================================
+   Scans the whole document line-by-line. A line is flagged as
+   a "missing comma suspect" if:
+
+     1. Its last non-whitespace character is a value terminator
+        (a closing quote, digit, 'l' from true/null, 'e' from
+        false, closing bracket or brace).
+
+     2. The next non-blank line begins with something that is
+        normally preceded by a comma — i.e. a new key string,
+        a new value, or an opening bracket/brace.
+
+     3. The current line does NOT already end with ',' or ':' or
+        an opening brace/bracket.
+
+   This catches missing commas without needing a full parser.
+   ============================================================ */
+function findMissingCommaSuspects(text){
+  var lines = text.split("\n");
+  var suspects = [];
+  var n = lines.length;
+
+  // Precompute: is each line "inside a string" at its start?
+  // We need this to avoid false positives when a value string
+  // legitimately spans multiple lines with escaped chars — rare
+  // in JSON but worth guarding against.
+  var insideString = new Array(n);
+  var open = false;
+  for (var i = 0; i < n; i++){
+    insideString[i] = open;
+    var line = lines[i];
+    var j = 0;
+    while (j < line.length){
+      var ch = line.charAt(j);
+      if (open){
+        if (ch === "\\"){ j += 2; continue; }
+        if (ch === '"'){ open = false; }
+      } else {
+        if (ch === '"'){ open = true; }
+      }
+      j++;
+    }
+  }
+
+  for (var k = 0; k < n - 1; k++){
+    if (insideString[k]) continue;
+
+    var raw = lines[k];
+    var cur = raw.replace(/\s+$/, "");
+    if (!cur) continue;
+
+    var last = cur.charAt(cur.length - 1);
+    if (last === "," || last === ":" || last === "{" || last === "[") continue;
+
+    // Value-terminator check
+    var isValueEnd =
+      last === '"' ||
+      last === "]" ||
+      last === "}" ||
+      /[0-9]/.test(last) ||
+      last === "l" ||    // null, true ends with 'e', actually true ends 'e', null ends 'l', false ends 'e'
+      last === "e";
+
+    if (!isValueEnd) continue;
+
+    // Find next non-blank line
+    var m = k + 1;
+    while (m < n && lines[m].trim() === "") m++;
+    if (m >= n) continue;
+
+    var nextTrim = lines[m].replace(/^\s+/, "");
+    // Next line should not be a close — if it is, no comma needed
+    if (nextTrim.charAt(0) === "}" || nextTrim.charAt(0) === "]") continue;
+
+    // Next line should look like a key, value, or structure opener
+    var nextLooksLikeProperty =
+      /^"/.test(nextTrim) ||
+      /^[{[]/.test(nextTrim) ||
+      /^-?\d/.test(nextTrim) ||
+      /^(true|false|null)\b/.test(nextTrim);
+
+    if (nextLooksLikeProperty){
+      suspects.push(k + 1); // 1-based line number
+    }
+  }
+
+  return suspects;
+}
+
+/* ============================================================
+   FULL ERROR ANALYSIS
+   ============================================================ */
+function analyzeText(text){
+  if (!text.trim()) return { ok:false, empty:true };
+
+  var parseError = null;
+  try {
+    JSON.parse(text);
+    return { ok:true };
+  } catch (e){
+    parseError = formatError(e.message, text);
+  }
+
+  var suspects = findMissingCommaSuspects(text);
+
+  return {
+    ok: false,
+    error: {
+      line: parseError.line,
+      col: parseError.col,
+      display: parseError.display
+    },
+    suspects: suspects
+  };
+}
+
+function analyse(obj){
+  var stats = { keys:0, depth:0, arrays:0, objects:0 };
+  function walk(node, depth){
+    if (depth > stats.depth) stats.depth = depth;
+    if (Array.isArray(node)){
+      stats.arrays++;
+      for (var i = 0; i < node.length; i++) walk(node[i], depth + 1);
+    } else if (node && typeof node === "object"){
+      stats.objects++;
+      var keys = Object.keys(node);
+      stats.keys += keys.length;
+      for (var j = 0; j < keys.length; j++) walk(node[keys[j]], depth + 1);
+    }
+  }
+  walk(obj, 0);
+  return stats;
+}
+
+/* ============================================================
+   RENDER — STATUS
+   ============================================================ */
+function renderStatus(parsed){
+  var text = inputEl.value;
+  editorShell.classList.remove("valid","invalid");
+  errorDetail.hidden = true;
+  hintBlock.hidden = true;
+  gotoErrorBtn.hidden = true;
+  errorMsgPrimary.innerHTML = "";
+  hintLinesEl.innerHTML = "";
+  currentErrorLine = null;
+  currentErrorCol  = null;
+  currentSuspects  = [];
+
+  if (!text.trim()){
+    statusChip.className = "status-chip";
+    statusText.textContent = "Empty";
+    sizeChip.style.display = "none";
+    statsPanel.style.display = "none";
+    renderMarkers(null, null);
+    return;
+  }
+
+  if (parsed.ok){
+    statusChip.className = "status-chip ok";
+    statusText.textContent = "Valid JSON";
+    editorShell.classList.add("valid");
+    renderMarkers(null, null);
+    return;
+  }
+
+  // Invalid
+  currentErrorLine = parsed.error.line;
+  currentErrorCol  = parsed.error.col;
+  currentSuspects  = parsed.suspects || [];
+
+  var suspectCount = currentSuspects.length;
+  statusChip.className = "status-chip bad";
+  if (currentErrorLine){
+    statusText.textContent = suspectCount > 1
+      ? "Invalid JSON — Line " + currentErrorLine + ", Col " + currentErrorCol + " (+" + (suspectCount - 1) + " more)"
+      : "Invalid JSON — Line " + currentErrorLine + ", Col " + currentErrorCol;
+  } else {
+    statusText.textContent = "Invalid JSON";
+  }
+  editorShell.classList.add("invalid");
+
+  errorDetailTitle.textContent = suspectCount > 1 ? "Syntax errors" : "Syntax error";
+  errorDetail.hidden = false;
+  if (currentErrorLine) gotoErrorBtn.hidden = false;
+
+  // Primary error message
+  errorMsgPrimary.innerHTML =
+    (currentErrorLine ? '<span class="loc">' + currentErrorLine + ":" + currentErrorCol + "</span>" : "") +
+    escHtml(parsed.error.display || "Unknown parse error");
+
+  // Hint with suspects
+  if (suspectCount > 0){
+    hintBlock.hidden = false;
+
+    if (suspectCount === 1){
+      hintHeadline.textContent = "Likely cause:";
+      hintBody.textContent = "missing comma at the end of the line below.";
+    } else {
+      hintHeadline.textContent = suspectCount + " lines look like they're missing a comma:";
+      hintBody.textContent = "Click any to jump there.";
+    }
+
+    currentSuspects.forEach(function(ln){
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "hint-line-btn";
+      btn.textContent = "line " + ln;
+      btn.addEventListener("click", function(e){
+        e.preventDefault();
+        scrollToLine(ln, null);
+      });
+      hintLinesEl.appendChild(btn);
+    });
+  }
+
+  renderMarkers(currentErrorLine, currentSuspects);
+}
+
+/* ============================================================
+   RENDER — STATS
+   ============================================================ */
+function renderStats(parsed){
+  var text = inputEl.value;
+
+  if (!text.trim()){
+    statsPanel.style.display = "none";
+    sizeChip.style.display = "none";
+    return;
+  }
+
+  var b = bytes(text);
+  var lines = countLines(text);
+  $("statBytes").textContent = num(b);
+  $("statChars").textContent = num(text.length);
+  $("statLines").textContent = num(lines);
+
+  if (parsed && parsed.ok){
+    var s = analyse(JSON.parse(text));
+    $("statKeys").textContent    = num(s.keys);
+    $("statDepth").textContent   = num(s.depth);
+    $("statArrays").textContent  = num(s.arrays);
+    $("statObjects").textContent = num(s.objects);
+  } else {
+    $("statKeys").textContent    = "—";
+    $("statDepth").textContent   = "—";
+    $("statArrays").textContent  = "—";
+    $("statObjects").textContent = "—";
+  }
+
+  statsPanel.style.display = "grid";
+
+  if (parsed && parsed.ok){
+    var minified = JSON.stringify(JSON.parse(text));
+    var minBytes = bytes(minified);
+    var saved = b > 0 ? Math.round((1 - minBytes / b) * 100) : 0;
+    if (saved > 0){
+      sizeChip.style.display = "inline-flex";
+      sizeChip.className = "status-chip";
+      sizeChip.textContent = "Minified: " + num(minBytes) + " bytes · saves " + saved + "%";
+    } else {
+      sizeChip.style.display = "none";
+    }
+  } else {
+    sizeChip.style.display = "none";
+  }
+}
+
+function refresh(){
+  var parsed = analyzeText(inputEl.value);
+  updateLineNumbers();
+  renderStatus(parsed);
+  renderStats(parsed);
+  return parsed;
+}
+
+/* ============================================================
+   LIVE INPUT
+   ============================================================ */
+var liveTimer;
+inputEl.addEventListener("input", function(){
+  updateLineNumbers();
+  if (!autoValid.checked) return;
+  clearTimeout(liveTimer);
+  liveTimer = setTimeout(refresh, 350);
+});
+inputEl.addEventListener("scroll", syncScroll);
+
+inputEl.addEventListener("keydown", function(e){
+  if (e.key !== "Tab") return;
+  e.preventDefault();
+
+  var start = inputEl.selectionStart;
+  var end   = inputEl.selectionEnd;
+  var value = inputEl.value;
+  var indentUnit = indentSel.value === "\\t" ? "\t" : new Array(parseInt(indentSel.value, 10) + 1).join(" ");
+
+  if (e.shiftKey){
+    var lineStart = value.lastIndexOf("\n", start - 1) + 1;
+    var nl = value.indexOf("\n", lineStart);
+    var firstLine = value.substring(lineStart, nl === -1 ? value.length : nl);
+    var match = firstLine.match(/^(\t| {1,4})/);
+    if (match){
+      var removed = match[1].length;
+      inputEl.value = value.substring(0, lineStart) + value.substring(lineStart + removed);
+      inputEl.setSelectionRange(Math.max(0, start - removed), Math.max(0, end - removed));
+    }
+  } else {
+    if (start !== end && value.substring(start, end).indexOf("\n") !== -1){
+      var selStart = value.lastIndexOf("\n", start - 1) + 1;
+      var selected = value.substring(selStart, end);
+      var lineCount = selected.split("\n").length;
+      var indented = selected.split("\n").map(function(l){ return indentUnit + l; }).join("\n");
+      inputEl.value = value.substring(0, selStart) + indented + value.substring(end);
+      inputEl.setSelectionRange(start + indentUnit.length, end + indentUnit.length * lineCount);
+    } else {
+      inputEl.value = value.substring(0, start) + indentUnit + value.substring(end);
+      inputEl.setSelectionRange(start + indentUnit.length, start + indentUnit.length);
+    }
+  }
+  updateLineNumbers();
+  refresh();
+});
+
+/* ============================================================
+   BEAUTIFY / MINIFY / VALIDATE
+   ============================================================ */
+function getIndent(){
+  if (indentSel.value === "\\t") return "\t";
+  var n = parseInt(indentSel.value, 10);
+  return n === 0 ? 0 : n;
+}
+
+function beautify(){
+  if (!inputEl.value.trim()) return flash("Paste some JSON first");
+  var parsed = refresh();
+  if (!parsed.ok){ flash("Cannot beautify — fix errors first"); return; }
+  var indent = getIndent();
+  inputEl.value = JSON.stringify(JSON.parse(inputEl.value), null, indent || 2);
+  lastLineCount = -1;
+  mirrorValueCache = null;
+  refresh();
+  inputEl.scrollTop = 0;
+  syncScroll();
+  flash("Beautified");
+}
+
+function minify(){
+  if (!inputEl.value.trim()) return flash("Paste some JSON first");
+  var parsed = refresh();
+  if (!parsed.ok){ flash("Cannot minify — fix errors first"); return; }
+  inputEl.value = JSON.stringify(JSON.parse(inputEl.value));
+  lastLineCount = -1;
+  mirrorValueCache = null;
+  refresh();
+  inputEl.scrollTop = 0;
+  syncScroll();
+  flash("Minified");
+}
+
+function validate(){
+  if (!inputEl.value.trim()) return flash("Paste some JSON first");
+  var parsed = refresh();
+  if (parsed.ok) flash("Valid JSON");
+  else if (parsed.error && parsed.error.line) goToError();
+}
+
+/* ============================================================
+   SORT KEYS
+   ============================================================ */
+function sortKeysDeep(node){
+  if (Array.isArray(node)) return node.map(sortKeysDeep);
+  if (node && typeof node === "object"){
+    var sorted = {};
+    Object.keys(node).sort().forEach(function(k){
+      sorted[k] = sortKeysDeep(node[k]);
+    });
+    return sorted;
+  }
+  return node;
+}
+
+function sortKeys(){
+  if (!inputEl.value.trim()) return flash("Paste some JSON first");
+  var parsed = refresh();
+  if (!parsed.ok){ flash("Cannot sort — fix errors first"); return; }
+  var sorted = sortKeysDeep(JSON.parse(inputEl.value));
+  var indent = getIndent();
+  inputEl.value = JSON.stringify(sorted, null, indent || 2);
+  lastLineCount = -1;
+  mirrorValueCache = null;
+  refresh();
+  inputEl.scrollTop = 0;
+  syncScroll();
+  flash("Keys sorted");
+}
+
+/* ============================================================
+   YAML
+   ============================================================ */
+function toYaml(node, indent){
+  indent = indent || 0;
+  var pad = "  ".repeat(indent);
+
+  if (node === null) return "null";
+  if (typeof node === "boolean" || typeof node === "number") return String(node);
+
+  if (typeof node === "string"){
+    if (node === "" ||
+        /[:\-#&*!|>'"%@`{}\[\],\n]/.test(node) ||
+        /^\s|\s$/.test(node) ||
+        /^(true|false|null|yes|no|on|off)$/i.test(node) ||
+        /^-?\d/.test(node)){
+      return JSON.stringify(node);
+    }
+    return node;
+  }
+
+  if (Array.isArray(node)){
+    if (node.length === 0) return "[]";
+    return node.map(function(v){
+      var y = toYaml(v, indent + 1);
+      if (y.indexOf("\n") !== -1){
+        return pad + "-\n" + pad + "  " + y.split("\n").join("\n" + pad + "  ");
+      }
+      return pad + "- " + y;
+    }).join("\n");
+  }
+
+  if (typeof node === "object"){
+    var keys = Object.keys(node);
+    if (keys.length === 0) return "{}";
+    return keys.map(function(k){
+      var v = toYaml(node[k], indent + 1);
+      var kOut = /[:#\s]/.test(k) ? JSON.stringify(k) : k;
+      if (v.indexOf("\n") !== -1){
+        return pad + kOut + ":\n" + v;
+      }
+      return pad + kOut + ": " + v;
+    }).join("\n");
+  }
+
+  return String(node);
+}
+
+/* ============================================================
+   CLIPBOARD
+   ============================================================ */
+function copyText(text, success){
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text)
+      .then(function(){ flash(success || "Copied"); })
+      .catch(function(){ legacyCopy(text, success); });
+  } else {
+    legacyCopy(text, success);
+  }
+}
+function legacyCopy(text, success){
+  var ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.position = "fixed";
+  ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand("copy"); flash(success || "Copied"); }
+  catch (e){ flash("Copy failed"); }
+  document.body.removeChild(ta);
+}
+
+/* ============================================================
+   SAMPLE
+   ============================================================ */
+var SAMPLE = {
+  user: {
+    id: 1024,
+    name: "Ada Lovelace",
+    email: "ada@example.com",
+    active: true,
+    joined: "2024-03-15T09:30:00Z"
+  },
+  roles: ["admin", "editor", "viewer"],
+  preferences: {
+    theme: "dark",
+    notifications: { email: true, sms: false, push: true },
+    language: "en-GB"
+  },
+  projects: [
+    { name: "Analytical Engine", status: "archived", stars: 4096 },
+    { name: "Ada Compiler", status: "active", stars: 128 }
+  ],
+  metadata: null
+};
+
+/* ============================================================
+   FILE UPLOAD
+   ============================================================ */
+$("uploadBtn").addEventListener("click", function(){ fileInput.click(); });
+fileInput.addEventListener("change", function(){
+  var f = fileInput.files && fileInput.files[0];
+  if (f) readJsonFile(f);
+  fileInput.value = "";
+});
+
+function readJsonFile(file){
+  var reader = new FileReader();
+  reader.onload = function(e){
+    inputEl.value = e.target.result;
+    lastLineCount = -1;
+    cachedLineHeight = 0;
+    mirrorValueCache = null;
+    refresh();
+    inputEl.scrollTop = 0;
+    syncScroll();
+    flash("Loaded " + file.name);
+  };
+  reader.onerror = function(){ flash("Could not read the file"); };
+  reader.readAsText(file);
+}
+
+/* ============================================================
+   DRAG & DROP
+   ============================================================ */
+var dragDepth = 0;
+["dragenter","dragover"].forEach(function(ev){
+  document.addEventListener(ev, function(e){
+    if (!e.dataTransfer) return;
+    var hasFile = Array.prototype.some.call(e.dataTransfer.types || [], function(t){ return t === "Files"; });
+    if (!hasFile) return;
+    e.preventDefault();
+    dragDepth++;
+    dropOverlay.classList.add("active");
+  });
+});
+["dragleave","drop"].forEach(function(ev){
+  document.addEventListener(ev, function(e){
+    if (!e.dataTransfer) return;
+    e.preventDefault();
+    dragDepth = Math.max(0, dragDepth - 1);
+    if (dragDepth === 0) dropOverlay.classList.remove("active");
+  });
+});
+document.addEventListener("drop", function(e){
+  var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+  if (f) readJsonFile(f);
+});
+
+/* ============================================================
+   BUTTON BINDINGS
+   ============================================================ */
+$("beautifyBtn").addEventListener("click", beautify);
+$("minifyBtn").addEventListener("click", minify);
+$("validateBtn").addEventListener("click", validate);
+$("sortBtn").addEventListener("click", sortKeys);
+$("yamlBtn").addEventListener("click", function(){
+  if (!inputEl.value.trim()) return flash("Paste some JSON first");
+  var parsed = refresh();
+  if (!parsed.ok) return flash("Cannot convert — fix errors first");
+  copyText(toYaml(JSON.parse(inputEl.value), 0), "YAML copied");
+});
+$("sampleBtn").addEventListener("click", function(){
+  inputEl.value = JSON.stringify(SAMPLE, null, 2);
+  lastLineCount = -1;
+  mirrorValueCache = null;
+  refresh();
+  inputEl.scrollTop = 0;
+  syncScroll();
+  flash("Sample loaded");
+});
+$("copyBtn").addEventListener("click", function(){
+  if (!inputEl.value) return flash("Nothing to copy");
+  copyText(inputEl.value, "Copied");
+});
+$("downloadBtn").addEventListener("click", download);
+$("shareBtn").addEventListener("click", share);
+$("clearBtn").addEventListener("click", function(){
+  inputEl.value = "";
+  lastLineCount = -1;
+  mirrorValueCache = null;
+  location.hash = "";
+  refresh();
+  syncScroll();
+  flash("Cleared");
+});
+
+function download(){
+  if (!inputEl.value) return flash("Nothing to download");
+  var text = inputEl.value;
+  var isJson = false;
+  try { JSON.parse(text); isJson = true; } catch (e){}
+  var mime = isJson ? "application/json" : "text/plain";
+  var blob = new Blob([text], { type: mime + ";charset=utf-8" });
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "data.json";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(a.href); }, 1000);
+  flash("Downloaded data.json");
+}
+
+function share(){
+  if (!inputEl.value) return flash("Nothing to share");
+  try {
+    var encoded = btoa(unescape(encodeURIComponent(inputEl.value)));
+    if (encoded.length > 4000){
+      return flash("Too large to share — use Download instead");
+    }
+    var url = location.origin + location.pathname + "#json=" + encoded;
+    copyText(url, "Share link copied");
+  } catch (e){
+    flash("Could not encode for sharing");
+  }
+}
+
+/* ============================================================
+   LOAD FROM URL HASH
+   ============================================================ */
+function loadFromHash(){
+  var m = location.hash.match(/^#json=(.+)$/);
+  if (!m) return;
+  try {
+    var decoded = decodeURIComponent(escape(atob(m[1])));
+    inputEl.value = decoded;
+    lastLineCount = -1;
+    cachedLineHeight = 0;
+    mirrorValueCache = null;
+    refresh();
+    flash("Loaded from link");
+  } catch (e){}
+}
+
+/* ============================================================
+   KEYBOARD SHORTCUTS
+   ============================================================ */
+document.addEventListener("keydown", function(e){
+  var mod = e.ctrlKey || e.metaKey;
+  if (!mod) return;
+  if (e.key === "Enter"){ e.preventDefault(); beautify(); }
+  else if (e.key === "m" || e.key === "M"){ e.preventDefault(); minify(); }
+  else if (e.key === "s" || e.key === "S"){ e.preventDefault(); download(); }
+  else if (e.key === "C" && e.shiftKey){
+    e.preventDefault();
+    if (inputEl.value) copyText(inputEl.value, "Copied");
+  }
+  else if (e.key === "k" || e.key === "K"){
+    e.preventDefault();
+    inputEl.value = "";
+    lastLineCount = -1;
+    mirrorValueCache = null;
+    location.hash = "";
+    refresh();
+    syncScroll();
+    flash("Cleared");
+  }
+});
+
+/* ============================================================
+   INIT
+   ============================================================ */
+loadFromHash();
+refresh();
+syncScroll();
+
+if (document.fonts && document.fonts.ready){
+  document.fonts.ready.then(function(){
+    cachedLineHeight = 0;
+    mirrorValueCache = null;
+    refresh();
+  });
+}
+var resizeTimer;
+window.addEventListener("resize", function(){
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(function(){
+    cachedLineHeight = 0;
+    mirrorValueCache = null;
+    refresh();
+  }, 150);
+});
+
+})();
+</script>
+</body>
+</html>
