@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Add Page Numbers to PDF — Free Online Tool</title>
+<meta name="description" content="Add page numbers to any PDF in your browser. Choose position, format, starting number, font size and margins. Free, private, no upload — the file never leaves your device.">
+<link rel="canonical" href="https://localtools.co.in/tools/pdf/add-page-numbers.html">
+<link rel="sitemap" type="application/xml" href="https://localtools.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#1B4DFF">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Add Page Numbers to PDF — Free Online Tool">
+<meta property="og:description" content="Add page numbers to any PDF in your browser. Free, private, no upload.">
+<meta property="og:url" content="https://localtools.co.in/tools/pdf/add-page-numbers.html">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"WebApplication",
+      "name":"Add Page Numbers to PDF",
+      "url":"https://localtools.co.in/tools/pdf/add-page-numbers.html",
+      "applicationCategory":"UtilitiesApplication",
+      "operatingSystem":"Any browser",
+      "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+      "featureList":[
+        "Add page numbers to PDF",
+        "Choose position: bottom, top, left, right, center",
+        "Multiple number formats: 1, 1/N, Page 1, Page 1 of N",
+        "Custom starting number",
+        "Custom font size and margin",
+        "Skip the first page",
+        "Runs entirely in the browser"
+      ]
+    },
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://localtools.co.in/"},
+        {"@type":"ListItem","position":2,"name":"Tools","item":"https://localtools.co.in/tools/"},
+        {"@type":"ListItem","position":3,"name":"Add Page Numbers","item":"https://localtools.co.in/tools/pdf/add-page-numbers.html"}
+      ]
+    },
+    {
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"Is this tool free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is completely free, has no page limit and runs entirely in your browser."}},
+        {"@type":"Question","name":"Does my PDF get uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The file is read and rewritten entirely inside your browser using JavaScript. Nothing is sent to any server."}},
+        {"@type":"Question","name":"Can I skip the first page?","acceptedAnswer":{"@type":"Answer","text":"Yes. Enable the Skip first page option to leave the cover page unnumbered."}},
+        {"@type":"Question","name":"What number formats are supported?","acceptedAnswer":{"@type":"Answer","text":"Plain (1, 2, 3), of total (1 / 10), labeled (Page 1), and labeled with total (Page 1 of 10)."}},
+        {"@type":"Question","name":"Will the text be selectable?","acceptedAnswer":{"@type":"Answer","text":"Yes. Numbers are added as real text, not an image, so they can be selected and searched."}}
+      ]
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --paper:#EDEDE9;
+  --surface:#FFFFFF;
+  --ink:#14161A;
+  --muted:#6B7079;
+  --line:#D6D6D0;
+  --blue:#1B4DFF;
+  --blue-deep:#1338C4;
+  --green:#0E7A5F;
+  --red:#B0233A;
+  --radius:6px;
+  --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --display:"Bricolage Grotesque",var(--sans);
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+
+.wrap{max-width:720px;margin:0 auto;padding:20px 18px 64px}
+
+.masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
+.masthead a{color:inherit;text-decoration:none}
+.mark{width:26px;height:26px;flex:none}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.masthead .nav-right{margin-left:auto;font-size:.875rem;color:var(--blue);text-decoration:underline;white-space:nowrap}
+
+.crumbs{font-size:.8125rem;color:var(--muted);margin:0 0 18px;font-family:var(--mono)}
+.crumbs a{color:var(--muted);text-decoration:underline}
+.crumbs a:hover{color:var(--blue)}
+.crumbs span{color:var(--ink)}
+
+.lede{margin:0 0 6px;font-family:var(--display);font-weight:700;
+  font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.05;letter-spacing:-.03em}
+.sub{margin:0 0 26px;color:var(--muted);max-width:60ch;font-size:1rem}
+
+.drop{
+  background:var(--surface);
+  border:2px dashed var(--line);
+  border-radius:10px;
+  padding:44px 24px;
+  text-align:center;
+  transition:border-color .15s ease, background .15s ease;
+  cursor:pointer;
+}
+.drop:hover,.drop.over{border-color:var(--blue);background:#F5F7FF}
+.drop-icon{width:44px;height:44px;color:var(--blue);margin:0 auto 14px;display:block}
+.drop h2{font-family:var(--display);font-weight:700;font-size:1.125rem;margin:0 0 6px;letter-spacing:-.01em}
+.drop p{margin:0;color:var(--muted);font-size:.9375rem}
+.drop .hint{margin-top:10px;font-family:var(--mono);font-size:.75rem;letter-spacing:.05em;text-transform:uppercase}
+
+.file-info{
+  display:none;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--green);
+  border-radius:var(--radius);padding:14px 16px;margin:18px 0 0;
+  display:none;align-items:center;gap:12px;
+}
+.file-info.show{display:flex}
+.file-info .fi-name{flex:1;font-weight:500;font-size:.9375rem;word-break:break-all}
+.file-info .fi-meta{font-family:var(--mono);font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.file-info .fi-remove{background:none;border:0;padding:4px;color:var(--muted);cursor:pointer;font-size:1.25rem;line-height:1}
+.file-info .fi-remove:hover{color:var(--red)}
+
+.opts{margin:26px 0 0;display:none}
+.opts.show{display:block}
+
+.opt-block{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px;margin:0 0 14px}
+.opt-block h3{font-family:var(--display);font-weight:700;font-size:1rem;margin:0 0 14px;letter-spacing:-.01em}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+@media(max-width:560px){.grid2,.grid3{grid-template-columns:1fr}}
+
+.field{display:block}
+.field label{display:block;font-size:.8125rem;color:var(--muted);margin:0 0 5px;font-family:var(--mono);
+  text-transform:uppercase;letter-spacing:.05em}
+.field input[type="text"],
+.field input[type="number"],
+.field select{
+  width:100%;font:inherit;border:1px solid var(--line);background:#fff;color:var(--ink);
+  border-radius:var(--radius);padding:10px 12px;outline:none;
+}
+.field input:focus,.field select:focus{
+  border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.field .range-row{display:flex;align-items:center;gap:10px}
+.field input[type="range"]{flex:1;accent-color:var(--blue)}
+.field .range-val{font-family:var(--mono);font-weight:500;min-width:48px;text-align:right;font-size:.9375rem}
+
+.pos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;
+  max-width:260px;margin:0 auto}
+.pos-cell{
+  aspect-ratio:1;border:1px solid var(--line);background:#fff;border-radius:5px;
+  cursor:pointer;display:grid;place-items:center;transition:border-color .12s ease, background .12s ease;
+}
+.pos-cell:hover{border-color:var(--blue)}
+.pos-cell[aria-pressed="true"]{background:var(--blue);border-color:var(--blue)}
+.pos-cell .dot{width:8px;height:8px;border-radius:50%;background:var(--ink);transition:background .12s ease}
+.pos-cell[aria-pressed="true"] .dot{background:#fff}
+
+.opt-row{display:flex;align-items:center;gap:10px;margin:10px 0 0;font-size:.9375rem}
+.opt-row input[type="checkbox"]{accent-color:var(--blue);cursor:pointer;width:16px;height:16px}
+
+.btnrow{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 0}
+button{font:inherit;cursor:pointer;border-radius:var(--radius);
+  border:1px solid var(--line);background:var(--surface);color:var(--ink);
+  padding:12px 18px;font-weight:500;display:inline-flex;align-items:center;gap:8px;
+  transition:border-color .12s ease,background .12s ease}
+button:hover{border-color:#A9A9A1}
+button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+button[disabled]{opacity:.4;cursor:not-allowed}
+.primary{background:var(--blue);border-color:var(--blue);color:#fff;justify-content:center;flex:1 1 220px}
+.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep)}
+
+.status{margin:16px 0 0;font-size:.9375rem;color:var(--muted);min-height:1.4em;font-family:var(--mono)}
+.status.err{color:var(--red)}
+.status.ok{color:var(--green)}
+
+.progress{margin:16px 0 0;height:4px;background:var(--line);border-radius:100px;overflow:hidden;display:none}
+.progress.show{display:block}
+.progress-bar{height:100%;width:0;background:var(--blue);transition:width .2s ease}
+
+.article{margin:44px 0 0;max-width:68ch}
+.article h2{margin:36px 0 10px;font-family:var(--display);font-size:1.5rem;letter-spacing:-.02em}
+.article h2:first-child{margin-top:0}
+.article h3{font-family:var(--display);font-weight:700;font-size:1.0625rem;
+  letter-spacing:-.015em;margin:28px 0 8px}
+.article p{margin:0 0 12px;color:#3A3E46}
+.article ul{margin:0 0 12px;padding-left:20px;color:#3A3E46}
+.article li{margin:0 0 6px}
+.article strong{font-weight:600;color:var(--ink)}
+.article a{color:var(--blue);text-decoration:underline}
+.article code{font-family:var(--mono);font-size:.875em;background:var(--surface);
+  border:1px solid var(--line);border-radius:3px;padding:1px 4px}
+
+.faq{margin:14px 0 0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;
+  display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--blue);font-size:1.25rem;line-height:1;flex:none}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{margin:0 0 14px;color:#3A3E46;max-width:62ch}
+
+.related-list{list-style:none;margin:12px 0 0;padding:0}
+.related-list li{background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius);padding:12px 14px;margin:0 0 8px;
+  display:flex;gap:12px;align-items:center}
+.related-list .txt{flex:1;font-size:.9375rem}
+.related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
+.related-list .txt a:hover{color:var(--blue);text-decoration:underline}
+.related-list .txt p{margin:2px 0 0;font-size:.8125rem;color:var(--muted)}
+.related-list time{font-size:.75rem;color:var(--muted);flex:none;font-family:var(--mono);
+  text-transform:uppercase;letter-spacing:.05em}
+
+footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);
+  color:var(--muted);font-size:.8125rem}
+footer a{color:inherit}
+footer a:hover{color:var(--blue)}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);
+  background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;
+  font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:20}
+.toast.show{opacity:1}
+
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <a href="../../index.html" style="display:flex;align-items:center;gap:10px">
+      <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/>
+        <path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/>
+        <path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/>
+        <path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/>
+        <path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/>
+      </svg>
+      <span class="wordmark">localtools Tools</span>
+    </a>
+    <a href="/" class="nav-right">Home →</a>
+  </header>
+
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Add Page Numbers</span>
+  </nav>
+
+  <h1 class="lede">Add Page Numbers to PDF</h1>
+  <p class="sub">Number every page of a PDF in seconds. Choose position, format, starting number, font size and margin. The file never leaves your device.</p>
+
+  <!-- DROP ZONE -->
+  <div class="drop" id="drop">
+    <svg class="drop-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+      <path d="M14 2v6h6"/>
+      <path d="M12 12v6M9 15l3 3 3-3"/>
+    </svg>
+    <h2>Drop a PDF here, or click to choose</h2>
+    <p>Everything runs locally. Your file is never uploaded.</p>
+    <div class="hint">Max ~100 MB · Works best in Chrome, Edge, Safari, Firefox</div>
+    <input type="file" id="file" accept="application/pdf" class="sr">
+  </div>
+
+  <!-- FILE INFO -->
+  <div class="file-info" id="fileInfo">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--green);flex:none">
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+      <path d="M14 2v6h6"/>
+    </svg>
+    <div class="fi-name" id="fiName">file.pdf</div>
+    <div class="fi-meta" id="fiMeta">— pages · — KB</div>
+    <button class="fi-remove" id="fiRemove" aria-label="Remove file">×</button>
+  </div>
+
+  <!-- OPTIONS -->
+  <div class="opts" id="opts">
+
+    <div class="opt-block">
+      <h3>Position</h3>
+      <div class="pos-grid" role="group" aria-label="Position on the page">
+        <button class="pos-cell" data-pos="top-left" aria-pressed="false" title="Top left"><span class="dot"></span></button>
+        <button class="pos-cell" data-pos="top-center" aria-pressed="false" title="Top center"><span class="dot"></span></button>
+        <button class="pos-cell" data-pos="top-right" aria-pressed="false" title="Top right"><span class="dot"></span></button>
+        <button class="pos-cell" data-pos="bottom-left" aria-pressed="false" title="Bottom left"><span class="dot"></span></button>
+        <button class="pos-cell" data-pos="bottom-center" aria-pressed="true" title="Bottom center"><span class="dot"></span></button>
+        <button class="pos-cell" data-pos="bottom-right" aria-pressed="false" title="Bottom right"><span class="dot"></span></button>
+      </div>
+    </div>
+
+    <div class="opt-block">
+      <h3>Format</h3>
+      <div class="grid2">
+        <div class="field">
+          <label for="fmt">Number style</label>
+          <select id="fmt">
+            <option value="plain" selected>1, 2, 3</option>
+            <option value="of">1 / 10</option>
+            <option value="page">Page 1</option>
+            <option value="page-of">Page 1 of 10</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="start">Start at</label>
+          <input type="number" id="start" min="0" step="1" value="1">
+        </div>
+      </div>
+      <label class="opt-row"><input type="checkbox" id="skipFirst"> Skip first page (useful for cover pages)</label>
+    </div>
+
+    <div class="opt-block">
+      <h3>Text</h3>
+      <div class="grid3">
+        <div class="field">
+          <label for="size">Font size</label>
+          <div class="range-row">
+            <input type="range" id="size" min="6" max="36" value="11">
+            <span class="range-val" id="sizeVal">11 pt</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="margin">Margin</label>
+          <div class="range-row">
+            <input type="range" id="margin" min="8" max="80" value="28">
+            <span class="range-val" id="marginVal">28 pt</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="color">Color</label>
+          <input type="color" id="color" value="#14161A" style="height:38px;padding:4px;cursor:pointer">
+        </div>
+      </div>
+    </div>
+
+    <div class="btnrow">
+      <button class="primary" id="applyBtn" disabled>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        Add page numbers &amp; download
+      </button>
+      <button id="resetBtn">Reset options</button>
+    </div>
+
+    <div class="progress" id="progress"><div class="progress-bar" id="progressBar"></div></div>
+    <p class="status" id="status" role="status"></p>
+  </div>
+
+  <!-- ARTICLE -->
+  <article class="article">
+    <h2>How to add page numbers to a PDF</h2>
+    <ol>
+      <li>Drag your PDF onto the box above, or click to choose a file.</li>
+      <li>Pick where the numbers should appear — six positions are available.</li>
+      <li>Choose a style: <code>1</code>, <code>1 / 10</code>, <code>Page 1</code> or <code>Page 1 of 10</code>.</li>
+      <li>Adjust the starting number, font size, margin and color if you need to.</li>
+      <li>Click <strong>Add page numbers &amp; download</strong>. The new PDF saves to your device.</li>
+    </ol>
+
+    <h2>When to use each format</h2>
+    <ul>
+      <li><strong>1, 2, 3</strong> — clean and minimal. Best for most documents.</li>
+      <li><strong>1 / 10</strong> — shows total length. Useful for legal or academic submissions.</li>
+      <li><strong>Page 1</strong> — formal, matching many printed reports.</li>
+      <li><strong>Page 1 of 10</strong> — the most explicit. Common in contracts and manuals.</li>
+    </ul>
+
+    <h2>Skip the first page</h2>
+    <p>If your PDF starts with a cover page, enable <strong>Skip first page</strong>. That page is left untouched, and numbering starts on page two — but the total count still reflects the full document. So a 10-page PDF with skip enabled shows “Page 2 of 10” on the second page and “Page 10 of 10” on the last.</p>
+
+    <h2>Is my PDF safe?</h2>
+    <p>Yes. The file is read, modified and re-saved entirely inside your browser using JavaScript. Nothing is uploaded to any server. Once the page has loaded, you can even disconnect from the internet and the tool still works.</p>
+
+    <h2>Limitations</h2>
+    <ul>
+      <li>Text is added in a standard font. The tool cannot match a custom font already embedded in the PDF.</li>
+      <li>Encrypted or password-protected PDFs are not supported. Remove the password first.</li>
+      <li>Very large PDFs (over ~100 MB or 500+ pages) may take a few seconds longer in older browsers.</li>
+    </ul>
+
+    <h2>Common questions</h2>
+    <div class="faq">
+      <details><summary>Is this tool free?</summary><p>Yes. It is completely free, has no page limit and runs entirely in your browser.</p></details>
+      <details><summary>Does my PDF get uploaded?</summary><p>No. The file is read and rewritten entirely inside your browser using JavaScript. Nothing is sent to any server.</p></details>
+      <details><summary>Can I skip the first page?</summary><p>Yes. Enable the Skip first page option to leave the cover page unnumbered.</p></details>
+      <details><summary>What number formats are supported?</summary><p>Plain (1, 2, 3), of total (1 / 10), labeled (Page 1), and labeled with total (Page 1 of 10).</p></details>
+      <details><summary>Will the numbers be selectable text?</summary><p>Yes. Numbers are added as real text, not an image, so they can be selected, copied and searched.</p></details>
+      <details><summary>Can I use a custom font?</summary><p>Not currently. The tool uses one of the standard PDF fonts, which is available in every PDF reader. Custom fonts would increase the output file size significantly.</p></details>
+      <details><summary>What happens to my original PDF?</summary><p>It stays untouched on your device. The tool creates a new file with the suffix “-numbered” added to the filename.</p></details>
+      <details><summary>Does it work on phones?</summary><p>Yes. It runs in Safari on iOS and Chrome on Android. Very large PDFs may be slower on older phones.</p></details>
+    </div>
+
+    <h2>Related tools</h2>
+    <ul class="related-list">
+      <li><div class="txt"><a href="../qrscanner/">QR Scanner &amp; Generator</a><p>Scan QR codes or create them for URLs, Wi-Fi, UPI and contacts.</p></div><time>Generate</time></li>
+      <li><div class="txt"><a href="../text/word-counter.html">Word Counter</a><p>Count words, characters and reading time.</p></div><time>Text</time></li>
+      <li><div class="txt"><a href="../dev/json-format.html">JSON Formatter</a><p>Beautify, minify and validate JSON.</p></div><time>Dev</time></li>
+    </ul>
+  </article>
+
+  <footer>
+    <p>
+      localtools Tools ·
+      <a href="../../index.html">Home</a> ·
+      <a href="/">Home</a> ·
+      <a href="../../pages/about.html">About</a> ·
+      <a href="../../pages/privacy.html">Privacy</a>
+    </p>
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script>
+if(!window.PDFLib){
+  document.write('<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"><\/script>');
+}
+</script>
+<script>
+(function(){
+  "use strict";
+
+  var $ = function(id){ return document.getElementById(id); };
+
+  var drop      = $("drop");
+  var fileInput = $("file");
+  var fileInfo  = $("fileInfo");
+  var fiName    = $("fiName");
+  var fiMeta    = $("fiMeta");
+  var fiRemove  = $("fiRemove");
+  var opts      = $("opts");
+  var applyBtn  = $("applyBtn");
+  var resetBtn  = $("resetBtn");
+  var fmtSel    = $("fmt");
+  var startIn   = $("start");
+  var skipFirst = $("skipFirst");
+  var sizeRange = $("size");
+  var sizeVal   = $("sizeVal");
+  var marginRng = $("margin");
+  var marginVal = $("marginVal");
+  var colorIn   = $("color");
+  var statusEl  = $("status");
+  var progress  = $("progress");
+  var progressBar = $("progressBar");
+  var toast     = $("toast");
+
+  var currentFile = null;
+  var currentArrayBuffer = null;
+  var position = "bottom-center";
+
+  /* ---------- helpers ---------- */
+  function flash(msg){
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(flash._t);
+    flash._t = setTimeout(function(){ toast.classList.remove("show"); }, 1800);
+  }
+  function say(msg, kind){
+    statusEl.textContent = msg || "";
+    statusEl.classList.toggle("err", kind === "err");
+    statusEl.classList.toggle("ok", kind === "ok");
+  }
+  function showProgress(pct){
+    progress.classList.add("show");
+    progressBar.style.width = pct + "%";
+  }
+  function hideProgress(){
+    setTimeout(function(){
+      progress.classList.remove("show");
+      progressBar.style.width = "0";
+    }, 400);
+  }
+  function bytes(n){
+    if (n < 1024) return n + " B";
+    if (n < 1048576) return (n / 1024).toFixed(1) + " KB";
+    return (n / 1048576).toFixed(1) + " MB";
+  }
+  function hexToRgb(hex){
+    var m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    if (!m) return { r: 0.08, g: 0.09, b: 0.10 };
+    return {
+      r: parseInt(m[1], 16) / 255,
+      g: parseInt(m[2], 16) / 255,
+      b: parseInt(m[3], 16) / 255
+    };
+  }
+
+  /* ---------- file selection ---------- */
+  drop.addEventListener("click", function(){ fileInput.click(); });
+
+  ["dragenter", "dragover"].forEach(function(ev){
+    drop.addEventListener(ev, function(e){
+      e.preventDefault();
+      drop.classList.add("over");
+    });
+  });
+  ["dragleave", "drop"].forEach(function(ev){
+    drop.addEventListener(ev, function(e){
+      e.preventDefault();
+      drop.classList.remove("over");
+    });
+  });
+  drop.addEventListener("drop", function(e){
+    var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) handleFile(f);
+  });
+  fileInput.addEventListener("change", function(){
+    var f = fileInput.files && fileInput.files[0];
+    if (f) handleFile(f);
+    fileInput.value = "";
+  });
+
+  function handleFile(file){
+    if (!/pdf$/i.test(file.name) && file.type !== "application/pdf"){
+      flash("Please choose a PDF file");
+      return;
+    }
+    currentFile = file;
+    say("Reading file…");
+
+    var reader = new FileReader();
+    reader.onload = function(){
+      currentArrayBuffer = reader.result;
+      // Peek at the page count to show it
+      try {
+        PDFLib.PDFDocument.load(currentArrayBuffer, { ignoreEncryption: false })
+          .then(function(doc){
+            var pages = doc.getPageCount();
+            fiName.textContent = file.name;
+            fiMeta.textContent = pages + " page" + (pages === 1 ? "" : "s") + " · " + bytes(file.size);
+            fileInfo.classList.add("show");
+            opts.classList.add("show");
+            applyBtn.disabled = false;
+            say("Ready. Adjust options and click Apply.", "ok");
+          })
+          .catch(function(err){
+            var msg = (err && err.message) ? err.message : "";
+            if (/encrypted|password/i.test(msg)){
+              say("This PDF is password-protected. Remove the password first, then try again.", "err");
+            } else {
+              say("Could not open this PDF. It may be corrupted or in an unsupported format.", "err");
+            }
+          });
+      } catch (e) {
+        say("Could not open this PDF.", "err");
+      }
+    };
+    reader.onerror = function(){ say("Could not read the file.", "err"); };
+    reader.readAsArrayBuffer(file);
+  }
+
+  fiRemove.addEventListener("click", function(){
+    currentFile = null;
+    currentArrayBuffer = null;
+    fileInfo.classList.remove("show");
+    opts.classList.remove("show");
+    applyBtn.disabled = true;
+    say("");
+  });
+
+  /* ---------- position grid ---------- */
+  document.querySelectorAll("[data-pos]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      position = btn.getAttribute("data-pos");
+      document.querySelectorAll("[data-pos]").forEach(function(b){
+        b.setAttribute("aria-pressed", String(b === btn));
+      });
+    });
+  });
+
+  /* ---------- live label updates ---------- */
+  sizeRange.addEventListener("input", function(){
+    sizeVal.textContent = sizeRange.value + " pt";
+  });
+  marginRng.addEventListener("input", function(){
+    marginVal.textContent = marginRng.value + " pt";
+  });
+
+  /* ---------- reset ---------- */
+  resetBtn.addEventListener("click", function(){
+    position = "bottom-center";
+    document.querySelectorAll("[data-pos]").forEach(function(b){
+      b.setAttribute("aria-pressed", String(b.getAttribute("data-pos") === "bottom-center"));
+    });
+    fmtSel.value = "plain";
+    startIn.value = 1;
+    skipFirst.checked = false;
+    sizeRange.value = 11; sizeVal.textContent = "11 pt";
+    marginRng.value = 28; marginVal.textContent = "28 pt";
+    colorIn.value = "#14161A";
+    flash("Options reset");
+  });
+
+  /* ---------- formatting ---------- */
+  function formatNumber(fmt, n, total){
+    switch (fmt){
+      case "plain":    return String(n);
+      case "of":       return n + " / " + total;
+      case "page":     return "Page " + n;
+      case "page-of":  return "Page " + n + " of " + total;
+      default:         return String(n);
+    }
+  }
+
+  /* ---------- coordinates ---------- */
+  function getCoords(position, pageW, pageH, textW, textH, margin){
+    var x, y;
+    var isTop = position.indexOf("top") === 0;
+    var horiz = position.split("-")[1];
+
+    if (horiz === "left")   x = margin;
+    else if (horiz === "right") x = pageW - margin - textW;
+    else x = (pageW - textW) / 2;
+
+    if (isTop) y = pageH - margin - textH;
+    else y = margin;
+
+    return { x: x, y: y };
+  }
+
+  /* ---------- apply ---------- */
+  applyBtn.addEventListener("click", function(){
+    if (!currentArrayBuffer){
+      flash("Choose a PDF first");
+      return;
+    }
+    if (!window.PDFLib){
+      say("PDF library did not load. Check your connection and reload.", "err");
+      return;
+    }
+
+    applyBtn.disabled = true;
+    say("Processing…");
+    showProgress(10);
+
+    (async function(){
+      try {
+        var { PDFDocument, StandardFonts, rgb } = PDFLib;
+
+        var pdfDoc = await PDFDocument.load(currentArrayBuffer);
+        showProgress(30);
+
+        var font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+        var pages = pdfDoc.getPages();
+        var total = pages.length;
+
+        var startNum = Math.max(0, parseInt(startIn.value, 10) || 1);
+        var fmt = fmtSel.value;
+        var fontSize = Math.max(6, Math.min(36, parseInt(sizeRange.value, 10) || 11));
+        var margin = Math.max(4, parseInt(marginRng.value, 10) || 28);
+        var color = hexToRgb(colorIn.value);
+        var pdfColor = rgb(color.r, color.g, color.b);
+        var skip = skipFirst.checked;
+
+        showProgress(50);
+
+        for (var i = 0; i < total; i++){
+          if (skip && i === 0) continue;
+
+          var page = pages[i];
+          var { width, height } = page.getSize();
+
+          // n: display number for this page; total shown stays full length
+          var n = startNum + i;
+          var text = formatNumber(fmt, n, startNum + total - 1);
+          var textW = font.widthOfTextAtSize(text, fontSize);
+          var textH = font.heightAtSize(fontSize);
+
+          var pos = getCoords(position, width, height, textW, textH, margin);
+
+          page.drawText(text, {
+            x: pos.x,
+            y: pos.y,
+            size: fontSize,
+            font: font,
+            color: pdfColor
+          });
+
+          // Update progress
+          if (i % 5 === 0){
+            showProgress(50 + Math.round((i / total) * 40));
+            await new Promise(function(r){ setTimeout(r, 0); });
+          }
+        }
+
+        showProgress(92);
+
+        var out = await pdfDoc.save({ useObjectStreams: true });
+        showProgress(100);
+
+        var blob = new Blob([out], { type: "application/pdf" });
+        var baseName = (currentFile.name || "document.pdf").replace(/\.pdf$/i, "");
+        var outName = baseName + "-numbered.pdf";
+
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = outName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+
+        say("Done — your numbered PDF has been downloaded.", "ok");
+        flash("PDF ready");
+      } catch (err){
+        var msg = (err && err.message) ? err.message : "Unknown error";
+        if (/encrypted|password/i.test(msg)){
+          say("This PDF is password-protected. Remove the password first.", "err");
+        } else {
+          say("Something went wrong: " + msg, "err");
+        }
+      } finally {
+        hideProgress();
+        applyBtn.disabled = false;
+      }
+    })();
+  });
+
+})();
+</script>
+</body>
+</html>
