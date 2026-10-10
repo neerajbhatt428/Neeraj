@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Percentage Calculator — Free Online Percent Calculator</title>
+<meta name="description" content="Free percentage calculator. Find X% of Y, what percent X is of Y, percentage increase, decrease, change, difference and reverse percentages. Instant results, works in your browser.">
+<link rel="canonical" href="https://localtools.co.in/tools/calc/percentage.html">
+<link rel="sitemap" type="application/xml" href="https://localtools.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#1B4DFF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Percentage Calculator — Free Online Percent Calculator">
+<meta property="og:description" content="Find X% of Y, what percent X is of Y, percentage change, difference and reverse percentages.">
+<meta property="og:url" content="https://localtools.co.in/tools/calc/percentage.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Percentage Calculator","url":"https://localtools.co.in/tools/calc/percentage.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localtools.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://localtools.co.in/tools/"},{"@type":"ListItem","position":3,"name":"Percentage Calculator","item":"https://localtools.co.in/tools/calc/percentage.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I calculate X% of Y?","acceptedAnswer":{"@type":"Answer","text":"Multiply Y by X and divide by 100. 15% of 200 is 30."}},{"@type":"Question","name":"How do I calculate percentage increase?","acceptedAnswer":{"@type":"Answer","text":"Divide the increase by the original value, then multiply by 100. Going from 80 to 100 is 25%."}},{"@type":"Question","name":"What is the difference between percentage change and percentage difference?","acceptedAnswer":{"@type":"Answer","text":"Percentage change measures movement from a specific starting value. Percentage difference compares two values without designating either as the starting point."}},{"@type":"Question","name":"How do I calculate reverse percentage?","acceptedAnswer":{"@type":"Answer","text":"If a value was increased by X% to reach a final number, divide the final by 1 + (X ÷ 100). If decreased, divide by 1 − (X ÷ 100)."}}]}]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#EDEDE9;--surface:#FFFFFF;--ink:#14161A;--muted:#6B7079;--line:#D6D6D0;--blue:#1B4DFF;--blue-deep:#1338C4;--green:#0E7A5F;--red:#B0233A;--radius:6px;--sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--display:"Bricolage Grotesque",var(--sans);--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;background-image:linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);background-size:28px 28px}
+.wrap{max-width:660px;margin:0 auto;padding:20px 18px 64px}
+.masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
+.masthead a{color:inherit;text-decoration:none}
+.mark{width:26px;height:26px;flex:none}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.masthead .nav-right{margin-left:auto;font-size:.875rem;color:var(--blue);text-decoration:underline;white-space:nowrap}
+.crumbs{font-size:.8125rem;color:var(--muted);margin:0 0 18px;font-family:var(--mono)}
+.crumbs a{color:var(--muted);text-decoration:underline}
+.crumbs a:hover{color:var(--blue)}
+.crumbs span{color:var(--ink)}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
+.lede{margin:0 0 6px;font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.05;letter-spacing:-.03em}
+.sub{margin:0 0 22px;color:var(--muted);max-width:68ch;font-size:1rem}
+.pc-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:#DCDCD6;border:1px solid var(--line);padding:4px;border-radius:var(--radius);margin:0 0 14px}
+@media(max-width:560px){.pc-tabs{grid-template-columns:repeat(2,1fr)}}
+.pc-tabs button{border:0;background:transparent;padding:10px 8px;justify-content:center;font-weight:600;font-size:.8125rem;font-family:inherit;cursor:pointer;color:var(--ink);border-radius:4px;transition:background .12s ease,color .12s ease;display:inline-flex;align-items:center;text-align:center;line-height:1.2}
+.pc-tabs button:hover:not([aria-selected="true"]){background:rgba(0,0,0,.05)}
+.pc-tabs button[aria-selected="true"]{background:var(--ink);color:#fff}
+.pc-tabs button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.pc-panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:0 0 14px}
+.pc-panel[hidden]{display:none}
+.pc-panel h2{font-family:var(--display);font-weight:700;font-size:1.0625rem;letter-spacing:-.01em;margin:0 0 14px}
+.pc-q{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 14px;font-size:1rem}
+.pc-q .pc-label{color:var(--muted);font-size:.9375rem;white-space:nowrap;flex:none}
+.pc-q input[type="number"]{flex:1 1 110px;min-width:0;padding:11px 12px;font-family:var(--mono);font-size:1rem;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);outline:none;transition:border-color .15s ease,box-shadow .15s ease;-moz-appearance:textfield}
+.pc-q input[type="number"]::-webkit-outer-spin-button,.pc-q input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.pc-q input[type="number"]:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.pc-q select{flex:1 1 110px;min-width:0;padding:11px 12px;font-family:var(--mono);font-size:.9375rem;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);outline:none}
+.pc-q select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.pc-result{margin:14px 0 0;padding:18px;background:linear-gradient(135deg,rgba(27,77,255,.06),rgba(168,85,247,.05));border:1px solid rgba(27,77,255,.2);border-radius:var(--radius);text-align:center}
+.pc-result .pc-res-label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 6px}
+.pc-result .pc-res-value{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,5vw,2.25rem);letter-spacing:-.03em;line-height:1.1;color:var(--ink);margin:0;word-break:break-word}
+.pc-result .pc-res-detail{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin:8px 0 0;line-height:1.6;word-break:break-word}
+.pc-result .pc-result-actions{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:12px 0 0}
+.pc-result .pc-copy,.pc-result .pc-share{font-size:.6875rem;padding:6px 12px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--blue);cursor:pointer;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;transition:background .12s ease,border-color .12s ease}
+.pc-result .pc-copy:hover,.pc-result .pc-share:hover{background:rgba(27,77,255,.08);border-color:var(--blue)}
+.pc-hint{margin:8px 0 0;font-family:var(--mono);font-size:.6875rem;color:var(--muted);text-align:center;letter-spacing:.02em}
+.pc-hint code{font-family:var(--mono);background:rgba(20,22,26,.05);border-radius:3px;padding:1px 5px;font-size:.6875rem}
+.article{margin:44px 0 0;max-width:72ch}
+.article h2{margin:36px 0 10px;font-size:1.5rem}
+.article h2:first-child{margin-top:0}
+.article p{margin:0 0 12px;color:#3A3E46}
+.article ul{margin:0 0 12px;padding-left:20px;color:#3A3E46}
+.article li{margin:0 0 6px}
+.article strong{font-weight:600;color:var(--ink)}
+.article a{color:var(--blue);text-decoration:underline}
+.article code{font-family:var(--mono);font-size:.875em;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:1px 4px}
+.faq{margin:14px 0 0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--blue);font-size:1.25rem;line-height:1;flex:none}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{margin:0 0 14px;color:#3A3E46;max-width:62ch}
+.related-list{list-style:none;margin:12px 0 0;padding:0}
+.related-list li{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center}
+.related-list .txt{flex:1}
+.related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
+.related-list .txt a:hover{color:var(--blue);text-decoration:underline}
+.related-list .txt p{margin:2px 0 0;font-size:.8125rem;color:var(--muted)}
+.related-list time{font-size:.75rem;color:var(--muted);flex:none;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem}
+footer a{color:inherit}
+footer a:hover{color:var(--blue)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:200}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+<a href="../../index.html" style="display:flex;align-items:center;gap:10px">
+<svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/><path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/><path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/><path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/><path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/></svg>
+<span class="wordmark">LocalTools</span>
+</a>
+<a href="/" class="nav-right">Home →</a>
+</header>
+
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Percentage Calculator</span></nav>
+
+<h1 class="lede">Percentage Calculator</h1>
+<p class="sub">Six common percentage questions answered instantly. Results update as you type — nothing is uploaded.</p>
+
+<div class="pc-tabs" role="tablist" aria-label="Percentage question">
+<button id="tabA" role="tab" aria-selected="true" aria-controls="panelA">X% of Y</button>
+<button id="tabB" role="tab" aria-selected="false" aria-controls="panelB">X is what % of Y</button>
+<button id="tabC" role="tab" aria-selected="false" aria-controls="panelC">X is Y% of what</button>
+<button id="tabD" role="tab" aria-selected="false" aria-controls="panelD">% change A → B</button>
+<button id="tabE" role="tab" aria-selected="false" aria-controls="panelE">% difference A ↔ B</button>
+<button id="tabF" role="tab" aria-selected="false" aria-controls="panelF">Reverse %</button>
+</div>
+
+<div class="pc-panel" id="panelA">
+<h2>What is X% of Y?</h2>
+<div class="pc-q">
+<input type="number" id="aPct" value="15" step="any" aria-label="Percent">
+<span class="pc-label">% of</span>
+<input type="number" id="aVal" value="200" step="any" aria-label="Value">
+<span class="pc-label">=</span>
+</div>
+<div class="pc-result">
+<p class="pc-res-label">Result</p>
+<p class="pc-res-value" id="aResult">30</p>
+<p class="pc-res-detail" id="aDetail"></p>
+<div class="pc-result-actions">
+<button class="pc-copy" data-copy="aResult">Copy result</button>
+<button class="pc-share" data-share="A">Share link</button>
+</div>
+</div>
+<p class="pc-hint">Formula: <code>(X ÷ 100) × Y</code></p>
+</div>
+
+<div class="pc-panel" id="panelB" hidden>
+<h2>X is what percent of Y?</h2>
+<div class="pc-q">
+<input type="number" id="bX" value="30" step="any" aria-label="X">
+<span class="pc-label">is what % of</span>
+<input type="number" id="bY" value="200" step="any" aria-label="Y">
+<span class="pc-label">?</span>
+</div>
+<div class="pc-result">
+<p class="pc-res-label">Result</p>
+<p class="pc-res-value" id="bResult">15%</p>
+<p class="pc-res-detail" id="bDetail"></p>
+<div class="pc-result-actions">
+<button class="pc-copy" data-copy="bResult">Copy result</button>
+<button class="pc-share" data-share="B">Share link</button>
+</div>
+</div>
+<p class="pc-hint">Formula: <code>(X ÷ Y) × 100</code></p>
+</div>
+
+<div class="pc-panel" id="panelC" hidden>
+<h2>X is Y% of what number?</h2>
+<div class="pc-q">
+<input type="number" id="cX" value="30" step="any" aria-label="X">
+<span class="pc-label">is</span>
+<input type="number" id="cPct" value="15" step="any" aria-label="Percent">
+<span class="pc-label">% of what?</span>
+</div>
+<div class="pc-result">
+<p class="pc-res-label">Result</p>
+<p class="pc-res-value" id="cResult">200</p>
+<p class="pc-res-detail" id="cDetail"></p>
+<div class="pc-result-actions">
+<button class="pc-copy" data-copy="cResult">Copy result</button>
+<button class="pc-share" data-share="C">Share link</button>
+</div>
+</div>
+<p class="pc-hint">Formula: <code>X ÷ (Y ÷ 100)</code></p>
+</div>
+
+<div class="pc-panel" id="panelD" hidden>
+<h2>Percentage change from A to B</h2>
+<div class="pc-q">
+<input type="number" id="dA" value="80" step="any" aria-label="From">
+<span class="pc-label">changed to</span>
+<input type="number" id="dB" value="100" step="any" aria-label="To">
+</div>
+<div class="pc-result">
+<p class="pc-res-label">Change</p>
+<p class="pc-res-value" id="dResult">+25%</p>
+<p class="pc-res-detail" id="dDetail"></p>
+<div class="pc-result-actions">
+<button class="pc-copy" data-copy="dResult">Copy result</button>
+<button class="pc-share" data-share="D">Share link</button>
+</div>
+</div>
+<p class="pc-hint">Formula: <code>((B − A) ÷ A) × 100</code></p>
+</div>
+
+<div class="pc-panel" id="panelE" hidden>
+<h2>Percentage difference between A and B</h2>
+<div class="pc-q">
+<input type="number" id="eA" value="80" step="any" aria-label="A">
+<span class="pc-label">and</span>
+<input type="number" id="eB" value="100" step="any" aria-label="B">
+</div>
+<div class="pc-result">
+<p class="pc-res-label">Difference</p>
+<p class="pc-res-value" id="eResult">22.22%</p>
+<p class="pc-res-detail" id="eDetail"></p>
+<div class="pc-result-actions">
+<button class="pc-copy" data-copy="eResult">Copy result</button>
+<button class="pc-share" data-share="E">Share link</button>
+</div>
+</div>
+<p class="pc-hint">Formula: <code>|A − B| ÷ ((A + B) ÷ 2) × 100</code></p>
+</div>
+
+<div class="pc-panel" id="panelF" hidden>
+<h2>Reverse percentage</h2>
+<p style="margin:0 0 14px;color:var(--muted);font-size:.875rem">You know the final value and the percentage that was applied — find the original.</p>
+<div class="pc-q">
+<input type="number" id="fFinal" value="125" step="any" aria-label="Final value">
+<span class="pc-label">after</span>
+<input type="number" id="fPct" value="25" step="any" aria-label="Percent change">
+<select id="fDir" aria-label="Direction">
+<option value="up" selected>% increase</option>
+<option value="down">% decrease</option>
+</select>
+</div>
+<div class="pc-result">
+<p class="pc-res-label">Original value</p>
+<p class="pc-res-value" id="fResult">100</p>
+<p class="pc-res-detail" id="fDetail"></p>
+<div class="pc-result-actions">
+<button class="pc-copy" data-copy="fResult">Copy result</button>
+<button class="pc-share" data-share="F">Share link</button>
+</div>
+</div>
+<p class="pc-hint">If increased: <code>final ÷ (1 + X/100)</code> · If decreased: <code>final ÷ (1 − X/100)</code></p>
+</div>
+
+<article class="article">
+<h2>How to use the percentage calculator</h2>
+<p>Choose the question that matches what you're trying to work out, enter your numbers, and the result appears instantly. There's no Calculate button — every panel updates as you type, and your inputs are saved to your browser so they come back when you return.</p>
+<h2>What the six panels do</h2>
+<ul>
+<li><strong>X% of Y</strong> — "What is 15% of 200?" → 30.</li>
+<li><strong>X is what % of Y</strong> — "30 is what percent of 200?" → 15%.</li>
+<li><strong>X is Y% of what</strong> — the reverse question. "30 is 15% of what number?" → 200.</li>
+<li><strong>Change A → B</strong> — percentage increase or decrease. "Price went from 80 to 100" → +25%.</li>
+<li><strong>Difference A ↔ B</strong> — how far apart two values are. "Difference between 80 and 100" → 22.22%.</li>
+<li><strong>Reverse %</strong> — you know the final value and the percent applied. "125 after a 25% increase" → 100.</li>
+</ul>
+<h2>The formulas</h2>
+<ul>
+<li><strong>X% of Y</strong> = (X ÷ 100) × Y</li>
+<li><strong>X is what % of Y</strong> = (X ÷ Y) × 100</li>
+<li><strong>X is Y% of what</strong> = X ÷ (Y ÷ 100)</li>
+<li><strong>Change from A to B</strong> = ((B − A) ÷ A) × 100</li>
+<li><strong>Difference</strong> = |A − B| ÷ ((A + B) ÷ 2) × 100</li>
+<li><strong>Reverse</strong> = final ÷ (1 ± X ÷ 100)</li>
+</ul>
+<h2>Percentage change vs percentage difference</h2>
+<p><strong>Percentage change</strong> measures movement from a specific starting value. <strong>Percentage difference</strong> compares two values without designating either one as the starting point. If 80 changes to 100, that's a 25% change. The difference between 80 and 100 is 22.22% because the average (90) is the reference.</p>
+<h2>Percentage points vs percent</h2>
+<p>If an interest rate goes from 5% to 7%, that's a <strong>2 percentage point increase</strong> — but a <strong>40% relative increase</strong>.</p>
+<h2>Common real-world uses</h2>
+<ul>
+<li><strong>Shopping discounts</strong> — "30% off" a ₹1,500 shirt means you pay ₹1,050.</li>
+<li><strong>Tips and tax</strong> — adding 18% GST to a bill, or a 15% tip.</li>
+<li><strong>Salary hikes</strong> — "went from 60,000 to 72,000" is a 20% increase.</li>
+<li><strong>Investment returns</strong> — "portfolio dropped 12% this quarter".</li>
+<li><strong>Grade calculations</strong> — "42 out of 50" is 84%.</li>
+</ul>
+<h2>Why use this tool?</h2>
+<p>Unlike online calculators that submit your numbers to a server, this one runs entirely in your browser. Nothing is uploaded, no account is needed, and it works offline after the first visit.</p>
+<h2>Common questions</h2>
+<div class="faq">
+<details><summary>How do I calculate X% of Y?</summary><p>Multiply Y by X and divide by 100. For example, 15% of 200 is 200 × 15 ÷ 100 = 30.</p></details>
+<details><summary>How do I calculate percentage increase?</summary><p>Divide the increase by the original value, then multiply by 100. Going from 80 to 100 is 25%.</p></details>
+<details><summary>How do I calculate percentage decrease?</summary><p>Going from 100 to 80 is a decrease of 20, which is −20%.</p></details>
+<details><summary>What is the difference between percentage change and percentage difference?</summary><p>Change uses a starting value. Difference compares two values without designating either as the start.</p></details>
+<details><summary>How do I reverse a percentage?</summary><p>If increased, divide the final by (1 + X ÷ 100). If decreased, divide by (1 − X ÷ 100).</p></details>
+<details><summary>Are my inputs saved?</summary><p>Yes. Your inputs are stored in your browser's local storage and restored when you return.</p></details>
+</div>
+<h2>Related tools</h2>
+<ul class="related-list">
+<li><div class="txt"><a href="discount.html">Discount Calculator</a><p>Calculate sale price and savings.</p></div><time>Calc</time></li>
+<li><div class="txt"><a href="tip.html">Tip Calculator</a><p>Split bills and calculate tips.</p></div><time>Calc</time></li>
+<li><div class="txt"><a href="gst.html">GST Calculator</a><p>Add or remove GST at any rate.</p></div><time>Calc</time></li>
+</ul>
+</article>
+
+<footer>
+<p>LocalTools · <a href="../../index.html">Home</a> · <a href="/">Home</a> · <a href="../../pages/about.html">About</a> · <a href="../../pages/privacy.html">Privacy</a></p>
+</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+var toast=$("toast");
+function flash(m){toast.textContent=m;toast.classList.add("show");clearTimeout(flash._t);flash._t=setTimeout(function(){toast.classList.remove("show");},1700);}
+function fmt(n){
+  if(!isFinite(n))return "—";
+  if(n===0)return "0";
+  var a=Math.abs(n);
+  if(a>=1e15||(a<1e-6&&a>0))return n.toExponential(4);
+  var r=Math.round(n*1e6)/1e6;
+  var s=r.toString();
+  var p=s.split(".");
+  p[0]=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,",");
+  return p.join(".");
+}
+var TABS=["A","B","C","D","E","F"];
+function setTab(w){
+  TABS.forEach(function(t){
+    var te=$("tab"+t);
+    var pe=$("panel"+t);
+    if(te)te.setAttribute("aria-selected",String(t===w));
+    if(pe)pe.hidden=(t!==w);
+  });
+}
+TABS.forEach(function(t){
+  var b=$("tab"+t);
+  if(b)b.addEventListener("click",function(){setTab(t);});
+});
+function updateA(){
+  var p=parseFloat($("aPct").value);
+  var v=parseFloat($("aVal").value);
+  if(isNaN(p)||isNaN(v)){$("aResult").textContent="—";$("aDetail").textContent="";return;}
+  var r=(p/100)*v;
+  $("aResult").textContent=fmt(r);
+  $("aDetail").textContent=p+"% × "+fmt(v)+" = "+fmt(r);
+}
+["aPct","aVal"].forEach(function(id){$(id).addEventListener("input",updateA);});
+function updateB(){
+  var x=parseFloat($("bX").value);
+  var y=parseFloat($("bY").value);
+  if(isNaN(x)||isNaN(y)){$("bResult").textContent="—";$("bDetail").textContent="";return;}
+  if(y===0){$("bResult").textContent="undefined";$("bDetail").textContent="Cannot divide by zero";return;}
+  var p=(x/y)*100;
+  $("bResult").textContent=fmt(p)+"%";
+  $("bDetail").textContent="("+fmt(x)+" ÷ "+fmt(y)+") × 100 = "+fmt(p)+"%";
+}
+["bX","bY"].forEach(function(id){$(id).addEventListener("input",updateB);});
+function updateC(){
+  var x=parseFloat($("cX").value);
+  var p=parseFloat($("cPct").value);
+  if(isNaN(x)||isNaN(p)){$("cResult").textContent="—";$("cDetail").textContent="";return;}
+  if(p===0){$("cResult").textContent="undefined";$("cDetail").textContent="Cannot divide by zero percent";return;}
+  var r=x/(p/100);
+  $("cResult").textContent=fmt(r);
+  $("cDetail").textContent=fmt(x)+" ÷ ("+p+" ÷ 100) = "+fmt(r);
+}
+["cX","cPct"].forEach(function(id){$(id).addEventListener("input",updateC);});
+function updateD(){
+  var a=parseFloat($("dA").value);
+  var b=parseFloat($("dB").value);
+  if(isNaN(a)||isNaN(b)){$("dResult").textContent="—";$("dDetail").textContent="";return;}
+  if(a===0){$("dResult").textContent="undefined";$("dDetail").textContent="Cannot divide by zero";return;}
+  var c=((b-a)/a)*100;
+  var sign=c>0?"+":"";
+  $("dResult").textContent=sign+fmt(c)+"%";
+  $("dDetail").textContent="(("+fmt(b)+" − "+fmt(a)+") ÷ "+fmt(a)+") × 100 = "+sign+fmt(c)+"%";
+}
+["dA","dB"].forEach(function(id){$(id).addEventListener("input",updateD);});
+function updateE(){
+  var a=parseFloat($("eA").value);
+  var b=parseFloat($("eB").value);
+  if(isNaN(a)||isNaN(b)){$("eResult").textContent="—";$("eDetail").textContent="";return;}
+  var avg=(a+b)/2;
+  if(avg===0){$("eResult").textContent="undefined";$("eDetail").textContent="Both values are zero";return;}
+  var d=(Math.abs(a-b)/Math.abs(avg))*100;
+  $("eResult").textContent=fmt(d)+"%";
+  $("eDetail").textContent="|"+fmt(a)+" − "+fmt(b)+"| ÷ "+fmt(avg)+" × 100 = "+fmt(d)+"%";
+}
+["eA","eB"].forEach(function(id){$(id).addEventListener("input",updateE);});
+function updateF(){
+  var f=parseFloat($("fFinal").value);
+  var p=parseFloat($("fPct").value);
+  var dir=$("fDir").value;
+  if(isNaN(f)||isNaN(p)){$("fResult").textContent="—";$("fDetail").textContent="";return;}
+  var div=dir==="up"?(1+p/100):(1-p/100);
+  if(div===0){$("fResult").textContent="undefined";$("fDetail").textContent="Cannot divide by zero";return;}
+  var o=f/div;
+  $("fResult").textContent=fmt(o);
+  $("fDetail").textContent=fmt(f)+" ÷ "+fmt(div)+" = "+fmt(o)+" ("+fmt(p)+"% "+(dir==="up"?"increase":"decrease")+")";
+}
+["fFinal","fPct"].forEach(function(id){$(id).addEventListener("input",updateF);});
+$("fDir").addEventListener("change",updateF);
+function copyText(t){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(function(){flash("Copied");}).catch(function(){fbCopy(t);});
+  } else {fbCopy(t);}
+}
+function fbCopy(t){
+  var ta=document.createElement("textarea");
+  ta.value=t;ta.style.position="fixed";ta.style.opacity="0";
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand("copy");flash("Copied");}catch(e){flash("Copy failed");}
+  document.body.removeChild(ta);
+}
+document.querySelectorAll(".pc-copy").forEach(function(b){
+  b.addEventListener("click",function(){
+    var t=$(b.getAttribute("data-copy"));
+    if(!t)return;
+    var v=t.textContent.trim();
+    if(!v||v==="—")return flash("Nothing to copy");
+    copyText(v);
+  });
+});
+document.querySelectorAll(".pc-share").forEach(function(b){
+  b.addEventListener("click",function(){
+    var p=b.getAttribute("data-share");
+    var map={A:["aPct","aVal"],B:["bX","bY"],C:["cX","cPct"],D:["dA","dB"],E:["eA","eB"],F:["fFinal","fPct","fDir"]};
+    var parts=[];
+    (map[p]||[]).forEach(function(k){
+      var el=$(k);
+      if(el)parts.push(k+"="+encodeURIComponent(el.value));
+    });
+    parts.push("tab="+p);
+    copyText(location.origin+location.pathname+"?"+parts.join("&"));
+  });
+});
+var STORAGE_KEY="pct.state";
+function saveState(){
+  try{
+    var s={};
+    ["aPct","aVal","bX","bY","cX","cPct","dA","dB","eA","eB","fFinal","fPct","fDir"].forEach(function(k){
+      var el=$(k);
+      if(el)s[k]=el.value;
+    });
+    s.tab=TABS.reduce(function(acc,t){
+      return $("tab"+t).getAttribute("aria-selected")==="true"?t:acc;
+    },"A");
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(s));
+  }catch(e){}
+}
+function loadState(){
+  try{
+    var raw=localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      var s=JSON.parse(raw);
+      Object.keys(s).forEach(function(k){
+        if(k==="tab")return;
+        var el=$(k);
+        if(el)el.value=s[k];
+      });
+      if(s.tab)setTab(s.tab);
+    }
+  }catch(e){}
+  try{
+    var sp=new URLSearchParams(location.search);
+    sp.forEach(function(v,k){
+      var el=$(k);
+      if(el)el.value=v;
+    });
+    if(sp.get("tab"))setTab(sp.get("tab"));
+  }catch(e){}
+}
+document.addEventListener("keydown",function(e){
+  if(!(e.ctrlKey||e.metaKey))return;
+  var i="123456".indexOf(e.key);
+  if(i>=0){e.preventDefault();setTab(TABS[i]);}
+});
+document.querySelectorAll("input, select").forEach(function(el){
+  el.addEventListener("input",saveState);
+  el.addEventListener("change",saveState);
+});
+loadState();
+updateA();updateB();updateC();updateD();updateE();updateF();
+})();
+</script>
+</body>
+</html>

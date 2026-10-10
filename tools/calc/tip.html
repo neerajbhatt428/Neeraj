@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Split Bill with Friends — Free Bill Splitter & Tip Calculator</title>
+<meta name="description" content="Split a restaurant bill with friends in seconds. Enter the amount, choose a tip, set how many people, and see each person's share. Works offline, no signup, no upload.">
+<link rel="canonical" href="https://localtools.co.in/tools/calc/tip.html">
+<link rel="sitemap" type="application/xml" href="https://localtools.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#1B4DFF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Split Bill with Friends — Free Bill Splitter">
+<meta property="og:description" content="Split a restaurant bill with friends in seconds. Enter amount, tip, people. See each person's share.">
+<meta property="og:url" content="https://localtools.co.in/tools/calc/tip.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Split Bill with Friends","alternateName":"Bill Splitter & Tip Calculator","url":"https://localtools.co.in/tools/calc/tip.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Split bill between friends","Add tip percentage","Split by item","Named people","Round per person","WhatsApp share","No signup"]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localtools.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://localtools.co.in/tools/"},{"@type":"ListItem","position":3,"name":"Split Bill","item":"https://localtools.co.in/tools/calc/tip.html"}]},{"@type":"HowTo","name":"How to split a bill with friends","description":"Split any restaurant or party bill quickly without doing math in your head.","step":[{"@type":"HowToStep","name":"Enter the bill amount","text":"Type the total on the bill, or tap one of the quick amount buttons."},{"@type":"HowToStep","name":"Add a tip if you want","text":"Pick a tip percentage or leave it at zero. Tipping is optional."},{"@type":"HowToStep","name":"Set the number of people","text":"Use the + and − buttons to set how many people are sharing."},{"@type":"HowToStep","name":"Read the result","text":"The per-person amount appears instantly. Copy or share it with the group."}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I split a bill evenly between friends?","acceptedAnswer":{"@type":"Answer","text":"Enter the bill amount, choose a tip percentage, and set the number of people. The tool shows exactly what each person pays, including the tip."}},{"@type":"Question","name":"Can I split a bill unevenly?","acceptedAnswer":{"@type":"Answer","text":"Yes. Switch to the By item mode, add each dish with its price, and tap the names of the people who shared it. Each person's share is calculated from the items they ate."}},{"@type":"Question","name":"Is this bill splitter free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is completely free, has no ads inside the tool, and works entirely in your browser. No signup required."}},{"@type":"Question","name":"Does it work without internet?","acceptedAnswer":{"@type":"Answer","text":"Yes. Once the page has loaded, the whole tool runs offline in your browser. You can split a bill on a plane or in a restaurant with poor signal."}},{"@type":"Question","name":"Can I share the result with my group?","acceptedAnswer":{"@type":"Answer","text":"Yes. Tap Share on WhatsApp to send a formatted message, or Copy summary to paste it anywhere."}}]}]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDEDE9;--surface:#FFFFFF;--ink:#14161A;--muted:#6B7079;--line:#D6D6D0;
+  --blue:#1B4DFF;--blue-deep:#1338C4;--green:#0E7A5F;--red:#B0233A;
+  --radius:6px;
+  --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --display:"Bricolage Grotesque",var(--sans);
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;
+  line-height:1.5;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;
+  background-image:
+    linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+.wrap{max-width:920px;margin:0 auto;padding:14px 16px 60px}
+
+/* ---------- Header ---------- */
+.masthead{display:flex;align-items:center;gap:10px;padding:4px 0 14px}
+.masthead a{color:inherit;text-decoration:none}
+.mark{width:24px;height:24px;flex:none}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:-.01em}
+.masthead .nav-right{margin-left:auto;font-size:.8125rem;color:var(--blue);text-decoration:underline;white-space:nowrap}
+.crumbs{font-size:.75rem;color:var(--muted);margin:0 0 12px;font-family:var(--mono)}
+.crumbs a{color:var(--muted);text-decoration:underline}
+.crumbs a:hover{color:var(--blue)}
+.crumbs span{color:var(--ink)}
+
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
+.lede{margin:0 0 4px;font-family:var(--display);font-weight:700;
+  font-size:clamp(1.5rem,4vw,2rem);line-height:1.1;letter-spacing:-.03em}
+.sub{margin:0 0 16px;color:var(--muted);max-width:64ch;font-size:.9375rem}
+
+/* ---------- Mode toggle ---------- */
+.mode-toggle{
+  display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#DCDCD6;
+  border:1px solid var(--line);padding:4px;border-radius:var(--radius);
+  margin:0 0 16px;max-width:360px;
+}
+.mode-toggle button{
+  border:0;background:transparent;padding:9px 12px;cursor:pointer;font-family:inherit;
+  font-weight:600;font-size:.8125rem;color:var(--ink);border-radius:4px;
+  transition:background .15s ease,color .15s ease;
+}
+.mode-toggle button[aria-pressed="true"]{background:var(--ink);color:#fff}
+
+/* ---------- App layout ---------- */
+.app{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:760px){
+  .app{grid-template-columns:1fr 340px;align-items:start;gap:20px}
+  .app-result{position:sticky;top:14px}
+}
+
+/* ---------- Cards ---------- */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin:0 0 10px}
+.card h2{font-family:var(--display);font-weight:700;font-size:.9375rem;letter-spacing:-.01em;margin:0 0 10px}
+.card .hint{font-family:var(--mono);font-size:.625rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:500;margin-left:8px}
+
+/* Bill input row */
+.bill-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.bill-input{
+  flex:1 1 200px;min-width:0;position:relative;
+}
+.bill-input .sym{
+  position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  font-family:var(--mono);font-size:1rem;color:var(--muted);pointer-events:none;
+}
+.bill-input input{
+  width:100%;padding:14px 14px 14px 32px;font-family:var(--mono);font-size:1.125rem;
+  font-weight:600;border:1px solid var(--line);background:#fff;color:var(--ink);
+  border-radius:var(--radius);outline:none;transition:border-color .15s ease,box-shadow .15s ease;
+}
+.bill-input input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+
+/* Quick chips */
+.chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chips .label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--muted);margin-right:4px;flex:0 0 auto}
+.chips button{
+  font-size:.8125rem;padding:7px 12px;border-radius:100px;background:var(--surface);
+  border:1px solid var(--line);color:var(--ink);cursor:pointer;font-family:inherit;
+  font-weight:500;transition:color .12s ease,border-color .12s ease,background .12s ease;
+  min-height:32px;
+}
+.chips button:hover{color:var(--blue);border-color:var(--blue)}
+.chips button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+
+/* Split counter */
+.split-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.split-ctrl{display:flex;align-items:center;gap:8px}
+.split-ctrl button{
+  width:40px;height:40px;border-radius:100px;background:var(--surface);
+  border:1px solid var(--line);color:var(--ink);cursor:pointer;font-family:inherit;
+  font-weight:600;font-size:1.125rem;display:inline-flex;align-items:center;justify-content:center;
+  transition:color .12s ease,border-color .12s ease;
+}
+.split-ctrl button:hover:not(:disabled){color:var(--blue);border-color:var(--blue)}
+.split-ctrl button:disabled{opacity:.35;cursor:not-allowed}
+.split-ctrl .count{
+  font-family:var(--display);font-weight:700;font-size:1.375rem;
+  min-width:44px;text-align:center;line-height:1;
+}
+.split-row .unit{font-family:var(--mono);font-size:.8125rem;color:var(--muted)}
+.split-row .per{font-family:var(--mono);font-size:.8125rem;color:var(--muted);margin-left:auto}
+.split-row .per strong{color:var(--ink);font-weight:600}
+
+/* Currency */
+.currency-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.currency-row .label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--muted);margin-right:4px}
+.currency-row button{
+  font-size:.75rem;padding:6px 11px;border-radius:100px;background:var(--surface);
+  border:1px solid var(--line);color:var(--muted);cursor:pointer;font-family:inherit;
+  transition:color .12s ease,border-color .12s ease;
+}
+.currency-row button:hover{color:var(--blue);border-color:var(--blue)}
+.currency-row button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+
+/* Result panel */
+.app-result{
+  background:linear-gradient(135deg,rgba(27,77,255,.06),rgba(168,85,247,.05));
+  border:1px solid rgba(27,77,255,.2);border-radius:var(--radius);padding:16px;
+}
+.result-hero{text-align:center;padding:6px 0 12px;border-bottom:1px solid rgba(27,77,255,.15);margin:0 0 12px}
+.result-hero .lbl{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--muted);margin:0 0 6px}
+.result-hero .big{font-family:var(--display);font-weight:700;
+  font-size:clamp(2rem,7vw,2.75rem);letter-spacing:-.04em;line-height:1;
+  color:var(--blue);margin:0 0 6px;word-break:break-word}
+.result-hero .per{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin:0}
+.result-hero .per strong{color:var(--ink);font-weight:600}
+
+.result-lines{display:flex;flex-direction:column;gap:2px;margin:0 0 12px}
+.rline{display:flex;justify-content:space-between;align-items:baseline;
+  padding:6px 0;font-size:.875rem}
+.rline .l{color:var(--muted)}
+.rline .v{font-family:var(--mono);font-weight:500;color:var(--ink)}
+.rline.total{border-top:1px solid rgba(27,77,255,.2);margin-top:4px;padding-top:10px}
+.rline.total .l{color:var(--ink);font-weight:600}
+.rline.total .v{font-family:var(--display);font-weight:700;font-size:1.0625rem;color:var(--blue)}
+
+.actions{display:flex;flex-wrap:wrap;gap:6px}
+.actions button{
+  font-size:.75rem;padding:8px 12px;border-radius:100px;background:var(--surface);
+  border:1px solid var(--line);color:var(--ink);cursor:pointer;font-family:inherit;
+  font-weight:500;transition:border-color .12s ease,color .12s ease;
+  display:inline-flex;align-items:center;gap:5px;min-height:34px;
+}
+.actions button:hover{border-color:var(--blue);color:var(--blue)}
+.actions button.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.actions button.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep);color:#fff}
+.actions button.wa{background:#25D366;border-color:#25D366;color:#fff}
+.actions button.wa:hover{background:#1DAF54;border-color:#1DAF54;color:#fff}
+.actions svg{width:13px;height:13px;flex:none}
+
+/* ---------- Itemized mode ---------- */
+.people-list{display:flex;flex-direction:column;gap:6px;margin:0 0 10px}
+.person-row{display:flex;gap:8px;align-items:center}
+.person-row .avatar{
+  width:28px;height:28px;flex:0 0 28px;border-radius:50%;background:#EDF0FF;color:var(--blue);
+  display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:.75rem;
+}
+.person-row input{
+  flex:1;padding:8px 10px;font-family:var(--sans);font-size:.9375rem;
+  border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);
+  outline:none;min-width:0;
+}
+.person-row input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.person-row .x{
+  border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;
+  font-size:.9375rem;width:28px;height:28px;border-radius:50%;
+  display:grid;place-items:center;padding:0;flex:none;
+}
+.person-row .x:hover{color:var(--red);border-color:var(--red)}
+
+.items-list{display:flex;flex-direction:column;gap:8px;margin:0 0 10px}
+.item-row{background:#FAFAF8;border:1px solid var(--line);border-radius:var(--radius);padding:10px}
+.item-top{display:flex;gap:6px;margin:0 0 8px;align-items:center}
+.item-top input.item-name{
+  flex:1;padding:8px 10px;font-family:var(--sans);font-size:.9375rem;
+  border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);
+  outline:none;min-width:0;
+}
+.item-top input.item-price{
+  width:100px;padding:8px 10px;font-family:var(--mono);font-size:.9375rem;
+  border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);
+  outline:none;flex:none;
+}
+.item-top input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.item-top .x{
+  border:0;background:none;color:var(--muted);cursor:pointer;font-size:1.0625rem;
+  padding:2px 6px;border-radius:4px;flex:none;
+}
+.item-top .x:hover{color:var(--red);background:rgba(176,35,58,.08)}
+.item-people{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.item-people .lbl{font-family:var(--mono);font-size:.625rem;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--muted);margin-right:2px}
+.person-chip{
+  padding:5px 10px;border-radius:100px;background:#fff;border:1px solid var(--line);
+  color:var(--muted);cursor:pointer;font-family:inherit;font-size:.75rem;font-weight:500;
+  transition:all .12s ease;min-height:28px;
+}
+.person-chip:hover{border-color:var(--blue);color:var(--blue)}
+.person-chip[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+
+.add-btn{
+  display:flex;align-items:center;justify-content:center;gap:6px;width:100%;
+  padding:10px;background:#FAFAF8;border:2px dashed var(--line);border-radius:var(--radius);
+  color:var(--muted);cursor:pointer;font-family:inherit;font-size:.8125rem;font-weight:500;
+  transition:all .12s ease;
+}
+.add-btn:hover{border-color:var(--blue);color:var(--blue);background:rgba(27,77,255,.03)}
+.add-btn svg{width:14px;height:14px}
+
+/* Empty state */
+.empty{
+  padding:14px;text-align:center;color:var(--muted);font-size:.8125rem;font-style:italic;
+  border:1px dashed var(--line);border-radius:var(--radius);background:#FAFAF8;
+}
+
+/* ---------- Toast ---------- */
+.toast{
+  position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;
+  font-size:.8125rem;opacity:0;pointer-events:none;
+  transition:opacity .2s ease,transform .2s ease;z-index:200;
+  display:flex;align-items:center;gap:8px;max-width:90vw;
+  box-shadow:0 12px 32px rgba(0,0,0,.28);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast svg{width:14px;height:14px;color:var(--green);flex:none}
+
+/* ---------- Article ---------- */
+.article{margin:40px 0 0;max-width:70ch}
+.article h2{margin:28px 0 8px;font-size:1.25rem}
+.article h2:first-child{margin-top:0}
+.article p{margin:0 0 10px;color:#3A3E46;font-size:.9375rem}
+.article ul,.article ol{margin:0 0 10px;padding-left:20px;color:#3A3E46;font-size:.9375rem}
+.article li{margin:0 0 4px}
+.article strong{font-weight:600;color:var(--ink)}
+.article a{color:var(--blue);text-decoration:underline}
+.article table{width:100%;border-collapse:collapse;margin:0 0 12px;font-size:.875rem}
+.article th,.article td{border:1px solid var(--line);padding:7px 10px;text-align:left}
+.article th{background:#F7F7F3;font-family:var(--mono);font-size:.6875rem;
+  text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+
+.faq{margin:12px 0 0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:12px 2px;font-weight:500;list-style:none;
+  display:flex;justify-content:space-between;gap:16px;align-items:center;font-size:.9375rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--blue);font-size:1.125rem;line-height:1;flex:none}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{margin:0 0 12px;color:#3A3E46;max-width:62ch;font-size:.875rem}
+
+.related-list{list-style:none;margin:12px 0 0;padding:0}
+.related-list li{background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius);padding:10px 12px;margin:0 0 6px;
+  display:flex;gap:12px;align-items:center}
+.related-list .txt{flex:1;font-size:.875rem}
+.related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
+.related-list .txt a:hover{color:var(--blue);text-decoration:underline}
+.related-list .txt p{margin:2px 0 0;font-size:.75rem;color:var(--muted)}
+.related-list time{font-size:.6875rem;color:var(--muted);flex:none;font-family:var(--mono);
+  text-transform:uppercase;letter-spacing:.05em}
+
+footer{margin:40px 0 0;padding:16px 0 0;border-top:1px solid var(--line);
+  color:var(--muted);font-size:.75rem}
+footer a{color:inherit}
+footer a:hover{color:var(--blue)}
+
+/* ---------- Mobile tweaks ---------- */
+@media(max-width:640px){
+  .wrap{padding:12px 14px 48px}
+  .lede{font-size:1.5rem}
+  .sub{font-size:.875rem;margin-bottom:12px}
+  .card{padding:12px;margin-bottom:8px}
+  .bill-input input{font-size:1.0625rem;padding:12px 12px 12px 28px}
+  input,select,.person-row input,.item-top input{font-size:16px} /* prevents iOS zoom */
+  .app{gap:10px}
+  .result-hero .big{font-size:1.875rem}
+  .actions button{flex:1 1 auto;justify-content:center;min-height:38px}
+  .toast{bottom:16px;font-size:.75rem;padding:8px 14px}
+}
+@supports(padding:max(0px)){
+  .wrap{padding-bottom:max(60px,env(safe-area-inset-bottom))}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <a href="../../index.html" style="display:flex;align-items:center;gap:8px">
+    <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/>
+      <path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/>
+      <path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/>
+      <path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/>
+      <path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/>
+    </svg>
+    <span class="wordmark">LocalTools</span>
+  </a>
+  <a href="/" class="nav-right">Home →</a>
+</header>
+
+<nav class="crumbs" aria-label="Breadcrumb">
+  <a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Split Bill</span>
+</nav>
+
+<h1 class="lede">Split the bill with friends</h1>
+<p class="sub">Enter the bill amount, pick a tip, set how many people — see each person's share instantly. No signup, works offline.</p>
+
+<div class="mode-toggle" role="tablist">
+  <button id="modeSimple" role="tab" aria-pressed="true">Split evenly</button>
+  <button id="modeItemized" role="tab" aria-pressed="false">Split by item</button>
+</div>
+
+<div class="app">
+
+  <!-- ================= LEFT: INPUTS ================= -->
+  <div class="app-inputs">
+
+    <!-- Simple mode -->
+    <div id="simplePanel">
+      <div class="card">
+        <h2>Bill amount</h2>
+        <div class="bill-row">
+          <div class="bill-input">
+            <span class="sym" id="symIndicator">₹</span>
+            <input type="number" id="bill" inputmode="decimal" value="2000" min="0" step="1" aria-label="Bill amount">
+          </div>
+        </div>
+        <div class="chips" style="margin-top:10px" id="billChips">
+          <button type="button" data-bill="500">₹500</button>
+          <button type="button" data-bill="1000">₹1,000</button>
+          <button type="button" data-bill="2000">₹2,000</button>
+          <button type="button" data-bill="5000">₹5,000</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Tip</h2>
+        <div class="chips" id="tipPresets">
+          <button type="button" data-tip="0">No tip</button>
+          <button type="button" data-tip="5">5%</button>
+          <button type="button" data-tip="10" aria-pressed="true">10%</button>
+          <button type="button" data-tip="15">15%</button>
+          <button type="button" data-tip="18">18%</button>
+          <button type="button" data-tip="20">20%</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Split between</h2>
+        <div class="split-row">
+          <div class="split-ctrl">
+            <button type="button" id="minus" aria-label="Fewer people">−</button>
+            <span class="count" id="peopleCount">2</span>
+            <button type="button" id="plus" aria-label="More people">+</button>
+          </div>
+          <span class="unit">people</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="currency-row" id="currencyRow">
+          <span class="label">Currency</span>
+          <button type="button" data-cur="₹" aria-pressed="true">₹ INR</button>
+          <button type="button" data-cur="$" aria-pressed="false">$ USD</button>
+          <button type="button" data-cur="€" aria-pressed="false">€ EUR</button>
+          <button type="button" data-cur="£" aria-pressed="false">£ GBP</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Itemized mode -->
+    <div id="itemizedPanel" hidden>
+      <div class="card">
+        <h2>People <span class="hint">tap names on each item</span></h2>
+        <div class="people-list" id="peopleList"></div>
+        <button type="button" class="add-btn" id="addPersonBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          Add person
+        </button>
+      </div>
+
+      <div class="card">
+        <h2>Items</h2>
+        <div class="items-list" id="itemsList"></div>
+        <button type="button" class="add-btn" id="addItemBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          Add item
+        </button>
+      </div>
+
+      <div class="card">
+        <h2>Tip</h2>
+        <div class="chips" id="iTipPresets">
+          <button type="button" data-tip="0">No tip</button>
+          <button type="button" data-tip="5">5%</button>
+          <button type="button" data-tip="10" aria-pressed="true">10%</button>
+          <button type="button" data-tip="15">15%</button>
+          <button type="button" data-tip="18">18%</button>
+          <button type="button" data-tip="20">20%</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="currency-row">
+          <span class="label">Currency</span>
+          <button type="button" data-cur="₹" aria-pressed="true">₹ INR</button>
+          <button type="button" data-cur="$" aria-pressed="false">$ USD</button>
+          <button type="button" data-cur="€" aria-pressed="false">€ EUR</button>
+          <button type="button" data-cur="£" aria-pressed="false">£ GBP</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ================= RIGHT: RESULT ================= -->
+  <div class="app-result">
+    <div class="result-hero">
+      <p class="lbl" id="perPersonLabel">Each person pays</p>
+      <p class="big" id="perPersonBig">—</p>
+      <p class="per" id="perPersonDetail">—</p>
+    </div>
+
+    <div class="result-lines" id="resultLines"></div>
+
+    <div class="actions">
+      <button type="button" class="primary" id="copySummary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Copy
+      </button>
+      <button type="button" class="wa" id="shareWhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        WhatsApp
+      </button>
+      <button type="button" id="clearBtn">Reset</button>
+    </div>
+  </div>
+
+</div>
+
+<article class="article">
+  <h2>How to split a bill with friends</h2>
+  <ol>
+    <li><strong>Enter the bill amount.</strong> Type the total on the bill, or tap one of the quick amounts.</li>
+    <li><strong>Pick a tip.</strong> Choose from the presets, or leave it at zero. Tipping is optional and depends on the country and setting.</li>
+    <li><strong>Set how many people are splitting.</strong> Tap <strong>+</strong> to add people, <strong>−</strong> to remove them.</li>
+    <li><strong>Read the result.</strong> Each person's share appears instantly on the right (or below on mobile).</li>
+  </ol>
+
+  <h2>Split evenly or by item</h2>
+  <p>The tool has two modes at the top:</p>
+  <ul>
+    <li><strong>Split evenly</strong> — everyone pays the same amount. Best for casual meals where you shared everything.</li>
+    <li><strong>Split by item</strong> — add each dish and tap who had it. Best for group dinners where people ordered different things and you want each person to pay only for what they ate.</li>
+  </ul>
+
+  <h2>Splitting evenly</h2>
+  <p>Enter the total bill. Choose whether to add a tip, and set how many people are splitting. The tool divides the bill (plus tip) equally and shows the per-person amount. Use the <strong>Split between</strong> counter to change the number of people.</p>
+  <p>This mode is perfect when:</p>
+  <ul>
+    <li>You shared everything on the table, like at a family dinner or a party</li>
+    <li>The bill is small and everyone had roughly the same thing</li>
+    <li>You just want a quick number to send to the group chat</li>
+  </ul>
+
+  <h2>Splitting by item</h2>
+  <ol>
+    <li>Switch to <strong>Split by item</strong>.</li>
+    <li>Add each person's name (the tool starts with two — rename them).</li>
+    <li>Add each dish with its price.</li>
+    <li>Tap the names of the people who shared each item. An item with no one selected is treated as shared between everyone.</li>
+    <li>Pick a tip percentage. By default the tip is divided in proportion to what each person ordered.</li>
+    <li>Each person's total appears in the result panel.</li>
+  </ol>
+  <p>This mode is perfect when:</p>
+  <ul>
+    <li>Someone ordered a steak and someone else had a salad</li>
+    <li>You shared a few starters but had separate mains</li>
+    <li>A couple shared one dish between them and wants to pay together</li>
+    <li>You're at a party with a shared tab and want a fair breakdown</li>
+  </ul>
+
+  <h2>How much should I tip?</h2>
+  <p>Tipping varies widely by country:</p>
+  <table>
+    <thead><tr><th>Country</th><th>Standard tip</th></tr></thead>
+    <tbody>
+    <tr><td>United States</td><td>15% – 20% (sometimes 25% for excellent service)</td></tr>
+    <tr><td>Canada</td><td>15% – 20%</td></tr>
+    <tr><td>United Kingdom</td><td>10% – 12.5% (often added as a service charge)</td></tr>
+    <tr><td>France, Germany, Italy</td><td>5% – 10% (often already included)</td></tr>
+    <tr><td>India</td><td>5% – 10% at restaurants, often not expected elsewhere</td></tr>
+    <tr><td>Japan, South Korea</td><td>Not expected and sometimes refused</td></tr>
+    <tr><td>Australia, New Zealand</td><td>Not expected, 5% – 10% for excellent service</td></tr>
+    <tr><td>UAE, Middle East</td><td>10% – 15%</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Share the split</h2>
+  <p>Two ways to send the result to your group:</p>
+  <ul>
+    <li><strong>WhatsApp</strong> — opens WhatsApp with a formatted message ready to send.</li>
+    <li><strong>Copy</strong> — copies the same text to your clipboard so you can paste it into any chat app or email.</li>
+  </ul>
+
+  <h2>Works offline, on any device</h2>
+  <p>This tool runs entirely in your browser. Nothing is uploaded, nothing is stored on a server, and once the page has loaded it works without internet. Use it in a restaurant with poor signal, on a plane, or anywhere else.</p>
+
+  <h2>Common questions</h2>
+  <div class="faq">
+    <details><summary>How do I split a bill evenly between friends?</summary><p>Enter the bill amount, choose a tip percentage, and set the number of people. The tool shows exactly what each person pays, including the tip.</p></details>
+    <details><summary>Can I split a bill unevenly?</summary><p>Yes. Switch to <strong>Split by item</strong>, add each dish with its price, and tap the names of the people who shared it. Each person's share is calculated from the items they ate.</p></details>
+    <details><summary>Is this tool free?</summary><p>Yes. It is completely free and works entirely in your browser. No signup required.</p></details>
+    <details><summary>Does it work without internet?</summary><p>Yes. Once the page has loaded, the whole tool runs offline in your browser. You can split a bill on a plane or in a restaurant with poor signal.</p></details>
+    <details><summary>Can I share the result with my group?</summary><p>Yes. Tap <strong>WhatsApp</strong> to send a formatted message, or <strong>Copy</strong> to paste it anywhere.</p></details>
+    <details><summary>How many people can split a bill?</summary><p>Up to 100 in even mode, or up to 20 in itemized mode.</p></details>
+    <details><summary>Does the tool store my inputs?</summary><p>Your last inputs are saved in your browser's local storage so you can come back to them. Nothing is uploaded to any server.</p></details>
+  </div>
+
+  <h2>Related tools</h2>
+  <ul class="related-list">
+    <li><div class="txt"><a href="gst.html">GST Calculator</a><p>Add or remove GST at any rate.</p></div><time>Calc</time></li>
+    <li><div class="txt"><a href="percentage.html">Percentage Calculator</a><p>Six percentage questions in one tool.</p></div><time>Calc</time></li>
+    <li><div class="txt"><a href="discount.html">Discount Calculator</a><p>Calculate sale price and savings.</p></div><time>Calc</time></li>
+  </ul>
+</article>
+
+<footer>
+  <p>LocalTools · <a href="../../index.html">Home</a> · <a href="/">Home</a> · <a href="../../pages/about.html">About</a> · <a href="../../pages/privacy.html">Privacy</a></p>
+</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+
+function $(id){ return document.getElementById(id); }
+function uid(){ return 'x' + Math.random().toString(36).slice(2, 8); }
+function esc(s){ return String(s || '').replace(/[<>&"]/g, function(c){ return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]; }); }
+function initials(name){
+  var p = String(name || '?').trim().split(/\s+/);
+  if (p.length === 1) return p[0].slice(0, 2).toUpperCase();
+  return (p[0][0] + p[p.length-1][0]).toUpperCase();
+}
+
+var toast = $('toast');
+function flash(msg){
+  toast.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span>' + msg + '</span>';
+  toast.classList.add('show');
+  clearTimeout(flash._t);
+  flash._t = setTimeout(function(){ toast.classList.remove('show'); }, 1800);
+}
+
+/* ============================================================
+   State
+   ============================================================ */
+var S = {
+  mode: 'simple',
+  currency: '₹',
+  simple: {
+    bill: '2000',
+    tipPct: '10',
+    people: 2
+  },
+  itemized: {
+    people: [ { id: 'p1', name: 'You' }, { id: 'p2', name: 'Friend' } ],
+    items: [],
+    tipPct: '10'
+  }
+};
+
+/* ============================================================
+   Money formatting
+   ============================================================ */
+function money(n){
+  if (n === null || n === undefined || !isFinite(n)) return '—';
+  var sym = S.currency;
+  var abs = Math.abs(n);
+  var formatted;
+  if (S.currency === '₹'){
+    var parts = abs.toFixed(2).split('.');
+    var whole = parts[0];
+    var dec = parts[1];
+    var last3 = whole.substring(whole.length - 3);
+    var other = whole.substring(0, whole.length - 3);
+    if (other !== '') last3 = ',' + last3;
+    formatted = other.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + last3 + '.' + dec;
+  } else {
+    formatted = abs.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+  return (n < 0 ? '-' : '') + sym + formatted;
+}
+
+/* ============================================================
+   Simple mode calculation
+   ============================================================ */
+function computeSimple(){
+  var bill = Math.max(0, parseFloat(S.simple.bill) || 0);
+  var tipPct = Math.max(0, parseFloat(S.simple.tipPct) || 0);
+  var tip = bill * (tipPct / 100);
+  var total = bill + tip;
+  var people = Math.max(1, parseInt(S.simple.people, 10) || 1);
+  var perPerson = total / people;
+  return {
+    bill: bill, tip: tip, total: total, tipPct: tipPct,
+    people: people, perPerson: perPerson
+  };
+}
+
+/* ============================================================
+   Itemized mode calculation
+   ============================================================ */
+function computeItemized(){
+  var m = S.itemized;
+  var people = m.people;
+  var n = people.length;
+  if (n === 0) return { empty: true };
+
+  var totals = {}, itemLists = {};
+  people.forEach(function(p){ totals[p.id] = 0; itemLists[p.id] = []; });
+
+  var subtotal = 0;
+  m.items.forEach(function(it){
+    var price = Math.max(0, parseFloat(it.price) || 0);
+    if (price <= 0) return;
+    subtotal += price;
+    var assigned = (it.people && it.people.length) ? it.people.slice() : people.map(function(p){ return p.id; });
+    var share = price / assigned.length;
+    assigned.forEach(function(id){
+      if (totals[id] !== undefined){
+        totals[id] += share;
+        itemLists[id].push({ name: it.name || 'Item', share: share });
+      }
+    });
+  });
+
+  if (subtotal === 0) return { empty: true };
+
+  var tipPct = Math.max(0, parseFloat(m.tipPct) || 0);
+  var tipTotal = subtotal * (tipPct / 100);
+
+  var results = people.map(function(p){
+    var theirItems = totals[p.id] || 0;
+    var share = subtotal > 0 ? theirItems / subtotal : 1 / n;
+    var theirTip = tipTotal * share;
+    var theirTotal = theirItems + theirTip;
+    return {
+      id: p.id, name: p.name || 'Person',
+      itemsTotal: theirItems, items: itemLists[p.id] || [],
+      tip: theirTip, total: theirTotal, share: share
+    };
+  });
+
+  return {
+    empty: false, people: results,
+    subtotal: subtotal, tip: tipTotal, total: subtotal + tipTotal, tipPct: tipPct
+  };
+}
+
+/* ============================================================
+   Render
+   ============================================================ */
+function render(){
+  if (S.mode === 'simple') renderSimple();
+  else renderItemized();
+}
+
+function renderSimple(){
+  var r = computeSimple();
+
+  $('perPersonLabel').textContent = 'Each person pays';
+  $('perPersonBig').textContent = money(r.perPerson);
+  $('perPersonDetail').innerHTML = 'Split between <strong>' + r.people + '</strong> ' + (r.people === 1 ? 'person' : 'people');
+
+  var lines = '';
+  lines += '<div class="rline"><span class="l">Bill</span><span class="v">' + money(r.bill) + '</span></div>';
+  if (r.tip > 0){
+    lines += '<div class="rline"><span class="l">Tip (' + formatPct(r.tipPct) + ')</span><span class="v">' + money(r.tip) + '</span></div>';
+  }
+  lines += '<div class="rline total"><span class="l">Total</span><span class="v">' + money(r.total) + '</span></div>';
+  lines += '<div class="rline"><span class="l">× ' + r.people + ' ' + (r.people === 1 ? 'person' : 'people') + '</span><span class="v">' + money(r.perPerson) + ' each</span></div>';
+  $('resultLines').innerHTML = lines;
+}
+
+function renderItemized(){
+  var r = computeItemized();
+  if (!r || r.empty){
+    $('perPersonLabel').textContent = 'No items yet';
+    $('perPersonBig').textContent = '—';
+    $('perPersonDetail').textContent = 'Add at least one item to see the split.';
+    $('resultLines').innerHTML = '';
+    return;
+  }
+
+  // Find highest payer
+  var maxP = r.people.reduce(function(a, b){ return a.total > b.total ? a : b; }, r.people[0]);
+  $('perPersonLabel').textContent = 'Pays the most';
+  $('perPersonBig').textContent = money(maxP.total);
+  $('perPersonDetail').innerHTML = '<strong>' + esc(maxP.name) + '</strong> · Total: <strong>' + money(r.total) + '</strong>';
+
+  var lines = '';
+  r.people.forEach(function(p){
+    var itemsStr = p.items.length ? ' (' + p.items.length + ' item' + (p.items.length === 1 ? '' : 's') + ')' : '';
+    lines += '<div class="rline"><span class="l">' + esc(p.name) + itemsStr + '</span><span class="v">' + money(p.total) + '</span></div>';
+  });
+  lines += '<div class="rline total"><span class="l">Total' + (r.tip > 0 ? ' (incl. ' + formatPct(r.tipPct) + ' tip)' : '') + '</span><span class="v">' + money(r.total) + '</span></div>';
+  $('resultLines').innerHTML = lines;
+}
+
+function formatPct(p){
+  if (p === 0) return '0%';
+  return (p % 1 === 0 ? p : p.toFixed(1)) + '%';
+}
+
+/* ============================================================
+   People / Items render
+   ============================================================ */
+function renderPeople(){
+  var list = $('peopleList');
+  list.innerHTML = '';
+  var canRemove = S.itemized.people.length > 1;
+  S.itemized.people.forEach(function(p, idx){
+    var row = document.createElement('div');
+    row.className = 'person-row';
+    row.innerHTML =
+      '<span class="avatar">' + esc(initials(p.name)) + '</span>' +
+      '<input type="text" value="' + esc(p.name) + '" placeholder="Name" data-idx="' + idx + '" maxlength="24">' +
+      (canRemove ? '<button type="button" class="x" data-remove="' + p.id + '" title="Remove">×</button>' : '');
+    list.appendChild(row);
+  });
+}
+
+function renderItems(){
+  var list = $('itemsList');
+  var people = S.itemized.people;
+
+  if (S.itemized.items.length === 0){
+    list.innerHTML = '<div class="empty">No items yet. Tap <strong>Add item</strong> below.</div>';
+    return;
+  }
+
+  list.innerHTML = '';
+  S.itemized.items.forEach(function(it){
+    var row = document.createElement('div');
+    row.className = 'item-row';
+    var chipsHtml = '';
+    people.forEach(function(p){
+      var active = (it.people || []).indexOf(p.id) > -1;
+      chipsHtml += '<button type="button" class="person-chip" data-item="' + it.id + '" data-person="' + p.id + '" aria-pressed="' + (active ? 'true' : 'false') + '">' + esc(p.name) + '</button>';
+    });
+    row.innerHTML =
+      '<div class="item-top">' +
+        '<input type="text" class="item-name" value="' + esc(it.name) + '" placeholder="Item name" data-item-name="' + it.id + '" maxlength="40">' +
+        '<input type="number" class="item-price" value="' + (it.price !== undefined && it.price !== null ? it.price : '') + '" placeholder="0" min="0" step="1" data-item-price="' + it.id + '" inputmode="decimal">' +
+        '<button type="button" class="x" data-item-remove="' + it.id + '" title="Remove">×</button>' +
+      '</div>' +
+      (people.length ? '<div class="item-people"><span class="lbl">Shared by:</span>' + chipsHtml + '</div>' : '');
+    list.appendChild(row);
+  });
+}
+
+/* ============================================================
+   Mode switch
+   ============================================================ */
+function setMode(m){
+  S.mode = m;
+  $('modeSimple').setAttribute('aria-pressed', String(m === 'simple'));
+  $('modeItemized').setAttribute('aria-pressed', String(m === 'itemized'));
+  $('simplePanel').hidden = m !== 'simple';
+  $('itemizedPanel').hidden = m !== 'itemized';
+  render();
+  save();
+}
+
+/* ============================================================
+   Preset buttons
+   ============================================================ */
+function updatePresetButtons(){
+  var t1 = String(S.simple.tipPct);
+  document.querySelectorAll('#tipPresets button').forEach(function(b){
+    b.setAttribute('aria-pressed', String(b.getAttribute('data-tip') === t1));
+  });
+  var t2 = String(S.itemized.tipPct);
+  document.querySelectorAll('#iTipPresets button').forEach(function(b){
+    b.setAttribute('aria-pressed', String(b.getAttribute('data-tip') === t2));
+  });
+}
+
+function updateCurrencyButtons(){
+  document.querySelectorAll('[data-cur]').forEach(function(b){
+    b.setAttribute('aria-pressed', String(b.getAttribute('data-cur') === S.currency));
+  });
+  var sym = $('symIndicator');
+  if (sym) sym.textContent = S.currency;
+}
+
+/* ============================================================
+   Sync state → inputs
+   ============================================================ */
+function syncInputs(){
+  $('bill').value = S.simple.bill;
+  $('peopleCount').textContent = S.simple.people;
+  updatePresetButtons();
+  updateCurrencyButtons();
+}
+
+/* ============================================================
+   Persistence
+   ============================================================ */
+function save(){
+  try { localStorage.setItem('split.v1', JSON.stringify(S)); } catch(e){}
+}
+function load(){
+  // URL params first
+  try {
+    var sp = new URLSearchParams(location.search);
+    if (sp.get('m') === 'simple' || sp.get('m') === 'itemized') S.mode = sp.get('m');
+    if (sp.get('cur')) S.currency = decodeURIComponent(sp.get('cur'));
+    if (sp.get('b')) S.simple.bill = sp.get('b');
+    if (sp.get('tp')) S.simple.tipPct = sp.get('tp');
+    if (sp.get('p')) S.simple.people = parseInt(sp.get('p'), 10) || 2;
+  } catch(e){}
+  // localStorage
+  try {
+    var raw = localStorage.getItem('split.v1');
+    if (raw){
+      var saved = JSON.parse(raw);
+      if (saved.mode === 'simple' || saved.mode === 'itemized') S.mode = saved.mode;
+      if (saved.currency) S.currency = saved.currency;
+      if (saved.simple){
+        ['bill','tipPct','people'].forEach(function(k){
+          if (saved.simple[k] !== undefined && saved.simple[k] !== null) S.simple[k] = saved.simple[k];
+        });
+      }
+      if (saved.itemized){
+        if (Array.isArray(saved.itemized.people) && saved.itemized.people.length >= 1) S.itemized.people = saved.itemized.people;
+        if (Array.isArray(saved.itemized.items)) S.itemized.items = saved.itemized.items;
+        if (saved.itemized.tipPct !== undefined) S.itemized.tipPct = saved.itemized.tipPct;
+      }
+    }
+  } catch(e){}
+}
+
+/* ============================================================
+   Event delegation
+   ============================================================ */
+document.addEventListener('click', function(e){
+  var t = e.target;
+
+  // Mode
+  if (t.closest('#modeSimple')){ setMode('simple'); return; }
+  if (t.closest('#modeItemized')){ setMode('itemized'); return; }
+
+  // Bill quick chips
+  var billChip = t.closest('#billChips button[data-bill]');
+  if (billChip){
+    S.simple.bill = billChip.getAttribute('data-bill');
+    $('bill').value = S.simple.bill;
+    render(); save();
+    return;
+  }
+
+  // Simple tip presets
+  var tipChip = t.closest('#tipPresets button[data-tip]');
+  if (tipChip){
+    S.simple.tipPct = tipChip.getAttribute('data-tip');
+    updatePresetButtons();
+    render(); save();
+    return;
+  }
+
+  // Itemized tip presets
+  var itipChip = t.closest('#iTipPresets button[data-tip]');
+  if (itipChip){
+    S.itemized.tipPct = itipChip.getAttribute('data-tip');
+    updatePresetButtons();
+    render(); save();
+    return;
+  }
+
+  // Currency
+  var curBtn = t.closest('[data-cur]');
+  if (curBtn){
+    S.currency = curBtn.getAttribute('data-cur');
+    updateCurrencyButtons();
+    render(); save();
+    return;
+  }
+
+  // Split +/−
+  if (t.closest('#minus')){
+    if (S.simple.people > 1){
+      S.simple.people--;
+      $('peopleCount').textContent = S.simple.people;
+      render(); save();
+    }
+    return;
+  }
+  if (t.closest('#plus')){
+    if (S.simple.people < 100){
+      S.simple.people++;
+      $('peopleCount').textContent = S.simple.people;
+      render(); save();
+    }
+    return;
+  }
+
+  // Add person
+  if (t.closest('#addPersonBtn')){
+    if (S.itemized.people.length >= 20) return flash('Maximum 20 people');
+    S.itemized.people.push({ id: uid(), name: 'Person ' + (S.itemized.people.length + 1) });
+    renderPeople(); renderItems(); render(); save();
+    return;
+  }
+
+  // Remove person
+  var rmPerson = t.closest('button[data-remove]');
+  if (rmPerson){
+    var pid = rmPerson.getAttribute('data-remove');
+    S.itemized.people = S.itemized.people.filter(function(p){ return p.id !== pid; });
+    S.itemized.items.forEach(function(it){
+      it.people = (it.people || []).filter(function(x){ return x !== pid; });
+    });
+    renderPeople(); renderItems(); render(); save();
+    return;
+  }
+
+  // Add item
+  if (t.closest('#addItemBtn')){
+    var newItem = { id: uid(), name: '', price: '', people: [] };
+    S.itemized.items.push(newItem);
+    renderItems(); render(); save();
+    setTimeout(function(){
+      var inp = document.querySelector('input[data-item-name="' + newItem.id + '"]');
+      if (inp) inp.focus();
+    }, 50);
+    return;
+  }
+
+  // Remove item
+  var rmItem = t.closest('button[data-item-remove]');
+  if (rmItem){
+    var iid = rmItem.getAttribute('data-item-remove');
+    S.itemized.items = S.itemized.items.filter(function(x){ return x.id !== iid; });
+    renderItems(); render(); save();
+    return;
+  }
+
+  // Toggle person chip
+  var chip = t.closest('button[data-item][data-person]');
+  if (chip){
+    var itemId = chip.getAttribute('data-item');
+    var personId = chip.getAttribute('data-person');
+    var item = S.itemized.items.filter(function(x){ return x.id === itemId; })[0];
+    if (!item) return;
+    item.people = item.people || [];
+    var idx = item.people.indexOf(personId);
+    if (idx > -1) item.people.splice(idx, 1);
+    else item.people.push(personId);
+    renderItems(); render(); save();
+    return;
+  }
+
+  // Copy summary
+  if (t.closest('#copySummary')){
+    copyText(buildSummary(), 'Copied');
+    return;
+  }
+
+  // WhatsApp
+  if (t.closest('#shareWhatsApp')){
+    window.open('https://wa.me/?text=' + encodeURIComponent(buildSummary()), '_blank');
+    return;
+  }
+
+  // Reset
+  if (t.closest('#clearBtn')){
+    if (!confirm('Clear everything and start over?')) return;
+    try { localStorage.removeItem('split.v1'); } catch(e){}
+    location.reload();
+    return;
+  }
+});
+
+/* Input delegation */
+document.addEventListener('input', function(e){
+  var t = e.target;
+  var id = t.id;
+
+  if (id === 'bill'){ S.simple.bill = t.value; render(); save(); return; }
+
+  if (t.matches('.person-row input[data-idx]')){
+    var idx = parseInt(t.getAttribute('data-idx'), 10);
+    if (S.itemized.people[idx]){
+      S.itemized.people[idx].name = t.value;
+      renderItems();
+      render(); save();
+    }
+    return;
+  }
+
+  if (t.matches('input[data-item-name]')){
+    var iid = t.getAttribute('data-item-name');
+    var item = S.itemized.items.filter(function(x){ return x.id === iid; })[0];
+    if (item){ item.name = t.value; render(); save(); }
+    return;
+  }
+
+  if (t.matches('input[data-item-price]')){
+    var iid2 = t.getAttribute('data-item-price');
+    var item2 = S.itemized.items.filter(function(x){ return x.id === iid2; })[0];
+    if (item2){ item2.price = t.value; render(); save(); }
+    return;
+  }
+});
+
+/* ============================================================
+   Copy / summary
+   ============================================================ */
+function copyText(t, msg){
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(function(){ flash(msg || 'Copied'); }).catch(function(){ fbCopy(t, msg); });
+  } else fbCopy(t, msg);
+}
+function fbCopy(t, msg){
+  var ta = document.createElement('textarea');
+  ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); flash(msg || 'Copied'); } catch (e){ flash('Copy failed'); }
+  document.body.removeChild(ta);
+}
+
+function buildSummary(){
+  var lines = ['Split Bill — LocalTools', ''];
+  if (S.mode === 'simple'){
+    var r = computeSimple();
+    lines.push('Bill: ' + money(r.bill));
+    if (r.tip > 0) lines.push('Tip (' + formatPct(r.tipPct) + '): ' + money(r.tip));
+    lines.push('Total: ' + money(r.total));
+    lines.push('');
+    lines.push('Split between ' + r.people + ':');
+    lines.push('  Each pays: ' + money(r.perPerson));
+  } else {
+    var ir = computeItemized();
+    if (!ir || ir.empty){ lines.push('No items added.'); return lines.join('\n'); }
+    lines.push('Subtotal: ' + money(ir.subtotal));
+    if (ir.tip > 0) lines.push('Tip (' + formatPct(ir.tipPct) + '): ' + money(ir.tip));
+    lines.push('Total: ' + money(ir.total));
+    lines.push('');
+    lines.push('Breakdown:');
+    ir.people.forEach(function(p){ lines.push('  ' + p.name + ': ' + money(p.total)); });
+  }
+  return lines.join('\n');
+}
+
+/* ============================================================
+   Init
+   ============================================================ */
+load();
+syncInputs();
+renderPeople();
+renderItems();
+setMode(S.mode);
+
+})();
+</script>
+</body>
+</html>

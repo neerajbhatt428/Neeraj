@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calorie Calculator — TDEE, BMR & Macro Targets</title>
+<meta name="description" content="Free calorie calculator using the Mifflin-St Jeor equation. Find your BMR, TDEE, and daily calorie needs for weight loss, maintenance or muscle gain. Includes macro split targets.">
+<link rel="canonical" href="https://localtools.co.in/tools/calc/calorie.html">
+<link rel="sitemap" type="application/xml" href="https://localtools.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#1B4DFF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Calorie Calculator — TDEE, BMR & Macros">
+<meta property="og:description" content="Calculate your daily calorie needs based on age, weight, height and activity. Includes macro targets.">
+<meta property="og:url" content="https://localtools.co.in/tools/calc/calorie.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Calorie Calculator","url":"https://localtools.co.in/tools/calc/calorie.html","applicationCategory":"HealthApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localtools.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://localtools.co.in/tools/"},{"@type":"ListItem","position":3,"name":"Calorie Calculator","item":"https://localtools.co.in/tools/calc/calorie.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is BMR?","acceptedAnswer":{"@type":"Answer","text":"Basal Metabolic Rate is the number of calories your body burns at complete rest to maintain basic functions like breathing, circulation and cell repair."}},{"@type":"Question","name":"What is TDEE?","acceptedAnswer":{"@type":"Answer","text":"Total Daily Energy Expenditure is BMR multiplied by an activity factor. It's the total calories you burn in a typical day including exercise and daily movement."}},{"@type":"Question","name":"How many calories to lose weight?","acceptedAnswer":{"@type":"Answer","text":"A deficit of 500 calories per day produces roughly 0.5 kg of fat loss per week. Most guidelines suggest 0.5 to 1 kg per week maximum for sustainable weight loss."}},{"@type":"Question","name":"How many calories to gain muscle?","acceptedAnswer":{"@type":"Answer","text":"A surplus of 250 to 500 calories per day supports muscle gain with minimal fat accumulation. Combined with resistance training and adequate protein."}}]}]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#EDEDE9;--surface:#FFFFFF;--ink:#14161A;--muted:#6B7079;--line:#D6D6D0;--blue:#1B4DFF;--blue-deep:#1338C4;--green:#0E7A5F;--red:#B0233A;--amber:#B87333;--radius:6px;--sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--display:"Bricolage Grotesque",var(--sans);--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;background-image:linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);background-size:28px 28px}
+.wrap{max-width:760px;margin:0 auto;padding:20px 18px 64px}
+.masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
+.masthead a{color:inherit;text-decoration:none}
+.mark{width:26px;height:26px;flex:none}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.masthead .nav-right{margin-left:auto;font-size:.875rem;color:var(--blue);text-decoration:underline;white-space:nowrap}
+.crumbs{font-size:.8125rem;color:var(--muted);margin:0 0 18px;font-family:var(--mono)}
+.crumbs a{color:var(--muted);text-decoration:underline}
+.crumbs a:hover{color:var(--blue)}
+.crumbs span{color:var(--ink)}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
+.lede{margin:0 0 6px;font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.05;letter-spacing:-.03em}
+.sub{margin:0 0 22px;color:var(--muted);max-width:68ch;font-size:1rem}
+.cal-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:0 0 14px}
+.cal-card h2{font-family:var(--display);font-weight:700;font-size:1.0625rem;letter-spacing:-.01em;margin:0 0 14px}
+.cal-row{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 12px}
+.cal-field{flex:1 1 140px;min-width:0;display:flex;flex-direction:column;gap:4px}
+.cal-field label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.cal-field input,.cal-field select{width:100%;padding:11px 12px;font-family:var(--mono);font-size:.9375rem;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);outline:none;transition:border-color .15s ease,box-shadow .15s ease}
+.cal-field input:focus,.cal-field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.cal-field .unit-hint{font-family:var(--mono);font-size:.625rem;color:var(--muted);text-transform:none;letter-spacing:0}
+.cal-toggle-row{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 12px;align-items:center}
+.cal-toggle-row .label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:4px}
+.cal-toggle-row button{font-size:.75rem;padding:6px 11px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--muted);cursor:pointer;font-family:inherit;transition:color .12s ease,border-color .12s ease}
+.cal-toggle-row button:hover{color:var(--blue);border-color:var(--blue)}
+.cal-toggle-row button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.cal-preview{margin:14px 0 0;padding:14px 16px;background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius);font-family:var(--mono);font-size:.75rem;color:var(--muted);line-height:1.6}
+.cal-preview strong{color:var(--ink);font-weight:600}
+.cal-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:0 0 14px}
+.cal-sum{background:var(--surface);padding:16px;text-align:center}
+.cal-sum .l{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 4px}
+.cal-sum .n{font-family:var(--display);font-weight:700;font-size:1.5rem;letter-spacing:-.02em;line-height:1.1;margin:0;color:var(--ink);word-break:break-word}
+.cal-sum .s{font-family:var(--mono);font-size:.6875rem;color:var(--muted);margin:4px 0 0}
+.cal-sum.primary{background:linear-gradient(135deg,rgba(27,77,255,.06),rgba(168,85,247,.05))}
+.cal-sum.primary .n{color:var(--blue)}
+.cal-sum.good .n{color:var(--green)}
+.cal-sum.warn .n{color:var(--amber)}
+.cal-tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;background:#DCDCD6;border:1px solid var(--line);padding:4px;border-radius:var(--radius);margin:0 0 14px}
+@media(max-width:520px){.cal-tabs{grid-template-columns:1fr}}
+.cal-tabs button{border:0;background:transparent;padding:10px 8px;justify-content:center;font-weight:600;font-size:.75rem;font-family:inherit;cursor:pointer;color:var(--ink);border-radius:4px;transition:background .12s ease,color .12s ease;display:inline-flex;align-items:center;text-align:center;line-height:1.2}
+.cal-tabs button:hover:not([aria-selected="true"]){background:rgba(0,0,0,.05)}
+.cal-tabs button[aria-selected="true"]{background:var(--ink);color:#fff}
+.cal-macros{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:0 0 14px}
+.cal-macro{background:var(--surface);padding:16px 12px;text-align:center}
+.cal-macro .l{font-family:var(--mono);font-size:.625rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 4px}
+.cal-macro .n{font-family:var(--display);font-weight:700;font-size:1.375rem;letter-spacing:-.02em;line-height:1.1;margin:0;color:var(--ink);word-break:break-word}
+.cal-macro .p{font-family:var(--mono);font-size:.6875rem;color:var(--muted);margin:4px 0 0}
+.cal-macro.protein{border-top:3px solid #1B4DFF}
+.cal-macro.carbs{border-top:3px solid #A855F7}
+.cal-macro.fat{border-top:3px solid #0E7A5F}
+.cal-bar{margin:0 0 14px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
+.cal-bar h3{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 10px;font-weight:600}
+.cal-bar-track{height:24px;border-radius:4px;overflow:hidden;display:flex;background:var(--line)}
+.cal-bar-seg{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.6875rem;font-weight:600;color:#fff;transition:width .3s ease;white-space:nowrap;overflow:hidden;padding:0 6px}
+.cal-bar-seg.protein{background:#1B4DFF}
+.cal-bar-seg.carbs{background:#A855F7}
+.cal-bar-seg.fat{background:#0E7A5F}
+.cal-bar-legend{display:flex;flex-wrap:wrap;gap:14px;margin:10px 0 0;font-family:var(--mono);font-size:.6875rem;color:var(--muted)}
+.cal-bar-legend .item{display:flex;align-items:center;gap:6px}
+.cal-bar-legend .swatch{display:inline-block;width:12px;height:12px;border-radius:3px;flex:none}
+.cal-targets{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:0 0 14px}
+.cal-target{background:var(--surface);padding:14px;text-align:center}
+.cal-target .l{font-family:var(--mono);font-size:.625rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 4px}
+.cal-target .n{font-family:var(--display);font-weight:700;font-size:1.25rem;letter-spacing:-.02em;line-height:1.1;margin:0;color:var(--ink)}
+.cal-target .s{font-family:var(--mono);font-size:.625rem;color:var(--muted);margin:4px 0 0}
+.cal-actions{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.cal-actions button{font-size:.8125rem;padding:9px 14px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--ink);cursor:pointer;font-family:inherit;font-weight:500;transition:background .12s ease,border-color .12s ease,color .12s ease;display:inline-flex;align-items:center;gap:6px}
+.cal-actions button:hover{border-color:var(--blue);color:var(--blue)}
+.cal-actions button.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.cal-actions button.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep);color:#fff}
+.cal-actions button.danger:hover{border-color:var(--red);color:var(--red)}
+.article{margin:44px 0 0;max-width:72ch}
+.article h2{margin:36px 0 10px;font-size:1.5rem}
+.article h2:first-child{margin-top:0}
+.article p{margin:0 0 12px;color:#3A3E46}
+.article ul{margin:0 0 12px;padding-left:20px;color:#3A3E46}
+.article li{margin:0 0 6px}
+.article strong{font-weight:600;color:var(--ink)}
+.article a{color:var(--blue);text-decoration:underline}
+.article code{font-family:var(--mono);font-size:.875em;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:1px 4px}
+.article table{width:100%;border-collapse:collapse;margin:0 0 14px;font-size:.875rem}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.article th{background:#F7F7F3;font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+.faq{margin:14px 0 0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--blue);font-size:1.25rem;line-height:1;flex:none}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{margin:0 0 14px;color:#3A3E46;max-width:62ch}
+.related-list{list-style:none;margin:12px 0 0;padding:0}
+.related-list li{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center}
+.related-list .txt{flex:1}
+.related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
+.related-list .txt a:hover{color:var(--blue);text-decoration:underline}
+.related-list .txt p{margin:2px 0 0;font-size:.8125rem;color:var(--muted)}
+.related-list time{font-size:.75rem;color:var(--muted);flex:none;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem}
+footer a{color:inherit}
+footer a:hover{color:var(--blue)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:200}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+<a href="../../index.html" style="display:flex;align-items:center;gap:10px">
+<svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/><path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/><path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/><path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/><path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/></svg>
+<span class="wordmark">LocalTools</span>
+</a>
+<a href="/" class="nav-right">Home →</a>
+</header>
+
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Calorie Calculator</span></nav>
+
+<h1 class="lede">Calorie / TDEE Calculator</h1>
+<p class="sub">Find your BMR, TDEE and daily calorie target for weight loss, maintenance or muscle gain. Includes protein, carb and fat macros. Nothing is uploaded.</p>
+
+<div class="cal-card">
+<h2>Your details</h2>
+
+<div class="cal-toggle-row">
+<span class="label">Units:</span>
+<button data-units="metric" aria-pressed="true">Metric (kg, cm)</button>
+<button data-units="imperial" aria-pressed="false">Imperial (lb, ft/in)</button>
+</div>
+
+<div class="cal-row">
+<div class="cal-field">
+<label for="age">Age</label>
+<input type="number" id="age" value="30" min="10" max="120" step="1">
+</div>
+<div class="cal-field">
+<label for="sex">Sex</label>
+<select id="sex">
+<option value="male" selected>Male</option>
+<option value="female">Female</option>
+</select>
+</div>
+<div class="cal-field">
+<label for="activity">Activity level</label>
+<select id="activity">
+<option value="1.2">Sedentary (little to no exercise)</option>
+<option value="1.375">Lightly active (1–3 days/week)</option>
+<option value="1.55" selected>Moderately active (3–5 days/week)</option>
+<option value="1.725">Very active (6–7 days/week)</option>
+<option value="1.9">Extra active (physical job + training)</option>
+</select>
+</div>
+</div>
+
+<div class="cal-row" id="metricRow">
+<div class="cal-field">
+<label for="weightKg">Weight (kg)</label>
+<input type="number" id="weightKg" value="70" min="20" max="300" step="0.1">
+</div>
+<div class="cal-field">
+<label for="heightCm">Height (cm)</label>
+<input type="number" id="heightCm" value="175" min="100" max="250" step="0.1">
+</div>
+</div>
+
+<div class="cal-row" id="imperialRow" hidden>
+<div class="cal-field">
+<label for="weightLb">Weight (lb)</label>
+<input type="number" id="weightLb" step="0.1" min="44" max="660">
+</div>
+<div class="cal-field">
+<label for="heightFt">Height (ft)</label>
+<input type="number" id="heightFt" step="1" min="3" max="8">
+</div>
+<div class="cal-field">
+<label for="heightIn">Height (in)</label>
+<input type="number" id="heightIn" step="1" min="0" max="11">
+</div>
+</div>
+
+<div class="cal-row">
+<div class="cal-field">
+<label for="goal">Goal</label>
+<select id="goal">
+<option value="-500">Lose weight (moderate — 0.5 kg/week)</option>
+<option value="-1000">Lose weight (aggressive — 1 kg/week)</option>
+<option value="-250">Lose weight (slow — 0.25 kg/week)</option>
+<option value="0" selected>Maintain weight</option>
+<option value="250">Gain muscle (lean — 0.25 kg/week)</option>
+<option value="500">Gain muscle (standard — 0.5 kg/week)</option>
+<option value="750">Gain weight (fast — 0.75 kg/week)</option>
+</select>
+</div>
+<div class="cal-field">
+<label for="diet">Diet preference</label>
+<select id="diet">
+<option value="balanced" selected>Balanced (30% P / 40% C / 30% F)</option>
+<option value="highprotein">High protein (40% P / 35% C / 25% F)</option>
+<option value="lowcarb">Low carb (35% P / 20% C / 45% F)</option>
+<option value="keto">Keto (30% P / 5% C / 65% F)</option>
+<option value="vegetarian">Vegetarian (25% P / 50% C / 25% F)</option>
+</select>
+</div>
+</div>
+
+<div class="cal-preview" id="preview">Enter details above.</div>
+</div>
+
+<div class="cal-card" id="resultCard" hidden>
+<h2>Results</h2>
+
+<div class="cal-summary">
+<div class="cal-sum primary">
+<p class="l">Daily target</p>
+<p class="n" id="targetValue">—</p>
+<p class="s">calories / day</p>
+</div>
+<div class="cal-sum">
+<p class="l">BMR</p>
+<p class="n" id="bmrValue">—</p>
+<p class="s">at complete rest</p>
+</div>
+<div class="cal-sum">
+<p class="l">TDEE</p>
+<p class="n" id="tdeeValue">—</p>
+<p class="s">with activity</p>
+</div>
+<div class="cal-sum" id="goalDiffCell">
+<p class="l">Goal adjustment</p>
+<p class="n" id="goalDiffValue">—</p>
+<p class="s" id="goalDiffLabel">per day</p>
+</div>
+</div>
+
+<h2 style="margin-top:20px">Macro targets</h2>
+<div class="cal-macros">
+<div class="cal-macro protein"><p class="l">Protein</p><p class="n" id="proteinG">—</p><p class="p" id="proteinPct">—</p></div>
+<div class="cal-macro carbs"><p class="l">Carbohydrates</p><p class="n" id="carbsG">—</p><p class="p" id="carbsPct">—</p></div>
+<div class="cal-macro fat"><p class="l">Fat</p><p class="n" id="fatG">—</p><p class="p" id="fatPct">—</p></div>
+</div>
+
+<div class="cal-bar">
+<h3>Macro split by calories</h3>
+<div class="cal-bar-track" id="macroBar"></div>
+<div class="cal-bar-legend">
+<div class="item"><span class="swatch" style="background:#1B4DFF"></span> Protein (4 kcal/g)</div>
+<div class="item"><span class="swatch" style="background:#A855F7"></span> Carbs (4 kcal/g)</div>
+<div class="item"><span class="swatch" style="background:#0E7A5F"></span> Fat (9 kcal/g)</div>
+</div>
+</div>
+
+<h2 style="margin-top:20px">Weekly view &amp; meal split</h2>
+
+<div class="cal-targets">
+<div class="cal-target"><p class="l">Per week</p><p class="n" id="weeklyCal">—</p><p class="s">calories</p></div>
+<div class="cal-target"><p class="l">Per month</p><p class="n" id="monthlyCal">—</p><p class="s">calories (30 days)</p></div>
+<div class="cal-target"><p class="l">Breakfast (25%)</p><p class="n" id="bfCal">—</p><p class="s">calories</p></div>
+<div class="cal-target"><p class="l">Lunch (35%)</p><p class="n" id="lunchCal">—</p><p class="s">calories</p></div>
+<div class="cal-target"><p class="l">Dinner (30%)</p><p class="n" id="dinnerCal">—</p><p class="s">calories</p></div>
+<div class="cal-target"><p class="l">Snacks (10%)</p><p class="n" id="snackCal">—</p><p class="s">calories</p></div>
+</div>
+
+<div class="cal-actions">
+<button class="primary" id="copySummary">Copy summary</button>
+<button id="copyMacros">Copy macros</button>
+<button id="shareBtn">Share link</button>
+<button class="danger" id="clearBtn">Reset</button>
+</div>
+</div>
+
+<article class="article">
+<h2>How to use the calorie calculator</h2>
+<p>Enter your age, sex, weight, height and activity level. The calculator gives you your BMR (calories burned at rest) and TDEE (total daily energy expenditure including activity). Then pick a goal — lose, maintain or gain — and it adjusts the daily target accordingly.</p>
+
+<h2>What is BMR?</h2>
+<p>Basal Metabolic Rate is the number of calories your body burns at complete rest — just to stay alive. Breathing, circulating blood, repairing cells, regulating temperature. Even if you stayed in bed all day, you'd burn this much.</p>
+
+<h2>What is TDEE?</h2>
+<p>Total Daily Energy Expenditure is your BMR multiplied by an activity factor. It includes everything you actually do in a day: walking, working, exercising, digesting food. It's the total calories you burn, and the number you need to eat to maintain your current weight.</p>
+
+<h2>The Mifflin-St Jeor equation</h2>
+<p>This calculator uses the Mifflin-St Jeor formula, which is the most accurate for the general population:</p>
+<p><strong>Men:</strong> <code>BMR = 10 × weight(kg) + 6.25 × height(cm) − 5 × age + 5</code></p>
+<p><strong>Women:</strong> <code>BMR = 10 × weight(kg) + 6.25 × height(cm) − 5 × age − 161</code></p>
+<p>Then <code>TDEE = BMR × activity factor</code>.</p>
+
+<h2>Activity multipliers</h2>
+<table>
+<thead><tr><th>Level</th><th>Multiplier</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>Sedentary</td><td>1.2</td><td>Desk job, little or no exercise</td></tr>
+<tr><td>Lightly active</td><td>1.375</td><td>Light exercise 1–3 days/week</td></tr>
+<tr><td>Moderately active</td><td>1.55</td><td>Moderate exercise 3–5 days/week</td></tr>
+<tr><td>Very active</td><td>1.725</td><td>Hard exercise 6–7 days/week</td></tr>
+<tr><td>Extra active</td><td>1.9</td><td>Physical job + hard training</td></tr>
+</tbody>
+</table>
+
+<h2>Calorie deficit for weight loss</h2>
+<p>One kilogram of body fat equals roughly 7,700 calories. So a deficit of:</p>
+<ul>
+<li><strong>250 calories/day</strong> — 0.25 kg loss per week</li>
+<li><strong>500 calories/day</strong> — 0.5 kg loss per week</li>
+<li><strong>1,000 calories/day</strong> — 1 kg loss per week</li>
+</ul>
+<p>Most guidelines recommend 0.5 to 1 kg per week. Faster loss tends to rebound and strips muscle. Never go below your BMR for extended periods — that can slow your metabolism and cause other health issues.</p>
+
+<h2>Calorie surplus for muscle gain</h2>
+<p>Muscle gain is slower than fat loss. A surplus of 250 to 500 calories per day supports steady gains without excessive fat accumulation. Combined with resistance training and adequate protein (1.6 to 2.2 g per kg of body weight), you can gain 0.25 to 0.5 kg of muscle per month.</p>
+
+<h2>Macronutrients</h2>
+<ul>
+<li><strong>Protein</strong> — 4 calories per gram. Essential for muscle repair and satiety.</li>
+<li><strong>Carbohydrates</strong> — 4 calories per gram. Primary fuel for training and brain function.</li>
+<li><strong>Fat</strong> — 9 calories per gram. Hormone production, vitamin absorption, satiety.</li>
+</ul>
+<p>The calculator offers several macro splits — balanced, high-protein, low-carb, keto, and vegetarian. Pick one that fits your preferences and adherence.</p>
+
+<h2>Common questions</h2>
+<div class="faq">
+<details><summary>What is BMR?</summary><p>Basal Metabolic Rate is the number of calories your body burns at complete rest to maintain basic functions like breathing, circulation and cell repair.</p></details>
+<details><summary>What is TDEE?</summary><p>Total Daily Energy Expenditure is BMR multiplied by an activity factor. It's the total calories you burn in a typical day including exercise and daily movement.</p></details>
+<details><summary>How many calories to lose weight?</summary><p>A deficit of 500 calories per day produces roughly 0.5 kg of fat loss per week. Most guidelines suggest 0.5 to 1 kg per week maximum for sustainable weight loss.</p></details>
+<details><summary>How many calories to gain muscle?</summary><p>A surplus of 250 to 500 calories per day supports muscle gain with minimal fat accumulation. Combined with resistance training and adequate protein.</p></details>
+<details><summary>How accurate is this calculator?</summary><p>It's a good estimate for most people. Actual calorie needs vary with genetics, body composition, medication, hormonal state and how intensely you actually train. Use the number as a starting point and adjust after two weeks of tracking.</p></details>
+<details><summary>Do I need to count calories forever?</summary><p>No. Most people use a calculator like this for 4 to 12 weeks to learn portion sizes and calorie awareness. After that, you can eat intuitively.</p></details>
+<details><summary>Does the equation differ for athletes?</summary><p>Yes. Very muscular athletes may need more calories than the equation predicts, because muscle burns more at rest. If you're very lean and muscular, add 5 to 10%.</p></details>
+<details><summary>Is my data saved?</summary><p>Your inputs are stored only in your browser's local storage. Nothing is sent to any server.</p></details>
+</div>
+
+<h2>Related tools</h2>
+<ul class="related-list">
+<li><div class="txt"><a href="bmi.html">BMI Calculator</a><p>Body Mass Index with healthy range.</p></div><time>Calc</time></li>
+<li><div class="txt"><a href="age.html">Age Calculator</a><p>Exact age in years, months, days.</p></div><time>Calc</time></li>
+<li><div class="txt"><a href="percentage.html">Percentage Calculator</a><p>Six percentage questions in one tool.</p></div><time>Calc</time></li>
+</ul>
+</article>
+
+<footer>
+<p>LocalTools · <a href="../../index.html">Home</a> · <a href="/">Home</a> · <a href="../../pages/about.html">About</a> · <a href="../../pages/privacy.html">Privacy</a></p>
+</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+var toast=$("toast");
+function flash(m){toast.textContent=m;toast.classList.add("show");clearTimeout(flash._t);flash._t=setTimeout(function(){toast.classList.remove("show");},1700);}
+
+var units="metric";
+
+var KG_PER_LB=0.45359237;
+var CM_PER_IN=2.54;
+
+function round(n,d){var p=Math.pow(10,d);return Math.round(n*p)/p;}
+function num(n){return Math.round(n).toLocaleString();}
+
+/* Macro splits: protein%, carbs%, fat% (must sum to 100) */
+var DIETS={
+  balanced:   {p:30,c:40,f:30,name:"Balanced"},
+  highprotein:{p:40,c:35,f:25,name:"High protein"},
+  lowcarb:    {p:35,c:20,f:45,name:"Low carb"},
+  keto:       {p:30,c:5,f:65,name:"Keto"},
+  vegetarian: {p:25,c:50,f:25,name:"Vegetarian"}
+};
+
+/* Goal labels */
+var GOAL_LABELS={
+  "-1000":"Aggressive loss (-1 kg/week)",
+  "-500":"Moderate loss (-0.5 kg/week)",
+  "-250":"Slow loss (-0.25 kg/week)",
+  "0":"Maintain weight",
+  "250":"Lean gain (+0.25 kg/week)",
+  "500":"Standard gain (+0.5 kg/week)",
+  "750":"Fast gain (+0.75 kg/week)"
+};
+
+/* ---------- READ ---------- */
+function readInputs(){
+  var age=parseInt($("age").value,10);
+  var sex=$("sex").value;
+  var activity=parseFloat($("activity").value);
+  var goal=parseFloat($("goal").value);
+  var diet=$("diet").value;
+
+  var weightKg, heightCm;
+  if(units==="metric"){
+    weightKg=parseFloat($("weightKg").value);
+    heightCm=parseFloat($("heightCm").value);
+  } else {
+    var lb=parseFloat($("weightLb").value);
+    var ft=parseFloat($("heightFt").value)||0;
+    var inch=parseFloat($("heightIn").value)||0;
+    if(isNaN(lb))return null;
+    weightKg=lb*KG_PER_LB;
+    heightCm=(ft*12+inch)*CM_PER_IN;
+  }
+
+  if(isNaN(age)||age<10||age>120)return null;
+  if(isNaN(weightKg)||weightKg<=0)return null;
+  if(isNaN(heightCm)||heightCm<=0)return null;
+
+  return {
+    age:age,
+    sex:sex,
+    activity:activity,
+    goal:goal,
+    diet:diet,
+    weightKg:weightKg,
+    heightCm:heightCm
+  };
+}
+
+/* ---------- COMPUTE ---------- */
+function compute(){
+  var inp=readInputs();
+  if(!inp){
+    $("resultCard").hidden=true;
+    $("preview").textContent="Enter details above.";
+    lastResult=null;
+    return;
+  }
+
+  // Mifflin-St Jeor
+  var bmr=10*inp.weightKg+6.25*inp.heightCm-5*inp.age+(inp.sex==="male"?5:-161);
+  var tdee=bmr*inp.activity;
+  var target=tdee+inp.goal;
+
+  // Floor: never below BMR/2 or 1200 kcal
+  if(target<Math.max(bmr*0.5,1200))target=Math.max(bmr*0.5,1200);
+
+  // Macros
+  var split=DIETS[inp.diet];
+  var proteinCal=target*(split.p/100);
+  var carbsCal=target*(split.c/100);
+  var fatCal=target*(split.f/100);
+  var proteinG=proteinCal/4;
+  var carbsG=carbsCal/4;
+  var fatG=fatCal/9;
+
+  var out={
+    inputs:inp,
+    bmr:bmr,
+    tdee:tdee,
+    target:target,
+    goalDiff:target-tdee,
+    split:split,
+    proteinG:proteinG,
+    carbsG:carbsG,
+    fatG:fatG,
+    proteinCal:proteinCal,
+    carbsCal:carbsCal,
+    fatCal:fatCal
+  };
+  lastResult=out;
+  render(out);
+}
+
+/* ---------- RENDER ---------- */
+function render(out){
+  $("resultCard").hidden=false;
+
+  $("targetValue").textContent=num(out.target);
+  $("bmrValue").textContent=num(out.bmr);
+  $("tdeeValue").textContent=num(out.tdee);
+
+  var diff=out.goalDiff;
+  var sign=diff>0?"+":"";
+  $("goalDiffValue").textContent=sign+num(diff);
+  var goalKey=String(diff);
+  // Find closest
+  var labels={
+    "-1000":"Aggressive loss",
+    "-500":"Moderate loss",
+    "-250":"Slow loss",
+    "0":"Maintain",
+    "250":"Lean gain",
+    "500":"Standard gain",
+    "750":"Fast gain"
+  };
+  $("goalDiffLabel").textContent=labels[String(Math.round(diff))]||"per day";
+
+  // Macros
+  $("proteinG").textContent=num(out.proteinG)+" g";
+  $("proteinPct").textContent=out.split.p+"% · "+num(out.proteinCal)+" kcal";
+  $("carbsG").textContent=num(out.carbsG)+" g";
+  $("carbsPct").textContent=out.split.c+"% · "+num(out.carbsCal)+" kcal";
+  $("fatG").textContent=num(out.fatG)+" g";
+  $("fatPct").textContent=out.split.f+"% · "+num(out.fatCal)+" kcal";
+
+  // Macro bar
+  var total=out.target;
+  if(total>0){
+    var pPct=(out.proteinCal/total)*100;
+    var cPct=(out.carbsCal/total)*100;
+    var fPct=(out.fatCal/total)*100;
+    $("macroBar").innerHTML=
+      '<div class="cal-bar-seg protein" style="width:'+pPct+'%">'+pPct.toFixed(0)+'%</div>'+
+      '<div class="cal-bar-seg carbs" style="width:'+cPct+'%">'+cPct.toFixed(0)+'%</div>'+
+      '<div class="cal-bar-seg fat" style="width:'+fPct+'%">'+fPct.toFixed(0)+'%</div>';
+  }
+
+  // Weekly / monthly / meal split
+  $("weeklyCal").textContent=num(out.target*7);
+  $("monthlyCal").textContent=num(out.target*30);
+  $("bfCal").textContent=num(out.target*0.25);
+  $("lunchCal").textContent=num(out.target*0.35);
+  $("dinnerCal").textContent=num(out.target*0.30);
+  $("snackCal").textContent=num(out.target*0.10);
+
+  // Preview
+  $("preview").innerHTML=
+    "BMR: <strong>"+num(out.bmr)+"</strong> · "+
+    "TDEE: <strong>"+num(out.tdee)+"</strong> · "+
+    "Target: <strong>"+num(out.target)+"</strong> kcal/day";
+}
+
+var lastResult=null;
+
+/* ---------- UNIT TOGGLE ---------- */
+document.querySelectorAll("[data-units]").forEach(function(b){
+  b.addEventListener("click",function(){
+    units=b.getAttribute("data-units");
+    document.querySelectorAll("[data-units]").forEach(function(x){
+      x.setAttribute("aria-pressed",String(x===b));
+    });
+    $("metricRow").hidden=units!=="metric";
+    $("imperialRow").hidden=units==="metric";
+    compute();
+    saveState();
+  });
+});
+
+/* ---------- SYNC WEIGHT/HEIGHT BETWEEN UNIT SYSTEMS ---------- */
+$("weightKg").addEventListener("input",function(){
+  var kg=parseFloat($("weightKg").value);
+  if(!isNaN(kg)&&kg>0)$("weightLb").value=round(kg/KG_PER_LB,1);
+  compute();saveState();
+});
+$("weightLb").addEventListener("input",function(){
+  var lb=parseFloat($("weightLb").value);
+  if(!isNaN(lb)&&lb>0)$("weightKg").value=round(lb*KG_PER_LB,1);
+  compute();saveState();
+});
+$("heightCm").addEventListener("input",function(){
+  var cm=parseFloat($("heightCm").value);
+  if(!isNaN(cm)&&cm>0){
+    var totalIn=cm/CM_PER_IN;
+    var ft=Math.floor(totalIn/12);
+    var inch=Math.round(totalIn-ft*12);
+    if(inch===12){ft++;inch=0;}
+    $("heightFt").value=ft;
+    $("heightIn").value=inch;
+  }
+  compute();saveState();
+});
+$("heightFt").addEventListener("input",function(){
+  var ft=parseFloat($("heightFt").value)||0;
+  var inch=parseFloat($("heightIn").value)||0;
+  if(ft||inch)$("heightCm").value=round((ft*12+inch)*CM_PER_IN,1);
+  compute();saveState();
+});
+$("heightIn").addEventListener("input",function(){
+  var ft=parseFloat($("heightFt").value)||0;
+  var inch=parseFloat($("heightIn").value)||0;
+  if(ft||inch)$("heightCm").value=round((ft*12+inch)*CM_PER_IN,1);
+  compute();saveState();
+});
+
+/* ---------- OTHER INPUTS ---------- */
+["age","sex","activity","goal","diet"].forEach(function(id){
+  $(id).addEventListener("input",function(){compute();saveState();});
+  $(id).addEventListener("change",function(){compute();saveState();});
+});
+
+/* ---------- COPY HELPERS ---------- */
+function copyText(t,msg){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(function(){flash(msg||"Copied");}).catch(function(){fbCopy(t,msg);});
+  } else fbCopy(t,msg);
+}
+function fbCopy(t,msg){
+  var ta=document.createElement("textarea");
+  ta.value=t;ta.style.position="fixed";ta.style.opacity="0";
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand("copy");flash(msg||"Copied");}catch(e){flash("Copy failed");}
+  document.body.removeChild(ta);
+}
+
+$("copySummary").addEventListener("click",function(){
+  if(!lastResult)return flash("Nothing to calculate");
+  var o=lastResult;
+  var inp=o.inputs;
+  var lines=[
+    "Calorie / TDEE Summary — LocalTools",
+    "Generated: "+(new Date()).toLocaleString(),
+    "",
+    "Your details",
+    "  Age: "+inp.age+" · Sex: "+inp.sex,
+    "  Weight: "+round(inp.weightKg,1)+" kg · Height: "+round(inp.heightCm,1)+" cm",
+    "  Activity: "+inp.activity+"× multiplier",
+    "  Goal: "+(GOAL_LABELS[String(inp.goal)]||"Maintain"),
+    "  Diet: "+o.split.name,
+    "",
+    "Results",
+    "  BMR: "+num(o.bmr)+" kcal/day",
+    "  TDEE: "+num(o.tdee)+" kcal/day",
+    "  Daily target: "+num(o.target)+" kcal/day",
+    "  Goal adjustment: "+(o.goalDiff>=0?"+":"")+num(o.goalDiff)+" kcal/day",
+    "",
+    "Macros",
+    "  Protein: "+num(o.proteinG)+" g ("+o.split.p+"%)",
+    "  Carbs: "+num(o.carbsG)+" g ("+o.split.c+"%)",
+    "  Fat: "+num(o.fatG)+" g ("+o.split.f+"%)",
+    "",
+    "Meal split",
+    "  Breakfast (25%): "+num(o.target*0.25)+" kcal",
+    "  Lunch (35%): "+num(o.target*0.35)+" kcal",
+    "  Dinner (30%): "+num(o.target*0.30)+" kcal",
+    "  Snacks (10%): "+num(o.target*0.10)+" kcal",
+    "",
+    "Weekly: "+num(o.target*7)+" kcal",
+    "Monthly (30d): "+num(o.target*30)+" kcal"
+  ];
+  copyText(lines.join("\n"),"Summary copied");
+});
+
+$("copyMacros").addEventListener("click",function(){
+  if(!lastResult)return flash("Nothing to calculate");
+  var o=lastResult;
+  var lines=[
+    "Daily target: "+num(o.target)+" kcal",
+    "Protein: "+num(o.proteinG)+" g",
+    "Carbs: "+num(o.carbsG)+" g",
+    "Fat: "+num(o.fatG)+" g"
+  ];
+  copyText(lines.join("\n"),"Macros copied");
+});
+
+$("shareBtn").addEventListener("click",function(){
+  if(!lastResult)return flash("Nothing to share");
+  var inp=lastResult.inputs;
+  var params=[
+    "age="+inp.age,
+    "sex="+inp.sex,
+    "act="+inp.activity,
+    "kg="+round(inp.weightKg,1),
+    "cm="+round(inp.heightCm,1),
+    "goal="+inp.goal,
+    "diet="+inp.diet
+  ];
+  copyText(location.origin+location.pathname+"?"+params.join("&"),"Share link copied");
+});
+
+$("clearBtn").addEventListener("click",function(){
+  $("age").value="";
+  $("weightKg").value="";
+  $("heightCm").value="";
+  $("weightLb").value="";
+  $("heightFt").value="";
+  $("heightIn").value="";
+  $("sex").value="male";
+  $("activity").value="1.55";
+  $("goal").value="0";
+  $("diet").value="balanced";
+  $("resultCard").hidden=true;
+  $("preview").textContent="Enter details above.";
+  lastResult=null;
+  try{localStorage.removeItem("calorie.state");}catch(e){}
+  flash("Reset");
+});
+
+/* ---------- STATE ---------- */
+var STORAGE_KEY="calorie.state";
+function saveState(){
+  try{
+    var s={
+      age:$("age").value,
+      sex:$("sex").value,
+      act:$("activity").value,
+      kg:$("weightKg").value,
+      cm:$("heightCm").value,
+      goal:$("goal").value,
+      diet:$("diet").value,
+      units:units
+    };
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(s));
+  }catch(e){}
+}
+function loadState(){
+  try{
+    var raw=localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      var s=JSON.parse(raw);
+      if(s.age)$("age").value=s.age;
+      if(s.sex)$("sex").value=s.sex;
+      if(s.act)$("activity").value=s.act;
+      if(s.kg)$("weightKg").value=s.kg;
+      if(s.cm)$("heightCm").value=s.cm;
+      if(s.goal!==undefined&&s.goal!=="")$("goal").value=s.goal;
+      if(s.diet)$("diet").value=s.diet;
+      if(s.units==="imperial"){
+        units="imperial";
+        document.querySelectorAll("[data-units]").forEach(function(x){
+          x.setAttribute("aria-pressed",String(x.getAttribute("data-units")==="imperial"));
+        });
+        $("metricRow").hidden=true;
+        $("imperialRow").hidden=false;
+      }
+    }
+  }catch(e){}
+  try{
+    var sp=new URLSearchParams(location.search);
+    if(sp.get("age"))$("age").value=sp.get("age");
+    if(sp.get("sex"))$("sex").value=sp.get("sex");
+    if(sp.get("act"))$("activity").value=sp.get("act");
+    if(sp.get("kg"))$("weightKg").value=sp.get("kg");
+    if(sp.get("cm"))$("heightCm").value=sp.get("cm");
+    if(sp.get("goal")!==null&&sp.get("goal")!=="")$("goal").value=sp.get("goal");
+    if(sp.get("diet"))$("diet").value=sp.get("diet");
+  }catch(e){}
+}
+
+loadState();
+
+/* Sync helper values from metric on load */
+if($("weightKg").value){
+  var kg0=parseFloat($("weightKg").value);
+  if(!isNaN(kg0))$("weightLb").value=round(kg0/KG_PER_LB,1);
+}
+if($("heightCm").value){
+  var cm0=parseFloat($("heightCm").value);
+  if(!isNaN(cm0)){
+    var ti=cm0/CM_PER_IN;
+    var f0=Math.floor(ti/12);
+    var i0=Math.round(ti-f0*12);
+    if(i0===12){f0++;i0=0;}
+    $("heightFt").value=f0;
+    $("heightIn").value=i0;
+  }
+}
+
+compute();
+})();
+</script>
+</body>
+</html>
