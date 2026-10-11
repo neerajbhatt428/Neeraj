@@ -352,9 +352,9 @@ footer a:hover{color:var(--blue)}
           <section>
             <h4>AI model</h4>
             <select class="sel" id="q">
-              <option value="birefnet" selected>Best quality (recommended)</option>
-              <option value="isnet_fp16">Balanced (faster, smaller download)</option>
-              <option value="isnet_quint8">Fastest</option>
+              <option value="birefnet" selected>BiRefNet — best quality (recommended)</option>
+              <option value="ormbg">ORMBG — best for people</option>
+              <option value="isnet">ISNet — best for products</option>
             </select>
           </section>
         </aside>
@@ -517,7 +517,7 @@ var tf=null;
 async function loadBiRefNet(){
   if(tf)return tf;
   var m=await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3/+esm');
-  var ids=['onnx-community/BiRefNet_lite-ONNX','onnx-community/BiRefNet_lite'];
+  var ids=['onnx-community/BiRefNet_lite-ONNX','studioludens/birefnet-lite-512'];
   var devs=navigator.gpu?['webgpu',null]:[null];
   var model,proc,err;
   for(var a=0;a<ids.length&&!model;a++)for(var b=0;b<devs.length&&!model;b++){
@@ -534,8 +534,6 @@ async function loadBiRefNet(){
 }
 
 async function birefnetRaw(sourceCanvas, w, h){
-  /* Runs the model on the given canvas sized w×h.
-     Returns a Uint8Array of length w*h with alpha values (0-255). */
   var T=await loadBiRefNet();
   var c=mk(w,h);
   c.getContext('2d').drawImage(sourceCanvas,0,0,w,h);
@@ -623,7 +621,6 @@ function smoothMask(mask, W0, H0, radius){
    Alpha matting — color-line model
    ============================================================ */
 function erode(mask, W0, H0, r){
-  /* Erode a binary mask (255=fg) by radius r using separable min-filter */
   var a=new Uint8Array(mask);
   var t=new Uint8Array(a.length);
   for(var y=0;y<H0;y++){
@@ -652,7 +649,6 @@ function erode(mask, W0, H0, r){
 }
 
 function dilate(mask, W0, H0, r){
-  /* Inverse erode */
   var inv=new Uint8Array(mask.length);
   for(var i=0;i<mask.length;i++)inv[i]=255-mask[i];
   var er=erode(inv, W0, H0, r);
@@ -662,7 +658,6 @@ function dilate(mask, W0, H0, r){
 }
 
 function computeNearestIndex(mask, W0, H0){
-  /* BFS from every set pixel to compute nearest-set-pixel index for each location */
   var n=W0*H0;
   var idx=new Int32Array(n).fill(-1);
   var q=new Int32Array(n);
@@ -684,10 +679,6 @@ function computeNearestIndex(mask, W0, H0){
 }
 
 function alphaMatte(alpha, srcPixels, W0, H0, erodeR){
-  /* Alpha matting via the color-line model.
-     alpha: input mask (Uint8Array of length W0*H0)
-     srcPixels: RGBA data of the source image
-     Returns a refined alpha mask. */
   erodeR = erodeR || 3;
 
   var FG=new Uint8Array(W0*H0);
@@ -698,7 +689,6 @@ function alphaMatte(alpha, srcPixels, W0, H0, erodeR){
     else if(alpha[i]<5)BG[i]=1;
   }
 
-  /* Erode both masks so the trimap band is around the true edge */
   var FGer=erode(FG.map(function(v){return v*255}),W0,H0,erodeR);
   var BGer=erode(BG.map(function(v){return v*255}),W0,H0,erodeR);
 
@@ -709,13 +699,12 @@ function alphaMatte(alpha, srcPixels, W0, H0, erodeR){
     BGs[j]=BGer[j]>128?1:0;
   }
 
-  /* Nearest known FG/BG index per pixel */
   var nFG=computeNearestIndex(FGs,W0,H0);
   var nBG=computeNearestIndex(BGs,W0,H0);
 
   var out=new Uint8Array(alpha);
   for(var k=0;k<alpha.length;k++){
-    if(FGs[k]||BGs[k])continue; /* keep known pixels as-is */
+    if(FGs[k]||BGs[k])continue;
     var fi=nFG[k], bi=nBG[k];
     if(fi<0||bi<0)continue;
 
@@ -736,8 +725,6 @@ function alphaMatte(alpha, srcPixels, W0, H0, erodeR){
 }
 
 function decontaminate(srcPixels, alpha, W0, H0){
-  /* For edge pixels (0.15 < alpha < 0.9) that have a nearby known BG,
-     solve for the foreground colour and overwrite. Removes colour spill. */
   var BG=new Uint8Array(W0*H0);
   for(var i=0;i<alpha.length;i++)if(alpha[i]<5)BG[i]=1;
   var nBG=computeNearestIndex(BG,W0,H0);
@@ -751,17 +738,14 @@ function decontaminate(srcPixels, alpha, W0, H0){
     var bR=srcPixels[bi*4], bG=srcPixels[bi*4+1], bB=srcPixels[bi*4+2];
     var iR=srcPixels[k*4], iG=srcPixels[k*4+1], iB=srcPixels[k*4+2];
 
-    /* F = (I - (1-a)*B) / a */
     var fR=(iR-(1-a)*bR)/a;
     var fG=(iG-(1-a)*bG)/a;
     var fB=(iB-(1-a)*bB)/a;
 
-    /* Clamp and blend with original to avoid extreme values */
     fR=Math.max(0,Math.min(255,fR));
     fG=Math.max(0,Math.min(255,fG));
     fB=Math.max(0,Math.min(255,fB));
 
-    /* Blend at half strength to keep it subtle */
     srcPixels[k*4]   = Math.round(iR*0.4 + fR*0.6);
     srcPixels[k*4+1] = Math.round(iG*0.4 + fG*0.6);
     srcPixels[k*4+2] = Math.round(iB*0.4 + fB*0.6);
@@ -788,7 +772,6 @@ async function getIsnetAlpha(srcCanvas, w, h){
 }
 
 async function runSingleModel(srcCanvas, w, h){
-  /* Returns alpha mask of size w×h from whichever model is currently selected */
   var useModel=$('q').value;
   if(useModel==='birefnet'){
     try{
@@ -818,7 +801,6 @@ function avgAlpha(a,b){
 }
 
 function blendAlpha(a,b,wa){
-  /* wa is weight of a (0..1); b gets 1-wa */
   var out=new Uint8Array(a.length);
   var wb=1-wa;
   for(var i=0;i<a.length;i++)out[i]=Math.round(a[i]*wa+b[i]*wb);
@@ -826,7 +808,6 @@ function blendAlpha(a,b,wa){
 }
 
 function upscaleAlpha(al, w0, h0, W1, H1){
-  /* Nearest-neighbour upscale of a small alpha mask */
   var out=new Uint8Array(W1*H1);
   var xr=w0/W1, yr=h0/H1;
   for(var y=0;y<H1;y++){
@@ -860,17 +841,14 @@ async function auto(){
     var iw=Math.max(64,Math.round(W*s));
     var ih=Math.max(64,Math.round(H*s));
 
-    /* ---- Pass 1: primary inference at working resolution ---- */
     say('Detecting subject…');
     var al1=await runSingleModel(src, iw, ih);
     var alpha=upscaleAlpha(al1, iw, ih, W, H);
 
-    /* ---- Pass 2: TTA (flipped) for High and Maximum ---- */
     if(level==='high'||level==='max'){
       say('Refining edges (TTA)…');
       var flipped=flipCanvas(src);
       var al2=await runSingleModel(flipped, iw, ih);
-      /* Flip the mask back horizontally */
       var al2b=new Uint8Array(al2.length);
       for(var y=0;y<ih;y++){
         for(var x=0;x<iw;x++){
@@ -881,21 +859,18 @@ async function auto(){
       alpha=avgAlpha(alpha, alpha2);
     }
 
-    /* ---- Post-processing ---- */
     say('Refining edges…');
     alpha=sharpenAlpha(alpha, 2.2);
     alpha=cleanMask(alpha, W, H, Math.round(W*H*0.0012), 0);
     alpha=cleanMask(alpha, W, H, Math.round(W*H*0.0005), 255);
     alpha=smoothMask(alpha, W, H, 1);
 
-    /* ---- Alpha matting for Maximum ---- */
     if(level==='max'){
       say('Solving alpha matting (best quality, may take a moment)…');
       var srcPx=sx.getImageData(0,0,W,H).data;
       alpha=alphaMatte(alpha, srcPx, W, H, 3);
     }
 
-    /* ---- Foreground decontamination for High and Maximum ---- */
     if(level==='high'||level==='max'){
       say('Decontaminating edges…');
       var px2=sx.getImageData(0,0,W,H);
@@ -904,7 +879,6 @@ async function auto(){
       BL=null;
     }
 
-    /* ---- Store ---- */
     if(slowTimer){clearTimeout(slowTimer);slowTimer=null;}
     markModelSeen();
     snap();
@@ -948,7 +922,6 @@ $('undoBtn').onclick=function(){if(busy||!undo.length)return;redo.push(M);M=undo
 $('redoBtn').onclick=function(){if(busy||!redo.length)return;undo.push(M);M=redo.pop();commit()};
 $('autoBtn').onclick=function(){
   if(busy)return;
-  /* Restore original source pixels (decontam may have modified them), then re-run auto */
   if(srcID){sx.putImageData(srcID,0,0);BL=null}
   auto();
 };
@@ -1038,20 +1011,17 @@ var rf;
   });
 });
 
-/* Re-run the pipeline when model or quality changes */
 $('q').addEventListener('change',function(){if(M&&!busy)auto()});
 $('qual').addEventListener('change',function(){if(M&&!busy)auto()});
 
-/* Auto-pick the default model based on connection speed and device memory */
 (function pickDefaultModel(){
   var q=$('q');if(!q)return;
   var conn=navigator.connection||{};
   var slow=conn.effectiveType==='2g'||conn.effectiveType==='3g'||conn.saveData;
   var lowMem=navigator.deviceMemory&&navigator.deviceMemory<=4;
-  if((slow||lowMem)&&!MODEL_SEEN)q.value='isnet_fp16';
+  if((slow||lowMem)&&!MODEL_SEEN)q.value='ormbg';
 })();
 
-/* Keyboard shortcuts */
 document.addEventListener('keydown',function(e){
   if(ed.hidden||e.ctrlKey||e.metaKey||e.altKey||e.target.tagName==='SELECT')return;
   var k=e.key.toLowerCase(),m={r:'rm',e:'er',b:'rs',h:'pn'};
