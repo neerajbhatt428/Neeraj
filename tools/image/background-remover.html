@@ -622,7 +622,7 @@ function cfg(dev,p){return{publicPath:PP,debug:false,device:dev,model:$('q').val
    guarantee a usable WebGPU adapter or the isolation headers some runtimes need.
    A failed GPU init can poison ONNX Runtime's WASM init for the retry in this tab. */
 async function run(fn,b){return await fn(b,cfg('cpu',1))}
-function warm(){if(warmed)return;warmed=true;loadLib().then(function(){if(pre)pre(cfg(navigator.gpu?'gpu':'cpu')).catch(function(){})}).catch(function(){warmed=false})}
+function warm(){if(warmed)return;warmed=true;loadLib().then(function(){if(pre)pre(cfg('cpu')).catch(function(){})}).catch(function(){warmed=false})}
 ['pointerenter','pointerdown','dragenter'].forEach(function(e){drop.addEventListener(e,warm,{once:true})});
 
 /* ---------- decoding: everything the browser can read + HEIC + TIFF ---------- */
