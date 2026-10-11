@@ -431,7 +431,19 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
     0 12px 28px -14px rgba(20,22,26,.28),
     0 2px 6px -2px rgba(20,22,26,.08);
 }
-.page-card.dragging{opacity:.35;cursor:grabbing;transform:none}
+
+/* Dragged card: shows as a highlighted ghost slot */
+.page-card.dragging{
+  opacity:.4;
+  cursor:grabbing;
+  transform:none;
+  box-shadow:
+    0 0 0 2px var(--blue),
+    0 0 0 6px rgba(27,77,255,.12),
+    0 8px 20px -8px rgba(27,77,255,.35);
+  z-index:10;
+}
+
 .page-card.selected{
   box-shadow:
     0 0 0 2px var(--blue),
@@ -450,14 +462,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
     0 0 0 5px var(--blue),
     0 8px 24px -12px rgba(27,77,255,.4);
 }
-.page-card.drop-before::before{
-  content:"";position:absolute;top:-4px;bottom:-4px;left:-7px;width:3px;
-  background:var(--blue);border-radius:3px;z-index:5;
-}
-.page-card.drop-after::after{
-  content:"";position:absolute;top:-4px;bottom:-4px;right:-7px;width:3px;
-  background:var(--blue);border-radius:3px;z-index:5;
-}
+
 .page-card canvas{width:100%;height:100%;object-fit:contain;display:block;background:var(--surface);pointer-events:none}
 .page-card .placeholder{
   position:absolute;inset:0;display:grid;place-items:center;
@@ -826,7 +831,7 @@ footer a:hover{color:var(--blue)}
   <ol>
     <li><strong>Open your PDF.</strong> Drop it onto the box above, or click to choose a file.</li>
     <li><strong>Preview.</strong> Click any thumbnail to load that page in the viewer above. Zoom in with +, out with −, or press Fit to reset.</li>
-    <li><strong>Reorder pages.</strong> Drag one thumbnail or a multi-selection to a new position. A blue line shows where it will land.</li>
+    <li><strong>Reorder pages.</strong> Drag one thumbnail or a multi-selection to a new position. The cards slide over in real time to show where the page will land.</li>
     <li><strong>Select multiple pages.</strong> Click each page you want to add to the selection. Click it again to remove it. You can have zero, one, or many pages selected at once.</li>
     <li><strong>Rotate, duplicate or delete.</strong> Hover a page and use the icons in the top-right corner. On mobile they are always visible.</li>
     <li><strong>Add blank pages.</strong> Select a page, click <strong>Blank page</strong> to insert one after it. With nothing selected, the blank page is added at the end.</li>
@@ -839,13 +844,13 @@ footer a:hover{color:var(--blue)}
 
   <h2>Selecting multiple pages</h2>
   <p>Click any page to add it to the selection. Click it again to remove it. There is no range selection — clicking page 1 and then page 9 selects exactly those two, not everything in between. The selection can be empty, hold a single page, or hold any combination of pages.</p>
-  <p>Once you have a selection, drag any selected page — the whole group moves together to wherever you drop it, keeping their relative order.</p>
+  <p>Once you have a selection, drag any selected page — the whole group moves together, and the surrounding cards animate out of the way in real time so you can see exactly where they will land.</p>
   <p>The current selection count is shown above the grid. Click <strong>Clear selection</strong> to deselect everything, or press <strong>Escape</strong>.</p>
 
   <h2>What you can do</h2>
 
   <h3>Reorder pages</h3>
-  <p>Drag any page or group of pages to reorder. Works for fixing an out-of-order scan, putting a signed page first, or rearranging a report.</p>
+  <p>Drag any page or group of pages to reorder. As you move the mouse, the other pages slide to make room, so you always see exactly where the page will land before you release it.</p>
 
   <h3>Rotate pages</h3>
   <p>Click ↻ to rotate 90° clockwise. Rotation is a page-level instruction, so the underlying content stays untouched.</p>
@@ -987,7 +992,6 @@ async function handleInitialFile(file){
     if (state.pages.length){
       state.viewerPageId = state.pages[0].id;
       state.lastAnchorId = state.pages[0].id;
-      /* Leave the selection empty on load — the user will pick pages as needed. */
     }
     showEditor();
     await renderAllThumbs(source);
@@ -1094,6 +1098,134 @@ async function renderAllThumbs(source){
     }
   }
 }
+
+/* ============================================================
+   Drag & drop — live reorder with FLIP animation
+   ============================================================ */
+
+let dragState = null;
+
+/* Smoothly animate a DOM mutation using the FLIP technique.
+   Records positions, runs the mutation, then animates each
+   element from its old position back to its new one. */
+function flipAnimate(container, mutate){
+  const before = Array.from(container.children).map(el => {
+    el.getAnimations().forEach(a => a.cancel());
+    return { el, rect: el.getBoundingClientRect() };
+  });
+  mutate();
+  before.forEach(({ el, rect: first }) => {
+    if (!el.isConnected) return;
+    const last = el.getBoundingClientRect();
+    const dx = first.left - last.left;
+    const dy = first.top - last.top;
+    if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return;
+    el.animate(
+      [
+        { transform: `translate(${dx}px, ${dy}px)` },
+        { transform: 'translate(0, 0)' }
+      ],
+      { duration: 200, easing: 'cubic-bezier(.4, 0, .2, 1)' }
+    );
+  });
+}
+
+/* Start dragging. If the dragged page is part of a multi-selection,
+   the whole selection moves together. */
+function onDragStart(e, card, page){
+  const ids = state.selected.has(page.id) && state.selected.size > 1
+    ? Array.from(state.selected)
+    : [page.id];
+  dragState = { ids, originalOrder: state.pages.map(p => p.id) };
+  card.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', page.id);
+}
+
+/* While hovering over a target card, move the dragged group in the DOM.
+   Cards around it slide over via FLIP. */
+function onDragOver(e, targetCard){
+  if (!dragState) return;
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+
+  const targetId = targetCard.dataset.pageId;
+  if (dragState.ids.includes(targetId)) return;
+
+  const grid = targetCard.parentNode;
+  const rect = targetCard.getBoundingClientRect();
+  const isAfter = e.clientY > rect.top + rect.height / 2;
+
+  const draggingNodes = Array.from(grid.querySelectorAll('.page-card'))
+    .filter(n => dragState.ids.includes(n.dataset.pageId));
+  if (!draggingNodes.length) return;
+
+  /* Find the node we insert before. Skip past any dragged nodes. */
+  let reference = isAfter ? targetCard.nextSibling : targetCard;
+  while (reference && dragState.ids.includes(reference.dataset?.pageId)){
+    reference = reference.nextSibling;
+  }
+
+  /* Skip if the group is already sitting in that exact position. */
+  const firstDragged = draggingNodes[0];
+  if (!isAfter && firstDragged === targetCard) return;
+  if (isAfter && reference === firstDragged) return;
+
+  flipAnimate(grid, () => {
+    draggingNodes.forEach(node => grid.insertBefore(node, reference));
+  });
+}
+
+/* Drop — commit the new DOM order into state. */
+function onDrop(e){
+  e.preventDefault();
+  if (!dragState) return;
+  commitDomOrderToState();
+}
+
+/* Drag end — always fires after drop (or when the drag is cancelled). */
+function onDragEnd(e, card){
+  card.classList.remove('dragging');
+  if (dragState){
+    /* Drop never fired — commit the current DOM order anyway. */
+    commitDomOrderToState();
+    dragState = null;
+  }
+  renderGrid();
+  renderViewer();
+  updateSelectionUI();
+}
+
+/* Read the grid's DOM order and rebuild state.pages to match. */
+function commitDomOrderToState(){
+  const grid = $('grid');
+  const orderIds = Array.from(grid.querySelectorAll('.page-card')).map(c => c.dataset.pageId);
+  const byId = new Map(state.pages.map(p => [p.id, p]));
+  state.pages = orderIds.map(id => byId.get(id)).filter(Boolean);
+  updateStats();
+}
+
+/* Grid-level dragover — lets the user drop past the last card. */
+(function setupGridDrop(){
+  const grid = $('grid');
+  grid.addEventListener('dragover', e => {
+    if (!dragState) return;
+    const target = e.target.closest('.page-card');
+    if (target) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+
+    const draggingNodes = Array.from(grid.querySelectorAll('.page-card'))
+      .filter(n => dragState.ids.includes(n.dataset.pageId));
+    if (!draggingNodes.length) return;
+
+    if (grid.lastElementChild && draggingNodes.includes(grid.lastElementChild)) return;
+
+    flipAnimate(grid, () => {
+      draggingNodes.forEach(node => grid.appendChild(node));
+    });
+  });
+})();
 
 function renderGrid(){
   const grid = $('grid');
@@ -1236,46 +1368,10 @@ function renderGrid(){
       });
     });
 
-    card.addEventListener('dragstart', e => {
-      e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.setData('text/plain', page.id);
-      card.classList.add('dragging');
-      setTimeout(() => card.style.opacity = '0.4', 0);
-    });
-    card.addEventListener('dragend', () => {
-      card.classList.remove('dragging');
-      card.style.opacity = '';
-      document.querySelectorAll('.page-card.drop-before, .page-card.drop-after').forEach(c => {
-        c.classList.remove('drop-before','drop-after');
-      });
-    });
-    card.addEventListener('dragover', e => {
-      e.preventDefault();
-      const draggedId = document.querySelector('.page-card.dragging')?.dataset.pageId;
-      if (!draggedId || draggedId === page.id) return;
-      const rect = card.getBoundingClientRect();
-      const isAfter = e.clientY > rect.top + rect.height / 2;
-      document.querySelectorAll('.page-card.drop-before, .page-card.drop-after').forEach(c => {
-        c.classList.remove('drop-before','drop-after');
-      });
-      card.classList.add(isAfter ? 'drop-after' : 'drop-before');
-      e.dataTransfer.dropEffect = 'move';
-    });
-    card.addEventListener('dragleave', e => {
-      if (!card.contains(e.relatedTarget)){
-        card.classList.remove('drop-before','drop-after');
-      }
-    });
-    card.addEventListener('drop', e => {
-      e.preventDefault();
-      const draggedId = e.dataTransfer.getData('text/plain');
-      const isAfter = card.classList.contains('drop-after');
-      document.querySelectorAll('.page-card.drop-before, .page-card.drop-after').forEach(c => {
-        c.classList.remove('drop-before','drop-after');
-      });
-      if (!draggedId || draggedId === page.id) return;
-      performMove(draggedId, page.id, isAfter);
-    });
+    card.addEventListener('dragstart', e => onDragStart(e, card, page));
+    card.addEventListener('dragover',  e => onDragOver(e, card));
+    card.addEventListener('drop',      onDrop);
+    card.addEventListener('dragend',   e => onDragEnd(e, card));
 
     grid.appendChild(card);
   });
@@ -1292,11 +1388,8 @@ function onPageClick(pageId, e){
   const idx = state.pages.findIndex(p => p.id === pageId);
   if (idx < 0) return;
 
-  /* Preview always follows the click, whether or not the page is selected. */
   state.viewerPageId = pageId;
 
-  /* Toggle the clicked page. If it was selected, deselect it — even if it
-     was the only one. If it wasn't, select it. */
   if (state.selected.has(pageId)){
     state.selected.delete(pageId);
   } else {
@@ -1315,7 +1408,6 @@ function updateSelectionUI(){
   const info = $('selInfo');
   const clear = $('selClearBtn');
 
-  /* Show the pill and clear button whenever at least one page is selected. */
   if (count > 0){
     info.hidden = false;
     info.textContent = count + ' selected';
@@ -1327,7 +1419,6 @@ function updateSelectionUI(){
   $('statSelected').textContent = count;
 }
 
-/* Clear selection removes every highlighted page. */
 $('selClearBtn').addEventListener('click', () => {
   state.selected.clear();
   state.lastAnchorId = null;
@@ -1335,35 +1426,6 @@ $('selClearBtn').addEventListener('click', () => {
   updateSelectionUI();
   flash('Selection cleared');
 });
-
-function performMove(draggedId, targetId, insertAfter){
-  const movingIds = (state.selected.has(draggedId) && state.selected.size > 1)
-    ? new Set(state.selected)
-    : new Set([draggedId]);
-
-  if (movingIds.has(targetId)) return;
-
-  const moving = state.pages.filter(p => movingIds.has(p.id));
-  const remaining = state.pages.filter(p => !movingIds.has(p.id));
-
-  let insertAt = remaining.findIndex(p => p.id === targetId);
-  if (insertAt < 0) return;
-  if (insertAfter) insertAt++;
-
-  state.pages = [...remaining.slice(0, insertAt), ...moving, ...remaining.slice(insertAt)];
-
-  if (!(movingIds.size > 1)){
-    state.selected.clear();
-    state.selected.add(draggedId);
-    state.lastAnchorId = draggedId;
-  }
-  state.viewerPageId = draggedId;
-
-  renderGrid();
-  renderViewer();
-  updateSelectionUI();
-  flash(movingIds.size > 1 ? 'Moved ' + movingIds.size + ' pages' : 'Moved');
-}
 
 let viewerRenderToken = 0;
 
@@ -1654,7 +1716,6 @@ document.addEventListener('keydown', e => {
   }
 
   if (e.key === 'Escape'){
-    /* Clear the selection completely. */
     state.selected.clear();
     state.lastAnchorId = null;
     renderGrid();
