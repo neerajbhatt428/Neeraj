@@ -50,7 +50,7 @@
         {"@type":"Question","name":"Is this Image BG Remover free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is completely free, has no daily limit and runs entirely in your browser."}},
         {"@type":"Question","name":"Does my image get uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The AI model runs on your device using WebAssembly. Your image never leaves your browser."}},
         {"@type":"Question","name":"What image formats are supported?","acceptedAnswer":{"@type":"Answer","text":"JPG, PNG, WebP, AVIF, HEIC, GIF, BMP, TIFF and SVG images are supported. Export as PNG, WebP or JPG with a transparent or custom background."}},
-        {"@type":"Question","name":"Why does the first run take longer?","acceptedAnswer":{"@type":"Answer","text":"On first use, the AI model (about 40 MB) is downloaded and cached by your browser. Every image after that is much faster."}}
+        {"@type":"Question","name":"Why does the first run take longer?","acceptedAnswer":{"@type":"Answer","text":"On first use, the AI model is downloaded and cached by your browser. Every image after that is much faster."}}
       ]
     }
   ]
@@ -526,7 +526,7 @@ body .wrap-wide{max-width:1400px!important}
           </span><input type="color" id="cc" value="#F5C518" title="Custom colour"><label class="ib" style="cursor:pointer">Image…<input type="file" id="bgf" accept="image/*" class="sr"></label></div>
         </section>
         <section><h4>AI model</h4>
-          <select class="sel" id="q" style="width:100%"><option value="isnet_quint8">Fast</option><option value="isnet_fp16" selected>Balanced</option><option value="birefnet">Best (BiRefNet, large first download)</option></select>
+          <select class="sel" id="q" style="width:100%"><option value="birefnet" selected>Best quality (recommended)</option><option value="isnet_fp16">Balanced (faster, smaller download)</option><option value="isnet_quint8">Fastest</option></select>
         </section>
       </aside>
     </div>
@@ -538,7 +538,7 @@ body .wrap-wide{max-width:1400px!important}
     <h2>How to remove an image background</h2>
     <ol>
       <li>Drop an image (JPG, PNG, WebP, AVIF, HEIC, GIF, BMP, TIFF, SVG) onto the box above, paste it, or click to choose a file.</li>
-      <li>Wait a few seconds. On your first use, the AI model (~40 MB) downloads once — every image after that is much faster.</li>
+      <li>Wait a few seconds. On your first use, the AI model downloads once — every image after that is much faster.</li>
       <li>The background-removed image appears right away. Hold the <strong>Compare</strong> button to see the original.</li>
       <li>Keep it transparent, or pick a background colour or image.</li>
       <li>Click <strong>Download image</strong> and choose PNG, WebP or JPG.</li>
@@ -557,14 +557,14 @@ body .wrap-wide{max-width:1400px!important}
     <p>The AI model runs entirely in your browser using WebAssembly. Your image is never uploaded to any server, no data is collected, and once the page has loaded you can even disconnect from the internet and the tool still works.</p>
 
     <h2>Why the first run is slower</h2>
-    <p>The AI segmentation model is around 40 MB. It downloads once and is then cached by your browser. Every image after the first is processed in a few seconds on a typical laptop, longer on older phones.</p>
+    <p>The AI segmentation model is large. It downloads once and is then cached by your browser. Every image after the first is processed in a few seconds on a typical laptop, longer on older phones.</p>
 
     <h2>Common questions</h2>
     <div class="faq">
       <details><summary>Is this Image BG Remover free?</summary><p>Yes. It is completely free, has no daily limit and runs entirely in your browser.</p></details>
       <details><summary>Does my image get uploaded?</summary><p>No. The AI model runs on your device using WebAssembly. Your image never leaves your browser.</p></details>
       <details><summary>What image formats are supported?</summary><p>JPG, PNG, WebP, AVIF, HEIC, GIF, BMP, TIFF and SVG images are supported. Export as PNG, WebP or JPG with a transparent or custom background.</p></details>
-      <details><summary>Why does the first run take longer?</summary><p>On first use, the AI model (about 40 MB) is downloaded and cached by your browser. Every image after that is much faster.</p></details>
+      <details><summary>Why does the first run take longer?</summary><p>On first use, the AI model is downloaded and cached by your browser. Every image after that is much faster.</p></details>
       <details><summary>Does it work on phones?</summary><p>Yes. It runs in Safari on iOS and Chrome on Android. Older phones may take longer because the model runs on your device's CPU.</p></details>
     </div>
 
@@ -586,7 +586,6 @@ body .wrap-wide{max-width:1400px!important}
     <p>
       LocalTools ·
       <a href="../../index.html">Home</a> ·
-      <a href="/">Home</a> ·
       <a href="../../pages/about.html">About</a> ·
       <a href="../../pages/privacy.html">Privacy</a>
     </p>
@@ -635,7 +634,7 @@ async function open(f){if(busy)return flash('Please wait for the current image')
     var s=Math.min(1,MAXD/Math.max(orig.width,orig.height));W=Math.round(orig.width*s);H=Math.round(orig.height*s);
     src=mk(W,H);sx=src.getContext('2d',{willReadFrequently:true});sx.drawImage(orig,0,0,W,H);BL=null;
     cut=mk(W,H);cx=cut.getContext('2d');mc=mk(W,H);mx=mc.getContext('2d');MD=mx.createImageData(W,H);
-    view.width=W;view.height=H;M=new Uint8Array(W*H).fill(255);undo=[];redo=[];
+    view.width=W;view.height=H;M=new Uint8Array(W*H).fill(255);undo=[];redo=[];AUTO=null;
     drop.style.display='none';ed.hidden=false;fit();setTool('rm');commit();await auto();
   }catch(e){console.error(e);say(e.message||'Could not read that image','err');hp()}}
 fin.addEventListener('change',function(){if(fin.files[0])open(fin.files[0]);fin.value=''});
@@ -657,18 +656,128 @@ async function birefnet(blob){
   var img=await tf.m.RawImage.fromBlob(blob),px=(await tf.proc(img)).pixel_values,res=await tf.model({input_image:px}),
   mk2=await tf.m.RawImage.fromTensor(res.output_image[0].sigmoid().mul(255).to('uint8')).resize(W,H),ch=mk2.channels||1,al=new Uint8Array(W*H);
   for(var i=0;i<al.length;i++)al[i]=mk2.data[i*ch];return al}
-/* ---------- AI detection ---------- */
+
+/* ---------- Mask post-processing pipeline ---------- */
+function sharpenAlpha(mask, strength){
+  if (strength <= 0) return mask;
+  var lut = new Uint8Array(256);
+  for (var i = 0; i < 256; i++){
+    var x = (i - 128) / 128;
+    var y = (Math.tanh(strength * x) / Math.tanh(strength) + 1) * 0.5;
+    var v = Math.round(y * 255);
+    lut[i] = v < 0 ? 0 : v > 255 ? 255 : v;
+  }
+  var out = new Uint8Array(mask.length);
+  for (var j = 0; j < mask.length; j++) out[j] = lut[mask[j]];
+  return out;
+}
+
+function cleanMask(mask, minSize, targetValue){
+  var n = W * H;
+  var visited = new Uint8Array(n);
+  var wantOn = targetValue === 0;
+  for (var s = 0; s < n; s++){
+    if (visited[s]) continue;
+    var on = mask[s] >= 128;
+    if (on !== wantOn) continue;
+    var q = [s], region = [];
+    visited[s] = 1;
+    var head = 0;
+    while (head < q.length){
+      var p = q[head++];
+      region.push(p);
+      var x = p % W;
+      var y = (p - x) / W;
+      if (x > 0 && !visited[p-1] && (mask[p-1] >= 128) === on){ visited[p-1] = 1; q.push(p-1); }
+      if (x < W-1 && !visited[p+1] && (mask[p+1] >= 128) === on){ visited[p+1] = 1; q.push(p+1); }
+      if (y > 0 && !visited[p-W] && (mask[p-W] >= 128) === on){ visited[p-W] = 1; q.push(p-W); }
+      if (y < H-1 && !visited[p+W] && (mask[p+W] >= 128) === on){ visited[p+W] = 1; q.push(p+W); }
+    }
+    if (region.length < minSize){
+      for (var i = 0; i < region.length; i++) mask[region[i]] = targetValue;
+    }
+  }
+  return mask;
+}
+
+function smoothMask(mask, radius){
+  if (radius <= 0) return mask;
+  var t = new Uint8Array(mask.length);
+  var o = new Uint8Array(mask.length);
+  var k = 2 * radius + 1;
+  for (var y = 0; y < H; y++){
+    var row = y * W, sum = 0;
+    for (var i = -radius; i <= radius; i++) sum += mask[row + Math.min(W-1, Math.max(0, i))];
+    for (var x = 0; x < W; x++){
+      t[row + x] = sum / k;
+      sum += mask[row + Math.min(W-1, x + radius + 1)] - mask[row + Math.max(0, x - radius)];
+    }
+  }
+  for (var x2 = 0; x2 < W; x2++){
+    var sum2 = 0;
+    for (var j = -radius; j <= radius; j++) sum2 += t[Math.min(H-1, Math.max(0, j)) * W + x2];
+    for (var y2 = 0; y2 < H; y2++){
+      o[y2 * W + x2] = sum2 / k;
+      sum2 += t[Math.min(H-1, y2 + radius + 1) * W + x2] - t[Math.max(0, y2 - radius) * W + x2];
+    }
+  }
+  return o;
+}
+
+/* ---------- AI detection with post-processing ---------- */
 async function auto(){
   busy=true;$('tools').style.opacity=.5;$('busy').hidden=false;
   try{
     say('Loading AI model (first time only, cached afterwards)…');pg(10);
-    var s=Math.min(1,1280/Math.max(W,H)),c=mk(Math.round(W*s)||1,Math.round(H*s)||1),al=null,i;c.getContext('2d').drawImage(src,0,0,c.width,c.height);
-    var blob=await new Promise(function(r){c.toBlob(r,'image/png')});
-    if($('q').value==='birefnet'){try{al=await birefnet(blob)}catch(e){console.warn(e);$('q').value='isnet_fp16';flash('BiRefNet unavailable here, used the standard model')}}
-    if(!al){var fn=await loadLib();say('Detecting subject…');var out=await run(fn,blob),bm=await createImageBitmap(out),t=mk(W,H),tx=t.getContext('2d',{willReadFrequently:true});tx.drawImage(bm,0,0,W,H);
-      var D=tx.getImageData(0,0,W,H).data;al=new Uint8Array(W*H);for(i=0;i<W*H;i++)al[i]=D[i*4+3]}
-    snap();M.set(al);AUTO=M.slice();commit();
-    say('Done! Not perfect? Pick a tool above and tap or paint to fix it.'+(MOB?'':' Shortcuts: R E B H, Ctrl+Z undo, hold C to compare.'),'ok');flash('Done');pg(100);
+
+    /* Higher inference resolution = crisper edges. */
+    var targetLong = MOB ? 1024 : 1536;
+    var s = Math.min(1, targetLong / Math.max(W, H));
+    var cw = Math.max(64, Math.round(W * s));
+    var ch2 = Math.max(64, Math.round(H * s));
+    var c = mk(cw, ch2);
+    c.getContext('2d').drawImage(src, 0, 0, cw, ch2);
+    var blob = await new Promise(function(r){ c.toBlob(r, 'image/png'); });
+
+    var al = null;
+    var useModel = $('q').value;
+
+    if (useModel === 'birefnet'){
+      try {
+        al = await birefnet(blob);
+      } catch(e){
+        console.warn('BiRefNet failed, falling back:', e);
+        $('q').value = 'isnet_fp16';
+        flash('BiRefNet unavailable here — used the standard model');
+      }
+    }
+
+    if (!al){
+      var fn = await loadLib();
+      say('Detecting subject…');
+      var out = await run(fn, blob);
+      var bm = await createImageBitmap(out);
+      var t = mk(W, H);
+      var tx = t.getContext('2d', { willReadFrequently: true });
+      tx.drawImage(bm, 0, 0, W, H);
+      var D = tx.getImageData(0, 0, W, H).data;
+      al = new Uint8Array(W * H);
+      for (var i = 0; i < W * H; i++) al[i] = D[i * 4 + 3];
+    }
+
+    /* Post-processing pipeline */
+    say('Refining edges…');
+    al = sharpenAlpha(al, 2.4);
+    al = cleanMask(al, Math.round(W * H * 0.0012), 0);
+    al = cleanMask(al, Math.round(W * H * 0.0005), 255);
+    al = smoothMask(al, 1);
+
+    snap();
+    M.set(al);
+    AUTO = M.slice();
+    commit();
+    say('Done! Not perfect? Pick a tool above and tap or paint to fix it.'+(MOB?'':' Shortcuts: R E B H, Ctrl+Z undo, hold C to compare.'),'ok');
+    flash('Done');pg(100);
   }catch(e){console.error(e);say('Could not remove background: '+(e.message||e),'err')}
   busy=false;$('tools').style.opacity=1;$('busy').hidden=true;hp()}
 
@@ -770,7 +879,8 @@ function setZ(z){
 zs.addEventListener('input',function(){setZ(+zs.value)});$('zf').onclick=fit;
 vp.addEventListener('wheel',function(e){if(!e.ctrlKey&&!e.metaKey)return;e.preventDefault();setZ(Math.min(800,Math.max(100,+zs.value*(e.deltaY<0?1.15:1/1.15))))},{passive:false});
 var cm=$('cmp');function sO(v){return function(e){e.preventDefault();showO=v;if(M)render()}}
-['pointerdown'].forEach(function(e){cm.addEventListener(e,sO(true))});['pointerup','pointerleave','pointercancel'].forEach(function(e){cm.addEventListener(e,sO(false))});
+['pointerdown'].forEach(function(e){cm.addEventListener(e,sO(true))});
+['pointerup','pointerleave','pointercancel'].forEach(function(e){cm.addEventListener(e,sO(false))});
 $('colorOptions').addEventListener('click',function(e){var s=e.target.closest('.color-swatch');if(!s)return;bg=s.dataset.color;mark(s);render()});
 function mark(s){[].forEach.call($('colorOptions').children,function(k){k.classList.toggle('active',k===s)})}
 $('cc').addEventListener('input',function(){bg=this.value;mark(null);render()});
