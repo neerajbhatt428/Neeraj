@@ -11,6 +11,7 @@
 <meta name="theme-color" content="#1B4DFF">
 <meta name="application-name" content="LocalTools">
 <meta name="referrer" content="strict-origin-when-cross-origin">
+
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="LocalTools">
 <meta property="og:locale" content="en_US">
@@ -20,150 +21,185 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="LocalTools: Free Tools That Run in Your Browser">
 <meta name="twitter:description" content="PDF, image, text, calculator and QR tools. No signup, no upload.">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3576991570329575" crossorigin="anonymous"></script>
-<script type="application/ld+json">
-{
- "@context": "https://schema.org",
- "@graph": [
-  {
-   "@type": "WebSite",
-   "@id": "https://localtools.co.in/#website",
-   "url": "https://localtools.co.in/",
-   "name": "LocalTools",
-   "description": "Free browser tools for PDFs, images, text, calculators, QR codes and developers.",
-  }
-  {
-   "@type": "Organization",
-   "@id": "https://localtools.co.in/#org",
-   "name": "LocalTools",
-   "url": "https://localtools.co.in/",
-   "logo": "https://localtools.co.in/assets/img/logo.png"
-  }
-  {
-   "@type": "FAQPage",
-   "mainEntity": [
-    {
-     "@type": "Question",
-     "name": "Are my files uploaded to a server?",
-     "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "No. Every LocalTools tool runs inside your browser, so your PDFs, images and text never leave your device. You can check this by turning off your internet after the page loads: most tools keep working."
-     }
-    },
-    {
-     "@type": "Question",
-     "name": "Do I need an account or to sign up?",
-     "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "No. There is no signup, no email and no password. Open a tool and use it."
-     }
-    },
-    {
-     "@type": "Question",
-     "name": "Is LocalTools really free?",
-     "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Yes. All tools are free to use, with no watermarks and no usage limits. The site is supported by ads."
-     }
-    },
-    {
-     "@type": "Question",
-     "name": "Can I use LocalTools offline?",
-     "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Yes. Install LocalTools from your browser menu (Add to Home Screen on phones, Install on desktop Chrome and Edge) and most tools keep working without internet."
-     }
-    },
-    {
-     "@type": "Question",
-     "name": "Is it safe to use for confidential documents?",
-     "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Because files are processed on your own device and are not sent to us, it suits contracts, ID copies and invoices. As with any software, avoid shared or public computers for sensitive files, and close the tab when you are done."
-     }
-    },
-    {
-     "@type": "Question",
-     "name": "How do I merge PDF files without uploading them?",
-     "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Open the Merge PDF tool, add your PDFs, put them in the order you want and download the combined file. The merging happens in your browser, not on a server."
-     }
-    },
-    {
-     "@type": "Question",
-     "name": "How do I compress a PDF or an image without losing quality?",
-     "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Use Compress PDF or Compress Image. They shrink files by re-encoding images at a lower size. Check the result before you send it, and keep the original if you need full quality."
-     }
-    },
-    {
-     "@type": "Question",
-     "name": "Can I remove an image background for free?",
-     "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Yes. The Remove Image Background tool cuts out the background with AI right in your browser, with no watermark. Download the result as a transparent PNG."
-     }
-    },
-    {
-     "@type": "Question",
-     "name": "Can I edit text and sign a PDF here?",
-     "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Yes. The PDF Editor lets you add text, highlights, images and a signature, and reorder or rotate pages. Scanned PDFs are pictures of text, so you add new text on top rather than editing the scan."
-     }
-    },
-    {
-     "@type": "Question",
-     "name": "Can LocalTools pull text out of images and PDFs?",
-     "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Yes. Image to Text (OCR) reads text from photos and screenshots in 17 languages, and Extract PDF Text copies the text from PDFs that contain real text."
-     }
-    },
-    {
-     "@type": "Question",
-     "name": "Does LocalTools work on my phone?",
-     "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Yes. The tools work in modern mobile browsers on Android and iPhone. Very large PDFs or images may be slow on older phones because your device does the work."
-     }
-    },
-    {
-     "@type": "Question",
-     "name": "Which browsers are supported?",
-     "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Current versions of Chrome, Edge, Firefox and Safari. If a tool misbehaves, update your browser and try again."
-     }
-    },
-    {
-     "@type": "Question",
-     "name": "Can I generate and scan QR codes?",
-     "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Yes. The QR Scanner & Generator scans codes with your camera and creates codes for links, Wi-Fi and UPI payments."
-     }
-    },
-    {
-     "@type": "Question",
-     "name": "Are the calculators accurate for India?",
-     "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "The GST Calculator supports Indian GST rates and the Loan / EMI Calculator shows the monthly payment, total interest and schedule. For tax or legal decisions, confirm figures with a professional."
-     }
-    }
-   ]
-  }
- ]
-}
-</script>
+
+<!-- Preconnect: fonts + ad network. Cuts latency on first use. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
+<link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+<link rel="dns-prefetch" href="https://googleads.g.doubleclick.net">
+
+<!-- Reduced font set: only weights actually used.
+     Bricolage 700 (headings), IBM Plex Mono 400 (kbd/mono), IBM Plex Sans 400+600. -->
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+<!-- base.css is small; preload so it isn't fully render-blocking. -->
+<link rel="preload" as="style" href="/assets/css/base.css">
 <link rel="stylesheet" href="/assets/css/base.css">
 <link rel="manifest" href="/manifest.json">
+
+<!-- AdSense: deferred until page is interactive (idle, load + 1.5s, or first input). -->
+<script>
+(function(){
+  function loadAds(){
+    if (window.__adsLoaded) return;
+    window.__adsLoaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.crossOrigin = 'anonymous';
+    s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3576991570329575';
+    document.head.appendChild(s);
+  }
+  if ('requestIdleCallback' in window){
+    requestIdleCallback(loadAds, { timeout: 3000 });
+  } else {
+    window.addEventListener('load', function(){ setTimeout(loadAds, 1500); }, { once: true });
+  }
+  ['pointerdown','keydown','scroll','touchstart'].forEach(function(ev){
+    window.addEventListener(ev, loadAds, { once: true, passive: true });
+  });
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://localtools.co.in/#website",
+      "url": "https://localtools.co.in/",
+      "name": "LocalTools",
+      "description": "Free browser tools for PDFs, images, text, calculators, QR codes and developers."
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://localtools.co.in/#org",
+      "name": "LocalTools",
+      "url": "https://localtools.co.in/",
+      "logo": "https://localtools.co.in/assets/img/logo.png"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are my files uploaded to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Every LocalTools tool runs inside your browser, so your PDFs, images and text never leave your device. You can check this by turning off your internet after the page loads: most tools keep working."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need an account or to sign up?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. There is no signup, no email and no password. Open a tool and use it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is LocalTools really free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. All tools are free to use, with no watermarks and no usage limits. The site is supported by ads."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use LocalTools offline?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Install LocalTools from your browser menu (Add to Home Screen on phones, Install on desktop Chrome and Edge) and most tools keep working without internet."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it safe to use for confidential documents?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because files are processed on your own device and are not sent to us, it suits contracts, ID copies and invoices. As with any software, avoid shared or public computers for sensitive files, and close the tab when you are done."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I merge PDF files without uploading them?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Open the Merge PDF tool, add your PDFs, put them in the order you want and download the combined file. The merging happens in your browser, not on a server."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I compress a PDF or an image without losing quality?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use Compress PDF or Compress Image. They shrink files by re-encoding images at a lower size. Check the result before you send it, and keep the original if you need full quality."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I remove an image background for free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The Remove Image Background tool cuts out the background with AI right in your browser, with no watermark. Download the result as a transparent PNG."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I edit text and sign a PDF here?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The PDF Editor lets you add text, highlights, images and a signature, and reorder or rotate pages. Scanned PDFs are pictures of text, so you add new text on top rather than editing the scan."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can LocalTools pull text out of images and PDFs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Image to Text (OCR) reads text from photos and screenshots in 17 languages, and Extract PDF Text copies the text from PDFs that contain real text."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does LocalTools work on my phone?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The tools work in modern mobile browsers on Android and iPhone. Very large PDFs or images may be slow on older phones because your device does the work."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which browsers are supported?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Current versions of Chrome, Edge, Firefox and Safari. If a tool misbehaves, update your browser and try again."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I generate and scan QR codes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The QR Scanner & Generator scans codes with your camera and creates codes for links, Wi-Fi and UPI payments."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are the calculators accurate for India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The GST Calculator supports Indian GST rates and the Loan / EMI Calculator shows the monthly payment, total interest and schedule. For tax or legal decisions, confirm figures with a professional."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
 <style>
 .wrap-wide{max-width:1240px;margin:0 auto;padding:clamp(16px,2.5vw,28px) clamp(16px,3.5vw,40px) 64px}
 .skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:#fff;padding:8px 14px;border-radius:6px;z-index:99}
@@ -282,7 +318,7 @@ footer nav a:hover{color:var(--blue);text-decoration:underline}
     <div class="finder-results" id="heroResults" role="listbox"></div>
   </div>
   <ul class="facts">
-    <li><span id="toolCount">35+</span> free tools</li>
+    <li><span id="toolCount" style="display:inline-block;min-width:2.5ch">40</span> free tools</li>
     <li>No signup</li>
     <li>No watermarks</li>
     <li>Works offline</li>
@@ -343,7 +379,7 @@ const CATS = {
 };
 const TOOLS = [
   {id:'pdf-editor',name:'PDF Editor',desc:'Add text, highlights, images and signatures. Reorder and rotate pages.',cat:'pdf',path:'/tools/pdf/pdf-editor.html'},
-  {id:'organize-pdf', name:'Organize PDF', desc:'Reorder, rotate, delete and duplicate pages. Add blank pages or merge pages from other PDFs.', cat:'pdf', path:'/tools/pdf/organize-pdf.html', tags:['organize','reorder','rotate','move','pages','blank'] }, 
+  {id:'organize-pdf', name:'Organize PDF', desc:'Reorder, rotate, delete and duplicate pages. Add blank pages or merge pages from other PDFs.', cat:'pdf', path:'/tools/pdf/organize-pdf.html', tags:['organize','reorder','rotate','move','pages','blank'] },
   {id:'pdf-merge',name:'Merge PDF',desc:'Combine multiple PDFs into one file.',cat:'pdf',path:'/tools/pdf/pdf-merge.html'},
   {id:'pdf-split',name:'Split PDF',desc:'Split by page, range or every N pages.',cat:'pdf',path:'/tools/pdf/pdf-split.html'},
   {id:'pdf-compress',name:'Compress PDF',desc:'Reduce PDF size by re-encoding images.',cat:'pdf',path:'/tools/pdf/pdf-compress.html'},
@@ -357,9 +393,9 @@ const TOOLS = [
   {id:'image-compress',name:'Compress Image',desc:'Reduce file size without visible quality loss.',cat:'image',path:'/tools/image/image-compress.html'},
   {id:'image-resize',name:'Resize Image',desc:'Resize to exact dimensions or by percentage.',cat:'image',path:'/tools/image/image-resize.html'},
   {id:'image-to-text',name:'Image to Text (OCR)',desc:'Extract text from images in 17 languages.',cat:'image',path:'/tools/image/image-to-text.html'},
- {id:'image-convert',name:'Convert Image',desc:'Switch between PNG, JPG, WebP and BMP.',cat:'image',path:'/tools/image/image-convert.html'},
- {id:'image-crop',name:'Crop Image',desc:'Crop to square, 16:9, 4:3, story or custom ratios.',cat:'image',path:'/tools/image/image-crop.html'},
- {id:'image-base64',name:'Image to Base64',desc:'Encode an image as a Base64 data URL, or decode it back.',cat:'image',path:'/tools/image/image-base64.html'},
+  {id:'image-convert',name:'Convert Image',desc:'Switch between PNG, JPG, WebP and BMP.',cat:'image',path:'/tools/image/image-convert.html'},
+  {id:'image-crop',name:'Crop Image',desc:'Crop to square, 16:9, 4:3, story or custom ratios.',cat:'image',path:'/tools/image/image-crop.html'},
+  {id:'image-base64',name:'Image to Base64',desc:'Encode an image as a Base64 data URL, or decode it back.',cat:'image',path:'/tools/image/image-base64.html'},
   {id:'exif',name:'EXIF Viewer',desc:'View and strip photo metadata such as GPS and camera model.',cat:'image',path:'/tools/image/exif.html'},
   {id:'favicon',name:'Favicon Generator',desc:'Make every favicon size, including .ico, from one image.',cat:'image',path:'/tools/image/favicon.html'},
   {id:'word-counter',name:'Word Counter',desc:'Count words, characters, sentences and reading time.',cat:'text',path:'/tools/text/word-counter.html'},
@@ -410,9 +446,6 @@ $('tabs').addEventListener('click', e => {
 const h = location.hash.slice(1); if (CATS[h]) activeCat = h;
 renderGrid();
 
-
-
-
 /* search */
 (function(){
   const input = $('heroSearch'), box = $('heroResults');
@@ -432,7 +465,7 @@ renderGrid();
     if (!q){ box.classList.remove('open'); box.innerHTML=''; input.setAttribute('aria-expanded','false'); return; }
     const list = TOOLS.map(t => ({t, s:score(t, q.toLowerCase())})).filter(x => x.s > 0).sort((a,b) => b.s - a.s).slice(0,8).map(x => x.t);
     box.innerHTML = list.length ? list.map((t,i) => `<a href="${t.path}" role="option" data-id="${t.id}"><span class="sr-ico">${icon(t.cat)}</span><span class="sr-info"><span class="sr-name">${esc(t.name)}</span><span class="sr-desc">${esc(t.desc)}</span></span><span class="sr-cat">${CATS[t.cat].name}</span></a>`).join('')
-      : `<div class="sr-empty">No tools match “${esc(q)}”. <a href="/tools/" style="display:inline;padding:0">Browse all tools</a></div>`;
+      : `<div class="sr-empty">No tools match “${esc(q)}”.</div>`;
     box.classList.add('open'); input.setAttribute('aria-expanded','true');
   }
   let t0;
