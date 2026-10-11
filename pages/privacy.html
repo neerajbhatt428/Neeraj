@@ -4,14 +4,179 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy Policy — LocalTools</title>
-<meta name="description" content="Privacy policy for LocalTools. All tools run in your browser. Nothing is uploaded, no accounts, no tracking beyond anonymous analytics.">
+<meta name="description" content="Privacy policy for LocalTools. All tools run in your browser. Nothing is uploaded, no accounts, no behavioural tracking.">
 <link rel="canonical" href="https://localtools.co.in/pages/privacy.html">
+<link rel="sitemap" type="application/xml" href="https://localtools.co.in/sitemap.xml">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#1B4DFF">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Privacy Policy — LocalTools">
+<meta property="og:description" content="Every tool runs in your browser. Nothing is uploaded, no accounts, no behavioural tracking.">
+<meta property="og:url" content="https://localtools.co.in/pages/privacy.html">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/base.css">
+
+<style>
+.article { max-width: 72ch; }
+.article h2 {
+  margin-top: 44px;
+  padding-top: 4px;
+}
+.article h2:first-of-type { margin-top: 0; }
+.article p { font-size: .9375rem; line-height: 1.7; }
+.article ul, .article ol { font-size: .9375rem; line-height: 1.7; }
+.article ul li strong { color: var(--ink); }
+.article code {
+  font-family: var(--mono);
+  font-size: .8125em;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 1px 5px;
+}
+
+/* summary callout at top */
+.summary-box {
+  margin: 0 0 32px;
+  padding: 20px 22px;
+  background: linear-gradient(135deg, rgba(27,77,255,.04), rgba(14,122,95,.04));
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--green);
+  border-radius: 8px;
+}
+.summary-box h2 {
+  margin: 0 0 10px !important;
+  padding: 0 !important;
+  font-size: 1.125rem;
+  color: var(--green);
+}
+.summary-box p {
+  margin: 0;
+  font-size: .9375rem;
+  color: #3A3E46;
+  line-height: 1.65;
+}
+.summary-box ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  font-size: .9375rem;
+  color: #3A3E46;
+}
+.summary-box li { margin: 0 0 5px; }
+.summary-box li:last-child { margin-bottom: 0; }
+.summary-box li strong { color: var(--ink); font-weight: 600; }
+
+/* third-party table */
+.third-party-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0 12px;
+  font-size: .875rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.third-party-table th {
+  text-align: left;
+  padding: 12px 14px;
+  font-family: var(--mono);
+  font-size: .6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--muted);
+  background: #FAFAF8;
+  border-bottom: 1px solid var(--line);
+}
+.third-party-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line-soft, #E4E4DE);
+  vertical-align: top;
+  line-height: 1.55;
+}
+.third-party-table tr:last-child td { border-bottom: 0; }
+.third-party-table td:first-child { font-weight: 500; color: var(--ink); white-space: nowrap; }
+@media(max-width:640px) {
+  .third-party-table { font-size: .8125rem; }
+  .third-party-table th, .third-party-table td { padding: 10px 12px; }
+  .third-party-table td:first-child { white-space: normal; }
+}
+
+/* contact card (same as about) */
+.contact-card {
+  margin: 20px 0 0;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.contact-card .icon {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border-radius: 8px;
+  background: #EDF0FF;
+  color: var(--blue);
+  display: grid;
+  place-items: center;
+}
+.contact-card .icon svg { width: 20px; height: 20px; }
+.contact-card .info { flex: 1; min-width: 0; }
+.contact-card .label {
+  font-family: var(--mono);
+  font-size: .6875rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--muted);
+  margin: 0 0 4px;
+}
+.contact-card .email {
+  font-family: var(--mono);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  word-break: break-all;
+}
+.contact-card .email:hover { color: var(--blue); text-decoration: underline; }
+.contact-card .note {
+  margin: 6px 0 0;
+  font-size: .8125rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* meta info bar */
+.meta-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  margin: 0 0 32px;
+  padding: 0 0 20px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: .75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.meta-bar span { display: inline-flex; align-items: center; gap: 6px; }
+
+@media(max-width:640px) {
+  .contact-card { padding: 16px; gap: 12px; }
+  .contact-card .icon { width: 36px; height: 36px; }
+  .summary-box { padding: 16px 18px; }
+  .article h2 { margin-top: 36px; }
+}
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -30,35 +195,181 @@
   </header>
 
   <h1 class="lede">Privacy Policy</h1>
-  <p class="sub">Last updated: 26 September 2026</p>
+  <p class="sub">The short version: your files stay on your device. The long version below explains exactly what that means, what the third parties we use can see, and how to contact us.</p>
+
+  <div class="meta-bar">
+    <span>Effective 26 September 2026</span>
+    <span>Last updated 12 October 2026</span>
+  </div>
 
   <article class="article">
-    <h2>Short version</h2>
-    <p>All tools on this site run entirely in your browser. Your files, text, images and QR codes are never uploaded to any server. We do not require accounts, we do not sell data, and we do not track you across other websites.</p>
 
-    <h2>What we do not collect</h2>
+    <div class="summary-box">
+      <h2>Short version</h2>
+      <ul>
+        <li><strong>Your files never leave your device.</strong> PDFs, images, videos, text and QR codes are processed in your browser using JavaScript. Nothing is uploaded to any server — not ours, not a third party's.</li>
+        <li><strong>No accounts, no email, no password.</strong> We have no way to identify you even if we wanted to.</li>
+        <li><strong>No behavioural advertising.</strong> The ad network we use may set cookies for ad delivery, but we don't run profiling pixels, retargeting, or cross-site trackers ourselves.</li>
+        <li><strong>Anonymous aggregate analytics only.</strong> We see page views and referrers, never who you are.</li>
+        <li><strong>You can verify all of this.</strong> Open your browser's developer tools, watch the Network tab, and you will not see requests carrying your files anywhere.</li>
+      </ul>
+    </div>
+
+    <h2>Who we are</h2>
+    <p>LocalTools is a collection of browser-based utilities operated by <strong>NB Studios</strong>. The site is served from static files hosted on GitHub Pages and is available at <a href="https://localtools.co.in">localtools.co.in</a>. This policy explains what data the site does and does not handle.</p>
+    <p>Throughout this document, "we," "us," and "our" mean the operators of LocalTools. "You" means the visitor using the site.</p>
+
+    <h2>What never leaves your device</h2>
+    <p>The core promise of LocalTools is that files you open here are processed locally. This applies to every tool on the site:</p>
     <ul>
-      <li>We do not upload your files, text, images, videos or QR codes.</li>
-      <li>We do not require accounts, email addresses or personal information.</li>
-      <li>We do not use advertising cookies for behavioural targeting.</li>
+      <li><strong>PDF tools.</strong> When you open a PDF in the PDF Editor, Merge PDF, Split PDF, Organize PDF, Unlock PDF, or any other PDF tool, the file is read into your browser's memory using <code>pdf-lib</code> and <code>pdf.js</code>. It is modified in your browser. It is saved back to your device. At no point is it transmitted anywhere.</li>
+      <li><strong>Image tools.</strong> Image compression, resizing, cropping, format conversion, background removal and OCR all use the browser's Canvas API and WebAssembly libraries running in your tab. Your images stay in your tab.</li>
+      <li><strong>Video and audio tools.</strong> Video-to-GIF, audio extraction, and trimming use FFmpeg compiled to WebAssembly — again, running entirely on your device.</li>
+      <li><strong>QR scanning.</strong> The scanner reads frames from your camera using <code>getUserMedia</code>. Decoding happens locally in JavaScript. Frames are never sent to a server.</li>
+      <li><strong>Text tools.</strong> Word counters, case converters, JSON formatters and everything else in the Text and Developer categories process your input in the browser. Nothing is saved or transmitted.</li>
+      <li><strong>Calculators.</strong> Numbers you type into any calculator are used for the calculation and immediately discarded. Nothing is stored, logged or sent.</li>
+    </ul>
+    <p>You can confirm this yourself. Open your browser's developer tools (F12 or Cmd+Option+I), switch to the Network tab, and use any tool. You will not see your file being uploaded.</p>
+
+    <h2>What stays on your device</h2>
+    <p>Some tools need to remember small pieces of information between visits. That data is stored in your browser only, and you can clear it at any time.</p>
+
+    <h3>Local storage</h3>
+    <ul>
+      <li><strong>QR scanner history.</strong> Your last twelve scanned QR codes are saved in <code>localStorage</code> so you can revisit them. Press the "Clear all" button on the scanner page to erase them, or clear them from your browser settings.</li>
+      <li><strong>PDF editor autosave.</strong> If you are editing a PDF and close the tab, your edits are saved locally so you can resume. This is stored in <code>localStorage</code> under the key <code>pdfeditor.autosave</code>. It is removed when you save or close the document.</li>
+      <li><strong>Units converter preference.</strong> The converter remembers the last category you used (Length, Weight, Temperature, etc.) so it opens on that category next time. This is a single key: <code>units.lastCat</code>.</li>
+      <li><strong>Theme preference.</strong> If you toggle the light/dark theme, your choice is saved so it persists across visits.</li>
     </ul>
 
-    <h2>What we do collect</h2>
-    <p>We may collect anonymous, aggregate analytics data such as page views, referrer, general region and device type. This data cannot be used to identify you.</p>
-    <p>If we display advertising (for example, via Google AdSense), the ad provider may set cookies to show non-personalised or personalised ads based on your settings and region. You can control these settings through Google’s ad settings.</p>
+    <h3>Cache storage</h3>
+    <p>Tools that download AI models (background removal, OCR) store the model files in your browser's Cache Storage. This speeds up the second and subsequent uses and lets the tools keep working offline. The cache contains only the model files themselves, not your data. You can clear this from your browser settings at any time.</p>
 
-    <h2>Local storage</h2>
-    <p>Some tools save recent activity (such as your recent QR scans) to your browser's local storage. This data stays on your device and can be cleared at any time using the tool's clear button or your browser's settings.</p>
+    <h3>How to clear this data</h3>
+    <p>Every tool that stores data locally has a button or menu option to clear it. Alternatively, your browser's Settings → Privacy → Clear browsing data will remove everything. Once cleared, the tools work as if you had never visited before.</p>
+
+    <h2>What third parties can see</h2>
+    <p>LocalTools is a static site. We do not run our own server that logs your requests. However, several external services are loaded when you visit the site. We are honest about which ones, what they see, and what to do if you want to avoid them.</p>
+
+    <table class="third-party-table">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>What it can see</th>
+          <th>Why it is used</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>GitHub Pages</td>
+          <td>Your IP address, User-Agent, and the URL you requested. This is standard for any web host.</td>
+          <td>Hosting the site files themselves.</td>
+        </tr>
+        <tr>
+          <td>Google AdSense</td>
+          <td>Your IP address, browser information, and cookie data. Google may use this for advertising, including personalised ads if you have enabled them elsewhere.</td>
+          <td>Displaying the ads that keep the site free.</td>
+        </tr>
+        <tr>
+          <td>Google Fonts</td>
+          <td>Your IP address, when the browser fetches the font files.</td>
+          <td>Serving the typefaces used on the site.</td>
+        </tr>
+        <tr>
+          <td>jsDelivr and unpkg</td>
+          <td>Your IP address, when the browser fetches JavaScript libraries.</td>
+          <td>CDN hosting for PDF, image and QR libraries.</td>
+        </tr>
+        <tr>
+          <td>HuggingFace CDN</td>
+          <td>Your IP address, when an AI model is downloaded for the background remover.</td>
+          <td>Hosting the ONNX model used for background removal.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>None of these services receive the files or text you process with any tool. They only see the fact that your browser fetched the library or script.</p>
+
+    <h3>About advertising</h3>
+    <p>LocalTools displays advertising through Google AdSense. This is how the site funds itself. Google and its partners may use cookies and similar technologies to serve ads based on your previous visits to this site or other sites.</p>
+    <p>You can control ad personalisation through:</p>
+    <ul>
+      <li><a href="https://adssettings.google.com" rel="noopener" target="_blank">Google Ad Settings</a> — opt out of personalised advertising from Google</li>
+      <li><a href="https://www.aboutads.info" rel="noopener" target="_blank">aboutads.info</a> — opt out of interest-based advertising from participating companies</li>
+      <li><a href="https://www.youronlinechoices.com" rel="noopener" target="_blank">youronlinechoices.com</a> — for visitors in the EU and UK</li>
+    </ul>
+    <p>In regions where consent is legally required, Google shows non-personalised ads by default. You can still use every tool on the site even if you block or disable ads entirely — an ad blocker will not break any functionality.</p>
+
+    <h3>About analytics</h3>
+    <p>If we use any analytics, it is limited to aggregate, anonymous measurement — page views, referrer, general region, device type. This data cannot identify you and is not linked to any user account, because there are no user accounts. We do not run session recordings, heatmaps, or any analytics tool that could capture the content you paste into a tool.</p>
+    <p>If you use a privacy-respecting browser (Firefox with Enhanced Tracking Protection, Safari with Intelligent Tracking Prevention, or Brave) most or all of this is blocked by default. The tools still work.</p>
+
+    <h2>Camera and microphone access</h2>
+    <p>The QR scanner tool asks for permission to access your camera. This permission is granted by your browser, not by us — the browser shows a prompt, you decide, and the browser enforces your decision. Once granted:</p>
+    <ul>
+      <li>The video stream is processed locally in your browser.</li>
+      <li>Frames are decoded in JavaScript using the same algorithm every QR reader uses.</li>
+      <li>No frame is transmitted to any server.</li>
+      <li>When you leave the page or stop the camera, the stream is closed immediately.</li>
+    </ul>
+    <p>No other tool on this site requires microphone or camera access. If any tool ever needs it in the future, this policy will be updated before that tool ships.</p>
+
+    <h2>Clipboard access</h2>
+    <p>Some tools offer a "Copy" button (word counter, JSON formatter, QR scanner results, and others). When you click Copy, the browser writes the result to your clipboard at your request. We do not read your clipboard without your action, and no clipboard content is transmitted anywhere.</p>
+
+    <h2>Children's privacy</h2>
+    <p>LocalTools is not directed at children under 13 (or under 16 in the EU, or under 18 where local law requires). We do not knowingly collect any personal information from anyone, so this is largely a formality — but if you are a parent or guardian and believe your child has used this site in a way that concerns you, contact us and we will respond.</p>
 
     <h2>Your rights</h2>
-    <p>Because we do not collect personal data, there is no personal data to access, correct or delete. If you have questions about the anonymous analytics, contact us via the About page.</p>
+    <p>Because we do not collect personal data, most data subject rights are trivially satisfied: there is nothing to access, nothing to correct, nothing to delete, and nothing to port. The only data we could theoretically be asked about is anonymous aggregate analytics, which cannot be linked to any individual.</p>
+    <p>If you are in the European Union, the United Kingdom, or India, the following applies:</p>
+    <ul>
+      <li><strong>EU / UK — GDPR.</strong> The lawful basis for any processing we do (anonymous analytics) is legitimate interest. You have the right to object to that processing. Because the data is anonymous, we cannot fulfil access or deletion requests — but we can explain what we do and do not collect in detail if you ask.</li>
+      <li><strong>India — DPDP Act.</strong> We do not collect personal data as defined by the Digital Personal Data Protection Act, 2023. There is no data fiduciary relationship because there is no personal data being processed.</li>
+      <li><strong>California — CCPA / CPRA.</strong> We do not sell personal information. We do not share personal information for cross-context behavioural advertising in a way that requires a "Do Not Sell or Share My Personal Information" link. There is nothing to opt out of beyond what standard browser controls already handle.</li>
+    </ul>
 
-    <h2>Changes</h2>
-    <p>If this policy changes, we will update the date at the top of the page.</p>
+    <h2>Data retention</h2>
+    <p>We retain no data on any server. The only data that exists is what is stored locally in your browser, and it lives there until you clear it. There is no retention schedule because there is nothing to retain.</p>
+
+    <h2>Security</h2>
+    <p>Because no files are uploaded, there is no server-side risk to your data. The security of your usage depends on your own device and browser, which are the standard trust boundary for any client-side web application.</p>
+    <p>If you are using LocalTools on a shared or public computer, remember to:</p>
+    <ul>
+      <li>Clear the browser's local storage when you are done (Settings → Clear browsing data).</li>
+      <li>Close the tab or window completely.</li>
+      <li>Avoid signing into personal accounts in the same browser session.</li>
+    </ul>
+    <p>The site is served over HTTPS. When a tool needs a cryptographic operation — like the password generator or the encrypt/decrypt tool — it uses the browser's built-in Web Crypto API, which is the same cryptographic library used by your bank's website.</p>
+
+    <h2>International data transfers</h2>
+    <p>The only transfers of data outside your device happen when your browser fetches third-party resources (fonts, ads, scripts). Those transfers are governed by the respective providers' privacy policies. We do not transfer any data ourselves because we do not collect any.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If this policy changes, we will update the "Last updated" date at the top of the page. If the change is significant — for example, if a future tool needs to send data somewhere — we will make that clear at the top of this page, in plain language, for at least 30 days after the change.</p>
+    <p>Because the site has no user accounts and no email list, we cannot notify you individually of changes. The policy is always the current version at this URL.</p>
+
+    <h2>Contact</h2>
+    <p>If you have questions about this policy, want to report a privacy concern, or want a plain-language explanation of anything above, email us. We read every message and reply to genuine questions.</p>
+
+    <div class="contact-card">
+      <span class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="M2 7l10 6 10-6"/>
+        </svg>
+      </span>
+      <div class="info">
+        <p class="label">Privacy contact</p>
+        <a class="email" href="mailto:admin@nbstudios.co.in">admin@nbstudios.co.in</a>
+        <p class="note">For anything related to data handling, cookies, ads, or the content of this policy. Replies usually within a day or two.</p>
+      </div>
+    </div>
+
   </article>
 
   <footer>
-    <p><a href="/tools/">All tools</a> · <a href="/">LocalTools</a> · <a href="/pages/about.html">About</a></p>
+    <p><a href="/tools/">All tools</a> · <a href="/">LocalTools</a> · <a href="/pages/about.html">About</a> · <a href="mailto:admin@nbstudios.co.in">admin@nbstudios.co.in</a></p>
   </footer>
 </div>
 </body>
