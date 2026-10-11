@@ -4,14 +4,146 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>About — LocalTools</title>
-<meta name="description" content="About LocalTools. A growing collection of free, private, browser-based tools for text, files, images, PDFs and code.">
+<meta name="description" content="About LocalTools. A growing collection of free, private, browser-based tools for text, files, images, PDFs and code. Contact admin@nbstudios.co.in.">
 <link rel="canonical" href="https://localtools.co.in/pages/about.html">
+<link rel="sitemap" type="application/xml" href="https://localtools.co.in/sitemap.xml">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#1B4DFF">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="About — LocalTools">
+<meta property="og:description" content="A growing collection of free, private, browser-based tools. Contact admin@nbstudios.co.in.">
+<meta property="og:url" content="https://localtools.co.in/pages/about.html">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/base.css">
+
+<style>
+.article { max-width: 70ch; }
+.article .lead {
+  font-size: 1rem;
+  color: #3A3E46;
+  margin: 0 0 28px;
+  line-height: 1.65;
+}
+.article h2 { margin-top: 40px; }
+.article h2:first-child { margin-top: 0; }
+.article p { font-size: .9375rem; line-height: 1.7; }
+.article ul li strong { color: var(--ink); }
+
+/* contact card */
+.contact-card {
+  margin: 20px 0 0;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.contact-card .icon {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border-radius: 8px;
+  background: #EDF0FF;
+  color: var(--blue);
+  display: grid;
+  place-items: center;
+}
+.contact-card .icon svg { width: 20px; height: 20px; }
+.contact-card .info { flex: 1; min-width: 0; }
+.contact-card .label {
+  font-family: var(--mono);
+  font-size: .6875rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--muted);
+  margin: 0 0 4px;
+}
+.contact-card .email {
+  font-family: var(--mono);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  word-break: break-all;
+}
+.contact-card .email:hover { color: var(--blue); text-decoration: underline; }
+.contact-card .note {
+  margin: 6px 0 0;
+  font-size: .8125rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* fact strip */
+.fact-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin: 24px 0 0;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--line);
+}
+.fact-strip .fact {
+  text-align: center;
+  padding: 12px 8px;
+}
+.fact-strip .num {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.75rem;
+  letter-spacing: -.02em;
+  color: var(--ink);
+  line-height: 1;
+  margin: 0 0 6px;
+}
+.fact-strip .lbl {
+  font-family: var(--mono);
+  font-size: .6875rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--muted);
+}
+
+/* timeline for history */
+.history-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+  border-left: 2px solid var(--line);
+}
+.history-list li {
+  position: relative;
+  padding: 0 0 20px 22px;
+  font-size: .9375rem;
+  line-height: 1.65;
+  color: #3A3E46;
+}
+.history-list li::before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  top: 8px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--blue);
+  border: 2px solid var(--paper);
+}
+.history-list li:last-child { padding-bottom: 0; }
+.history-list li strong { color: var(--ink); display: block; margin-bottom: 4px; font-weight: 600; }
+
+@media(max-width:640px) {
+  .contact-card { padding: 16px; gap: 12px; }
+  .contact-card .icon { width: 36px; height: 36px; }
+  .fact-strip .num { font-size: 1.5rem; }
+}
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -30,30 +162,144 @@
   </header>
 
   <h1 class="lede">About this site</h1>
-  <p class="sub">A growing collection of free, private browser tools.</p>
+  <p class="sub">A growing collection of free, private browser tools — built for people who don't want to upload their files to a stranger's server just to resize an image.</p>
 
   <article class="article">
-    <h2>What this is</h2>
-    <p>LocalTools started as a single QR code scanner and generator. It is now expanding into a collection of small, useful utilities for text, files, images, PDFs and code.</p>
+
+    <h2>What LocalTools is</h2>
+    <p>LocalTools is a collection of small, focused utilities that run entirely inside your web browser. Resize an image, merge two PDFs, format JSON, convert units, scan a QR code, count the words in a draft — the kind of everyday task you'd normally open a website for, upload a file to a server you don't control, and hope for the best.</p>
+    <p>Here, nothing gets uploaded. The tools load once and then work on your own device, using the same CPU and memory you'd use to open the file locally. Your tax return, your ID scan, your client's contract — none of it leaves your machine.</p>
+
+    <div class="fact-strip">
+      <div class="fact">
+        <div class="num" id="toolCount">40+</div>
+        <div class="lbl">Tools</div>
+      </div>
+      <div class="fact">
+        <div class="num">0</div>
+        <div class="lbl">Uploads</div>
+      </div>
+      <div class="fact">
+        <div class="num">0</div>
+        <div class="lbl">Accounts</div>
+      </div>
+      <div class="fact">
+        <div class="num">100%</div>
+        <div class="lbl">Client-side</div>
+      </div>
+    </div>
+
+    <h2>Why it exists</h2>
+    <p>Most online tools do the same thing: they ask you to upload your file to a server, they process it for a few seconds, and they send back a download link. For some tasks, that's fine. For others, it's a problem:</p>
+    <ul>
+      <li>You're on a slow connection and uploading a 40 MB PDF takes longer than the work itself.</li>
+      <li>You're handling a document you can't legally send to a third-party server — a contract, a medical record, an ID card.</li>
+      <li>You're on a shared computer and don't want your data sitting in a stranger's cloud.</li>
+      <li>The tool you found has a three-file-per-day limit unless you pay $12/month.</li>
+      <li>The tool went offline last year and you have no idea where your files went.</li>
+    </ul>
+    <p>LocalTools is the answer to those. Everything runs on your side. There's nothing to sign up for, nothing to pay for, and nothing to trust beyond the code already loaded in your browser.</p>
 
     <h2>What makes it different</h2>
     <ul>
-      <li><strong>Runs in your browser.</strong> Every tool works locally on your device. Nothing is uploaded to a server.</li>
-      <li><strong>No accounts.</strong> No signup, no email, no password.</li>
-      <li><strong>No tracking beyond anonymous analytics.</strong> We do not sell data.</li>
-      <li><strong>Fast.</strong> Static pages, no server round-trips, works offline after first visit.</li>
+      <li><strong>Runs in your browser.</strong> Every tool works locally on your device. Files are read, modified and saved without ever touching a server.</li>
+      <li><strong>No accounts.</strong> No signup, no email, no password. Open a tool and use it.</li>
+      <li><strong>No uploads.</strong> Not even for PDF or video tools. Everything is client-side, including the heavy processing that would normally require a backend.</li>
+      <li><strong>No watermarks.</strong> Output files are clean. Nothing branded, nothing added.</li>
+      <li><strong>No usage limits.</strong> Process one file or a hundred. The only ceiling is what your device can handle.</li>
+      <li><strong>Works offline.</strong> After the first visit, most tools keep working without an internet connection — because nothing needs the network to function.</li>
+      <li><strong>No tracking beyond anonymous analytics.</strong> We don't sell data. We don't build profiles. We don't know who you are.</li>
     </ul>
 
     <h2>How it works</h2>
-    <p>All tools are built with plain HTML, CSS and JavaScript. There is no backend. Where heavier processing is needed — PDF handling, image manipulation, video conversion — we use client-side WebAssembly libraries that run inside your browser tab.</p>
+    <p>Every tool is a single HTML page with plain JavaScript. There's no backend, no database, no API. The site is served as static files.</p>
+    <p>Where heavy processing is needed, we use libraries compiled to WebAssembly that run inside your browser tab:</p>
+    <ul>
+      <li><strong>PDF tools</strong> use <code>pdf-lib</code> for reading, splitting, merging and re-saving PDFs, and <code>pdf.js</code> for rendering pages to screen. Every byte stays on your device.</li>
+      <li><strong>Image tools</strong> use the Canvas API for resizing, cropping and format conversion.</li>
+      <li><strong>AI features</strong> like background removal run small neural networks locally using ONNX Runtime Web. The model downloads once, then runs entirely on your CPU or GPU.</li>
+      <li><strong>QR scanning</strong> uses the device camera and a JavaScript decoder — the video frame is never transmitted anywhere.</li>
+    </ul>
+    <p>This architecture means the site is fast, cheap to run, and cannot leak your data even if it wanted to.</p>
 
-    <h2>Feedback</h2>
-    <p>Found a bug? Want a tool that isn’t here yet? We’d like to hear about it. Reach out through the LocalTools page footer.</p>
+    <h2>A short history</h2>
+    <ul class="history-list">
+      <li>
+        <strong>The original QR scanner</strong>
+        LocalTools started as a single free QR code scanner at <em>qrcodescanner.co.in</em> — a small tool built because every existing QR scanner wanted camera permissions, showed ads before the first scan, and uploaded every decoded code to a tracking server.
+      </li>
+      <li>
+        <strong>Growing into a collection</strong>
+        Once the QR scanner worked, the same principle applied to other everyday tasks. Word counters, image compressors, PDF editors — all built the same way: plain HTML, plain JavaScript, no server.
+      </li>
+      <li>
+        <strong>The move to LocalTools</strong>
+        As the toolset grew past 30 utilities, the old "QRCodeScanner" name no longer fit. The site moved to <em>localtools.co.in</em> and the tools were organised into categories — text, image, PDF, developer, calculators, security and generators.
+      </li>
+      <li>
+        <strong>Where it's headed</strong>
+        The goal is simple: every tool a person needs in a typical week, running in the browser, free, private, and fast. No app to install, no account to keep, no subscription to cancel.
+      </li>
+    </ul>
+
+    <h2>What it isn't</h2>
+    <p>To set expectations honestly:</p>
+    <ul>
+      <li><strong>It's not a replacement for professional software.</strong> The PDF editor is good for annotations, signing and light edits — it's not Adobe Acrobat for full document workflows.</li>
+      <li><strong>It can't do everything.</strong> Anything that needs a server — sending email, processing payments, running a database, fetching live currency rates — is out of scope by design.</li>
+      <li><strong>It's not for password cracking.</strong> Tools like the PDF unlocker remove your own passwords and permissions. They cannot and will not brute-force a forgotten password.</li>
+      <li><strong>Very large files can be slow.</strong> Processing runs on your device, so a 500 MB video will take longer here than on a machine with a dedicated GPU. On modern hardware, this is rarely noticeable.</li>
+    </ul>
+
+    <h2>Who runs it</h2>
+    <p>LocalTools is built and maintained by <strong>NB Studios</strong> — a small independent studio that builds privacy-first web tools. There's no venture funding, no team of twenty, and no roadmap dictated by investors. Just a person who got tired of uploading files to websites to do simple things.</p>
+    <p>The site is supported by minimal, non-intrusive advertising. There are no premium tiers, no upsells, and no plans to add either.</p>
+
+    <h2>Get in touch</h2>
+    <p>Found a bug? Want a tool that isn't here yet? Have a suggestion, a correction, or just want to say hello? Email is the fastest way to reach us.</p>
+
+    <div class="contact-card">
+      <span class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="M2 7l10 6 10-6"/>
+        </svg>
+      </span>
+      <div class="info">
+        <p class="label">Email</p>
+        <a class="email" href="mailto:admin@nbstudios.co.in">admin@nbstudios.co.in</a>
+        <p class="note">We read every message. Replies usually come within a day or two. If you're reporting a bug, include the tool name, your browser, and what you expected to happen.</p>
+      </div>
+    </div>
+
+    <h2>For the curious</h2>
+    <p>If you want to know exactly how a specific tool works — what library it uses, whether it stores anything locally, how it handles your data — the tool page itself has a details section explaining it. You can also open your browser's developer tools and watch the network tab while you use any tool. You'll see no requests to our servers, because there aren't any.</p>
+    <p>The <a href="/pages/privacy.html">privacy page</a> has the full picture, but the short version is: <strong>we can't see your files, and we like it that way.</strong></p>
+
   </article>
 
   <footer>
-    <p><a href="/tools/">All tools</a> · <a href="/">LocalTools</a> · <a href="/pages/privacy.html">Privacy</a></p>
+    <p><a href="/tools/">All tools</a> · <a href="/">LocalTools</a> · <a href="/pages/privacy.html">Privacy</a> · <a href="mailto:admin@nbstudios.co.in">admin@nbstudios.co.in</a></p>
   </footer>
 </div>
+
+<script>
+/* Keep the tool count live by reading it from the homepage registry
+   when possible, otherwise leave the static "40+" in place. */
+(function(){
+  var el = document.getElementById('toolCount');
+  if (!el) return;
+  fetch('/index.html', { credentials: 'same-origin' })
+    .then(function(r){ return r.ok ? r.text() : ''; })
+    .then(function(html){
+      var m = html && html.match(/const\s+TOOLS\s*=\s*\[([\s\S]*?)\];/);
+      if (!m) return;
+      // Count top-level object literal openings
+      var count = (m[1].match(/\{\s*id\s*:/g) || []).length;
+      if (count > 0) el.textContent = count + '+';
+    })
+    .catch(function(){ /* silent — fallback number stays */ });
+})();
+</script>
 </body>
 </html>
