@@ -602,6 +602,13 @@ var $=function(i){return document.getElementById(i)};
 var drop=$('dropZone'),fin=$('fileInput'),ed=$('editor'),view=$('view'),vx=view.getContext('2d'),st=$('status'),prog=$('progress'),bar=$('progressBar'),toast=$('toast');
 var W,H,orig,src,sx,M,A,AUTO,MD,mc,mx,cut,cx,bg='transparent',bgImg=null,tool='rm',undo=[],redo=[],busy=false,showO=false,MOB=window.matchMedia('(pointer:coarse)').matches||innerWidth<700,MAXD=MOB?1400:2000,EXMAX=MOB?4096:6000;
 var PP='https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/',lib=null,libP=null,pre=null,warmed=false,fname='image',BL=null;
+
+/* Track whether the model has been loaded before, so we don't tell the
+   user "first time only" on every visit. The model files themselves are
+   cached by the browser (Cache Storage); this flag just controls the message. */
+var MODEL_SEEN = (function(){ try{ return localStorage.getItem('bgr.modelSeen') === '1'; }catch(e){ return false } })();
+function markModelSeen(){ try{ localStorage.setItem('bgr.modelSeen','1'); }catch(e){} MODEL_SEEN = true; }
+
 var HINTS={rm:'Click the background area you want removed. Raise tolerance to catch more shades; untick "connected" to remove that colour everywhere.',er:'Paint over leftover background to erase it.',rs:'Paint over cut-away parts to restore them.',pn:'Drag to move around the zoomed image. Ctrl + scroll also zooms.'};
 function mk(w,h){var c=document.createElement('canvas');c.width=w;c.height=h;return c}
 function flash(m){toast.textContent=m;toast.classList.add('show');clearTimeout(flash.t);flash.t=setTimeout(function(){toast.classList.remove('show')},1800)}
@@ -727,8 +734,18 @@ function smoothMask(mask, radius){
 /* ---------- AI detection with post-processing ---------- */
 async function auto(){
   busy=true;$('tools').style.opacity=.5;$('busy').hidden=false;
+  var slowTimer = null;
   try{
-    say('Loading AI model (first time only, cached afterwards)…');pg(10);
+    if (MODEL_SEEN){
+      /* Model is cached — initialisation is quick. Only show a message
+         if it actually takes a while, so users don't see a misleading
+         "loading" notice for a fast warmup. */
+      slowTimer = setTimeout(function(){ say('Preparing AI model…'); }, 900);
+    } else {
+      say('Setting up the AI model (this happens once). It will be cached for every image after this.');
+      $('busyT').textContent = 'Downloading AI model — this happens once…';
+    }
+    pg(10);
 
     /* Higher inference resolution = crisper edges. */
     var targetLong = MOB ? 1024 : 1536;
@@ -772,13 +789,19 @@ async function auto(){
     al = cleanMask(al, Math.round(W * H * 0.0005), 255);
     al = smoothMask(al, 1);
 
+    if (slowTimer) { clearTimeout(slowTimer); slowTimer = null; }
+    markModelSeen();
     snap();
     M.set(al);
     AUTO = M.slice();
     commit();
     say('Done! Not perfect? Pick a tool above and tap or paint to fix it.'+(MOB?'':' Shortcuts: R E B H, Ctrl+Z undo, hold C to compare.'),'ok');
     flash('Done');pg(100);
-  }catch(e){console.error(e);say('Could not remove background: '+(e.message||e),'err')}
+  }catch(e){
+    if (slowTimer) { clearTimeout(slowTimer); slowTimer = null; }
+    console.error(e);
+    say('Could not remove background: '+(e.message||e),'err');
+  }
   busy=false;$('tools').style.opacity=1;$('busy').hidden=true;hp()}
 
 /* ---------- mask pipeline ---------- */
@@ -855,6 +878,19 @@ view.addEventListener('pointerleave',function(){rg.hidden=true});
 ['pointerup','pointercancel'].forEach(function(ev){view.addEventListener(ev,function(e){pan=null;if(down){down=false;commit()}if(tap&&e.type==='pointerup'&&Math.hypot(e.clientX-tap[0],e.clientY-tap[1])<10)click(tap[2]);tap=null})});
 var rf;['soft','grow'].forEach(function(id){$(id).addEventListener('input',function(){cancelAnimationFrame(rf);rf=requestAnimationFrame(function(){if(M)commit()})})});
 $('q').addEventListener('change',function(){if(M&&!busy)auto()});
+
+/* Auto-pick the default model based on connection speed and device memory.
+   Users on slow connections or low-memory devices get ISNet automatically. */
+(function pickDefaultModel(){
+  var q = $('q');
+  if (!q) return;
+  var conn = navigator.connection || {};
+  var slow = conn.effectiveType === '2g' || conn.effectiveType === '3g' || conn.saveData;
+  var lowMem = navigator.deviceMemory && navigator.deviceMemory <= 4;
+  if ((slow || lowMem) && !MODEL_SEEN){
+    q.value = 'isnet_fp16';
+  }
+})();
 
 document.addEventListener('keydown',function(e){
   if(ed.hidden||e.ctrlKey||e.metaKey||e.altKey||e.target.tagName==='SELECT')return;
