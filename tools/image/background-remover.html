@@ -30,6 +30,8 @@
       "featureList":[
         "Remove image background in browser",
         "AI-powered segmentation",
+        "Edge refinement for hair and fine detail",
+        "Colour fringe removal",
         "No upload — runs locally",
         "Transparent PNG output",
         "Select object or select background tools","Brush erase and restore","HEIC, AVIF, TIFF, GIF, BMP, SVG support","WebGPU acceleration","Custom background color or image",
@@ -391,6 +393,7 @@ background-color:#fff;background-image:linear-gradient(45deg,#E4E4E4 25%,transpa
 .side .hint{margin:0 0 10px;line-height:1.45}
 .field{display:flex;flex-direction:column;gap:4px;margin:0 0 10px;font-size:.8125rem;color:var(--muted)}.field input{width:100%;accent-color:var(--blue)}
 .chk{display:flex;gap:6px;align-items:center;font-size:.8125rem;color:var(--muted)}
+.side section .chk{margin:0 0 8px}
 .row{display:flex;gap:8px;margin:8px 0 0;align-items:center}
 .row .btn{flex:1;padding:9px 10px;font-size:.8125rem;justify-content:center}
 .side .btn.primary{width:100%;flex:none;padding:13px;font-size:.9375rem}
@@ -470,7 +473,7 @@ body .wrap-wide{max-width:1400px!important}
   </nav>
 
   <h1 class="lede">Image BG Remover</h1>
-  <p class="sub">Remove the background from any image directly in your browser. AI-powered, fast, no upload, 100% private. Select the object or the background yourself to fix any edge.</p>
+  <p class="sub">Remove the background from any image directly in your browser. AI-powered, fast, no upload, 100% private. Hair, fur and fine edges are refined automatically, and you can fix anything by hand.</p>
 
   <div class="stage">
     <label class="drop-zone" id="dropZone" for="fileInput">
@@ -512,7 +515,10 @@ body .wrap-wide{max-width:1400px!important}
           <div id="wandOpt"><label class="field">Tolerance <input type="range" id="tol" min="1" max="100" value="30"></label><label class="chk"><input type="checkbox" id="cg" checked> Connected area only</label></div>
         </section>
         <section><h4>Edges</h4>
-          <label class="field">Softness <input type="range" id="soft" min="0" max="8" value="1"></label>
+          <label class="chk" title="Snaps the cutout to real edges in your photo: hair, fur, thin straps"><input type="checkbox" id="refine" checked> Refine fine edges (hair, fur)</label>
+          <label class="chk" title="Removes stray blobs and fills small holes"><input type="checkbox" id="clean" checked> Clean up specks &amp; holes</label>
+          <label class="chk" title="Replaces leftover background colour on edge pixels with the subject's colour"><input type="checkbox" id="defringe" checked> Remove colour fringe</label>
+          <label class="field">Softness <input type="range" id="soft" min="0" max="8" value="0"></label>
           <label class="field">Shrink / grow <input type="range" id="grow" min="-8" max="8" value="0"></label>
         </section>
         <section><h4>Background</h4>
@@ -544,6 +550,13 @@ body .wrap-wide{max-width:1400px!important}
       <li>Click <strong>Download image</strong> and choose PNG, WebP or JPG.</li>
     </ol>
 
+    <h2>Professional-quality edges</h2>
+    <ul>
+      <li><strong>Refine fine edges</strong> — the AI mask is snapped to the real edges in your photo, so hair, fur and thin details stay crisp instead of blobby.</li>
+      <li><strong>Clean up specks &amp; holes</strong> — removes stray leftovers and fills small gaps in the subject.</li>
+      <li><strong>Remove colour fringe</strong> — edge pixels pick up the subject's colour instead of the old background, so there is no halo on a new background.</li>
+    </ul>
+
     <h2>Fix any mistake in seconds</h2><ul><li><strong>Remove</strong> — click a background area (or a colour) to remove it.</li><li><strong>Erase / Restore brush</strong> — paint over small leftovers or lost details.</li></ul><h2>What works well</h2>
     <ul>
       <li><strong>People and portraits</strong> — clean cutouts around hair, shoulders and clothing</li>
@@ -551,7 +564,7 @@ body .wrap-wide{max-width:1400px!important}
       <li><strong>Animals</strong> — pets, wildlife, detailed fur</li>
       <li><strong>Cars and objects</strong> — cars, furniture, plants</li>
     </ul>
-    <p>Complex backgrounds (crowds, foliage, glass) work less reliably. The model runs on your device, so results depend on image complexity and your CPU speed.</p>
+    <p>Complex backgrounds (crowds, foliage, glass) work less reliably. The model runs on your device, so results depend on image complexity and your CPU speed. For the hardest images, choose the <strong>Best</strong> model.</p>
 
     <h2>Your image never leaves your device</h2>
     <p>The AI model runs entirely in your browser using WebAssembly. Your image is never uploaded to any server, no data is collected, and once the page has loaded you can even disconnect from the internet and the tool still works.</p>
@@ -601,7 +614,7 @@ body .wrap-wide{max-width:1400px!important}
 "use strict";
 var $=function(i){return document.getElementById(i)};
 var drop=$('dropZone'),fin=$('fileInput'),ed=$('editor'),view=$('view'),vx=view.getContext('2d'),st=$('status'),prog=$('progress'),bar=$('progressBar'),toast=$('toast');
-var W,H,orig,src,sx,M,A,AUTO,MD,mc,mx,cut,cx,bg='transparent',bgImg=null,tool='rm',undo=[],redo=[],busy=false,showO=false,MOB=window.matchMedia('(pointer:coarse)').matches||innerWidth<700,MAXD=MOB?1400:2000,EXMAX=MOB?4096:6000;
+var W,H,orig,src,sx,M,A,AUTO,BASE,EG,MD,mc,mx,cut,cx,bg='transparent',bgImg=null,tool='rm',undo=[],redo=[],busy=false,showO=false,MOB=window.matchMedia('(pointer:coarse)').matches||innerWidth<700,MAXD=MOB?1400:2000,EXMAX=MOB?4096:6000;
 var PP='https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/',lib=null,libP=null,pre=null,warmed=false,fname='image',BL=null;
 var HINTS={rm:'Click the background area you want removed. Raise tolerance to catch more shades; untick "connected" to remove that colour everywhere.',er:'Paint over leftover background to erase it.',rs:'Paint over cut-away parts to restore them.',pn:'Drag to move around the zoomed image. Ctrl + scroll also zooms.'};
 function mk(w,h){var c=document.createElement('canvas');c.width=w;c.height=h;return c}
@@ -633,7 +646,7 @@ async function open(f){if(busy)return flash('Please wait for the current image')
   try{
     say('Reading image…');pg(5);orig=await decode(f);
     var s=Math.min(1,MAXD/Math.max(orig.width,orig.height));W=Math.round(orig.width*s);H=Math.round(orig.height*s);
-    src=mk(W,H);sx=src.getContext('2d',{willReadFrequently:true});sx.drawImage(orig,0,0,W,H);BL=null;
+    src=mk(W,H);sx=src.getContext('2d',{willReadFrequently:true});sx.drawImage(orig,0,0,W,H);BL=null;EG=null;BASE=null;
     cut=mk(W,H);cx=cut.getContext('2d');mc=mk(W,H);mx=mc.getContext('2d');MD=mx.createImageData(W,H);
     view.width=W;view.height=H;M=new Uint8Array(W*H).fill(255);undo=[];redo=[];
     drop.style.display='none';ed.hidden=false;fit();setTool('rm');commit();await auto();
@@ -667,7 +680,8 @@ async function auto(){
     if($('q').value==='birefnet'){try{al=await birefnet(blob)}catch(e){console.warn(e);$('q').value='isnet_fp16';flash('BiRefNet unavailable here, used the standard model')}}
     if(!al){var fn=await loadLib();say('Detecting subject…');var out=await run(fn,blob),bm=await createImageBitmap(out),t=mk(W,H),tx=t.getContext('2d',{willReadFrequently:true});tx.drawImage(bm,0,0,W,H);
       var D=tx.getImageData(0,0,W,H).data;al=new Uint8Array(W*H);for(i=0;i<W*H;i++)al[i]=D[i*4+3]}
-    snap();M.set(al);AUTO=M.slice();commit();
+    BASE=al;say('Refining edges…');await new Promise(function(r){setTimeout(r,20)});
+    snap();M.set(process(BASE));AUTO=M.slice();commit();
     say('Done! Not perfect? Pick a tool above and tap or paint to fix it.'+(MOB?'':' Shortcuts: R E B H, Ctrl+Z undo, hold C to compare.'),'ok');flash('Done');pg(100);
   }catch(e){console.error(e);say('Could not remove background: '+(e.message||e),'err')}
   busy=false;$('tools').style.opacity=1;$('busy').hidden=true;hp()}
@@ -675,15 +689,78 @@ async function auto(){
 /* ---------- mask pipeline ---------- */
 function bx(s,d,r,n,stp,cnt,cs){var k=2*r+1;for(var l=0;l<cnt;l++){var b=l*cs,sum=0,i;for(i=-r;i<=r;i++)sum+=s[b+Math.min(n-1,Math.max(0,i))*stp];for(i=0;i<n;i++){d[b+i*stp]=sum/k;sum+=s[b+Math.min(n-1,i+r+1)*stp]-s[b+Math.max(0,i-r)*stp]}}}
 function blur(a,r){var t=new Uint8Array(a.length),o=new Uint8Array(a.length);bx(a,t,r,W,1,H,W);bx(t,o,r,H,W,W,1);return o}
+/* float box filter (used by the guided filter) */
+function boxF(a,r){var t=new Float32Array(a.length),o=new Float32Array(a.length);bx(a,t,r,W,1,H,W);bx(t,o,r,H,W,W,1);return o}
+
+/* connected components. test(i) decides membership; returns labels, sizes and which touch the image border */
+function label(test){
+  var n=W*H,lab=new Int32Array(n),q=new Int32Array(n),sizes=[0],border=[false],id=0,i,s;
+  for(s=0;s<n;s++){
+    if(lab[s]||!test(s))continue;
+    id++;var h=0,t=0,sz=0,bd=false;q[t++]=s;lab[s]=id;
+    while(h<t){i=q[h++];sz++;var x=i%W,y=(i-x)/W;if(x===0||y===0||x===W-1||y===H-1)bd=true;
+      if(x>0&&!lab[i-1]&&test(i-1)){lab[i-1]=id;q[t++]=i-1}
+      if(x<W-1&&!lab[i+1]&&test(i+1)){lab[i+1]=id;q[t++]=i+1}
+      if(y>0&&!lab[i-W]&&test(i-W)){lab[i-W]=id;q[t++]=i-W}
+      if(y<H-1&&!lab[i+W]&&test(i+W)){lab[i+W]=id;q[t++]=i+W}}
+    sizes.push(sz);border.push(bd)}
+  return{lab:lab,sizes:sizes,border:border}}
+/* drop stray blobs far from the subject, fill small holes inside it */
+function cleanup(al){
+  var n=W*H,fg=label(function(i){return al[i]>127}),big=0,k,i;
+  for(k=1;k<fg.sizes.length;k++)if(fg.sizes[k]>big)big=fg.sizes[k];
+  var minFg=Math.max(big*.05,n*.0003),dead=new Uint8Array(fg.sizes.length);
+  for(k=1;k<fg.sizes.length;k++)if(fg.sizes[k]<minFg)dead[k]=1;
+  for(i=0;i<n;i++)if(fg.lab[i]&&dead[fg.lab[i]])al[i]=0;
+  var bgc=label(function(i){return al[i]<=127}),maxHole=n*.0008,fill=new Uint8Array(bgc.sizes.length);
+  for(k=1;k<bgc.sizes.length;k++)if(!bgc.border[k]&&bgc.sizes[k]<maxHole)fill[k]=1;
+  for(i=0;i<n;i++)if(bgc.lab[i]&&fill[bgc.lab[i]])al[i]=255}
+/* guided filter: snaps the soft mask to real image edges so hair/fur get true alpha */
+function refine(al){
+  var n=W*H,D=sx.getImageData(0,0,W,H).data,I=new Float32Array(n),P=new Float32Array(n),i;
+  for(i=0;i<n;i++){I[i]=(D[i*4]*.299+D[i*4+1]*.587+D[i*4+2]*.114)/255;P[i]=al[i]/255}
+  var r=Math.max(3,Math.round(Math.max(W,H)/250)),eps=4e-4,
+  mI=boxF(I,r),mP=boxF(P,r),II=new Float32Array(n),IP=new Float32Array(n);
+  for(i=0;i<n;i++){II[i]=I[i]*I[i];IP[i]=I[i]*P[i]}
+  var cII=boxF(II,r),cIP=boxF(IP,r),a=new Float32Array(n),b=new Float32Array(n);
+  for(i=0;i<n;i++){var v=cII[i]-mI[i]*mI[i],c=cIP[i]-mI[i]*mP[i];a[i]=c/(v+eps);b[i]=mP[i]-a[i]*mI[i]}
+  var mA=boxF(a,r),mB=boxF(b,r),bin=new Uint8Array(n);
+  for(i=0;i<n;i++)bin[i]=al[i]>127?255:0;
+  var bl=blur(bin,r);
+  for(i=0;i<n;i++){
+    var band=(bl[i]>6&&bl[i]<249)||(al[i]>3&&al[i]<252);
+    if(!band)continue;
+    var q=mA[i]*I[i]+mB[i];q=q<0?0:q>1?1:q;
+    /* never let refinement flip a confident pixel */
+    if(al[i]>=250&&q<.5)q=Math.max(q,.5);
+    if(al[i]<=5&&q>.5)q=Math.min(q,.5);
+    al[i]=Math.round(q*255)}}
+function process(base){
+  var al=base.slice();
+  if($('clean').checked)cleanup(al);
+  if($('refine').checked)refine(al);
+  return al}
+/* edge colour layer: swaps background-contaminated edge colours for nearby subject colours */
+function buildEdge(){
+  EG=null;if(!$('defringe').checked||!A)return;
+  var n=W*H,D=sx.getImageData(0,0,W,H).data,w8=new Uint8Array(n),ch=[new Uint8Array(n),new Uint8Array(n),new Uint8Array(n)],i,c,any=false;
+  for(i=0;i<n;i++)if(A[i]>=245){w8[i]=255;ch[0][i]=D[i*4];ch[1][i]=D[i*4+1];ch[2][i]=D[i*4+2]}else if(A[i]>0)any=true;
+  if(!any)return;
+  var rr=5,bw=blur(w8,rr),bc=ch.map(function(a){return blur(a,rr)}),g=mk(W,H),gx=g.getContext('2d'),id=gx.createImageData(W,H),o=id.data;
+  for(i=0;i<n;i++){
+    if(A[i]<245&&A[i]>0&&bw[i]>6){var k=255/bw[i];
+      for(c=0;c<3;c++){var v=bc[c][i]*k;o[i*4+c]=v>255?255:v}
+      o[i*4+3]=255}}
+  gx.putImageData(id,0,0);EG=g}
 function final(){
   var r=+$('soft').value,g=+$('grow').value;if(!r&&!g)return M;
   var b=blur(M,r||1),gain=r?1+6/r:6,sh=g*.04,o=new Uint8Array(M.length);
   for(var i=0;i<o.length;i++){var v=((b[i]/255-.5+sh)*gain+.5)*255;o[i]=v<0?0:v>255?255:v}return o}
 function sync(a,x0,y0,x1,y1){var d=MD.data;for(var y=y0;y<y1;y++)for(var x=x0;x<x1;x++)d[(y*W+x)*4+3]=a[y*W+x];mx.putImageData(MD,0,0,x0,y0,x1-x0,y1-y0)}
-function commit(){A=final();sync(A,0,0,W,H);render();$('undoBtn').disabled=!undo.length;$('redoBtn').disabled=!redo.length;$('mUndo').disabled=!undo.length;$('mRedo').disabled=!redo.length}
+function commit(){A=final();sync(A,0,0,W,H);buildEdge();render();$('undoBtn').disabled=!undo.length;$('redoBtn').disabled=!redo.length;$('mUndo').disabled=!undo.length;$('mRedo').disabled=!redo.length}
 function render(){
   vx.clearRect(0,0,W,H);if(showO){vx.drawImage(src,0,0);return}
-  cx.globalCompositeOperation='source-over';cx.clearRect(0,0,W,H);cx.drawImage(src,0,0);cx.globalCompositeOperation='destination-in';cx.drawImage(mc,0,0);
+  cx.globalCompositeOperation='source-over';cx.clearRect(0,0,W,H);cx.drawImage(src,0,0);if(EG)cx.drawImage(EG,0,0);cx.globalCompositeOperation='destination-in';cx.drawImage(mc,0,0);
   paintBg(vx,W,H);vx.drawImage(cut,0,0)}
 function cover(c,i,w,h){var s=Math.max(w/i.width,h/i.height);c.drawImage(i,(w-i.width*s)/2,(h-i.height*s)/2,i.width*s,i.height*s)}
 function paintBg(c,w,h,col){col=col||bg;if(col==='img'&&bgImg)cover(c,bgImg,w,h);else if(col!=='transparent'&&col!=='img'){c.fillStyle=col;c.fillRect(0,0,w,h)}}
@@ -696,6 +773,10 @@ $('autoBtn').onclick=function(){if(busy||!AUTO)return;snap();M=AUTO.slice();comm
 document.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'&&!ed.hidden){e.preventDefault();(e.shiftKey?$('redoBtn'):$('undoBtn')).click()}});
 
 $('mUndo').onclick=function(){$('undoBtn').click()};$('mRedo').onclick=function(){$('redoBtn').click()};$('mdl').onclick=function(){$('downloadBtn').click()};
+/* edge options: refine/clean re-run on the AI result (manual edits are replaced), fringe just re-renders */
+function reprocess(){if(!BASE||busy)return;snap();M=process(BASE);AUTO=M.slice();commit();flash('Edges updated (manual edits reset)')}
+$('refine').addEventListener('change',reprocess);$('clean').addEventListener('change',reprocess);
+$('defringe').addEventListener('change',function(){if(M)commit()});
 /* ---------- tools ---------- */
 function setTool(t){tool=t;[].forEach.call(document.querySelectorAll('[data-tool]'),function(b){b.classList.toggle('active',b.dataset.tool===t)});
   var br=t==='er'||t==='rs';$('brushOpt').hidden=!br;$('wandOpt').hidden=!(t==='rm');view.style.touchAction=br||t==='pn'?'none':'manipulation';view.style.cursor=br?'none':t==='pn'?'grab':'crosshair';if(!br)$('ring').hidden=true;$('hint').textContent=HINTS[t]}
@@ -779,7 +860,7 @@ $('bgf').addEventListener('change',function(){var f=this.files[0];if(!f)return;v
 /* ---------- export at original resolution ---------- */
 async function exportBlob(fmt){
   var s=Math.min(1,EXMAX/Math.max(orig.width,orig.height)),w=Math.round(orig.width*s),h=Math.round(orig.height*s);
-  var c=mk(w,h),x=c.getContext('2d');x.drawImage(orig,0,0,w,h);x.globalCompositeOperation='destination-in';x.drawImage(mc,0,0,w,h);
+  var c=mk(w,h),x=c.getContext('2d');x.drawImage(orig,0,0,w,h);if(EG)x.drawImage(EG,0,0,w,h);x.globalCompositeOperation='destination-in';x.drawImage(mc,0,0,w,h);
   var cropped=$('crop').checked,bx0=0,by0=0,bw=w,bh=h;
   if(cropped){var a=-1,b=-1,c2=W,d=H,i,j;for(j=0;j<H;j++)for(i=0;i<W;i++)if(A[j*W+i]>10){if(i<c2)c2=i;if(i>a)a=i;if(j<d)d=j;if(j>b)b=j}
     if(a>=0){bx0=Math.floor(c2*w/W);by0=Math.floor(d*h/H);bw=Math.min(w-bx0,Math.ceil((a-c2+1)*w/W));bh=Math.min(h-by0,Math.ceil((b-d+1)*h/H))}}
@@ -795,7 +876,7 @@ $('downloadBtn').onclick=async function(){
     document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},2000);flash('Downloaded')}catch(e){flash('Export failed')}};
 $('copyBtn').onclick=async function(){
   if(!M||busy)return;try{await navigator.clipboard.write([new ClipboardItem({'image/png':exportBlob('image/png')})]);flash('Copied to clipboard')}catch(e){flash('Copy not supported here. Use Download.')}};
-$('resetBtn').onclick=function(){M=A=AUTO=orig=null;ed.hidden=true;drop.style.display='block';say('');flash('Choose another image')};
+$('resetBtn').onclick=function(){M=A=AUTO=BASE=EG=orig=null;ed.hidden=true;drop.style.display='block';say('');flash('Choose another image')};
 })();
 </script>
 </body>
