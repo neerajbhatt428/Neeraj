@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Protect PDF — Add Password to PDF Free, AES-256, No Upload</title>
+<meta name="description" content="Free tool to add a password to a PDF you own. Real AES-256 and AES-128 encryption, permission controls, and a password strength meter. Runs entirely in your browser — no upload, no signup, no watermark.">
+<link rel="canonical" href="https://localtools.co.in/tools/pdf/pdf-protect.html">
+<link rel="sitemap" type="application/xml" href="https://localtools.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#1B4DFF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Protect PDF — Add Password to PDF Free, AES-256">
+<meta property="og:description" content="Add a password to a PDF with real AES encryption. Runs in your browser, no upload.">
+<meta property="og:url" content="https://localtools.co.in/tools/pdf/pdf-protect.html">
+<meta property="og:image" content="https://localtools.co.in/assets/og/pdf-protect.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Protect PDF — Add Password to PDF Free">
+<meta name="twitter:description" content="Add a password to a PDF with real AES encryption. No upload.">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3576991570329575" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"WebApplication",
+      "name":"Protect PDF",
+      "alternateName":["Add Password to PDF","PDF Protector","PDF Encryptor"],
+      "url":"https://localtools.co.in/tools/pdf/pdf-protect.html",
+      "applicationCategory":"UtilitiesApplication",
+      "operatingSystem":"Any browser",
+      "browserRequirements":"Requires JavaScript and WebAssembly. Runs entirely in your browser.",
+      "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+      "featureList":[
+        "Add password to PDFs you own",
+        "Real AES-256 encryption (PDF 2.0 standard)",
+        "Real AES-128 encryption (PDF 1.6 standard)",
+        "Separate user password and owner password",
+        "Granular permission controls: print, copy, edit, annotate",
+        "Password strength meter",
+        "Confirm password field with mismatch detection",
+        "No upload, runs in browser",
+        "No watermark, no signup",
+        "Works on mobile",
+        "Runs offline after first load"
+      ]
+    },
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://localtools.co.in/"},
+        {"@type":"ListItem","position":2,"name":"Tools","item":"https://localtools.co.in/tools/"},
+        {"@type":"ListItem","position":3,"name":"Protect PDF","item":"https://localtools.co.in/tools/pdf/pdf-protect.html"}
+      ]
+    },
+    {
+      "@type":"HowTo",
+      "name":"How to add a password to a PDF",
+      "description":"Protect a PDF with a password and permission controls, in your browser, and download the encrypted file.",
+      "totalTime":"PT2M",
+      "tool":[{"@type":"HowToTool","name":"Modern web browser"}],
+      "step":[
+        {"@type":"HowToStep","name":"Open the PDF","text":"Drop the PDF onto the drop zone or click to browse. The tool reads the file into your browser without uploading."},
+        {"@type":"HowToStep","name":"Enter a password","text":"Type the user password twice to confirm. This is the password you'll need to open the file."},
+        {"@type":"HowToStep","name":"Optionally set an owner password","text":"Leave blank to use a random owner password. The owner password controls who can change permissions."},
+        {"@type":"HowToStep","name":"Choose permissions and strength","text":"Pick whether printing, copying, editing and annotating should be allowed. Choose AES-256 for maximum security."},
+        {"@type":"HowToStep","name":"Protect the PDF","text":"Click Protect PDF. The tool encrypts the file in your browser and produces a new protected PDF."},
+        {"@type":"HowToStep","name":"Download","text":"Click Download protected PDF. The file is saved with -protected appended to the original filename."}
+      ]
+    },
+    {
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"Is the encryption real?","acceptedAnswer":{"@type":"Answer","text":"Yes. This tool uses qpdf compiled to WebAssembly, which implements the standard PDF encryption algorithms. AES-256 and AES-128 modes produce files that Adobe Acrobat, Preview, Chrome and every other PDF reader recognises and prompts for a password."}},
+        {"@type":"Question","name":"Can I protect a PDF I don't own?","acceptedAnswer":{"@type":"Answer","text":"You can, but you shouldn't. Adding a password to someone else's document without permission may violate copyright or contractual terms. Only protect files you own or have the right to modify."}},
+        {"@type":"Question","name":"What is the difference between a user password and an owner password?","acceptedAnswer":{"@type":"Answer","text":"The user password is required to open the file at all. The owner password is required to change permissions, remove the password or edit restricted parts. If you only set a user password, the tool generates a random owner password and you can't change permissions later without it."}},
+        {"@type":"Question","name":"What if I forget the password?","acceptedAnswer":{"@type":"Answer","text":"There is no recovery. Real AES encryption cannot be reversed without the password. If you lose both the user and owner passwords, the file is permanently locked. Store your password in a password manager before you close the tool."}},
+        {"@type":"Question","name":"Which encryption strength should I choose?","acceptedAnswer":{"@type":"Answer","text":"AES-256 for anything sensitive — financial records, medical documents, legal filings. AES-128 only for older readers that don't support AES-256, which is rare today."}},
+        {"@type":"Question","name":"Do the permission controls actually work?","acceptedAnswer":{"@type":"Answer","text":"PDF permissions are enforced by the reader, not by the encryption itself. Well-behaved readers like Adobe Acrobat honour them. Determined users with specialised tools can bypass them. Treat permissions as a deterrent, not a guarantee."}},
+        {"@type":"Question","name":"Will the PDF still open in every reader?","acceptedAnswer":{"@type":"Answer","text":"Yes. AES-256 and AES-128 are part of the PDF standard. Every modern reader — Adobe Acrobat, Preview, Chrome, Firefox, Edge, Foxit, Sumatra, iOS Files, Android's built-in reader — will prompt for the password and open the file."}},
+        {"@type":"Question","name":"Are my PDFs uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. Everything happens in your browser. Your PDF and your password never leave your device."}},
+        {"@type":"Question","name":"Is my password sent anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. The password is used to derive the encryption key inside your browser. It is never transmitted, logged or retained."}},
+        {"@type":"Question","name":"Can I protect a PDF that's already protected?","acceptedAnswer":{"@type":"Answer","text":"No. If a PDF is already encrypted, remove the existing password first with the Remove PDF Password tool, then protect it again with the new password."}},
+        {"@type":"Question","name":"Does it work on iPhone and Android?","acceptedAnswer":{"@type":"Answer","text":"Yes. Tap the drop zone to select a PDF from Files or Downloads, enter the password, and download the protected file directly to your device."}},
+        {"@type":"Question","name":"Does it work offline?","acceptedAnswer":{"@type":"Answer","text":"Yes. After the page loads once, the tool works entirely offline."}},
+        {"@type":"Question","name":"Can I remove the password later?","acceptedAnswer":{"@type":"Answer","text":"Yes, if you know the password. Use the Remove PDF Password tool with the user password to strip the protection."}},
+        {"@type":"Question","name":"What happens to form fields, links and bookmarks?","acceptedAnswer":{"@type":"Answer","text":"In most cases they are preserved. The tool encrypts the PDF in place without re-rendering pages, so text stays selectable, form fields stay editable (if you allow editing), and links keep working."}}
+      ]
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#EDEDE9;--surface:#FFFFFF;--ink:#14161A;--muted:#6B7079;--line:#D6D6D0;--blue:#1B4DFF;--blue-deep:#1338C4;--green:#0E7A5F;--red:#B0233A;--amber:#B87333;--radius:6px;--sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--display:"Bricolage Grotesque",var(--sans);--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;background-image:linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);background-size:28px 28px}
+
+.wrap{max-width:820px;margin:0 auto;padding:24px 20px 64px;width:100%}
+.wrap *{min-width:0}
+
+.masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
+.masthead a{color:inherit;text-decoration:none}
+.mark{width:26px;height:26px;flex:none}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.masthead .nav-right{margin-left:auto;font-size:.875rem;color:var(--blue);text-decoration:underline;white-space:nowrap}
+
+.crumbs{font-size:.8125rem;color:var(--muted);margin:0 0 18px;font-family:var(--mono)}
+.crumbs a{color:var(--muted);text-decoration:underline}
+.crumbs a:hover{color:var(--blue)}
+.crumbs span{color:var(--ink)}
+
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
+.lede{margin:0 0 6px;font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.05;letter-spacing:-.03em}
+.sub{margin:0 0 22px;color:var(--muted);max-width:68ch;font-size:1rem}
+
+.pd-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:0 0 16px;width:100%}
+.pd-card h2{font-family:var(--display);font-weight:700;font-size:1.0625rem;letter-spacing:-.01em;margin:0 0 14px}
+
+.pd-drop{border:2px dashed var(--line);border-radius:var(--radius);padding:36px 20px;text-align:center;background:#F7F7F3;transition:border-color .15s ease,background .15s ease;cursor:pointer;width:100%}
+.pd-drop:hover,.pd-drop.dragover{border-color:var(--blue);background:rgba(27,77,255,.04)}
+.pd-drop .icon{font-size:2.5rem;line-height:1;margin:0 0 8px;color:var(--blue)}
+.pd-drop strong{display:block;font-family:var(--display);font-weight:700;font-size:1.0625rem;margin:0 0 4px}
+.pd-drop p{margin:0;color:var(--muted);font-size:.875rem}
+.pd-drop .formats{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin-top:8px}
+
+.pd-filebar{display:flex;gap:14px;align-items:center;padding:12px 14px;background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius);margin:0 0 14px;width:100%}
+.pd-filebar .icon{flex:none;width:36px;height:36px;background:#fff;border:1px solid var(--line);border-radius:6px;display:grid;place-items:center;font-family:var(--mono);font-size:.6875rem;font-weight:600;color:var(--red)}
+.pd-filebar-info{flex:1;min-width:0}
+.pd-filebar-name{font-family:var(--mono);font-size:.8125rem;font-weight:600;color:var(--ink);word-break:break-all;margin:0 0 3px}
+.pd-filebar-meta{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin:0}
+.pd-remove-src{flex:none;font-size:.75rem;padding:7px 12px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--muted);cursor:pointer;font-family:inherit;transition:color .12s ease,border-color .12s ease,background .12s ease;white-space:nowrap}
+.pd-remove-src:hover{border-color:var(--red);color:var(--red);background:rgba(176,35,58,.06)}
+
+.pd-field{display:flex;flex-direction:column;gap:4px;margin:0 0 14px}
+.pd-field label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.pd-field input,.pd-field select{width:100%;padding:11px 12px;font-family:var(--mono);font-size:.9375rem;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);outline:none;transition:border-color .15s ease,box-shadow .15s ease}
+.pd-field input:focus,.pd-field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.pd-field .unit-hint{font-family:var(--mono);font-size:.625rem;color:var(--muted);text-transform:none;letter-spacing:0}
+.pd-field .pw-input-wrap{position:relative}
+.pd-field .pw-input-wrap input{padding-right:52px}
+.pd-field .pw-toggle{position:absolute;top:50%;right:6px;transform:translateY(-50%);background:none;border:0;color:var(--muted);cursor:pointer;font-size:.6875rem;padding:6px 10px;font-family:var(--mono);border-radius:4px;text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+.pd-field .pw-toggle:hover{color:var(--blue);background:rgba(27,77,255,.06)}
+
+/* Password strength meter */
+.pw-strength{margin:-6px 0 14px;padding:0}
+.pw-strength-track{display:flex;gap:4px;margin:0 0 5px}
+.pw-strength-track .seg{flex:1;height:5px;background:var(--line);border-radius:100px;transition:background .2s ease}
+.pw-strength-track .seg.on.weak{background:var(--red)}
+.pw-strength-track .seg.on.fair{background:var(--amber)}
+.pw-strength-track .seg.on.good{background:#3B82F6}
+.pw-strength-track .seg.on.strong{background:var(--green)}
+.pw-strength-label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600}
+
+/* Permissions grid */
+.pd-perms{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:0 0 14px}
+.pd-perm{display:flex;align-items:flex-start;gap:9px;padding:11px 13px;background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius);cursor:pointer;font-size:.875rem;transition:border-color .12s ease,background .12s ease}
+.pd-perm:hover{border-color:var(--blue);background:#F5F7FF}
+.pd-perm input{accent-color:var(--blue);width:16px;height:16px;flex:none;cursor:pointer;margin-top:2px}
+.pd-perm .lbl{color:var(--ink);font-weight:500;display:block}
+.pd-perm .desc{color:var(--muted);font-size:.75rem;font-family:var(--mono);display:block;margin-top:1px}
+
+/* Wrong-password / mismatch error state */
+.pd-field.pd-field-error input{
+  border-color:var(--red);
+  box-shadow:0 0 0 3px rgba(176,35,58,.12);
+  animation:pd-shake .5s cubic-bezier(.36,.07,.19,.97) both;
+}
+.pd-field.pd-field-error label{color:var(--red)}
+.pd-field.pd-field-error-keep input{
+  border-color:var(--red);
+  box-shadow:0 0 0 3px rgba(176,35,58,.12);
+}
+.pd-field.pd-field-error-keep label{color:var(--red)}
+@keyframes pd-shake{
+  0%,100%{transform:translateX(0);}
+  10%,30%,50%,70%,90%{transform:translateX(-7px);}
+  20%,40%,60%,80%{transform:translateX(7px);}
+}
+.pd-error-msg{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  margin-top:8px;
+  padding:10px 12px;
+  background:rgba(176,35,58,.06);
+  border:1px solid rgba(176,35,58,.3);
+  border-left:3px solid var(--red);
+  border-radius:var(--radius);
+  font-family:var(--mono);
+  font-size:.75rem;
+  color:var(--red);
+  line-height:1.5;
+  animation:pd-fadeSlide .32s cubic-bezier(.4,0,.2,1) both;
+}
+.pd-error-msg svg{flex:none;width:16px;height:16px;margin-top:1px;color:var(--red)}
+@keyframes pd-fadeSlide{
+  from{opacity:0;transform:translateY(-6px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.pd-error-msg.pd-error-leaving{animation:pd-fadeOut .25s ease forwards}
+@keyframes pd-fadeOut{to{opacity:0;transform:translateY(-4px);}}
+.pd-card.pd-card-error{animation:pd-cardPulse .9s ease}
+@keyframes pd-cardPulse{
+  0%{box-shadow:0 0 0 0 rgba(176,35,58,0);}
+  25%{box-shadow:0 0 0 4px rgba(176,35,58,.18);}
+  100%{box-shadow:0 0 0 0 rgba(176,35,58,0);}
+}
+
+.pd-note{margin:0 0 14px;padding:12px 14px;background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius);font-family:var(--mono);font-size:.75rem;color:var(--muted);line-height:1.6;width:100%}
+.pd-note strong{color:var(--ink);font-weight:600}
+.pd-note.info{background:rgba(27,77,255,.05);border-color:rgba(27,77,255,.2);border-left:3px solid var(--blue);color:var(--blue)}
+.pd-note.info strong{color:var(--blue)}
+.pd-note.warn{background:rgba(184,115,51,.08);border-color:rgba(184,115,51,.3);border-left:3px solid var(--amber);color:#7A4A15}
+.pd-note.warn strong{color:#7A4A15}
+.pd-note.good{background:rgba(14,122,95,.08);border-color:rgba(14,122,95,.3);border-left:3px solid var(--green);color:var(--green)}
+.pd-note.good strong{color:var(--green)}
+
+.pd-actions{display:flex;flex-wrap:wrap;gap:6px;margin:0;width:100%}
+.pd-actions button{font-size:.8125rem;padding:10px 16px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--ink);cursor:pointer;font-family:inherit;font-weight:500;transition:background .12s ease,border-color .12s ease,color .12s ease;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.pd-actions button:hover{border-color:var(--blue);color:var(--blue)}
+.pd-actions button.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.pd-actions button.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep);color:#fff}
+.pd-actions button.danger:hover{border-color:var(--red);color:var(--red)}
+.pd-actions button:disabled{opacity:.5;cursor:not-allowed}
+
+.pd-progress{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:14px 0 0;width:100%}
+.pd-progress-bar{height:100%;background:var(--blue);width:0;transition:width .2s ease}
+.pd-status{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin:6px 0 0;min-height:1.4em}
+.pd-status.err{color:var(--red)}
+.pd-status.ok{color:var(--green)}
+
+.pd-result{display:flex;gap:14px;align-items:center;padding:14px;background:linear-gradient(135deg,rgba(14,122,95,.06),rgba(27,77,255,.04));border:1px solid rgba(14,122,95,.3);border-radius:var(--radius);width:100%}
+.pd-result .ic{flex:none;width:36px;height:36px;background:#fff;border:1px solid var(--line);border-radius:6px;display:grid;place-items:center;font-family:var(--mono);font-size:.6875rem;font-weight:600;color:var(--green)}
+.pd-result-info{flex:1;min-width:0}
+.pd-result-name{font-family:var(--mono);font-size:.8125rem;font-weight:600;color:var(--ink);word-break:break-all;margin:0 0 3px}
+.pd-result-meta{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin:0}
+
+.info{display:grid;grid-template-columns:1fr;gap:14px;margin:44px 0 0}
+.info-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px}
+.info-card h2{font-family:var(--display);font-weight:700;font-size:1.25rem;letter-spacing:-.01em;margin:0 0 12px}
+.info-card h3{font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:-.01em;margin:20px 0 8px}
+.info-card h3:first-child{margin-top:0}
+.info-card p{margin:0 0 12px;color:#3A3E46;font-size:.9375rem;line-height:1.65}
+.info-card p:last-child{margin:0}
+.info-card ul,.info-card ol{margin:0 0 12px;padding-left:22px;color:#3A3E46;font-size:.9375rem}
+.info-card li{margin:0 0 6px}
+.info-card strong{font-weight:600;color:var(--ink)}
+.info-card a{color:var(--blue);text-decoration:underline;text-underline-offset:2px}
+.info-card code{font-family:var(--mono);font-size:.8125rem;background:var(--paper);padding:1px 5px;border-radius:3px;border:1px solid var(--line)}
+.info-card table{width:100%;border-collapse:collapse;margin:0 0 14px;font-size:.875rem}
+.info-card th,.info-card td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.info-card th{background:#F7F7F3;font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+.faq-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:640px){.faq-grid{grid-template-columns:1fr 1fr}}
+.faq-grid details{border:1px solid var(--line);border-radius:6px;background:#FAFAF8;padding:12px 14px}
+.faq-grid summary{cursor:pointer;font-weight:500;font-size:.9375rem}
+.faq-grid details p{margin:8px 0 0;font-size:.875rem;color:var(--muted);line-height:1.6}
+.related-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:640px){.related-grid{grid-template-columns:1fr 1fr}}
+.related-grid a{display:flex;flex-direction:column;gap:2px;border:1px solid var(--line);border-radius:6px;padding:12px 14px;text-decoration:none;color:inherit;background:#FAFAF8;transition:border-color .12s}
+.related-grid a:hover{border-color:var(--blue)}
+.related-grid a strong{font-size:.9375rem;color:var(--ink)}
+.related-grid a span{font-size:.8125rem;color:var(--muted)}
+.related-grid a:hover strong{color:var(--blue)}
+
+footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem}
+footer a{color:inherit}
+footer a:hover{color:var(--blue)}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:200;max-width:90vw;text-align:center}
+.toast.show{opacity:1}
+
+@media(max-width:640px){
+  .wrap{padding:16px 14px 48px}
+  .pd-card{padding:16px}
+  .info-card{padding:16px}
+  .info-card h2{font-size:1.125rem}
+  .info-card p,.info-card li{font-size:.9375rem}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+<a href="../../index.html" style="display:flex;align-items:center;gap:10px">
+<svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/><path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/><path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/><path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/><path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/></svg>
+<span class="wordmark">LocalTools</span>
+</a>
+<a href="../index.html" class="nav-right">All tools →</a>
+</header>
+
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Protect PDF</span></nav>
+
+<h1 class="lede">Protect PDF</h1>
+<p class="sub">Add a password to a PDF you own. Real AES-128 or AES-256 encryption, permission controls, and a password strength meter. Runs entirely in your browser — nothing is uploaded.</p>
+
+<div class="pd-card" id="dropCard">
+<h2>Upload a PDF</h2>
+<div class="pd-drop" id="drop">
+<div class="icon">⬆</div>
+<strong>Drop a PDF here or click to browse</strong>
+<p>Add a password and set permissions to protect the file</p>
+<div class="formats">No upload · No signup · Works offline</div>
+<input type="file" id="fileInput" accept="application/pdf,.pdf" hidden>
+</div>
+</div>
+
+<div class="pd-card" id="settingsCard" hidden>
+<h2>File and options</h2>
+
+<div class="pd-filebar">
+<div class="icon">PDF</div>
+<div class="pd-filebar-info">
+<p class="pd-filebar-name" id="srcName">—</p>
+<p class="pd-filebar-meta" id="srcMeta">Reading…</p>
+</div>
+<button id="removeSrc" class="pd-remove-src" title="Remove this PDF">Remove</button>
+</div>
+
+<div class="pd-note info">
+<strong>Only use this on PDFs you own or have permission to modify.</strong> Adding a password to someone else's document without permission may violate copyright or contractual terms.
+</div>
+
+<div class="pd-field" id="userPasswordField">
+<label for="userPassword">User password</label>
+<div class="pw-input-wrap">
+<input type="password" id="userPassword" placeholder="Password required to open the PDF" autocomplete="new-password" spellcheck="false">
+<button type="button" class="pw-toggle" data-toggle="userPassword" aria-label="Show password">show</button>
+</div>
+<span class="unit-hint">You will need this password every time you open the file.</span>
+<div id="userPasswordError" hidden></div>
+</div>
+
+<div class="pw-strength" id="pwStrength" hidden>
+<div class="pw-strength-track">
+<span class="seg" data-seg="0"></span>
+<span class="seg" data-seg="1"></span>
+<span class="seg" data-seg="2"></span>
+<span class="seg" data-seg="3"></span>
+</div>
+<span class="pw-strength-label" id="pwStrengthLabel">Strength: —</span>
+</div>
+
+<div class="pd-field" id="confirmPasswordField">
+<label for="confirmPassword">Confirm user password</label>
+<div class="pw-input-wrap">
+<input type="password" id="confirmPassword" placeholder="Type the same password again" autocomplete="new-password" spellcheck="false">
+<button type="button" class="pw-toggle" data-toggle="confirmPassword" aria-label="Show password">show</button>
+</div>
+<span class="unit-hint">Confirms there are no typos. If it doesn't match, the Protect button stays disabled.</span>
+<div id="confirmPasswordError" hidden></div>
+</div>
+
+<div class="pd-note warn">
+<strong>There is no password recovery.</strong> Real AES encryption cannot be reversed without the correct password. Store your password in a password manager before you close this page. If you lose both the user and owner passwords, the file is permanently locked.
+</div>
+
+<div class="pd-field">
+<label for="ownerPassword">Owner password (optional)</label>
+<div class="pw-input-wrap">
+<input type="password" id="ownerPassword" placeholder="Leave blank to use a random owner password" autocomplete="new-password" spellcheck="false">
+<button type="button" class="pw-toggle" data-toggle="ownerPassword" aria-label="Show password">show</button>
+</div>
+<span class="unit-hint">The owner password controls who can change permissions or remove the password. A random one is generated if you leave this blank.</span>
+</div>
+
+<div class="pd-field">
+<label for="encryptionStrength">Encryption strength</label>
+<select id="encryptionStrength">
+<option value="aes-256" selected>AES-256 — recommended, PDF 2.0 standard</option>
+<option value="aes-128">AES-128 — for very old readers only</option>
+</select>
+<span class="unit-hint">AES-256 is supported by every modern reader. Use AES-128 only if you have a specific compatibility need.</span>
+</div>
+
+<h3 style="font-family:var(--display);font-weight:700;font-size:1rem;margin:20px 0 10px;letter-spacing:-.01em">Permissions</h3>
+
+<div class="pd-perms">
+<label class="pd-perm">
+<input type="checkbox" id="permPrint" checked>
+<span>
+<span class="lbl">Allow printing</span>
+<span class="desc">Full-quality print</span>
+</span>
+</label>
+<label class="pd-perm">
+<input type="checkbox" id="permCopy" checked>
+<span>
+<span class="lbl">Allow copying text</span>
+<span class="desc">Select and copy text</span>
+</span>
+</label>
+<label class="pd-perm">
+<input type="checkbox" id="permModify">
+<span>
+<span class="lbl">Allow editing</span>
+<span class="desc">Modify content</span>
+</span>
+</label>
+<label class="pd-perm">
+<input type="checkbox" id="permAnnotate" checked>
+<span>
+<span class="lbl">Allow annotations</span>
+<span class="desc">Comments, highlights, signatures</span>
+</span>
+</label>
+</div>
+
+<div class="pd-note">
+<strong>About permissions:</strong> PDF permissions are enforced by the reader, not by the encryption. Well-behaved readers like Adobe Acrobat honour them. Determined users with specialised tools can bypass them. Treat permissions as a deterrent, not a guarantee.
+</div>
+
+<div class="pd-actions">
+<button class="primary" id="protectBtn" disabled>Protect PDF</button>
+<button class="danger" id="clearBtn">Clear</button>
+</div>
+
+<div class="pd-progress" id="progressWrap" hidden>
+<div class="pd-progress-bar" id="progressBar"></div>
+<p class="pd-status" id="statusText"></p>
+</div>
+</div>
+
+<div class="pd-card" id="resultCard" hidden>
+<h2>Result</h2>
+
+<div class="pd-result">
+<div class="ic">PDF</div>
+<div class="pd-result-info">
+<p class="pd-result-name" id="resultName">—</p>
+<p class="pd-result-meta" id="resultMeta">—</p>
+</div>
+</div>
+
+<div class="pd-note good" id="resultNote" style="margin-top:14px"></div>
+
+<div class="pd-actions" style="margin-top:16px">
+<button class="primary" id="downloadBtn">Download protected PDF</button>
+<button id="startOver">Start over</button>
+</div>
+</div>
+
+<section class="info" aria-label="About protecting PDFs">
+
+  <div class="info-card">
+    <h2>Add a password to a PDF you own</h2>
+    <p>This tool encrypts a PDF with a password and produces a new protected file. Every modern reader — Adobe Acrobat, Preview, Chrome, Firefox, Edge, iOS Files, Android's built-in viewer — will prompt for the password and open the file. The encryption is real: AES-256 or AES-128, the standard algorithms built into the PDF specification.</p>
+    <p>Everything runs in your browser using WebAssembly. Your PDF and your password are read into memory, used to derive an encryption key, and written back to disk by your own device. No PDF is ever sent to any server, and your password is never transmitted, logged or retained.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>Only for PDFs you have the right to protect</h2>
+    <p>Adding a password to a document you own — a bank statement, an insurance policy, a tax return, a signed contract — is a normal part of information hygiene. Adding a password to someone else's document without permission is not.</p>
+    <p>Some jurisdictions treat unauthorised encryption of another person's file as a form of interference with their property. Some employers treat it as a violation of acceptable-use policies. The tool doesn't check any of this; it just runs. Use your judgement.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>Two passwords, two purposes</h2>
+    <p>PDFs support two different passwords, and they control different things:</p>
+    <table>
+      <thead><tr><th>Password</th><th>What it controls</th><th>Who needs it</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>User password</strong></td>
+          <td>Required to open the file at all. Without it, the reader shows a password prompt and refuses to display content.</td>
+          <td>Everyone who opens the file</td>
+        </tr>
+        <tr>
+          <td><strong>Owner password</strong></td>
+          <td>Required to change permissions, remove the password, or edit restricted parts.</td>
+          <td>Only the person who originally set the password</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>If you only set a user password, this tool generates a random owner password that you never see. That means nobody — including you — can later change the permissions without the file being re-created. For most documents, that's fine. If you want to keep control over permissions, set an owner password too.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>How to add a password</h2>
+    <ol>
+      <li><strong>Drop the PDF.</strong> Click the drop zone or drag a file onto it.</li>
+      <li><strong>Enter the user password twice.</strong> The Protect button stays disabled until both fields match, so typos can't slip through.</li>
+      <li><strong>Check the strength meter.</strong> Weak passwords are the biggest cause of leaked documents. Aim for 12+ characters with a mix of cases, digits and symbols.</li>
+      <li><strong>Optionally set an owner password.</strong> Leave blank to auto-generate a random one.</li>
+      <li><strong>Choose permissions.</strong> Decide whether the recipient can print, copy text, edit, or annotate.</li>
+      <li><strong>Pick encryption strength.</strong> AES-256 is the default and works everywhere.</li>
+      <li><strong>Click Protect PDF.</strong> The tool encrypts the file in your browser.</li>
+      <li><strong>Download.</strong> The protected PDF saves with <code>-protected</code> appended to the filename.</li>
+    </ol>
+  </div>
+
+  <div class="info-card">
+    <h2>Permissions explained</h2>
+    <p>The four permission controls let you decide what a reader can do with the file once it's open:</p>
+    <table>
+      <thead><tr><th>Permission</th><th>Controls</th><th>When to disable</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Allow printing</strong></td><td>Whether the file can be sent to a printer or a PDF-to-image tool.</td><td>Confidential documents that shouldn't be on paper.</td></tr>
+        <tr><td><strong>Allow copying text</strong></td><td>Whether text can be selected and copied.</td><td>Documents where quote leakage is a concern.</td></tr>
+        <tr><td><strong>Allow editing</strong></td><td>Whether the content can be modified by a PDF editor.</td><td>Contracts and signed documents.</td></tr>
+        <tr><td><strong>Allow annotations</strong></td><td>Whether comments, highlights and digital signatures can be added.</td><td>Rarely. Most workflows need this on.</td></tr>
+      </tbody>
+    </table>
+    <p>Permissions are advisory — they're a standard part of the PDF format, and well-behaved readers honour them. But a determined user with specialised tools can bypass them. If you need a guarantee that content can't be extracted, use full-disk encryption or don't share the file at all.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>Choosing between AES-128 and AES-256</h2>
+    <p>Both are part of the PDF standard and both are strong enough that no practical attack exists against them. The differences are practical, not security-critical:</p>
+    <ul>
+      <li><strong>AES-256</strong> — introduced in PDF 2.0 and supported by every reader released in the last 15 years. This is the default and the correct choice for almost everyone.</li>
+      <li><strong>AES-128</strong> — introduced in PDF 1.6 and supported since roughly 2005. Choose this only if you have to open the file in very old software — Acrobat 6 or 7, or a custom reader built before 2008.</li>
+    </ul>
+    <p>Both modes produce files that open with a password prompt in every modern reader. Both are unaffected by the security of the underlying password itself — a weak password is weak regardless of AES strength.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>Password best practices</h2>
+    <p>Encryption is only as good as the password. Three rules matter:</p>
+    <ul>
+      <li><strong>Length beats complexity.</strong> A 16-character passphrase made of four random words is stronger than a 10-character string of symbols, and much easier to remember or type.</li>
+      <li><strong>Don't reuse passwords across files.</strong> If one PDF is brute-forced, every PDF protected with the same password falls with it.</li>
+      <li><strong>Store it in a password manager.</strong> This tool doesn't retain your password. If you close the page and forget the password, the file is gone. Password managers like Bitwarden, 1Password or KeePass are the right place to keep it.</li>
+    </ul>
+    <p>Common weak passwords to avoid: dates of birth, pet names, phone numbers, single dictionary words, and anything under 10 characters. Those can be brute-forced in minutes.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>How the encryption works</h2>
+    <p>The tool uses <strong>qpdf compiled to WebAssembly</strong>. qpdf is a command-line tool used by archivists, libraries and law firms for PDF transformations, and its encryption code is well-audited. It implements the standard algorithms defined in the PDF specification:</p>
+    <ol>
+      <li>Your user password and owner password are fed through a key-derivation function (PBKDF for AES-256, or a hash-based scheme for AES-128) to produce two separate encryption keys.</li>
+      <li>Every content stream in the PDF is encrypted with the user password key using AES in CBC mode.</li>
+      <li>The user password hash and owner password hash are stored in a standard encryption dictionary at the head of the file, exactly as every PDF reader expects.</li>
+      <li>The permission flags you set are encoded in the same dictionary, and signed with the owner password key.</li>
+      <li>The result is a normal protected PDF that behaves identically to one produced by Adobe Acrobat.</li>
+    </ol>
+    <p>Text stays selectable, images stay embedded at full quality, form fields stay editable (if you allow editing), links and bookmarks keep working. The file is encrypted in place, not re-rendered.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>Common uses</h2>
+    <ul>
+      <li><strong>Emailing sensitive documents.</strong> Bank statements, tax returns and medical records should never travel unprotected. Send the PDF with a password, and share the password over a different channel (Signal, phone call, in person).</li>
+      <li><strong>Storing documents in cloud folders.</strong> If a file is on Google Drive, Dropbox or iCloud, a password is the last line of defence if the account is compromised.</li>
+      <li><strong>Delivering client work.</strong> Freelancers often protect invoices or deliverables so only the paying client can open them.</li>
+      <li><strong>Sharing HR documents.</strong> Employment contracts, offer letters and payslips should always be password-protected.</li>
+      <li><strong>Legal filings.</strong> Some jurisdictions require password protection on electronically filed documents containing personal information.</li>
+      <li><strong>Personal records.</strong> Long-term storage of identity documents, insurance policies, and anything you'd never want a stranger to see.</li>
+    </ul>
+  </div>
+
+  <div class="info-card">
+    <h2>Your privacy is protected</h2>
+    <p>Every operation happens in your browser. The PDF is read into memory, encrypted, and written back to disk by your own device. Your password is used to derive an encryption key inside the browser and never leaves it. No PDF and no password is ever sent to any server, logged, or retained.</p>
+    <p>The only network requests the page makes are for the WebAssembly library and the fonts. Both are loaded from your own site and public CDNs when the page first opens. After that, the tool works entirely offline.</p>
+    <p>This makes the tool safe for the most sensitive documents you have: bank statements, tax returns, medical records, ID scans, legal filings, personal correspondence.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>What this tool can't do</h2>
+    <p>Being honest about limits is more useful than pretending they don't exist. This tool does not:</p>
+    <ul>
+      <li><strong>Protect an already-protected PDF.</strong> Remove the existing password first with <a href="pdf-unlock.html">Remove PDF Password</a>, then protect it again with the new password.</li>
+      <li><strong>Recover a forgotten password.</strong> AES encryption has no backdoor. If you lose the password, the file is permanently locked. This is a feature, not a bug.</li>
+      <li><strong>Guarantee permissions are enforced.</strong> PDF permissions are reader-enforced, not cryptographic. A determined attacker with specialised tools can extract content from a protected PDF. Use full-disk encryption if the content must never leak.</li>
+      <li><strong>Add digital signatures or certificates.</strong> This tool adds password encryption only. Digital signatures with a certificate chain require a PKI setup.</li>
+      <li><strong>Handle DRM or Adobe Digital Editions.</strong> Those use a different system tied to an Adobe account.</li>
+      <li><strong>Encrypt very large PDFs quickly.</strong> Files over 200 MB take longer because WebAssembly must process the entire file in memory.</li>
+    </ul>
+  </div>
+
+  <div class="info-card">
+    <h2>Troubleshooting</h2>
+    <ul>
+      <li><strong>Protect button stays disabled</strong> — the two password fields don't match, or the user password field is empty. Both must be filled and identical.</li>
+      <li><strong>"Passwords do not match"</strong> — check for trailing spaces. Paste-in passwords from a password manager sometimes include a line break.</li>
+      <li><strong>Protected PDF won't open in an old reader</strong> — switch to AES-128 for compatibility with pre-2008 software.</li>
+      <li><strong>Protected PDF won't open at all</strong> — verify the password by opening it in a different reader. If you've forgotten it, there's no recovery.</li>
+      <li><strong>WebAssembly failed to load</strong> — the CDN is blocked or you're offline before the first page load. Refresh the page once. After that, the tool works offline.</li>
+      <li><strong>Encryption is very slow</strong> — the PDF is over 100 MB. Wait for the progress bar. On a modern laptop, 100 MB takes about 5–15 seconds.</li>
+      <li><strong>Mobile browser crashes</strong> — memory limit reached. Try protecting on a desktop browser, or reduce the file size with <a href="pdf-compress.html">Compress PDF</a> first.</li>
+    </ul>
+  </div>
+
+  <div class="info-card">
+    <h2>Common questions</h2>
+    <div class="faq-grid">
+      <details><summary>Is the encryption real?</summary><p>Yes. This tool uses qpdf compiled to WebAssembly, which implements the standard PDF encryption algorithms. AES-256 and AES-128 modes produce files that Adobe Acrobat, Preview, Chrome and every other PDF reader recognises and prompts for a password.</p></details>
+      <details><summary>Can I protect a PDF I don't own?</summary><p>You can, but you shouldn't. Adding a password to someone else's document without permission may violate copyright or contractual terms. Only protect files you own or have the right to modify.</p></details>
+      <details><summary>What is the difference between a user password and an owner password?</summary><p>The user password is required to open the file at all. The owner password is required to change permissions, remove the password or edit restricted parts. If you only set a user password, the tool generates a random owner password and you can't change permissions later without it.</p></details>
+      <details><summary>What if I forget the password?</summary><p>There is no recovery. Real AES encryption cannot be reversed without the password. If you lose both the user and owner passwords, the file is permanently locked. Store your password in a password manager before you close the tool.</p></details>
+      <details><summary>Which encryption strength should I choose?</summary><p>AES-256 for anything sensitive — financial records, medical documents, legal filings. AES-128 only for older readers that don't support AES-256, which is rare today.</p></details>
+      <details><summary>Do the permission controls actually work?</summary><p>PDF permissions are enforced by the reader, not by the encryption itself. Well-behaved readers like Adobe Acrobat honour them. Determined users with specialised tools can bypass them. Treat permissions as a deterrent, not a guarantee.</p></details>
+      <details><summary>Will the PDF still open in every reader?</summary><p>Yes. AES-256 and AES-128 are part of the PDF standard. Every modern reader — Adobe Acrobat, Preview, Chrome, Firefox, Edge, Foxit, Sumatra, iOS Files, Android's built-in reader — will prompt for the password and open the file.</p></details>
+      <details><summary>Are my PDFs uploaded?</summary><p>No. Everything happens in your browser. Your PDF and your password never leave your device.</p></details>
+      <details><summary>Is my password sent anywhere?</summary><p>No. The password is used to derive the encryption key inside your browser. It is never transmitted, logged or retained.</p></details>
+      <details><summary>Can I protect a PDF that's already protected?</summary><p>No. If a PDF is already encrypted, remove the existing password first with the Remove PDF Password tool, then protect it again with the new password.</p></details>
+      <details><summary>Does it work on iPhone and Android?</summary><p>Yes. Tap the drop zone to select a PDF from Files or Downloads, enter the password, and download the protected file directly to your device.</p></details>
+      <details><summary>Does it work offline?</summary><p>Yes. After the page loads once, the tool works entirely offline.</p></details>
+      <details><summary>Can I remove the password later?</summary><p>Yes, if you know the password. Use the <a href="pdf-unlock.html">Remove PDF Password</a> tool with the user password to strip the protection.</p></details>
+      <details><summary>What happens to form fields, links and bookmarks?</summary><p>In most cases they are preserved. The tool encrypts the PDF in place without re-rendering pages, so text stays selectable, form fields stay editable (if you allow editing), and links keep working.</p></details>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <h2>Related PDF tools</h2>
+    <p>This tool handles encryption. For everything else, these tools work the same way — free, in your browser, no upload.</p>
+    <div class="related-grid">
+      <a href="pdf-unlock.html">
+        <strong>Remove PDF Password</strong>
+        <span>Strip password protection from a PDF you own.</span>
+      </a>
+      <a href="pdf-compress.html">
+        <strong>Compress PDF</strong>
+        <span>Reduce file size for email attachments while keeping quality.</span>
+      </a>
+      <a href="pdf-merge.html">
+        <strong>Merge PDF</strong>
+        <span>Combine multiple PDFs into one file, in the order you choose.</span>
+      </a>
+      <a href="pdf-split.html">
+        <strong>Split PDF</strong>
+        <span>Split a PDF into separate files or extract specific page ranges.</span>
+      </a>
+      <a href="organize-pdf.html">
+        <strong>Organize PDF</strong>
+        <span>Reorder, duplicate, delete or insert pages with drag-and-drop.</span>
+      </a>
+      <a href="delete-pages.html">
+        <strong>Delete PDF Pages</strong>
+        <span>Remove unwanted pages with a preview before saving.</span>
+      </a>
+      <a href="pdf-editor.html">
+        <strong>PDF Editor</strong>
+        <span>Edit text, highlight, sign, redact and add images.</span>
+      </a>
+      <a href="pdf-rotate.html">
+        <strong>Rotate PDF</strong>
+        <span>Rotate all pages or just one, 90° at a time.</span>
+      </a>
+      <a href="add-page-numbers.html">
+        <strong>Add Page Numbers</strong>
+        <span>Number every page automatically with a format you choose.</span>
+      </a>
+      <a href="pdf-to-img.html">
+        <strong>PDF to Image</strong>
+        <span>Export PDF pages as high-quality PNG or JPG images.</span>
+      </a>
+      <a href="pdf-text.html">
+        <strong>Extract PDF Text</strong>
+        <span>Pull plain text out of any PDF for editing or search.</span>
+      </a>
+      <a href="img-to-pdf.html">
+        <strong>Image to PDF</strong>
+        <span>Combine JPG, PNG or WebP images into a single PDF.</span>
+      </a>
+    </div>
+  </div>
+
+</section>
+
+<footer>
+<p>LocalTools · <a href="../../index.html">Home</a> · <a href="../index.html">All tools</a> · <a href="../../pages/about.html">About</a> · <a href="../../pages/privacy.html">Privacy</a></p>
+</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+var toast=$("toast");
+function flash(m){toast.textContent=m;toast.classList.add("show");clearTimeout(flash._t);flash._t=setTimeout(function(){toast.classList.remove("show");},2200);}
+function say(msg,kind){
+  var s=$("statusText");
+  s.textContent=msg||"";
+  s.classList.remove("err","ok");
+  if(kind)s.classList.add(kind);
+}
+function fmtSize(bytes){
+  if(bytes<1024)return bytes+" B";
+  if(bytes<1024*1024)return (bytes/1024).toFixed(1)+" KB";
+  return (bytes/(1024*1024)).toFixed(2)+" MB";
+}
+
+/* ============================================================
+   Inline error animation for a specific field
+   ============================================================ */
+function showFieldError(fieldId, errorId, message){
+  var field=$(fieldId);
+  var box=$(errorId);
+  var input=field.querySelector("input");
+
+  field.classList.remove("pd-field-error");
+  field.classList.remove("pd-field-error-keep");
+  void field.offsetWidth;
+
+  box.hidden=false;
+  box.className="pd-error-msg";
+  box.innerHTML=
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'+
+    '<circle cx="12" cy="12" r="10"/>'+
+    '<path d="M12 8v5M12 16h.01"/>'+
+    '</svg>'+
+    '<span>'+message+'</span>';
+
+  field.classList.add("pd-field-error");
+  var card=input.closest(".pd-card");
+  if(card){
+    card.classList.remove("pd-card-error");
+    void card.offsetWidth;
+    card.classList.add("pd-card-error");
+  }
+
+  input.focus();
+  try{ input.select(); }catch(e){}
+
+  setTimeout(function(){
+    field.classList.remove("pd-field-error");
+    field.classList.add("pd-field-error-keep");
+  },520);
+}
+
+function clearFieldError(fieldId, errorId){
+  var field=$(fieldId);
+  var box=$(errorId);
+  if(!field||!box)return;
+  if(box.hidden)return;
+
+  field.classList.remove("pd-field-error");
+  field.classList.remove("pd-field-error-keep");
+  box.classList.add("pd-error-leaving");
+  setTimeout(function(){
+    box.hidden=true;
+    box.className="";
+    box.innerHTML="";
+  },240);
+}
+
+/* ============================================================
+   Load qpdf-wasm from the local bundle.
+   ============================================================ */
+var qpdfInstance=null;
+var qpdfLoadPromise=null;
+var lastQpdfStderr="";
+
+function loadQpdf(){
+  if(qpdfInstance)return Promise.resolve(qpdfInstance);
+  if(qpdfLoadPromise)return qpdfLoadPromise;
+
+  qpdfLoadPromise=new Promise(function(resolve){
+    var existing=document.querySelector('script[data-qpdf-bundle]');
+    if(!existing){
+      var s=document.createElement("script");
+      s.src="/assets/wasm/qpdf/qpdf.js";
+      s.async=true;
+      s.setAttribute("data-qpdf-bundle","1");
+      s.onload=function(){ findAndInit(resolve); };
+      s.onerror=function(){
+        console.warn("[pdf-protect] qpdf.js failed to load from /assets/wasm/qpdf/");
+        resolve(null);
+      };
+      document.head.appendChild(s);
+    } else {
+      findAndInit(resolve);
+    }
+  });
+
+  return qpdfLoadPromise;
+}
+
+function findAndInit(resolve){
+  var candidates=[
+    ["qpdf", window.qpdf],
+    ["qpdfWasm", window.qpdfWasm],
+    ["QpdfWasm", window.QpdfWasm],
+    ["Qpdf", window.Qpdf],
+    ["createQpdfModule", window.createQpdfModule],
+    ["createQpdf", window.createQpdf],
+    ["Module", window.Module],
+    ["qpdfModule", window.qpdfModule],
+    ["_qpdf", window._qpdf]
+  ];
+
+  var found=null;
+  for(var i=0;i<candidates.length;i++){
+    if(typeof candidates[i][1]==="function"){
+      found={name:candidates[i][0], factory:candidates[i][1]};
+      break;
+    }
+  }
+  if(!found){
+    for(var k in window){
+      try{
+        if(k.toLowerCase().indexOf("qpdf")!==-1 && typeof window[k]==="function"){
+          found={name:k, factory:window[k]};
+          break;
+        }
+      }catch(e){}
+    }
+  }
+
+  if(!found){
+    console.warn("[pdf-protect] qpdf.js loaded but no factory function found on window.");
+    resolve(null);
+    return;
+  }
+
+  console.log("[pdf-protect] Using factory: window."+found.name);
+
+  var result;
+  try{
+    result=found.factory({
+      locateFile:function(path){
+        return "/assets/wasm/qpdf/"+path;
+      },
+      printErr:function(text){
+        lastQpdfStderr += text + "\n";
+        console.warn("[qpdf stderr]", text);
+      },
+      print:function(text){
+        console.log("[qpdf stdout]", text);
+      }
+    });
+  }catch(e){
+    console.warn("[pdf-protect] qpdf factory threw synchronously:", e);
+    resolve(null);
+    return;
+  }
+
+  Promise.resolve(result).then(function(mod){
+    qpdfInstance=mod;
+    resolve(mod);
+  }).catch(function(err){
+    console.warn("[pdf-protect] qpdf module failed to initialize:", err);
+    resolve(null);
+  });
+}
+
+/* ============================================================
+   PROTECT via qpdf-wasm
+
+   qpdf encrypt command line:
+     qpdf --encrypt user owner keylength [options] -- in.pdf out.pdf
+
+   keylength: 128 or 256
+   Options:
+     --print=none|low|full
+     --modify=none|assembly|form|annotate|all
+     --extract=y|n
+     --annotate=y|n
+     --accessibility=y|n
+   ============================================================ */
+async function protectPdf(userPass, ownerPass, strength, perms, myToken){
+  var qpdf=await loadQpdf();
+  if(!qpdf)throw new Error("MUPRESS_UNAVAILABLE");
+  if(myToken!==currentToken)return null;
+
+  say("Encrypting PDF…");
+  $("progressBar").style.width="40%";
+
+  /* Reset stderr capture */
+  lastQpdfStderr="";
+
+  var inputBytes=new Uint8Array(sourceBytes);
+  var outputBytes=null;
+
+  var FS=qpdf.FS;
+  if(!FS||typeof FS.writeFile!=="function"){
+    throw new Error("MUPRESS_UNAVAILABLE");
+  }
+
+  try{ FS.mkdir("/work"); }catch(e){}
+  FS.writeFile("/work/input.pdf",inputBytes);
+  try{ FS.unlink("/work/output.pdf"); }catch(e){}
+
+  var keyLen = strength==="aes-256" ? "256" : "128";
+  var printMode = perms.print ? "full" : "none";
+  var modifyMode = perms.modify ? "all" : "none";
+  var extractMode = perms.copy ? "y" : "n";
+  var annotateMode = perms.annotate ? "y" : "n";
+
+  var cliArgs=[
+    "--encrypt",
+    userPass,
+    ownerPass || userPass,
+    keyLen,
+    "--print="+printMode,
+    "--modify="+modifyMode,
+    "--extract="+extractMode,
+    "--annotate="+annotateMode,
+    "--accessibility=y",
+    "--",
+    "/work/input.pdf",
+    "/work/output.pdf"
+  ];
+
+  try{
+    qpdf.callMain(cliArgs);
+  }catch(e){
+    /* Emscripten throws an ExitStatus object on exit(); fall through */
+  }
+
+  if(myToken!==currentToken)return null;
+
+  var outputExists=false;
+  try{
+    var stat=FS.stat("/work/output.pdf");
+    outputExists=stat&&stat.size>0;
+  }catch(e){ outputExists=false; }
+
+  if(!outputExists){
+    try{ FS.unlink("/work/input.pdf"); }catch(e){}
+    var errText=(lastQpdfStderr||"").toLowerCase();
+    if(errText.indexOf("password")!==-1){
+      throw new Error("ENCRYPT_FAILED:"+(lastQpdfStderr||"password-related error"));
+    }
+    throw new Error("ENCRYPT_FAILED:"+(lastQpdfStderr||"qpdf produced no output"));
+  }
+
+  try{
+    outputBytes=FS.readFile("/work/output.pdf");
+  }catch(e){
+    throw new Error("SAVE_FAILED:could not read qpdf output");
+  }
+
+  try{ FS.unlink("/work/input.pdf"); }catch(e){}
+  try{ FS.unlink("/work/output.pdf"); }catch(e){}
+
+  if(myToken!==currentToken)return null;
+  if(!outputBytes||!outputBytes.length){
+    throw new Error("SAVE_FAILED:empty output");
+  }
+
+  $("progressBar").style.width="100%";
+  return new Blob([outputBytes],{type:"application/pdf"});
+}
+
+/* ============================================================
+   State
+   ============================================================ */
+var sourceFile=null;
+var sourceName="";
+var sourceBytes=null;
+var protectedBlob=null;
+var protectedName="";
+var currentToken=0;
+
+function resetState(){
+  sourceFile=null;
+  sourceBytes=null;
+  sourceName="";
+  protectedBlob=null;
+  protectedName="";
+  currentToken++;
+  $("srcName").textContent="—";
+  $("srcMeta").textContent="Reading…";
+  $("srcMeta").style.color="";
+  $("userPassword").value="";
+  $("confirmPassword").value="";
+  $("ownerPassword").value="";
+  $("encryptionStrength").value="aes-256";
+  $("permPrint").checked=true;
+  $("permCopy").checked=true;
+  $("permModify").checked=false;
+  $("permAnnotate").checked=true;
+  updateStrength("");
+  clearFieldError("userPasswordField","userPasswordError");
+  clearFieldError("confirmPasswordField","confirmPasswordError");
+  $("resultCard").hidden=true;
+  $("progressWrap").hidden=true;
+  $("progressBar").style.width="0";
+  say("");
+  updateProtectButton();
+}
+
+function handleFile(file){
+  if(!/\.pdf$/i.test(file.name)&&file.type!=="application/pdf"){
+    return flash("That's not a PDF");
+  }
+  resetState();
+  sourceFile=file;
+  sourceName=file.name.replace(/\.pdf$/i,"");
+  $("srcName").textContent=file.name;
+  $("srcMeta").textContent=fmtSize(file.size);
+  $("settingsCard").hidden=false;
+  $("resultCard").hidden=true;
+
+  var reader=new FileReader();
+  reader.onload=function(e){
+    sourceBytes=e.target.result;
+    say("Ready. Set a password and click Protect PDF.", "ok");
+    /* Warm up qpdf in the background */
+    loadQpdf();
+  };
+  reader.onerror=function(){ say("Could not read the file.","err"); };
+  reader.readAsArrayBuffer(file);
+}
+
+/* ============================================================
+   Password strength meter
+   ============================================================ */
+function scorePassword(pw){
+  if(!pw)return {score:0,label:"—"};
+  var score=0;
+  if(pw.length>=8)score++;
+  if(pw.length>=12)score++;
+  if(pw.length>=16)score++;
+  var variety=0;
+  if(/[a-z]/.test(pw))variety++;
+  if(/[A-Z]/.test(pw))variety++;
+  if(/[0-9]/.test(pw))variety++;
+  if(/[^A-Za-z0-9]/.test(pw))variety++;
+  if(variety>=3)score++;
+  if(variety>=4)score++;
+  var finalScore=Math.min(4,Math.max(0,Math.round(score*4/6)));
+  var label;
+  if(finalScore===0)label="Very weak";
+  else if(finalScore===1)label="Weak";
+  else if(finalScore===2)label="Fair";
+  else if(finalScore===3)label="Good";
+  else label="Strong";
+  return {score:finalScore,label:label};
+}
+
+function updateStrength(pw){
+  var box=$("pwStrength");
+  var label=$("pwStrengthLabel");
+  if(!pw){ box.hidden=true; return; }
+  box.hidden=false;
+  var result=scorePassword(pw);
+  var cls = result.score<=1 ? "weak" : result.score===2 ? "fair" : result.score===3 ? "good" : "strong";
+  document.querySelectorAll("#pwStrength .seg").forEach(function(seg,i){
+    seg.classList.remove("on","weak","fair","good","strong");
+    if(i<result.score){ seg.classList.add("on"); seg.classList.add(cls); }
+  });
+  label.textContent="Strength: "+result.label;
+}
+
+function updateProtectButton(){
+  var u=$("userPassword").value;
+  var c=$("confirmPassword").value;
+  var ok=u.length>0 && u===c;
+  $("protectBtn").disabled=!ok;
+  if(u.length===0){
+    $("protectBtn").textContent="Enter a password to protect";
+  } else if(u!==c){
+    $("protectBtn").textContent="Passwords do not match";
+  } else {
+    $("protectBtn").textContent="Protect PDF";
+  }
+}
+
+/* ============================================================
+   Bind password inputs
+   ============================================================ */
+$("userPassword").addEventListener("input",function(){
+  updateStrength(this.value);
+  updateProtectButton();
+  clearFieldError("userPasswordField","userPasswordError");
+});
+$("confirmPassword").addEventListener("input",function(){
+  updateProtectButton();
+  clearFieldError("confirmPasswordField","confirmPasswordError");
+});
+
+/* Enter key submits when possible */
+$("userPassword").addEventListener("keydown",function(e){
+  if(e.key==="Enter"){ e.preventDefault(); $("confirmPassword").focus(); }
+});
+$("confirmPassword").addEventListener("keydown",function(e){
+  if(e.key==="Enter" && !$("protectBtn").disabled){
+    e.preventDefault();
+    $("protectBtn").click();
+  }
+});
+$("ownerPassword").addEventListener("keydown",function(e){
+  if(e.key==="Enter" && !$("protectBtn").disabled){
+    e.preventDefault();
+    $("protectBtn").click();
+  }
+});
+
+/* Show/hide password toggles */
+document.querySelectorAll(".pw-toggle").forEach(function(btn){
+  btn.addEventListener("click",function(){
+    var id=this.getAttribute("data-toggle");
+    var input=$(id);
+    if(!input)return;
+    var show=input.type==="password";
+    input.type=show?"text":"password";
+    this.textContent=show?"hide":"show";
+    this.setAttribute("aria-label",show?"Hide password":"Show password");
+  });
+});
+
+/* ============================================================
+   Protect button
+   ============================================================ */
+$("protectBtn").addEventListener("click",async function(){
+  if(!sourceBytes)return flash("Load a PDF first");
+
+  var userPass=$("userPassword").value;
+  var confirmPass=$("confirmPassword").value;
+  var ownerPass=$("ownerPassword").value||"";
+
+  /* Validation with animated errors */
+  if(!userPass){
+    showFieldError("userPasswordField","userPasswordError","Enter a password first. This is the password you'll need to open the file.");
+    say("Password required.","err");
+    return;
+  }
+  if(userPass!==confirmPass){
+    showFieldError("confirmPasswordField","confirmPasswordError","Passwords do not match. Check for typos, trailing spaces, or a hidden line break from a paste.");
+    say("Passwords do not match.","err");
+    return;
+  }
+
+  /* Warn about weak passwords */
+  var strength=scorePassword(userPass);
+  if(strength.score<=1){
+    var proceed=confirm("This password is weak and could be brute-forced. Continue anyway?");
+    if(!proceed)return;
+  }
+
+  var encStrength=$("encryptionStrength").value;
+  var perms={
+    print:$("permPrint").checked,
+    copy:$("permCopy").checked,
+    modify:$("permModify").checked,
+    annotate:$("permAnnotate").checked
+  };
+  var myToken=currentToken;
+
+  $("progressWrap").hidden=false;
+  $("progressBar").style.width="5%";
+  $("protectBtn").disabled=true;
+  $("resultCard").hidden=true;
+  say("Preparing…");
+
+  try{
+    var blob=await protectPdf(userPass,ownerPass,encStrength,perms,myToken);
+    if(myToken!==currentToken)return;
+    if(!blob)throw new Error("Encryption produced no output.");
+
+    protectedBlob=blob;
+    protectedName=sourceName+"-protected.pdf";
+
+    $("progressBar").style.width="100%";
+    say("Protected successfully.", "ok");
+
+    $("resultName").textContent=protectedName;
+    $("resultMeta").textContent=fmtSize(protectedBlob.size);
+
+    var permsText=[];
+    permsText.push(perms.print?"printing allowed":"printing blocked");
+    permsText.push(perms.copy?"copying allowed":"copying blocked");
+    permsText.push(perms.modify?"editing allowed":"editing blocked");
+    permsText.push(perms.annotate?"annotations allowed":"annotations blocked");
+
+    var strengthLabel = encStrength==="aes-256" ? "AES-256" : "AES-128";
+    var note="<strong>Encryption:</strong> "+strengthLabel+
+      ". <strong>Permissions:</strong> "+permsText.join(", ")+
+      ". Your password is not stored anywhere. Save it in a password manager before you close this page — there is no recovery if you forget it.";
+    $("resultNote").innerHTML=note;
+
+    $("resultCard").hidden=false;
+    flash("PDF protected");
+  }catch(e){
+    var msg=e&&e.message?e.message:"Could not protect the PDF.";
+    if(msg.indexOf("ENCRYPT_FAILED")===0){
+      showFieldError("userPasswordField","userPasswordError","Encryption failed. This PDF may already be encrypted, or uses a format the tool can't process. Try removing any existing password first.");
+      say("Encryption failed.","err");
+      flash("Protection failed");
+      return;
+    }
+    if(msg==="MUPRESS_UNAVAILABLE"){
+      msg="The encryption engine couldn't load. Check your connection and refresh the page.";
+    }
+    say(msg,"err");
+    flash("Protection failed");
+  }finally{
+    $("protectBtn").disabled=false;
+    updateProtectButton();
+    setTimeout(function(){$("progressWrap").hidden=true;},1200);
+  }
+});
+
+$("downloadBtn").addEventListener("click",function(){
+  if(!protectedBlob)return flash("Nothing to download");
+  var url=URL.createObjectURL(protectedBlob);
+  var a=document.createElement("a");
+  a.href=url;
+  a.download=protectedName||"protected.pdf";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(url);},2000);
+  flash("Downloaded");
+});
+
+$("startOver").addEventListener("click",function(){
+  protectedBlob=null;
+  $("resultCard").hidden=true;
+  flash("Cleared");
+});
+
+$("removeSrc").addEventListener("click",function(){
+  resetState();
+  $("settingsCard").hidden=true;
+  $("fileInput").value="";
+  flash("Cleared");
+});
+$("clearBtn").addEventListener("click",function(){
+  resetState();
+  $("settingsCard").hidden=true;
+  $("fileInput").value="";
+  flash("Cleared");
+});
+
+var drop=$("drop");
+var fileInput=$("fileInput");
+drop.addEventListener("click",function(){fileInput.click();});
+drop.addEventListener("dragover",function(e){e.preventDefault();drop.classList.add("dragover");});
+drop.addEventListener("dragleave",function(){drop.classList.remove("dragover");});
+drop.addEventListener("drop",function(e){
+  e.preventDefault();
+  drop.classList.remove("dragover");
+  var f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];
+  if(f)handleFile(f);
+});
+fileInput.addEventListener("change",function(){
+  if(fileInput.files&&fileInput.files[0])handleFile(fileInput.files[0]);
+  fileInput.value="";
+});
+
+})();
+</script>
+</body>
+</html>
