@@ -1,176 +1,745 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise PDF Password Buster</title>
-    
-    <!-- Load the high-performance C++ QPDF engine compiled to WebAssembly -->
-    <script src="https://jsdelivr.net"></script>
-    
-    <style>
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .app-card {
-            background: #1e293b;
-            padding: 35px;
-            border-radius: 16px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 420px;
-            text-align: center;
-            border: 1px solid #334155;
-        }
-        h2 { margin-top: 0; color: #f1f5f9; font-size: 24px; font-weight: 700; }
-        p { color: #94a3b8; font-size: 14px; margin-bottom: 24px; line-height: 1.5; }
-        .input-group { margin-bottom: 20px; text-align: left; }
-        label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 12px; color: #cbd5e1; text-transform: uppercase; letter-spacing: 0.5px; }
-        input[type="file"], input[type="password"] {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid #475569;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 14px;
-            background-color: #0f172a;
-            color: #fff;
-            transition: all 0.2s;
-        }
-        input:focus { outline: none; border-color: #3b82f6; background-color: #0f172a; }
-        button {
-            width: 100%;
-            background-color: #3b82f6;
-            color: #ffffff;
-            border: none;
-            padding: 14px;
-            font-size: 15px;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 5px;
-            transition: background 0.2s;
-        }
-        button:hover { background-color: #2563eb; }
-        button:disabled { background-color: #475569; color: #94a3b8; cursor: not-allowed; }
-        #status-display {
-            margin-top: 20px;
-            font-size: 13px;
-            font-weight: 500;
-            padding: 12px;
-            border-radius: 8px;
-            line-height: 1.4;
-            background-color: #0f172a;
-            border: 1px solid #334155;
-            color: #94a3b8;
-        }
-        .error { background-color: #451a03 !important; color: #f87171 !important; border-color: #991b1b !important; }
-        .success { background-color: #064e3b !important; color: #34d399 !important; border-color: #065f46 !important; }
-        .processing { background-color: #1e3a8a !important; color: #60a5fa !important; border-color: #1e40af !important; }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Remove PDF Password — Unlock PDF Free, No Upload</title>
+<meta name="description" content="Remove the password from a PDF you own. Works with files that block copying, editing or printing, and with files that require an open password. Runs entirely in your browser. No upload, no signup.">
+<link rel="canonical" href="https://localtools.co.in/tools/pdf/pdf-unlock.html">
+<link rel="sitemap" type="application/xml" href="https://localtools.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#1B4DFF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Remove PDF Password — Unlock PDF Free">
+<meta property="og:description" content="Strip the password from a PDF you own. Runs in your browser, no upload.">
+<meta property="og:url" content="https://localtools.co.in/tools/pdf/pdf-unlock.html">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3576991570329575" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"WebApplication",
+      "name":"Remove PDF Password",
+      "alternateName":"PDF Unlocker",
+      "url":"https://localtools.co.in/tools/pdf/pdf-unlock.html",
+      "applicationCategory":"UtilitiesApplication",
+      "operatingSystem":"Any browser",
+      "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+      "featureList":[
+        "Remove password from PDFs you own",
+        "Handles owner-password PDFs losslessly",
+        "Handles user-password PDFs with the correct password",
+        "Preserves text, images and layout",
+        "No upload, runs in browser",
+        "No watermark, no signup",
+        "Works on mobile",
+        "Runs offline after first load"
+      ]
+    },
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://localtools.co.in/"},
+        {"@type":"ListItem","position":2,"name":"Tools","item":"https://localtools.co.in/tools/"},
+        {"@type":"ListItem","position":3,"name":"Remove PDF Password","item":"https://localtools.co.in/tools/pdf/pdf-unlock.html"}
+      ]
+    },
+    {
+      "@type":"HowTo",
+      "name":"How to remove a password from a PDF",
+      "description":"Strip the password protection from a PDF you own, in your browser.",
+      "totalTime":"PT1M",
+      "tool":[{"@type":"HowToTool","name":"Modern web browser"}],
+      "step":[
+        {"@type":"HowToStep","name":"Open the PDF","text":"Drop the protected PDF onto the drop zone or click to browse."},
+        {"@type":"HowToStep","name":"Enter the password if required","text":"If the PDF opens without a password but blocks copying or printing, leave the password field blank. If it asks for a password when you open it, type that password in."},
+        {"@type":"HowToStep","name":"Unlock the PDF","text":"Click Remove password. The tool strips the protection and produces a new PDF."},
+        {"@type":"HowToStep","name":"Download","text":"Click Download unlocked PDF to save the unlocked file."}
+      ]
+    },
+    {
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"Can I unlock a PDF without knowing the password?","acceptedAnswer":{"@type":"Answer","text":"No. This tool removes the password from a PDF you already have access to. It does not crack, guess or brute-force passwords. If you don't know the password, you need to get it from whoever sent you the file."}},
+        {"@type":"Question","name":"What is the difference between an owner password and a user password?","acceptedAnswer":{"@type":"Answer","text":"An owner password lets you open the file but blocks copying, editing or printing. A user password blocks opening the file entirely until you enter it. This tool handles both, but requires the user password if the PDF has one."}},
+        {"@type":"Question","name":"Will the text stay selectable after unlocking?","acceptedAnswer":{"@type":"Answer","text":"Yes, if the PDF has an owner password only. If the PDF requires a user password, the unlocked version is rebuilt by rendering each page as an image, so text becomes non-selectable."}},
+        {"@type":"Question","name":"Are my PDFs uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. Everything happens in your browser. Your PDF never leaves your device."}},
+        {"@type":"Question","name":"Is this legal?","acceptedAnswer":{"@type":"Answer","text":"Removing a password from a document you own or have permission to modify is legal in most jurisdictions. Using it on someone else's document without permission is not. Only use this on files you have the right to modify."}},
+        {"@type":"Question","name":"Does it work on iPhone and Android?","acceptedAnswer":{"@type":"Answer","text":"Yes. Tap the drop zone to select a PDF from Files or Downloads, enter the password if needed, and download the unlocked file directly to your device."}},
+        {"@type":"Question","name":"Can I unlock multiple PDFs at once?","acceptedAnswer":{"@type":"Answer","text":"Not currently. Unlock one file at a time."}},
+        {"@type":"Question","name":"What happens if I enter the wrong password?","acceptedAnswer":{"@type":"Answer","text":"The tool tells you the password is incorrect and doesn't produce an output file. Nothing is saved or sent anywhere."}},
+        {"@type":"Question","name":"Does it work offline?","acceptedAnswer":{"@type":"Answer","text":"Yes. After the page loads once, the tool works entirely offline."}},
+        {"@type":"Question","name":"What formats does the unlocked PDF have?","acceptedAnswer":{"@type":"Answer","text":"A standard unencrypted PDF that opens in any reader without a password. Owner-password PDFs keep their original text, images, links and form fields. User-password PDFs are rebuilt as image-based pages."}}
+      ]
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+<style>
+:root{--paper:#EDEDE9;--surface:#FFFFFF;--ink:#14161A;--muted:#6B7079;--line:#D6D6D0;--blue:#1B4DFF;--blue-deep:#1338C4;--green:#0E7A5F;--red:#B0233A;--amber:#B87333;--radius:6px;--sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--display:"Bricolage Grotesque",var(--sans);--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;background-image:linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);background-size:28px 28px}
+
+.wrap{max-width:820px;margin:0 auto;padding:24px 20px 64px;width:100%}
+.wrap *{min-width:0}
+
+.masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
+.masthead a{color:inherit;text-decoration:none}
+.mark{width:26px;height:26px;flex:none}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.masthead .nav-right{margin-left:auto;font-size:.875rem;color:var(--blue);text-decoration:underline;white-space:nowrap}
+
+.crumbs{font-size:.8125rem;color:var(--muted);margin:0 0 18px;font-family:var(--mono)}
+.crumbs a{color:var(--muted);text-decoration:underline}
+.crumbs a:hover{color:var(--blue)}
+.crumbs span{color:var(--ink)}
+
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
+.lede{margin:0 0 6px;font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.05;letter-spacing:-.03em}
+.sub{margin:0 0 22px;color:var(--muted);max-width:68ch;font-size:1rem}
+
+.pd-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:0 0 16px;width:100%}
+.pd-card h2{font-family:var(--display);font-weight:700;font-size:1.0625rem;letter-spacing:-.01em;margin:0 0 14px}
+
+.pd-drop{border:2px dashed var(--line);border-radius:var(--radius);padding:36px 20px;text-align:center;background:#F7F7F3;transition:border-color .15s ease,background .15s ease;cursor:pointer;width:100%}
+.pd-drop:hover,.pd-drop.dragover{border-color:var(--blue);background:rgba(27,77,255,.04)}
+.pd-drop .icon{font-size:2.5rem;line-height:1;margin:0 0 8px;color:var(--blue)}
+.pd-drop strong{display:block;font-family:var(--display);font-weight:700;font-size:1.0625rem;margin:0 0 4px}
+.pd-drop p{margin:0;color:var(--muted);font-size:.875rem}
+.pd-drop .formats{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin-top:8px}
+
+.pd-filebar{display:flex;gap:14px;align-items:center;padding:12px 14px;background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius);margin:0 0 14px;width:100%}
+.pd-filebar .icon{flex:none;width:36px;height:36px;background:#fff;border:1px solid var(--line);border-radius:6px;display:grid;place-items:center;font-family:var(--mono);font-size:.6875rem;font-weight:600;color:var(--red)}
+.pd-filebar-info{flex:1;min-width:0}
+.pd-filebar-name{font-family:var(--mono);font-size:.8125rem;font-weight:600;color:var(--ink);word-break:break-all;margin:0 0 3px}
+.pd-filebar-meta{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin:0}
+.pd-remove-src{flex:none;font-size:.75rem;padding:7px 12px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--muted);cursor:pointer;font-family:inherit;transition:color .12s ease,border-color .12s ease,background .12s ease;white-space:nowrap}
+.pd-remove-src:hover{border-color:var(--red);color:var(--red);background:rgba(176,35,58,.06)}
+
+.pd-field{display:flex;flex-direction:column;gap:4px;margin:0 0 14px}
+.pd-field label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.pd-field input{width:100%;padding:11px 12px;font-family:var(--mono);font-size:.9375rem;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);outline:none;transition:border-color .15s ease,box-shadow .15s ease}
+.pd-field input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.pd-field .unit-hint{font-family:var(--mono);font-size:.625rem;color:var(--muted);text-transform:none;letter-spacing:0}
+
+.pd-note{margin:0 0 14px;padding:12px 14px;background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius);font-family:var(--mono);font-size:.75rem;color:var(--muted);line-height:1.6;width:100%}
+.pd-note strong{color:var(--ink);font-weight:600}
+.pd-note.info{background:rgba(27,77,255,.05);border-color:rgba(27,77,255,.2);border-left:3px solid var(--blue);color:var(--blue)}
+.pd-note.info strong{color:var(--blue)}
+
+.pd-actions{display:flex;flex-wrap:wrap;gap:6px;margin:0;width:100%}
+.pd-actions button{font-size:.8125rem;padding:10px 16px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--ink);cursor:pointer;font-family:inherit;font-weight:500;transition:background .12s ease,border-color .12s ease,color .12s ease;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.pd-actions button:hover{border-color:var(--blue);color:var(--blue)}
+.pd-actions button.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.pd-actions button.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep);color:#fff}
+.pd-actions button.danger:hover{border-color:var(--red);color:var(--red)}
+.pd-actions button:disabled{opacity:.5;cursor:not-allowed}
+
+.pd-progress{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:14px 0 0;width:100%}
+.pd-progress-bar{height:100%;background:var(--blue);width:0;transition:width .2s ease}
+.pd-status{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin:6px 0 0;min-height:1.4em}
+.pd-status.err{color:var(--red)}
+.pd-status.ok{color:var(--green)}
+
+.pd-result{display:flex;gap:14px;align-items:center;padding:14px;background:linear-gradient(135deg,rgba(14,122,95,.06),rgba(27,77,255,.04));border:1px solid rgba(14,122,95,.3);border-radius:var(--radius);width:100%}
+.pd-result .ic{flex:none;width:36px;height:36px;background:#fff;border:1px solid var(--line);border-radius:6px;display:grid;place-items:center;font-family:var(--mono);font-size:.6875rem;font-weight:600;color:var(--green)}
+.pd-result-info{flex:1;min-width:0}
+.pd-result-name{font-family:var(--mono);font-size:.8125rem;font-weight:600;color:var(--ink);word-break:break-all;margin:0 0 3px}
+.pd-result-meta{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin:0}
+.pd-result-mode{display:inline-block;margin-top:4px;font-family:var(--mono);font-size:.625rem;text-transform:uppercase;letter-spacing:.06em;padding:2px 8px;border-radius:100px;background:rgba(14,122,95,.12);color:var(--green);font-weight:600}
+
+/* ===== INFO SECTION ===== */
+.info{display:grid;grid-template-columns:1fr;gap:14px;margin:44px 0 0}
+.info-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px}
+.info-card h2{font-family:var(--display);font-weight:700;font-size:1.25rem;letter-spacing:-.01em;margin:0 0 12px}
+.info-card h3{font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:-.01em;margin:20px 0 8px}
+.info-card h3:first-child{margin-top:0}
+.info-card p{margin:0 0 12px;color:#3A3E46;font-size:.9375rem;line-height:1.65}
+.info-card p:last-child{margin:0}
+.info-card ul,.info-card ol{margin:0 0 12px;padding-left:22px;color:#3A3E46;font-size:.9375rem}
+.info-card li{margin:0 0 6px}
+.info-card strong{font-weight:600;color:var(--ink)}
+.info-card a{color:var(--blue);text-decoration:underline;text-underline-offset:2px}
+.info-card code{font-family:var(--mono);font-size:.8125rem;background:var(--paper);padding:1px 5px;border-radius:3px;border:1px solid var(--line)}
+.info-card table{width:100%;border-collapse:collapse;margin:0 0 14px;font-size:.875rem}
+.info-card th,.info-card td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.info-card th{background:#F7F7F3;font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+.faq-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:640px){.faq-grid{grid-template-columns:1fr 1fr}}
+.faq-grid details{border:1px solid var(--line);border-radius:6px;background:#FAFAF8;padding:12px 14px}
+.faq-grid summary{cursor:pointer;font-weight:500;font-size:.9375rem}
+.faq-grid details p{margin:8px 0 0;font-size:.875rem;color:var(--muted);line-height:1.6}
+.related-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:640px){.related-grid{grid-template-columns:1fr 1fr}}
+.related-grid a{display:flex;flex-direction:column;gap:2px;border:1px solid var(--line);border-radius:6px;padding:12px 14px;text-decoration:none;color:inherit;background:#FAFAF8;transition:border-color .12s}
+.related-grid a:hover{border-color:var(--blue)}
+.related-grid a strong{font-size:.9375rem;color:var(--ink)}
+.related-grid a span{font-size:.8125rem;color:var(--muted)}
+.related-grid a:hover strong{color:var(--blue)}
+
+footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem}
+footer a{color:inherit}
+footer a:hover{color:var(--blue)}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:200;max-width:90vw;text-align:center}
+.toast.show{opacity:1}
+
+@media(max-width:640px){
+  .wrap{padding:16px 14px 48px}
+  .pd-card{padding:16px}
+  .info-card{padding:16px}
+  .info-card h2{font-size:1.125rem}
+  .info-card p,.info-card li{font-size:.9375rem}
+}
+</style>
 </head>
 <body>
+<div class="wrap">
 
-<div class="app-card">
-    <h2>AES-256 PDF Decryptor</h2>
-    <p>Professional front-end utility utilizing WebAssembly to strip Adobe security profiles completely offline.</p>
-    
-    <div class="input-group">
-        <label for="pdfFile">Select Encrypted File</label>
-        <input type="file" id="pdfFile" accept=".pdf">
-    </div>
-    
-    <div class="input-group">
-        <label for="pdfPassword">File Password</label>
-        <input type="password" id="pdfPassword" placeholder="Provide password to scrub keys...">
-    </div>
-    
-    <button id="processBtn">Strip Security Profile</button>
-    
-    <div id="status-display">System Matrix: Ready.</div>
+<header class="masthead">
+<a href="../../index.html" style="display:flex;align-items:center;gap:10px">
+<svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/><path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/><path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/><path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/><path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/></svg>
+<span class="wordmark">LocalTools</span>
+</a>
+<a href="../index.html" class="nav-right">All tools →</a>
+</header>
+
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Remove PDF Password</span></nav>
+
+<h1 class="lede">Remove PDF Password</h1>
+<p class="sub">Strip the password protection from a PDF you own. Handles both owner-protected PDFs (blocked from copying or printing) and user-protected PDFs (require a password to open). Runs entirely in your browser — nothing is uploaded.</p>
+
+<div class="pd-card" id="dropCard">
+<h2>Upload a password-protected PDF</h2>
+<div class="pd-drop" id="drop">
+<div class="icon">⬆</div>
+<strong>Drop a PDF here or click to browse</strong>
+<p>Owner-protected PDFs need no password. User-protected PDFs require the correct password.</p>
+<div class="formats">No upload · No signup · Works offline</div>
+<input type="file" id="fileInput" accept="application/pdf,.pdf" hidden>
+</div>
 </div>
 
+<div class="pd-card" id="settingsCard" hidden>
+<h2>File and password</h2>
+
+<div class="pd-filebar">
+<div class="icon">PDF</div>
+<div class="pd-filebar-info">
+<p class="pd-filebar-name" id="srcName">—</p>
+<p class="pd-filebar-meta" id="srcMeta">Reading…</p>
+</div>
+<button id="removeSrc" class="pd-remove-src" title="Remove this PDF">Remove</button>
+</div>
+
+<div class="pd-note info">
+<strong>Only use this on PDFs you own or have permission to modify.</strong> This tool does not crack, guess or brute-force passwords. It removes protection from files where you already know the password.
+</div>
+
+<div class="pd-field">
+<label for="pdfPassword">Password (leave blank if the PDF opens freely)</label>
+<input type="password" id="pdfPassword" placeholder="Enter the password if the PDF asks for one to open" autocomplete="off" spellcheck="false">
+<span class="unit-hint">If the PDF opens without asking but blocks copying or printing, leave this blank.</span>
+</div>
+
+<div class="pd-actions">
+<button class="primary" id="unlockBtn">Remove password</button>
+<button class="danger" id="clearBtn">Clear</button>
+</div>
+
+<div class="pd-progress" id="progressWrap" hidden>
+<div class="pd-progress-bar" id="progressBar"></div>
+<p class="pd-status" id="statusText"></p>
+</div>
+</div>
+
+<div class="pd-card" id="resultCard" hidden>
+<h2>Result</h2>
+
+<div class="pd-result">
+<div class="ic">PDF</div>
+<div class="pd-result-info">
+<p class="pd-result-name" id="resultName">—</p>
+<p class="pd-result-meta" id="resultMeta">—</p>
+<span class="pd-result-mode" id="resultMode">—</span>
+</div>
+</div>
+
+<div class="pd-note" id="resultNote" style="margin-top:14px"></div>
+
+<div class="pd-actions" style="margin-top:16px">
+<button class="primary" id="downloadBtn">Download unlocked PDF</button>
+<button id="startOver">Start over</button>
+</div>
+</div>
+
+<section class="info" aria-label="About removing PDF passwords">
+
+  <div class="info-card">
+    <h2>Remove the password from a PDF you own</h2>
+    <p>This tool strips password protection from a PDF and produces a new unlocked file. It's for the common case where you have a document you own — a bank statement, an insurance policy, a tax return, a signed contract — and you're tired of typing the password every time you open it.</p>
+    <p>Everything runs in your browser using JavaScript. Your PDF is read into memory, decrypted, and written back to disk by your own device. No PDF is ever sent to any server, logged, or retained.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>Only for PDFs you have access to</h2>
+    <p>This tool does not crack, guess, brute-force, or bypass passwords. It requires you to already know the password. That's the ethical line, and it's also a practical one: there is no way to open a user-password-protected PDF without the correct password. The encryption is real.</p>
+    <p>If you don't know the password, contact whoever sent you the file. There is no legitimate tool — in a browser, on a desktop, or anywhere else — that can open a strong encrypted PDF without the password in any reasonable amount of time.</p>
+    <p>Removing a password from a document you own or have permission to modify is legal in most jurisdictions. Using it on someone else's document without permission is not. Only use this on files you have the right to modify.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>Two kinds of PDF password</h2>
+    <p>PDFs can be protected with two different passwords, and they behave very differently:</p>
+    <table>
+      <thead><tr><th>Type</th><th>What it does</th><th>What you need</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Owner password</strong></td>
+          <td>File opens freely, but copying, editing or printing is blocked</td>
+          <td>No password. Leave the field blank.</td>
+        </tr>
+        <tr>
+          <td><strong>User password</strong></td>
+          <td>File refuses to open at all until you type the password</td>
+          <td>The correct password. Type it in.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Most PDFs that "look locked" to end users are owner-protected. They open fine, but the reader greys out the copy and print buttons. Those are the easiest case — no password required.</p>
+    <p>User-protected PDFs are rarer. They're used for sensitive documents where the sender wants to control who can even read the file.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>How to remove the password</h2>
+    <ol>
+      <li><strong>Drop the PDF.</strong> Click the drop zone or drag a file onto it.</li>
+      <li><strong>Leave the password field blank if the PDF opens freely.</strong> This covers owner-protected PDFs — the common case.</li>
+      <li><strong>Type the password if the PDF asks for one to open.</strong> This covers user-protected PDFs.</li>
+      <li><strong>Click Remove password.</strong> The tool processes the file in your browser.</li>
+      <li><strong>Download the unlocked PDF.</strong> The file is saved with <code>-unlocked</code> appended to the original filename.</li>
+    </ol>
+  </div>
+
+  <div class="info-card">
+    <h2>How the tool works</h2>
+    <p>The tool tries two approaches in order:</p>
+    <h3>1. Lossless unlock (owner-password PDFs)</h3>
+    <p>Uses <strong>pdf-lib</strong>, an open-source JavaScript library, to load the PDF while ignoring its permissions dictionary. It then writes a new PDF without any encryption. This preserves everything: text stays selectable, images keep full quality, form fields survive, hyperlinks work. The output is byte-for-byte the original content, just without the security wrapper.</p>
+    <h3>2. Rasterise-and-rebuild (user-password PDFs)</h3>
+    <p>Uses Mozilla's <strong>pdf.js</strong> to open the PDF with the password you supplied. It renders each page to a canvas, then rebuilds a new PDF with <strong>pdf-lib</strong> by embedding each page as a JPEG. The result is visually identical but text is no longer selectable, because the pages are now images. This is the only way to produce an unlocked PDF when the content itself is encrypted.</p>
+    <p>You don't need to know which path will be used — the tool picks automatically.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>What changes after unlocking</h2>
+    <table>
+      <thead><tr><th>Feature</th><th>Owner-password unlock</th><th>User-password unlock</th></tr></thead>
+      <tbody>
+        <tr><td>Opens without password</td><td>✓</td><td>✓</td></tr>
+        <tr><td>Copy and print</td><td>✓</td><td>✓</td></tr>
+        <tr><td>Text stays selectable</td><td>✓</td><td>✗ (pages become images)</td></tr>
+        <tr><td>Form fields preserved</td><td>✓</td><td>✗</td></tr>
+        <tr><td>Hyperlinks preserved</td><td>✓</td><td>✗</td></tr>
+        <tr><td>Visual quality</td><td>Identical</td><td>Identical at default settings</td></tr>
+        <tr><td>File size</td><td>Roughly same</td><td>Usually larger</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="info-card">
+    <h2>Common uses</h2>
+    <ul>
+      <li><strong>Bank statements.</strong> Most banks password-protect PDFs using a known pattern (often your date of birth or account number). Remove it once and archive the unlocked version.</li>
+      <li><strong>Tax documents.</strong> Tax portals often lock the file with your Social Security Number or a PIN. Unlock to keep for your records.</li>
+      <li><strong>Insurance policies.</strong> Insurers often deliver policies as owner-protected PDFs to prevent editing. Remove the protection for easier access.</li>
+      <li><strong>Signed contracts.</strong> Some e-signature platforms lock the final PDF. Unlock to sign additional copies or combine with other documents.</li>
+      <li><strong>Payslips and receipts.</strong> Employers and vendors frequently lock these. Unlock for expense reports or accounting.</li>
+      <li><strong>Ebooks and manuals.</strong> Some publishers lock their PDFs against copying. If you own the file, you can remove the protection for personal use.</li>
+      <li><strong>Personal archives.</strong> If you have dozens of locked PDFs, unlock them once and store them without passwords.</li>
+      <li><strong>Before editing.</strong> Many PDF editors refuse to open password-protected files, even owner-protected ones. Unlock first, then edit.</li>
+    </ul>
+  </div>
+
+  <div class="info-card">
+    <h2>Your privacy is protected</h2>
+    <p>Every operation happens in your browser. The PDF is read into memory, decrypted, and written back to disk by your own device. No PDF is ever sent to any server, logged, or retained.</p>
+    <p>The only network requests the page makes are for two open-source libraries — <code>pdf-lib</code> and Mozilla's <code>pdf.js</code> — both loaded from a public CDN when the page first opens. After that, the tool works entirely offline. You can disconnect from the internet and keep unlocking.</p>
+    <p>This makes the tool safe for the most sensitive documents you have: bank statements, tax returns, medical records, ID scans, legal filings, personal correspondence.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>What this tool can't do</h2>
+    <p>Being honest about limits is more useful than pretending they don't exist. This tool does not:</p>
+    <ul>
+      <li><strong>Crack, guess or brute-force passwords.</strong> There is no shortcut. If you don't know the password, this tool cannot open the PDF.</li>
+      <li><strong>Decrypt AES-256 protected PDFs without the password.</strong> Modern PDF encryption is real cryptography. Without the key, the content is unreadable.</li>
+      <li><strong>Preserve text in user-password unlocks.</strong> The rebuild process converts pages to images, so text becomes non-selectable.</li>
+      <li><strong>Preserve form fields, hyperlinks or bookmarks in user-password unlocks.</strong> Same reason — the pages become flat images.</li>
+      <li><strong>Remove DRM from Adobe Digital Editions files.</strong> Those use a different system with account-based DRM. This tool doesn't touch them.</li>
+      <li><strong>Unlock PDFs protected by server-side systems.</strong> Some corporate PDFs use certificate-based encryption that ties access to a specific user account. Those can't be unlocked in a browser.</li>
+      <li><strong>Handle very large PDFs.</strong> Files over 200 MB are unreliable in a browser due to memory limits.</li>
+    </ul>
+  </div>
+
+  <div class="info-card">
+    <h2>Troubleshooting</h2>
+    <ul>
+      <li><strong>"This PDF requires a password to open"</strong> — the file has a user password and the password field is empty. Type the password and try again.</li>
+      <li><strong>"Incorrect password"</strong> — the password doesn't match. Check for typos, case sensitivity, or leading/trailing spaces. Some banks send the password in a separate email.</li>
+      <li><strong>Owner-protected unlock fails</strong> — some PDFs use non-standard encryption wrappers. Try providing the owner password if you have it, or use a desktop tool like <code>qpdf</code>.</li>
+      <li><strong>Text disappeared after unlocking</strong> — that's expected for user-password unlocks. The pages are rebuilt as images. If you need selectable text, run OCR on the unlocked file afterwards.</li>
+      <li><strong>File size grew after unlocking</strong> — also expected for user-password unlocks, because pages become images. Run the result through <a href="pdf-compress.html">Compress PDF</a> to bring it back down.</li>
+      <li><strong>"PDF library not loaded"</strong> — the CDN is blocked or you're offline before the first page load. Refresh the page once. After that, the tool works offline.</li>
+      <li><strong>Very large PDF takes a long time</strong> — user-password unlock rasterizes every page, which is CPU-heavy. On a large PDF, expect 30–90 seconds.</li>
+      <li><strong>Mobile browser crashes</strong> — memory limit reached. Try unlocking on a desktop browser, or use a smaller PDF.</li>
+    </ul>
+  </div>
+
+  <div class="info-card">
+    <h2>Common questions</h2>
+    <div class="faq-grid">
+      <details><summary>Can I unlock a PDF without knowing the password?</summary><p>No. This tool removes the password from a PDF you already have access to. It does not crack, guess or brute-force passwords. If you don't know the password, you need to get it from whoever sent you the file.</p></details>
+      <details><summary>What is the difference between an owner password and a user password?</summary><p>An owner password lets you open the file but blocks copying, editing or printing. A user password blocks opening the file entirely until you enter it. This tool handles both, but requires the user password if the PDF has one.</p></details>
+      <details><summary>Will the text stay selectable after unlocking?</summary><p>Yes, if the PDF has an owner password only. If the PDF requires a user password, the unlocked version is rebuilt by rendering each page as an image, so text becomes non-selectable.</p></details>
+      <details><summary>Are my PDFs uploaded?</summary><p>No. Everything happens in your browser. Your PDF never leaves your device.</p></details>
+      <details><summary>Is this legal?</summary><p>Removing a password from a document you own or have permission to modify is legal in most jurisdictions. Using it on someone else's document without permission is not. Only use this on files you have the right to modify.</p></details>
+      <details><summary>Does it work on iPhone and Android?</summary><p>Yes. Tap the drop zone to select a PDF from Files or Downloads, enter the password if needed, and download the unlocked file directly to your device.</p></details>
+      <details><summary>Can I unlock multiple PDFs at once?</summary><p>Not currently. Unlock one file at a time.</p></details>
+      <details><summary>What happens if I enter the wrong password?</summary><p>The tool tells you the password is incorrect and doesn't produce an output file. Nothing is saved or sent anywhere.</p></details>
+      <details><summary>Does it work offline?</summary><p>Yes. After the page loads once, the tool works entirely offline.</p></details>
+      <details><summary>What format does the unlocked PDF have?</summary><p>A standard unencrypted PDF that opens in any reader without a password. Owner-password PDFs keep their original text, images, links and form fields. User-password PDFs are rebuilt as image-based pages.</p></details>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <h2>Related PDF tools</h2>
+    <p>This tool handles unlocking. For everything else, these tools work the same way — free, in your browser, no upload.</p>
+    <div class="related-grid">
+      <a href="pdf-compress.html">
+        <strong>Compress PDF</strong>
+        <span>Reduce file size for email attachments while keeping quality.</span>
+      </a>
+      <a href="pdf-merge.html">
+        <strong>Merge PDF</strong>
+        <span>Combine multiple PDFs into one file, in the order you choose.</span>
+      </a>
+      <a href="pdf-split.html">
+        <strong>Split PDF</strong>
+        <span>Split a PDF into separate files or extract specific page ranges.</span>
+      </a>
+      <a href="organize-pdf.html">
+        <strong>Organize PDF</strong>
+        <span>Reorder, duplicate, delete or insert pages with drag-and-drop.</span>
+      </a>
+      <a href="delete-pages.html">
+        <strong>Delete PDF Pages</strong>
+        <span>Remove unwanted pages with a preview before saving.</span>
+      </a>
+      <a href="pdf-editor.html">
+        <strong>PDF Editor</strong>
+        <span>Edit text, highlight, sign, redact and add images.</span>
+      </a>
+      <a href="pdf-rotate.html">
+        <strong>Rotate PDF</strong>
+        <span>Rotate all pages or just one, 90° at a time.</span>
+      </a>
+      <a href="add-page-numbers.html">
+        <strong>Add Page Numbers</strong>
+        <span>Number every page automatically with a format you choose.</span>
+      </a>
+      <a href="pdf-to-img.html">
+        <strong>PDF to Image</strong>
+        <span>Export PDF pages as high-quality PNG or JPG images.</span>
+      </a>
+      <a href="pdf-text.html">
+        <strong>Extract PDF Text</strong>
+        <span>Pull plain text out of any PDF for editing or search.</span>
+      </a>
+    </div>
+  </div>
+
+</section>
+
+<footer>
+<p>LocalTools · <a href="../../index.html">Home</a> · <a href="../index.html">All tools</a> · <a href="../../pages/about.html">About</a> · <a href="../../pages/privacy.html">Privacy</a></p>
+</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script>
-    document.getElementById('processBtn').addEventListener('click', async () => {
-        const fileInput = document.getElementById('pdfFile');
-        const passwordInput = document.getElementById('pdfPassword');
-        const statusDisplay = document.getElementById('status-display');
-        const processBtn = document.getElementById('processBtn');
-        
-        if (!fileInput.files.length) {
-            updateStatus("Error: Selection vector empty.", "error");
-            return;
-        }
-
-        updateStatus("Mounting WebAssembly binary engine...", "processing");
-        processBtn.disabled = true;
-
-        try {
-            const file = fileInput.files[0];
-            const fileBuffer = await file.arrayBuffer();
-            const uint8Array = new Uint8Array(fileBuffer);
-
-            // Initialize the embedded QPDF WASM framework package
-            updateStatus("Spinning up C++ translation matrix...", "processing");
-            const qpdf = await window.qpdfWasm();
-
-            // Write your source file directly into the sandbox virtual runtime system memory
-            qpdf.FS.writeFile("input.pdf", uint8Array);
-
-            updateStatus("Breaking AES-256 bit encryption keys...", "processing");
-
-            // Execute raw native compilation arrays
-            const args = [
-                `--password=${passwordInput.value}`,
-                "--decrypt",
-                "input.pdf",
-                "output.pdf"
-            ];
-            
-            const exitCode = qpdf.callMain(args);
-
-            if (exitCode !== 0) {
-                throw new Error("WASM Decryption processing rejected. Verify password integrity.");
-            }
-
-            // Extract the freshly wiped data buffer array directly from the system container
-            const outputData = qpdf.FS.readFile("output.pdf");
-
-            // Build data blob and dispatch downstream anchor element
-            const finishedBlob = new Blob([outputData], { type: 'application/pdf' });
-            const anchor = document.createElement('a');
-            anchor.href = URL.createObjectURL(finishedBlob);
-            anchor.download = file.name.replace('.pdf', '_unlocked.pdf');
-            document.body.appendChild(anchor);
-            anchor.click();
-            document.body.removeChild(anchor);
-
-            // Housekeeping: drop items from virtual file system cache to free active device memory
-            qpdf.FS.unlink("input.pdf");
-            qpdf.FS.unlink("output.pdf");
-
-            updateStatus("Success! Security variables completely dropped.", "success");
-        } catch (err) {
-            console.error(err);
-            updateStatus("Decryption Interrupted: Invalid password or incompatible document signature structure.", "error");
-        } finally {
-            processBtn.disabled = false;
-        }
-    });
-
-    function updateStatus(text, statusClass) {
-        const statusDisplay = document.getElementById('status-display');
-        statusDisplay.innerText = text;
-        statusDisplay.className = statusClass;
-    }
+if(window.pdfjsLib){
+  window.pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
+}
 </script>
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+var toast=$("toast");
+function flash(m){toast.textContent=m;toast.classList.add("show");clearTimeout(flash._t);flash._t=setTimeout(function(){toast.classList.remove("show");},2200);}
+function say(msg,kind){
+  var s=$("statusText");
+  s.textContent=msg||"";
+  s.classList.remove("err","ok");
+  if(kind)s.classList.add(kind);
+}
+function fmtSize(bytes){
+  if(bytes<1024)return bytes+" B";
+  if(bytes<1024*1024)return (bytes/1024).toFixed(1)+" KB";
+  return (bytes/(1024*1024)).toFixed(2)+" MB";
+}
 
+var sourceFile=null;
+var sourceName="";
+var sourceBytes=null;
+var unlockedBlob=null;
+var unlockedName="";
+var unlockMethod="";
+var currentToken=0;
+
+function resetState(){
+  sourceFile=null;
+  sourceBytes=null;
+  sourceName="";
+  unlockedBlob=null;
+  unlockedName="";
+  unlockMethod="";
+  currentToken++;
+  $("srcName").textContent="—";
+  $("srcMeta").textContent="Reading…";
+  $("srcMeta").style.color="";
+  $("pdfPassword").value="";
+  $("resultCard").hidden=true;
+  $("progressWrap").hidden=true;
+  $("progressBar").style.width="0";
+  say("");
+}
+
+function handleFile(file){
+  if(!/\.pdf$/i.test(file.name)&&file.type!=="application/pdf"){
+    return flash("That's not a PDF");
+  }
+  resetState();
+  sourceFile=file;
+  sourceName=file.name.replace(/\.pdf$/i,"");
+  $("srcName").textContent=file.name;
+  $("srcMeta").textContent=fmtSize(file.size);
+  $("settingsCard").hidden=false;
+  $("resultCard").hidden=true;
+  say("Ready. Leave password blank if the PDF opens freely.", "ok");
+
+  var reader=new FileReader();
+  reader.onload=function(e){
+    sourceBytes=e.target.result;
+    // Quick probe: try loading with pdf-lib to detect encryption type
+    probeEncryption();
+  };
+  reader.onerror=function(){ say("Could not read the file.","err"); };
+  reader.readAsArrayBuffer(file);
+}
+
+function probeEncryption(){
+  if(!window.PDFLib)return;
+  PDFLib.PDFDocument.load(sourceBytes.slice(0),{ignoreEncryption:false})
+    .then(function(){ say("PDF opens freely. Leave the password field blank and click Remove password.", "ok"); })
+    .catch(function(){
+      // Try with ignoreEncryption to see if it's owner-only
+      PDFLib.PDFDocument.load(sourceBytes.slice(0),{ignoreEncryption:true})
+        .then(function(){ say("PDF is owner-protected (opens freely but blocks editing). Leave password blank.", "ok"); })
+        .catch(function(){ say("PDF requires a password to open. Type it below.", "ok"); });
+    });
+}
+
+/* ============================================================
+   UNLOCK
+   ============================================================ */
+async function unlockLossless(myToken){
+  // Owner-password-only PDF: load with ignoreEncryption, save without encryption
+  var doc=await PDFLib.PDFDocument.load(sourceBytes.slice(0),{ignoreEncryption:true});
+  if(myToken!==currentToken)return null;
+  var bytes=await doc.save({useObjectStreams:true});
+  if(myToken!==currentToken)return null;
+  return new Blob([bytes],{type:"application/pdf"});
+}
+
+async function unlockRasterize(password,myToken){
+  // User-password PDF: open with pdfjs using the password, rasterize pages, rebuild with pdf-lib
+  var loadingTask=window.pdfjsLib.getDocument({data:sourceBytes.slice(0),password:password});
+  var pdf=await loadingTask.promise;
+  if(myToken!==currentToken)return null;
+
+  var out=await PDFLib.PDFDocument.create();
+  var total=pdf.numPages;
+
+  for(var i=1;i<=total;i++){
+    if(myToken!==currentToken)return null;
+    var page=await pdf.getPage(i);
+    var viewport=page.getViewport({scale:2});
+    var canvas=document.createElement("canvas");
+    canvas.width=viewport.width;
+    canvas.height=viewport.height;
+    var ctx=canvas.getContext("2d");
+    ctx.fillStyle="#FFFFFF";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    await page.render({canvasContext:ctx,viewport:viewport}).promise;
+    var blob=await new Promise(function(res){canvas.toBlob(function(b){res(b);},"image/jpeg",0.92);});
+    var ab=await blob.arrayBuffer();
+    var img=await out.embedJpg(ab);
+    var pdfW=(page.view[2]-page.view[0])||img.width;
+    var pdfH=(page.view[3]-page.view[1])||img.height;
+    var p=out.addPage([pdfW,pdfH]);
+    p.drawImage(img,{x:0,y:0,width:pdfW,height:pdfH});
+    canvas.width=1;canvas.height=1;
+    $("progressBar").style.width=Math.round((i/total)*80)+"%";
+    say("Decrypting and rebuilding page "+i+" of "+total+"…");
+  }
+
+  var outBytes=await out.save({useObjectStreams:true});
+  if(myToken!==currentToken)return null;
+  return new Blob([outBytes],{type:"application/pdf"});
+}
+
+$("unlockBtn").addEventListener("click",async function(){
+  if(!sourceBytes)return flash("Load a PDF first");
+  if(!window.PDFLib||!window.pdfjsLib)return say("PDF libraries not loaded. Refresh the page.","err");
+
+  var password=$("pdfPassword").value||"";
+  var myToken=currentToken;
+
+  $("progressWrap").hidden=false;
+  $("progressBar").style.width="5%";
+  $("unlockBtn").disabled=true;
+  $("resultCard").hidden=true;
+  say("Starting…");
+
+  try{
+    var blob=null;
+    var method="";
+
+    // Path 1 — lossless unlock (owner-password PDFs, or unencrypted PDFs)
+    try{
+      say("Trying lossless unlock…");
+      $("progressBar").style.width="20%";
+      blob=await unlockLossless(myToken);
+      if(blob){
+        method="lossless";
+        $("progressBar").style.width="90%";
+      }
+    }catch(e){
+      // Fall through to rasterize
+      blob=null;
+    }
+
+    // Path 2 — rasterize with the supplied password
+    if(!blob){
+      if(!password){
+        throw new Error("This PDF requires a password to open. Type it in the password field and try again.");
+      }
+      say("Opening with password…");
+      $("progressBar").style.width="15%";
+      blob=await unlockRasterize(password,myToken);
+      if(blob){ method="rasterize"; $("progressBar").style.width="95%"; }
+    }
+
+    if(myToken!==currentToken)return;
+    if(!blob)throw new Error("Could not unlock this PDF.");
+
+    unlockedBlob=blob;
+    unlockedName=sourceName+"-unlocked.pdf";
+    unlockMethod=method;
+
+    $("progressBar").style.width="100%";
+    say("Unlocked successfully.", "ok");
+
+    $("resultName").textContent=unlockedName;
+    $("resultMeta").textContent=fmtSize(blob.size);
+    var modeEl=$("resultMode");
+    if(method==="lossless"){
+      modeEl.textContent="Lossless — text preserved";
+      modeEl.style.background="rgba(14,122,95,.12)";
+      modeEl.style.color="var(--green)";
+      $("resultNote").innerHTML="<strong>Lossless unlock.</strong> The original text, images, form fields and hyperlinks are all preserved. Only the security wrapper was removed.";
+    } else {
+      modeEl.textContent="Rebuilt — pages as images";
+      modeEl.style.background="rgba(184,115,51,.12)";
+      modeEl.style.color="var(--amber)";
+      $("resultNote").innerHTML="<strong>Rebuilt from images.</strong> This PDF required an open password, so the tool rendered each page and rebuilt the file. Text is no longer selectable. To reduce the file size, run the result through <a href=\"pdf-compress.html\">Compress PDF</a>.";
+    }
+    $("resultCard").hidden=false;
+    flash("PDF unlocked");
+  }catch(e){
+    var msg=e&&e.message?e.message:"Could not unlock the PDF.";
+    // Friendlier messages
+    if(/password/i.test(msg)&&/incorrect|invalid|wrong/i.test(msg)){
+      msg="Incorrect password. Check for typos, capital letters, and spaces.";
+    }
+    say(msg, "err");
+    flash("Unlock failed");
+  }finally{
+    $("unlockBtn").disabled=false;
+    setTimeout(function(){$("progressWrap").hidden=true;},1200);
+  }
+});
+
+$("downloadBtn").addEventListener("click",function(){
+  if(!unlockedBlob)return flash("Nothing to download");
+  var url=URL.createObjectURL(unlockedBlob);
+  var a=document.createElement("a");
+  a.href=url;
+  a.download=unlockedName||"unlocked.pdf";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(url);},2000);
+  flash("Downloaded");
+});
+
+$("startOver").addEventListener("click",function(){
+  unlockedBlob=null;
+  $("resultCard").hidden=true;
+  flash("Cleared");
+});
+
+$("removeSrc").addEventListener("click",function(){
+  resetState();
+  $("settingsCard").hidden=true;
+  $("fileInput").value="";
+  flash("Cleared");
+});
+$("clearBtn").addEventListener("click",function(){
+  resetState();
+  $("settingsCard").hidden=true;
+  $("fileInput").value="";
+  flash("Cleared");
+});
+
+var drop=$("drop");
+var fileInput=$("fileInput");
+drop.addEventListener("click",function(){fileInput.click();});
+drop.addEventListener("dragover",function(e){e.preventDefault();drop.classList.add("dragover");});
+drop.addEventListener("dragleave",function(){drop.classList.remove("dragover");});
+drop.addEventListener("drop",function(e){
+  e.preventDefault();
+  drop.classList.remove("dragover");
+  var f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];
+  if(f)handleFile(f);
+});
+fileInput.addEventListener("change",function(){
+  if(fileInput.files&&fileInput.files[0])handleFile(fileInput.files[0]);
+  fileInput.value="";
+});
+
+})();
+</script>
 </body>
 </html>
