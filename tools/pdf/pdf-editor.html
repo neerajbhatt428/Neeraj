@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Free Online PDF Editor - Edit PDFs with ease</title>
-<meta name="description" content="Professional PDF editor in your browser. Click to edit text, highlight, draw, add images, sign, redact. Undo/redo, auto-save, zoom. Vector output with selectable text. Free, private, no upload.">
+<title>PDF Editor — Edit Text, Sign, Highlight, Redact in Browser | Free</title>
+<meta name="description" content="Free PDF editor that runs in your browser. Edit text, add signatures, highlight, draw, insert images, redact sensitive content. No upload, no watermark, no account. Original text stays selectable.">
 <link rel="canonical" href="https://localtools.co.in/tools/pdf/pdf-editor.html">
 <link rel="sitemap" type="application/xml" href="https://localtools.co.in/sitemap.xml">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -45,7 +45,30 @@
         {"@type":"Question","name":"Does the editor upload my PDF?","acceptedAnswer":{"@type":"Answer","text":"No. Your PDF is read, modified and re-saved entirely inside your browser."}},
         {"@type":"Question","name":"Will the original text stay selectable?","acceptedAnswer":{"@type":"Answer","text":"Yes. Original pages are copied into the output unchanged, so selectable text is preserved."}},
         {"@type":"Question","name":"Does it save my work if I close the tab?","acceptedAnswer":{"@type":"Answer","text":"Yes. The editor auto-saves to your browser every few seconds. Reopen the page and it offers to restore your previous session."}},
-        {"@type":"Question","name":"Can I undo a mistake?","acceptedAnswer":{"@type":"Answer","text":"Yes. Ctrl+Z undoes, Ctrl+Shift+Z redoes, up to 50 steps."}}
+        {"@type":"Question","name":"Can I undo a mistake?","acceptedAnswer":{"@type":"Answer","text":"Yes. Ctrl+Z undoes, Ctrl+Shift+Z redoes, up to 50 steps."}},
+        {"@type":"Question","name":"Can I edit text in a PDF for free?","acceptedAnswer":{"@type":"Answer","text":"Yes. This PDF editor is completely free, has no page limit, adds no watermarks, and does not require an account."}},
+        {"@type":"Question","name":"How do I add a signature to a PDF?","acceptedAnswer":{"@type":"Answer","text":"Click the Sign tool, draw your signature on the pad, then click anywhere on the PDF to place it. You can drag, resize and rotate the signature afterwards."}},
+        {"@type":"Question","name":"Is it safe to edit PDFs online?","acceptedAnswer":{"@type":"Answer","text":"Yes. This editor runs entirely in your browser using JavaScript. Your PDF is never uploaded to any server. You can even disconnect from the internet after the page loads and keep editing."}},
+        {"@type":"Question","name":"What is the difference between this editor and Adobe Acrobat?","acceptedAnswer":{"@type":"Answer","text":"This editor covers the most common PDF tasks — text editing, highlighting, annotations, signatures, redaction and image insertion — and runs free in your browser without uploading files. Acrobat offers advanced features like OCR, form creation and digital certificates, but requires installation or a subscription."}},
+        {"@type":"Question","name":"Can I fill out a PDF form?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use the Add text tool to type into form fields. For checkboxes, use the Rectangle tool with a transparent background, or place a small Text element containing an X or checkmark."}},
+        {"@type":"Question","name":"Does the editor work on iPhone and iPad?","acceptedAnswer":{"@type":"Answer","text":"Yes. It runs in Safari on iOS and Chrome on Android. Drawing, highlighting and text placement all work with touch."}},
+        {"@type":"Question","name":"Can I edit a scanned PDF?","acceptedAnswer":{"@type":"Answer","text":"A scanned PDF is an image, so its text cannot be clicked and edited directly. You can still highlight, draw, add text, insert images and sign scanned documents. To make the text editable you would need an OCR step first."}},
+        {"@type":"Question","name":"Will the original PDF formatting be preserved?","acceptedAnswer":{"@type":"Answer","text":"Yes. The original pages are copied byte-for-byte into the output. Only your annotations are added on top, so fonts, images, vector graphics and page dimensions stay exactly as they were."}}
+      ]
+    },
+    {
+      "@type":"HowTo",
+      "name":"How to edit a PDF in your browser",
+      "description":"Edit text, add annotations, sign and save a PDF entirely in the browser without uploading it.",
+      "totalTime":"PT3M",
+      "tool":[{"@type":"HowToTool","name":"Modern web browser"}],
+      "step":[
+        {"@type":"HowToStep","name":"Open the PDF","text":"Drop a PDF onto the editor or click Choose PDF. The file is loaded into your browser only."},
+        {"@type":"HowToStep","name":"Pick a tool","text":"Click a tool in the toolbar. Each tool has a keyboard shortcut shown on hover."},
+        {"@type":"HowToStep","name":"Edit text","text":"Click the Edit text tool, then click any word or number in the PDF. Type the replacement and press Enter."},
+        {"@type":"HowToStep","name":"Add annotations","text":"Use Highlight, Rectangle, Arrow, Note or Redact to mark up the page. Drag to draw, or click to place a note."},
+        {"@type":"HowToStep","name":"Sign or insert an image","text":"Choose Sign to draw a signature, or Image to insert a picture. Click on the page to place it."},
+        {"@type":"HowToStep","name":"Save the edited PDF","text":"Click Save edited PDF. The file downloads with your changes baked in. Original text stays selectable."}
       ]
     }
   ]
@@ -567,7 +590,10 @@ textarea.inline-input{resize:none;white-space:pre;overflow:hidden;line-height:1.
 .info-card h2{font-family:var(--display);font-weight:700;font-size:1.125rem;letter-spacing:-.01em;margin:0 0 12px}
 .info-card ol,.info-card ul{margin:0;padding-left:20px}
 .info-card li{margin:0 0 6px;font-size:.9375rem}
-.info-card p{margin:0;font-size:.9375rem;color:#3A3E46}
+.info-card p{margin:0 0 10px;font-size:.9375rem;color:#3A3E46}
+.info-card p:last-child{margin:0}
+.info-card code{font-family:var(--mono);font-size:.8125rem;background:var(--paper);padding:1px 5px;border-radius:3px;border:1px solid var(--line)}
+.info-card a{color:var(--blue);text-decoration:underline;text-underline-offset:2px}
 .faq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:10px;align-items:start}
 .faq-grid details{border:1px solid var(--line);border-radius:6px;background:#FAFAF8;padding:12px 14px}
 .faq-grid summary{cursor:pointer;font-weight:500;font-size:.9375rem}
@@ -575,11 +601,11 @@ textarea.inline-input{resize:none;white-space:pre;overflow:hidden;line-height:1.
 .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px}
 .related-grid a{display:flex;flex-direction:column;gap:2px;border:1px solid var(--line);border-radius:6px;padding:12px 14px;text-decoration:none;color:inherit;background:#FAFAF8;transition:border-color .12s}
 .related-grid a:hover{border-color:var(--blue)}
+.related-grid a strong{font-size:.9375rem;color:var(--ink)}
 .related-grid a span{font-size:.8125rem;color:var(--muted)}
 footer{width:100%}
 
-/* Small placeholder when no PDF is loaded.
-   The tall height is only needed once a PDF is open. */
+/* Small placeholder when no PDF is loaded. */
 .viewer.empty{
   min-height:320px;
   max-height:none;
@@ -840,62 +866,180 @@ footer{width:100%}
   </div>
 
   <section class="info" aria-label="About the PDF editor">
+
+    <div class="info-card wide">
+      <h2>Edit any PDF — free, private, and right in your browser</h2>
+      <p>This PDF editor is a full-featured tool for editing PDF documents without uploading them anywhere. You can change text, highlight sections, add annotations, insert images, sign contracts, redact sensitive information, and save the result as a real PDF. Everything runs locally in your browser using JavaScript. Your file never leaves your device — not even for a millisecond.</p>
+      <p>Unlike most free online PDF editors that upload your document to a server, keep it for hours, and watermark the output, this editor works entirely on your own machine. That makes it safe for contracts, medical records, tax documents, bank statements, and anything else you wouldn't want sitting on someone else's server.</p>
+    </div>
+
     <div class="info-card">
-      <h2>How to use the PDF editor</h2>
+      <h2>How to edit a PDF in your browser</h2>
       <ol>
-        <li>Drop a PDF onto the viewer, or click <strong>Choose PDF</strong>.</li>
-        <li>Pick a tool from the toolbar. Hover any tool to see its shortcut key.</li>
-        <li><strong>Edit text</strong> — click any word or number, type the replacement, press Enter.</li>
-        <li><strong>Select</strong> — click any text (original or added) to move, resize or edit it.</li>
-        <li><strong>Highlight / Rect / Arrow / Redact</strong> — drag to draw.</li>
-        <li><strong>Image / Sign</strong> — pick the tool, then click on the page to place.</li>
-        <li><strong>Right-click</strong> any element for Delete, Duplicate, Copy, Bring to front.</li>
-        <li>Press <kbd class="kbd">?</kbd> at any time for the full keyboard shortcut list.</li>
-        <li>Click <strong>Save edited PDF</strong> to download.</li>
+        <li><strong>Open the file.</strong> Drop a PDF onto the viewer or click <strong>Choose PDF</strong>. The page renders in about a second, even for 100-page documents.</li>
+        <li><strong>Pick a tool.</strong> Click any tool in the toolbar. Hover to see its keyboard shortcut. The most useful ones: <strong>E</strong> to edit text, <strong>T</strong> to add text, <strong>H</strong> to highlight, <strong>R</strong> for rectangles, <strong>A</strong> for arrows.</li>
+        <li><strong>Edit text.</strong> Click <strong>Edit text</strong>, then click any word or number. The tool detects the original text, covers it with a background that matches the page, and lets you type a replacement in the same position, font and size. Press Enter to commit. Hold Shift while clicking to select the whole paragraph instead of just one line.</li>
+        <li><strong>Select and move anything.</strong> The <strong>Select</strong> tool lets you click any text (original or added) to move, resize or edit it. Original text is automatically promoted to a movable element when you click it.</li>
+        <li><strong>Highlight and annotate.</strong> Use <strong>Highlight</strong> for yellow marker strokes, <strong>Rectangle</strong> for boxes, <strong>Arrow</strong> to point at things, <strong>Note</strong> for sticky notes, and <strong>Redact</strong> to permanently cover sensitive content with a black rectangle.</li>
+        <li><strong>Sign and insert images.</strong> Click <strong>Sign</strong> to draw a signature with your mouse or finger. Click <strong>Image</strong> to insert a logo, stamp or photo. Click anywhere on the page to place it.</li>
+        <li><strong>Right-click anything</strong> for a context menu with Duplicate, Delete, Copy, Bring to front and Send to back.</li>
+        <li><strong>Save.</strong> Click <strong>Save edited PDF</strong>. Your original pages are copied byte-for-byte; your annotations are baked on top as vector content. The output downloads with a <code>-edited</code> suffix.</li>
       </ol>
     </div>
+
     <div class="info-card">
-      <h2>Built for real work</h2>
+      <h2>What makes this editor different</h2>
       <ul>
-        <li><strong>Undo/redo</strong> — 50 steps of history, Ctrl+Z / Ctrl+Shift+Z</li>
-        <li><strong>Auto-save</strong> — your edits are stored in your browser every few seconds</li>
-        <li><strong>Session restore</strong> — close the tab, reopen it, keep working</li>
-        <li><strong>Right-click menu</strong> — duplicate, delete, copy, bring to front</li>
-        <li><strong>Snap to text</strong> — text elements snap to nearby baselines when dragged</li>
-        <li><strong>Quick colors</strong> — one-click yellow/red/green/blue/black</li>
+        <li><strong>Everything is local.</strong> No uploads, no waiting for a server, no retention policies, no account.</li>
+        <li><strong>Real text editing.</strong> Click a word, retype it. Not a fake overlay — the tool detects the original text and places your replacement at the same coordinates with matching size and style.</li>
+        <li><strong>Vector output.</strong> The text you add is real text, not an image. It stays sharp at any zoom level, and it stays selectable and searchable in the saved PDF.</li>
+        <li><strong>50-step undo.</strong> Ctrl+Z goes back through every action: text edits, drawings, moves, resizes, deletions.</li>
+        <li><strong>Auto-save.</strong> Your work is saved to your browser every few seconds. Close the tab by accident, reopen the page, and you get offered to restore.</li>
+        <li><strong>Snap to text.</strong> When dragging a text element near an existing line, it snaps to the baseline so added text lines up cleanly.</li>
+        <li><strong>Keyboard-first.</strong> Every tool has a shortcut. Every action has a hotkey. Press <kbd class="kbd">?</kbd> for the full list.</li>
       </ul>
     </div>
-    <div class="info-card">
-      <h2>Your work is safe</h2>
-      <p>Every change is auto-saved to your browser's local storage. If you accidentally close the tab, or your computer crashes, reopen this page and you'll be offered to restore your last session. Nothing is ever uploaded.</p>
+
+    <div class="info-card wide">
+      <h2>What you can do with it</h2>
+      <div class="faq-grid">
+        <details><summary><strong>Fix a typo in a signed contract</strong></summary><p>Open the PDF, click Edit text, click the wrong word, type the correct one, press Enter. Save. The rest of the document is untouched — the layout, the signature, the page numbers, everything.</p></details>
+        <details><summary><strong>Fill out a form you received by email</strong></summary><p>Use Add text to type into the form fields. For checkboxes, draw a small Rectangle with a thin border, or place a Text element with an "X". Sign at the bottom with the Sign tool.</p></details>
+        <details><summary><strong>Redact a client's name before sharing a document</strong></summary><p>Click Redact, drag a black rectangle over the name, save. The rectangle is drawn as a solid black box in the output — it hides the text permanently at the visual layer.</p></details>
+        <details><summary><strong>Annotate a report for a colleague</strong></summary><p>Use Highlight for key figures, Rectangle to box important sections, Arrow to point at specific issues, and Note for comments in the margin. Save and send back.</p></details>
+        <details><summary><strong>Add a company logo to an invoice</strong></summary><p>Click Image, select your logo PNG, click where you want it. Drag the corner handles to resize. The image is embedded at full quality in the output.</p></details>
+        <details><summary><strong>Correct a scanned bank statement amount</strong></summary><p>Add a small white Rectangle over the wrong number, then use Add text to write the correct one on top. Choose the same font and size as the surrounding text for a seamless look.</p></details>
+      </div>
     </div>
+
+    <div class="info-card wide">
+      <h2>Keyboard shortcuts</h2>
+      <p style="margin:0 0 14px">Press <kbd class="kbd">?</kbd> in the editor at any time to see the full list. The essentials:</p>
+      <div class="faq-grid">
+        <details><summary>Tools</summary>
+          <p><kbd class="kbd">V</kbd> Select &nbsp; <kbd class="kbd">E</kbd> Edit text &nbsp; <kbd class="kbd">T</kbd> Add text &nbsp; <kbd class="kbd">H</kbd> Highlight &nbsp; <kbd class="kbd">R</kbd> Rectangle &nbsp; <kbd class="kbd">A</kbd> Arrow &nbsp; <kbd class="kbd">N</kbd> Note &nbsp; <kbd class="kbd">X</kbd> Redact &nbsp; <kbd class="kbd">I</kbd> Image &nbsp; <kbd class="kbd">S</kbd> Sign</p>
+        </details>
+        <details><summary>Actions</summary>
+          <p><kbd class="kbd">Ctrl</kbd>+<kbd class="kbd">Z</kbd> Undo &nbsp; <kbd class="kbd">Ctrl</kbd>+<kbd class="kbd">Shift</kbd>+<kbd class="kbd">Z</kbd> Redo &nbsp; <kbd class="kbd">Ctrl</kbd>+<kbd class="kbd">C</kbd> Copy &nbsp; <kbd class="kbd">Ctrl</kbd>+<kbd class="kbd">V</kbd> Paste &nbsp; <kbd class="kbd">Ctrl</kbd>+<kbd class="kbd">D</kbd> Duplicate &nbsp; <kbd class="kbd">Del</kbd> Delete &nbsp; <kbd class="kbd">Esc</kbd> Deselect</p>
+        </details>
+        <details><summary>Zoom</summary>
+          <p><kbd class="kbd">Ctrl</kbd>+<kbd class="kbd">=</kbd> Zoom in &nbsp; <kbd class="kbd">Ctrl</kbd>+<kbd class="kbd">−</kbd> Zoom out &nbsp; <kbd class="kbd">Ctrl</kbd>+<kbd class="kbd">0</kbd> Fit to width &nbsp; <kbd class="kbd">Ctrl</kbd>+scroll Smooth zoom</p>
+        </details>
+        <details><summary>Selection</summary>
+          <p><kbd class="kbd">Shift</kbd>+click on original text: select the whole paragraph &nbsp; <kbd class="kbd">Alt</kbd>+click: pick any element while another tool is active &nbsp; Arrows: nudge by 1px &nbsp; <kbd class="kbd">Shift</kbd>+arrows: nudge by 10px</p>
+        </details>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h2>Your privacy is protected</h2>
+      <p>Every operation in this editor runs in your browser. The PDF is read using JavaScript, rendered to a canvas, modified in memory, and re-saved locally. It is never sent to any server, never logged, never retained.</p>
+      <p>The only network requests the page makes are for the two open-source libraries it depends on — <code>pdf.js</code> (Mozilla) and <code>pdf-lib</code> — which are loaded from a public CDN when the page first opens. After that, the editor works entirely offline. You can disconnect your internet after loading a PDF and keep working without any functionality loss.</p>
+      <p>Your edits auto-save to your browser's local storage every few seconds. This data stays on your device and is cleared when you click <strong>Close file</strong>. Nothing syncs to any account because there is no account.</p>
+    </div>
+
     <div class="info-card">
       <h2>Vector output — text stays sharp</h2>
-      <p>Original PDF pages are copied unchanged into the output, so the original text remains selectable and searchable. Your annotations are added as real vector content — infinitely sharp at any zoom, small file size.</p>
+      <p>When you save, the original PDF pages are copied byte-for-byte into the output. Fonts, images, vector graphics, embedded links and page metadata all carry through unchanged. Your edits are added on top as real PDF objects, not as a rasterised image of the page.</p>
+      <p>That means:</p>
+      <ul>
+        <li><strong>The original text stays selectable.</strong> Anyone opening your saved PDF can still click, copy and search the original text.</li>
+        <li><strong>Text you add is also selectable.</strong> It's drawn as a real PDF text object with a proper font embedded.</li>
+        <li><strong>The file stays small.</strong> Vector output typically adds only a few KB, even for complex pages.</li>
+        <li><strong>Zoom is infinite.</strong> Text looks identical at 50% or 500% — no pixelation.</li>
+      </ul>
     </div>
+
+    <div class="info-card wide">
+      <h2>What this editor can't do</h2>
+      <p style="margin:0 0 14px">Being honest about limitations is more useful than pretending they don't exist. This editor does not:</p>
+      <ul>
+        <li><strong>OCR scanned PDFs.</strong> If your PDF is a scanned image, its text isn't real text — it's pixels. You can still annotate, sign and stamp it, but you can't click a word and edit it. For OCR you'd need a separate tool first.</li>
+        <li><strong>Create fillable form fields.</strong> You can type over a form visually, but the underlying form structure (checkboxes that toggle, fields that validate) isn't added. For creating interactive forms from scratch, use Adobe Acrobat Pro or LibreOffice Writer.</li>
+        <li><strong>Apply digital signatures with certificates.</strong> You can draw and place a visual signature, which is what most people need for contracts and approvals. Cryptographically-signed PDFs with a certificate chain require a dedicated tool.</li>
+        <li><strong>Reorder or delete pages.</strong> Those are separate tools — see <a href="organize-pdf.html">Organize PDF</a> below for page operations.</li>
+        <li><strong>Compress the output.</strong> Because original pages are copied unchanged, the output size is close to the input. To reduce file size, use <a href="pdf-compress.html">Compress PDF</a> afterwards.</li>
+        <li><strong>Merge multiple PDFs.</strong> Use <a href="pdf-merge.html">Merge PDF</a> for that.</li>
+      </ul>
+    </div>
+
+    <div class="info-card wide">
+      <h2>Troubleshooting</h2>
+      <div class="faq-grid">
+        <details><summary><strong>Text jumps when I edit it</strong></summary><p>Original PDFs often embed text as many small fragments rather than whole sentences. When you click, the editor groups nearby fragments into lines or paragraphs and covers them. If the layout shifts, try holding Shift while clicking to select only the exact line you want.</p></details>
+        <details><summary><strong>A very large PDF is slow</strong></summary><p>Files over 50 MB render more slowly in the browser. Wait for the initial render to finish before starting to edit. Once rendered, editing is responsive because only your changes are processed — the original pages are cached.</p></details>
+        <details><summary><strong>My custom font renders as a plain font in the output</strong></summary><p>PDF saving only supports the three universal PDF font families — Helvetica, Times and Courier — because those are guaranteed to display correctly in every PDF reader. Custom fonts you type with in the editor will fall back to the closest of these three in the saved file.</p></details>
+        <details><summary><strong>The redaction box hides the text visually but the text is still in the file</strong></summary><p>Correct. This tool draws a black rectangle over the content — it doesn't remove the underlying text from the PDF data. For legal-grade redaction where the text must be physically removed, use a specialist tool like Adobe Acrobat Pro or qpdf. Use this tool's redaction for visual privacy in casual sharing, not for publishing sensitive legal documents.</p></details>
+        <details><summary><strong>My signature doesn't appear after clicking</strong></summary><p>You need to click <strong>Use signature</strong> in the pad after drawing, then click on the PDF where you want it. If you closed the pad without confirming, reopen it with the Sign tool.</p></details>
+      </div>
+    </div>
+
     <div class="info-card wide">
       <h2>Common questions</h2>
       <div class="faq-grid">
-        <details><summary>Can I edit existing text in the PDF?</summary><p>Yes. Click the Edit text tool, then click any word or number. The tool detects the original text, covers it, and draws your replacement in the same position and style.</p></details>
-        <details><summary>Does the editor upload my PDF?</summary><p>No. Your PDF is read, modified and re-saved entirely inside your browser.</p></details>
-        <details><summary>Will the original text stay selectable?</summary><p>Yes. Original pages are copied into the output unchanged, so selectable text is preserved.</p></details>
+        <details><summary>Can I edit existing text in the PDF?</summary><p>Yes. Click the <strong>Edit text</strong> tool, then click any word or number. The tool detects the original text, covers it, and draws your replacement in the same position and style. Press Enter to confirm.</p></details>
+        <details><summary>Does the editor upload my PDF?</summary><p>No. Your PDF is read, modified and re-saved entirely inside your browser. You can disconnect from the internet after the page loads and keep editing.</p></details>
+        <details><summary>Will the original text stay selectable?</summary><p>Yes. Original pages are copied into the output unchanged, so selectable text is preserved. Text you add is also real selectable text.</p></details>
         <details><summary>Does it save my work if I close the tab?</summary><p>Yes. The editor auto-saves to your browser every few seconds. Reopen the page and it offers to restore your previous session.</p></details>
         <details><summary>Can I undo a mistake?</summary><p>Yes. Ctrl+Z undoes, Ctrl+Shift+Z redoes, up to 50 steps.</p></details>
+        <details><summary>Can I edit text in a PDF for free?</summary><p>Yes. This editor is completely free, has no page limit, adds no watermarks, and requires no account.</p></details>
+        <details><summary>How do I add a signature to a PDF?</summary><p>Click the <strong>Sign</strong> tool, draw your signature on the pad, click <strong>Use signature</strong>, then click on the page where you want it. Drag to reposition, use the corner handles to resize.</p></details>
+        <details><summary>Is it safe to edit PDFs online?</summary><p>Yes with this editor, because nothing is uploaded. Your file stays on your device. Most other online PDF editors upload the file to their servers, which is why privacy-conscious users prefer browser-based tools.</p></details>
+        <details><summary>Does it work on iPhone and iPad?</summary><p>Yes. It runs in Safari on iOS and Chrome on Android. Touch drawing, highlighting and text placement all work.</p></details>
+        <details><summary>Can I edit a scanned PDF?</summary><p>A scanned PDF is an image, so its text isn't selectable. You can still highlight, draw, add text, insert images and sign scanned documents. To make the text editable you would need an OCR step first.</p></details>
+        <details><summary>What formats can I save?</summary><p>PDF only. The output is a standard PDF that opens in any reader — Adobe Acrobat, Preview, Chrome, Foxit, Edge, and so on.</p></details>
+        <details><summary>What is the maximum file size?</summary><p>There's no hard limit — it depends on your browser and available memory. Most browsers handle PDFs up to around 100–200 MB comfortably. Very large files render more slowly.</p></details>
       </div>
     </div>
+
     <div class="info-card wide">
-      <h2>Related tools</h2>
+      <h2>Related PDF tools</h2>
+      <p style="margin:0 0 14px">This editor handles text changes, annotations, signatures and redaction. For everything else, these tools work with the same PDF in the same way — free, in your browser, no upload.</p>
       <div class="related-grid">
-        <a href="pdf-merge.html"><strong>Merge PDF</strong><span>Combine multiple PDFs into one file.</span></a>
-        <a href="pdf-split.html"><strong>Split PDF</strong><span>Split into separate pages or ranges.</span></a>
-        <a href="pdf-numbers.html"><strong>Add Page Numbers</strong><span>Number every page automatically.</span></a>
+        <a href="pdf-merge.html">
+          <strong>Merge PDF</strong>
+          <span>Combine multiple PDFs into one file, in the order you choose.</span>
+        </a>
+        <a href="pdf-split.html">
+          <strong>Split PDF</strong>
+          <span>Break a large PDF into separate files or extract specific page ranges.</span>
+        </a>
+        <a href="pdf-compress.html">
+          <strong>Compress PDF</strong>
+          <span>Reduce file size for email attachments while keeping quality.</span>
+        </a>
+        <a href="pdf-rotate.html">
+          <strong>Rotate PDF</strong>
+          <span>Rotate all pages or just one, 90° at a time, and save.</span>
+        </a>
+        <a href="pdf-numbers.html">
+          <strong>Add Page Numbers</strong>
+          <span>Number every page automatically with a format you choose.</span>
+        </a>
+        <a href="organize-pdf.html">
+          <strong>Organize PDF</strong>
+          <span>Reorder, duplicate, delete or insert pages with a drag-and-drop editor.</span>
+        </a>
+        <a href="delete-pages.html">
+          <strong>Delete PDF Pages</strong>
+          <span>Remove unwanted pages with a full-page preview before saving.</span>
+        </a>
+        <a href="pdf-to-img.html">
+          <strong>PDF to Image</strong>
+          <span>Export PDF pages as high-quality PNG or JPG images.</span>
+        </a>
+        <a href="img-to-pdf.html">
+          <strong>Image to PDF</strong>
+          <span>Combine JPG, PNG or WebP images into a single PDF.</span>
+        </a>
       </div>
     </div>
+
   </section>
 
   <footer style="margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem">
     <p>
-      ToolNest ·
+      LocalTools ·
       <a href="../../index.html" style="color:inherit">Home</a> ·
       <a href="../index.html" style="color:inherit">All tools</a> ·
       <a href="../../pages/about.html" style="color:inherit">About</a> ·
@@ -1043,7 +1187,7 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
   var currentPage = 0;
   var activeTool = "select";
   var activeColor = "#000000";
-  var activeBg = "#FFFFFF";  // "" means transparent
+  var activeBg = "#FFFFFF";
   var activeFont = "Helvetica, Arial, sans-serif";
   var activeSize = 12;
   var selected = null;
@@ -1072,7 +1216,6 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
   ];
   var tourInterval = null;
 
-  // Clean up the removed Recent Files feature from older versions.
   try { localStorage.removeItem("pdfeditor.recent"); } catch (e){}
 
   function flash(msg){
@@ -1350,7 +1493,6 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
       }
     });
 
-    // Background color picker for new text and edit covers
     els.bgPicker.addEventListener("input", function(){
       activeBg = els.bgPicker.value;
       els.bgClearBtn.setAttribute("aria-pressed", "false");
@@ -3090,7 +3232,6 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
       if (tourStep >= tourSteps.length) endTour();
       else showTourStep();
     });
-    // Click the backdrop to dismiss
     els.tourBackdrop.addEventListener("click", endTour);
   }
   function maybeStartTour(){
@@ -3117,7 +3258,6 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
     } catch (e){}
   }
   function startTour(){
-    // Safety check — don't open the overlay if the toolbar isn't rendered
     if (!els.toolbar || els.toolbar.offsetWidth === 0){
       endTour();
       return;
