@@ -28,9 +28,9 @@
       "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
       "featureList":[
         "Remove password from PDFs you own",
-        "Handles owner-password PDFs losslessly",
+        "Handles owner-password PDFs",
         "Handles user-password PDFs with the correct password",
-        "Preserves text, images and layout",
+        "Preserves the original look and layout",
         "No upload, runs in browser",
         "No watermark, no signup",
         "Works on mobile",
@@ -63,14 +63,14 @@
       "mainEntity":[
         {"@type":"Question","name":"Can I unlock a PDF without knowing the password?","acceptedAnswer":{"@type":"Answer","text":"No. This tool removes the password from a PDF you already have access to. It does not crack, guess or brute-force passwords. If you don't know the password, you need to get it from whoever sent you the file."}},
         {"@type":"Question","name":"What is the difference between an owner password and a user password?","acceptedAnswer":{"@type":"Answer","text":"An owner password lets you open the file but blocks copying, editing or printing. A user password blocks opening the file entirely until you enter it. This tool handles both, but requires the user password if the PDF has one."}},
-        {"@type":"Question","name":"Will the text stay selectable after unlocking?","acceptedAnswer":{"@type":"Answer","text":"Yes, if the PDF has an owner password only. If the PDF requires a user password, the unlocked version is rebuilt by rendering each page as an image, so text becomes non-selectable."}},
+        {"@type":"Question","name":"Will the text stay selectable after unlocking?","acceptedAnswer":{"@type":"Answer","text":"No. This tool rebuilds encrypted PDFs by rendering every page as an image and assembling them into a new PDF. The output opens without a password and looks identical, but text is not selectable, and form fields or hyperlinks are not preserved."}},
         {"@type":"Question","name":"Are my PDFs uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. Everything happens in your browser. Your PDF never leaves your device."}},
         {"@type":"Question","name":"Is this legal?","acceptedAnswer":{"@type":"Answer","text":"Removing a password from a document you own or have permission to modify is legal in most jurisdictions. Using it on someone else's document without permission is not. Only use this on files you have the right to modify."}},
         {"@type":"Question","name":"Does it work on iPhone and Android?","acceptedAnswer":{"@type":"Answer","text":"Yes. Tap the drop zone to select a PDF from Files or Downloads, enter the password if needed, and download the unlocked file directly to your device."}},
         {"@type":"Question","name":"Can I unlock multiple PDFs at once?","acceptedAnswer":{"@type":"Answer","text":"Not currently. Unlock one file at a time."}},
-        {"@type":"Question","name":"What happens if I enter the wrong password?","acceptedAnswer":{"@type":"Answer","text":"The tool tells you the password is incorrect and doesn't produce an output file. Nothing is saved or sent anywhere."}},
+        {"@type":"Question","name":"What happens if I enter the wrong password?","acceptedAnswer":{"@type":"Answer","text":"The tool shows an incorrect password message and does not produce an output file."}},
         {"@type":"Question","name":"Does it work offline?","acceptedAnswer":{"@type":"Answer","text":"Yes. After the page loads once, the tool works entirely offline."}},
-        {"@type":"Question","name":"What formats does the unlocked PDF have?","acceptedAnswer":{"@type":"Answer","text":"A standard unencrypted PDF that opens in any reader without a password. Owner-password PDFs keep their original text, images, links and form fields. User-password PDFs are rebuilt as image-based pages."}}
+        {"@type":"Question","name":"What format does the unlocked PDF have?","acceptedAnswer":{"@type":"Answer","text":"A standard unencrypted PDF that opens in any reader without a password. Pages are rendered as images, so text is not selectable."}}
       ]
     }
   ]
@@ -134,6 +134,8 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .pd-note strong{color:var(--ink);font-weight:600}
 .pd-note.info{background:rgba(27,77,255,.05);border-color:rgba(27,77,255,.2);border-left:3px solid var(--blue);color:var(--blue)}
 .pd-note.info strong{color:var(--blue)}
+.pd-note.warn{background:rgba(184,115,51,.08);border-color:rgba(184,115,51,.3);border-left:3px solid var(--amber);color:#7A4A15}
+.pd-note.warn strong{color:#7A4A15}
 
 .pd-actions{display:flex;flex-wrap:wrap;gap:6px;margin:0;width:100%}
 .pd-actions button{font-size:.8125rem;padding:10px 16px;border-radius:100px;background:var(--surface);border:1px solid var(--line);color:var(--ink);cursor:pointer;font-family:inherit;font-weight:500;transition:background .12s ease,border-color .12s ease,color .12s ease;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
@@ -154,9 +156,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .pd-result-info{flex:1;min-width:0}
 .pd-result-name{font-family:var(--mono);font-size:.8125rem;font-weight:600;color:var(--ink);word-break:break-all;margin:0 0 3px}
 .pd-result-meta{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin:0}
-.pd-result-mode{display:inline-block;margin-top:4px;font-family:var(--mono);font-size:.625rem;text-transform:uppercase;letter-spacing:.06em;padding:2px 8px;border-radius:100px;background:rgba(14,122,95,.12);color:var(--green);font-weight:600}
 
-/* ===== INFO SECTION ===== */
 .info{display:grid;grid-template-columns:1fr;gap:14px;margin:44px 0 0}
 .info-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px}
 .info-card h2{font-family:var(--display);font-weight:700;font-size:1.25rem;letter-spacing:-.01em;margin:0 0 12px}
@@ -269,11 +269,10 @@ footer a:hover{color:var(--blue)}
 <div class="pd-result-info">
 <p class="pd-result-name" id="resultName">—</p>
 <p class="pd-result-meta" id="resultMeta">—</p>
-<span class="pd-result-mode" id="resultMode">—</span>
 </div>
 </div>
 
-<div class="pd-note" id="resultNote" style="margin-top:14px"></div>
+<div class="pd-note warn" id="resultNote" style="margin-top:14px"></div>
 
 <div class="pd-actions" style="margin-top:16px">
 <button class="primary" id="downloadBtn">Download unlocked PDF</button>
@@ -315,14 +314,13 @@ footer a:hover{color:var(--blue)}
       </tbody>
     </table>
     <p>Most PDFs that "look locked" to end users are owner-protected. They open fine, but the reader greys out the copy and print buttons. Those are the easiest case — no password required.</p>
-    <p>User-protected PDFs are rarer. They're used for sensitive documents where the sender wants to control who can even read the file.</p>
   </div>
 
   <div class="info-card">
     <h2>How to remove the password</h2>
     <ol>
       <li><strong>Drop the PDF.</strong> Click the drop zone or drag a file onto it.</li>
-      <li><strong>Leave the password field blank if the PDF opens freely.</strong> This covers owner-protected PDFs — the common case.</li>
+      <li><strong>Leave the password field blank if the PDF opens freely.</strong> This covers owner-protected PDFs.</li>
       <li><strong>Type the password if the PDF asks for one to open.</strong> This covers user-protected PDFs.</li>
       <li><strong>Click Remove password.</strong> The tool processes the file in your browser.</li>
       <li><strong>Download the unlocked PDF.</strong> The file is saved with <code>-unlocked</code> appended to the original filename.</li>
@@ -330,41 +328,35 @@ footer a:hover{color:var(--blue)}
   </div>
 
   <div class="info-card">
-    <h2>How the tool works</h2>
-    <p>The tool tries two approaches in order:</p>
-    <h3>1. Lossless unlock (owner-password PDFs)</h3>
-    <p>Uses <strong>pdf-lib</strong>, an open-source JavaScript library, to load the PDF while ignoring its permissions dictionary. It then writes a new PDF without any encryption. This preserves everything: text stays selectable, images keep full quality, form fields survive, hyperlinks work. The output is byte-for-byte the original content, just without the security wrapper.</p>
-    <h3>2. Rasterise-and-rebuild (user-password PDFs)</h3>
-    <p>Uses Mozilla's <strong>pdf.js</strong> to open the PDF with the password you supplied. It renders each page to a canvas, then rebuilds a new PDF with <strong>pdf-lib</strong> by embedding each page as a JPEG. The result is visually identical but text is no longer selectable, because the pages are now images. This is the only way to produce an unlocked PDF when the content itself is encrypted.</p>
-    <p>You don't need to know which path will be used — the tool picks automatically.</p>
+    <h2>How the tool actually works</h2>
+    <p>Here is the honest technical detail, because most online PDF unlockers hide it.</p>
+    <p>PDF encryption is real cryptography. The content streams inside a password-protected PDF are encrypted with a key derived from the password. To produce an unlocked PDF, the tool has to decrypt those streams first.</p>
+    <p><strong>The only library that can properly decrypt a PDF in a browser is Mozilla's <code>pdf.js</code></strong> — the same engine Firefox uses. It's a viewer, not an editor. It exposes decrypted page content through a rendering API but has no "export to PDF" method.</p>
+    <p>So the tool does this:</p>
+    <ol>
+      <li>Opens the PDF with <code>pdf.js</code>, using your password (or a blank password for owner-only PDFs).</li>
+      <li>Renders each page to a canvas at 2× scale for clarity.</li>
+      <li>Encodes each rendered page as a JPEG.</li>
+      <li>Assembles a new PDF with <code>pdf-lib</code> by embedding each JPEG at the original page dimensions.</li>
+      <li>Downloads the result — an unencrypted PDF that opens in any reader without a password.</li>
+    </ol>
+    <p><strong>What this means in practice:</strong> the visual output is identical to the original. But because pages are now images, text is not selectable, form fields are not editable, and hyperlinks don't work. That's the trade-off for a genuinely unencrypted output, and it's the same trade-off every browser-based unlocker makes.</p>
   </div>
 
   <div class="info-card">
-    <h2>What changes after unlocking</h2>
-    <table>
-      <thead><tr><th>Feature</th><th>Owner-password unlock</th><th>User-password unlock</th></tr></thead>
-      <tbody>
-        <tr><td>Opens without password</td><td>✓</td><td>✓</td></tr>
-        <tr><td>Copy and print</td><td>✓</td><td>✓</td></tr>
-        <tr><td>Text stays selectable</td><td>✓</td><td>✗ (pages become images)</td></tr>
-        <tr><td>Form fields preserved</td><td>✓</td><td>✗</td></tr>
-        <tr><td>Hyperlinks preserved</td><td>✓</td><td>✗</td></tr>
-        <tr><td>Visual quality</td><td>Identical</td><td>Identical at default settings</td></tr>
-        <tr><td>File size</td><td>Roughly same</td><td>Usually larger</td></tr>
-      </tbody>
-    </table>
+    <h2>Why the "lossless" claim doesn't exist for browsers</h2>
+    <p>Some online tools advertise "lossless unlock" — keeping text selectable while removing the password. That requires properly decrypting the PDF streams and re-encrypting them into a new file with no protection. That is possible on a server (with a library like qpdf or MuPDF running natively), but not in a browser with the current JavaScript library ecosystem.</p>
+    <p>If a browser-based tool claims lossless unlock of a user-password-protected PDF, it is either (a) running that step on a server, in which case your PDF is uploaded, or (b) misleading you and producing a broken file — the exact bug this version fixes. This tool chooses to be honest: rasterizing is the only reliable approach in a browser, and it's what the tool does.</p>
   </div>
 
   <div class="info-card">
     <h2>Common uses</h2>
     <ul>
-      <li><strong>Bank statements.</strong> Most banks password-protect PDFs using a known pattern (often your date of birth or account number). Remove it once and archive the unlocked version.</li>
+      <li><strong>Bank statements.</strong> Most banks password-protect PDFs using a known pattern. Remove it once and archive the unlocked version.</li>
       <li><strong>Tax documents.</strong> Tax portals often lock the file with your Social Security Number or a PIN. Unlock to keep for your records.</li>
       <li><strong>Insurance policies.</strong> Insurers often deliver policies as owner-protected PDFs to prevent editing. Remove the protection for easier access.</li>
       <li><strong>Signed contracts.</strong> Some e-signature platforms lock the final PDF. Unlock to sign additional copies or combine with other documents.</li>
       <li><strong>Payslips and receipts.</strong> Employers and vendors frequently lock these. Unlock for expense reports or accounting.</li>
-      <li><strong>Ebooks and manuals.</strong> Some publishers lock their PDFs against copying. If you own the file, you can remove the protection for personal use.</li>
-      <li><strong>Personal archives.</strong> If you have dozens of locked PDFs, unlock them once and store them without passwords.</li>
       <li><strong>Before editing.</strong> Many PDF editors refuse to open password-protected files, even owner-protected ones. Unlock first, then edit.</li>
     </ul>
   </div>
@@ -380,12 +372,11 @@ footer a:hover{color:var(--blue)}
     <h2>What this tool can't do</h2>
     <p>Being honest about limits is more useful than pretending they don't exist. This tool does not:</p>
     <ul>
-      <li><strong>Crack, guess or brute-force passwords.</strong> There is no shortcut. If you don't know the password, this tool cannot open the PDF.</li>
-      <li><strong>Decrypt AES-256 protected PDFs without the password.</strong> Modern PDF encryption is real cryptography. Without the key, the content is unreadable.</li>
-      <li><strong>Preserve text in user-password unlocks.</strong> The rebuild process converts pages to images, so text becomes non-selectable.</li>
-      <li><strong>Preserve form fields, hyperlinks or bookmarks in user-password unlocks.</strong> Same reason — the pages become flat images.</li>
+      <li><strong>Crack, guess or brute-force passwords.</strong> If you don't know the password, this tool cannot open the PDF.</li>
+      <li><strong>Preserve selectable text.</strong> The output is a new PDF where each page is an image. Text cannot be selected or searched. To recover text, run OCR on the unlocked file.</li>
+      <li><strong>Preserve form fields, hyperlinks or bookmarks.</strong> Same reason — the pages become images.</li>
       <li><strong>Remove DRM from Adobe Digital Editions files.</strong> Those use a different system with account-based DRM. This tool doesn't touch them.</li>
-      <li><strong>Unlock PDFs protected by server-side systems.</strong> Some corporate PDFs use certificate-based encryption that ties access to a specific user account. Those can't be unlocked in a browser.</li>
+      <li><strong>Unlock PDFs protected by certificate-based encryption.</strong> Some corporate PDFs tie access to a specific user account. Those can't be unlocked in a browser.</li>
       <li><strong>Handle very large PDFs.</strong> Files over 200 MB are unreliable in a browser due to memory limits.</li>
     </ul>
   </div>
@@ -393,13 +384,12 @@ footer a:hover{color:var(--blue)}
   <div class="info-card">
     <h2>Troubleshooting</h2>
     <ul>
-      <li><strong>"This PDF requires a password to open"</strong> — the file has a user password and the password field is empty. Type the password and try again.</li>
       <li><strong>"Incorrect password"</strong> — the password doesn't match. Check for typos, case sensitivity, or leading/trailing spaces. Some banks send the password in a separate email.</li>
-      <li><strong>Owner-protected unlock fails</strong> — some PDFs use non-standard encryption wrappers. Try providing the owner password if you have it, or use a desktop tool like <code>qpdf</code>.</li>
-      <li><strong>Text disappeared after unlocking</strong> — that's expected for user-password unlocks. The pages are rebuilt as images. If you need selectable text, run OCR on the unlocked file afterwards.</li>
-      <li><strong>File size grew after unlocking</strong> — also expected for user-password unlocks, because pages become images. Run the result through <a href="pdf-compress.html">Compress PDF</a> to bring it back down.</li>
+      <li><strong>"This PDF requires a password to open"</strong> — the file has a user password and the password field is empty. Type the password and try again.</li>
+      <li><strong>Unlock takes a long time</strong> — every page must be rendered and re-encoded. On a 100-page PDF, expect 30–90 seconds.</li>
+      <li><strong>File size grew after unlocking</strong> — expected, because pages become images. Run the result through <a href="pdf-compress.html">Compress PDF</a> to bring it back down.</li>
+      <li><strong>Text disappeared from the unlocked PDF</strong> — the visual content is preserved, but text is now part of a JPEG and cannot be selected. This is a deliberate trade-off for producing an unencrypted PDF in a browser.</li>
       <li><strong>"PDF library not loaded"</strong> — the CDN is blocked or you're offline before the first page load. Refresh the page once. After that, the tool works offline.</li>
-      <li><strong>Very large PDF takes a long time</strong> — user-password unlock rasterizes every page, which is CPU-heavy. On a large PDF, expect 30–90 seconds.</li>
       <li><strong>Mobile browser crashes</strong> — memory limit reached. Try unlocking on a desktop browser, or use a smaller PDF.</li>
     </ul>
   </div>
@@ -407,16 +397,16 @@ footer a:hover{color:var(--blue)}
   <div class="info-card">
     <h2>Common questions</h2>
     <div class="faq-grid">
-      <details><summary>Can I unlock a PDF without knowing the password?</summary><p>No. This tool removes the password from a PDF you already have access to. It does not crack, guess or brute-force passwords. If you don't know the password, you need to get it from whoever sent you the file.</p></details>
+      <details><summary>Can I unlock a PDF without knowing the password?</summary><p>No. This tool removes the password from a PDF you already have access to. It does not crack, guess or brute-force passwords.</p></details>
       <details><summary>What is the difference between an owner password and a user password?</summary><p>An owner password lets you open the file but blocks copying, editing or printing. A user password blocks opening the file entirely until you enter it. This tool handles both, but requires the user password if the PDF has one.</p></details>
-      <details><summary>Will the text stay selectable after unlocking?</summary><p>Yes, if the PDF has an owner password only. If the PDF requires a user password, the unlocked version is rebuilt by rendering each page as an image, so text becomes non-selectable.</p></details>
+      <details><summary>Will the text stay selectable after unlocking?</summary><p>No. This tool rebuilds encrypted PDFs by rendering every page as an image and assembling them into a new PDF. The output opens without a password and looks identical, but text is not selectable, and form fields or hyperlinks are not preserved.</p></details>
       <details><summary>Are my PDFs uploaded?</summary><p>No. Everything happens in your browser. Your PDF never leaves your device.</p></details>
       <details><summary>Is this legal?</summary><p>Removing a password from a document you own or have permission to modify is legal in most jurisdictions. Using it on someone else's document without permission is not. Only use this on files you have the right to modify.</p></details>
       <details><summary>Does it work on iPhone and Android?</summary><p>Yes. Tap the drop zone to select a PDF from Files or Downloads, enter the password if needed, and download the unlocked file directly to your device.</p></details>
       <details><summary>Can I unlock multiple PDFs at once?</summary><p>Not currently. Unlock one file at a time.</p></details>
-      <details><summary>What happens if I enter the wrong password?</summary><p>The tool tells you the password is incorrect and doesn't produce an output file. Nothing is saved or sent anywhere.</p></details>
+      <details><summary>What happens if I enter the wrong password?</summary><p>The tool shows an incorrect password message and does not produce an output file.</p></details>
       <details><summary>Does it work offline?</summary><p>Yes. After the page loads once, the tool works entirely offline.</p></details>
-      <details><summary>What format does the unlocked PDF have?</summary><p>A standard unencrypted PDF that opens in any reader without a password. Owner-password PDFs keep their original text, images, links and form fields. User-password PDFs are rebuilt as image-based pages.</p></details>
+      <details><summary>What format does the unlocked PDF have?</summary><p>A standard unencrypted PDF that opens in any reader without a password. Pages are rendered as images, so text is not selectable.</p></details>
     </div>
   </div>
 
@@ -504,7 +494,6 @@ var sourceName="";
 var sourceBytes=null;
 var unlockedBlob=null;
 var unlockedName="";
-var unlockMethod="";
 var currentToken=0;
 
 function resetState(){
@@ -513,7 +502,6 @@ function resetState(){
   sourceName="";
   unlockedBlob=null;
   unlockedName="";
-  unlockMethod="";
   currentToken++;
   $("srcName").textContent="—";
   $("srcMeta").textContent="Reading…";
@@ -536,45 +524,57 @@ function handleFile(file){
   $("srcMeta").textContent=fmtSize(file.size);
   $("settingsCard").hidden=false;
   $("resultCard").hidden=true;
-  say("Ready. Leave password blank if the PDF opens freely.", "ok");
 
   var reader=new FileReader();
   reader.onload=function(e){
     sourceBytes=e.target.result;
-    // Quick probe: try loading with pdf-lib to detect encryption type
-    probeEncryption();
+    probePdf();
   };
   reader.onerror=function(){ say("Could not read the file.","err"); };
   reader.readAsArrayBuffer(file);
 }
 
-function probeEncryption(){
-  if(!window.PDFLib)return;
+/* ============================================================
+   PROBE: figure out whether the PDF is encrypted and which type
+   ============================================================ */
+function probePdf(){
+  if(!window.pdfjsLib||!window.PDFLib){
+    say("PDF libraries not loaded. Refresh the page.","err");
+    return;
+  }
+
+  // Step 1: try pdf-lib with ignoreEncryption: false. If this succeeds,
+  // the PDF is NOT encrypted.
   PDFLib.PDFDocument.load(sourceBytes.slice(0),{ignoreEncryption:false})
-    .then(function(){ say("PDF opens freely. Leave the password field blank and click Remove password.", "ok"); })
+    .then(function(){
+      say("This PDF isn't password protected — nothing to unlock. You can open it directly.", "ok");
+      // Still allow the user to click through, in case they want to strip metadata
+    })
     .catch(function(){
-      // Try with ignoreEncryption to see if it's owner-only
-      PDFLib.PDFDocument.load(sourceBytes.slice(0),{ignoreEncryption:true})
-        .then(function(){ say("PDF is owner-protected (opens freely but blocks editing). Leave password blank.", "ok"); })
-        .catch(function(){ say("PDF requires a password to open. Type it below.", "ok"); });
+      // PDF is encrypted. Use pdfjs to figure out which kind.
+      var task=window.pdfjsLib.getDocument({data:sourceBytes.slice(0)});
+      task.promise
+        .then(function(){
+          say("Owner-protected PDF detected — opens freely but blocks copying. Leave the password blank and click Remove password.", "ok");
+        })
+        .catch(function(err){
+          if(err && err.name==="PasswordException"){
+            say("User-password protected. Type the password below to unlock.", "ok");
+          } else {
+            say("Could not read this PDF. It may be corrupted or use a non-standard format.", "err");
+          }
+        });
     });
 }
 
 /* ============================================================
-   UNLOCK
+   UNLOCK — always rasterize, since pdf-lib can't decrypt
    ============================================================ */
-async function unlockLossless(myToken){
-  // Owner-password-only PDF: load with ignoreEncryption, save without encryption
-  var doc=await PDFLib.PDFDocument.load(sourceBytes.slice(0),{ignoreEncryption:true});
-  if(myToken!==currentToken)return null;
-  var bytes=await doc.save({useObjectStreams:true});
-  if(myToken!==currentToken)return null;
-  return new Blob([bytes],{type:"application/pdf"});
-}
-
 async function unlockRasterize(password,myToken){
-  // User-password PDF: open with pdfjs using the password, rasterize pages, rebuild with pdf-lib
-  var loadingTask=window.pdfjsLib.getDocument({data:sourceBytes.slice(0),password:password});
+  var loadingTask=window.pdfjsLib.getDocument({
+    data:sourceBytes.slice(0),
+    password:password
+  });
   var pdf=await loadingTask.promise;
   if(myToken!==currentToken)return null;
 
@@ -583,25 +583,34 @@ async function unlockRasterize(password,myToken){
 
   for(var i=1;i<=total;i++){
     if(myToken!==currentToken)return null;
+
     var page=await pdf.getPage(i);
     var viewport=page.getViewport({scale:2});
+
     var canvas=document.createElement("canvas");
-    canvas.width=viewport.width;
-    canvas.height=viewport.height;
+    canvas.width=Math.round(viewport.width);
+    canvas.height=Math.round(viewport.height);
     var ctx=canvas.getContext("2d");
     ctx.fillStyle="#FFFFFF";
     ctx.fillRect(0,0,canvas.width,canvas.height);
+
     await page.render({canvasContext:ctx,viewport:viewport}).promise;
-    var blob=await new Promise(function(res){canvas.toBlob(function(b){res(b);},"image/jpeg",0.92);});
+
+    var blob=await new Promise(function(res){
+      canvas.toBlob(function(b){res(b);},"image/jpeg",0.92);
+    });
     var ab=await blob.arrayBuffer();
     var img=await out.embedJpg(ab);
+
     var pdfW=(page.view[2]-page.view[0])||img.width;
     var pdfH=(page.view[3]-page.view[1])||img.height;
     var p=out.addPage([pdfW,pdfH]);
     p.drawImage(img,{x:0,y:0,width:pdfW,height:pdfH});
+
     canvas.width=1;canvas.height=1;
-    $("progressBar").style.width=Math.round((i/total)*80)+"%";
-    say("Decrypting and rebuilding page "+i+" of "+total+"…");
+
+    $("progressBar").style.width=Math.round((i/total)*90)+"%";
+    say("Unlocking page "+i+" of "+total+"…");
   }
 
   var outBytes=await out.save({useObjectStreams:true});
@@ -620,68 +629,42 @@ $("unlockBtn").addEventListener("click",async function(){
   $("progressBar").style.width="5%";
   $("unlockBtn").disabled=true;
   $("resultCard").hidden=true;
-  say("Starting…");
+  say("Opening PDF…");
 
   try{
-    var blob=null;
-    var method="";
-
-    // Path 1 — lossless unlock (owner-password PDFs, or unencrypted PDFs)
-    try{
-      say("Trying lossless unlock…");
-      $("progressBar").style.width="20%";
-      blob=await unlockLossless(myToken);
-      if(blob){
-        method="lossless";
-        $("progressBar").style.width="90%";
-      }
-    }catch(e){
-      // Fall through to rasterize
-      blob=null;
-    }
-
-    // Path 2 — rasterize with the supplied password
-    if(!blob){
-      if(!password){
-        throw new Error("This PDF requires a password to open. Type it in the password field and try again.");
-      }
-      say("Opening with password…");
-      $("progressBar").style.width="15%";
-      blob=await unlockRasterize(password,myToken);
-      if(blob){ method="rasterize"; $("progressBar").style.width="95%"; }
-    }
-
+    var blob=await unlockRasterize(password,myToken);
     if(myToken!==currentToken)return;
-    if(!blob)throw new Error("Could not unlock this PDF.");
+    if(!blob)throw new Error("Could not produce an output file.");
 
     unlockedBlob=blob;
     unlockedName=sourceName+"-unlocked.pdf";
-    unlockMethod=method;
 
     $("progressBar").style.width="100%";
     say("Unlocked successfully.", "ok");
 
     $("resultName").textContent=unlockedName;
     $("resultMeta").textContent=fmtSize(blob.size);
-    var modeEl=$("resultMode");
-    if(method==="lossless"){
-      modeEl.textContent="Lossless — text preserved";
-      modeEl.style.background="rgba(14,122,95,.12)";
-      modeEl.style.color="var(--green)";
-      $("resultNote").innerHTML="<strong>Lossless unlock.</strong> The original text, images, form fields and hyperlinks are all preserved. Only the security wrapper was removed.";
-    } else {
-      modeEl.textContent="Rebuilt — pages as images";
-      modeEl.style.background="rgba(184,115,51,.12)";
-      modeEl.style.color="var(--amber)";
-      $("resultNote").innerHTML="<strong>Rebuilt from images.</strong> This PDF required an open password, so the tool rendered each page and rebuilt the file. Text is no longer selectable. To reduce the file size, run the result through <a href=\"pdf-compress.html\">Compress PDF</a>.";
-    }
+
+    $("resultNote").innerHTML =
+      "<strong>Note about quality:</strong> the unlocked PDF looks identical to the original, " +
+      "but pages are rebuilt as images — text is not selectable, and form fields or hyperlinks " +
+      "are not preserved. This is the trade-off for producing an unencrypted PDF entirely in " +
+      "your browser without uploading the file. If the output is larger than you'd like, run it " +
+      "through <a href=\"pdf-compress.html\">Compress PDF</a>.";
+
     $("resultCard").hidden=false;
     flash("PDF unlocked");
   }catch(e){
     var msg=e&&e.message?e.message:"Could not unlock the PDF.";
-    // Friendlier messages
-    if(/password/i.test(msg)&&/incorrect|invalid|wrong/i.test(msg)){
-      msg="Incorrect password. Check for typos, capital letters, and spaces.";
+    var name=e&&e.name?e.name:"";
+    if(name==="PasswordException" || /password/i.test(msg)){
+      if(/incorrect|invalid|wrong/i.test(msg)){
+        msg="Incorrect password. Check for typos, capital letters and leading/trailing spaces.";
+      } else if(!password){
+        msg="This PDF requires a password to open. Type it in the password field and try again.";
+      } else {
+        msg="The password was rejected. Check for typos, capital letters and leading/trailing spaces.";
+      }
     }
     say(msg, "err");
     flash("Unlock failed");
