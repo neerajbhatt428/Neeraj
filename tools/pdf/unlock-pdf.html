@@ -37,6 +37,7 @@
         "Handles owner-password PDFs without any password",
         "Handles user-password PDFs with the correct password",
         "Output file size stays close to the original",
+        "Wrong-password detection with animated feedback",
         "Rasterise fallback for unusual PDFs",
         "No upload, runs in browser",
         "No watermark, no signup",
@@ -76,7 +77,7 @@
         {"@type":"Question","name":"Are my PDFs uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. Everything happens in your browser. Your PDF never leaves your device."}},
         {"@type":"Question","name":"Is this legal?","acceptedAnswer":{"@type":"Answer","text":"Removing a password from a document you own or have permission to modify is legal in most jurisdictions. Using it on someone else's document without permission is not. Only use this on files you have the right to modify."}},
         {"@type":"Question","name":"Does it work on iPhone and Android?","acceptedAnswer":{"@type":"Answer","text":"Yes. Tap the drop zone to select a PDF from Files or Downloads, enter the password if needed, and download the unlocked file directly to your device."}},
-        {"@type":"Question","name":"What happens if I enter the wrong password?","acceptedAnswer":{"@type":"Answer","text":"The tool shows an incorrect password message and does not produce an output file."}},
+        {"@type":"Question","name":"What happens if I enter the wrong password?","acceptedAnswer":{"@type":"Answer","text":"The password field shakes and an error message appears explaining that the password was incorrect. The tool does not produce an output file until the correct password is entered."}},
         {"@type":"Question","name":"Does it work offline?","acceptedAnswer":{"@type":"Answer","text":"Yes. After the page loads once, the tool works entirely offline."}},
         {"@type":"Question","name":"What if the lossless engine fails on my PDF?","acceptedAnswer":{"@type":"Answer","text":"The tool falls back to a rasterise mode that renders every page as a high-resolution image. This handles almost every unusual PDF but produces a larger output file and loses selectable text."}},
         {"@type":"Question","name":"What format does the unlocked PDF have?","acceptedAnswer":{"@type":"Answer","text":"A standard unencrypted PDF that opens in any reader without a password. Text stays selectable, links keep working, form fields stay editable."}}
@@ -138,6 +139,56 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .pd-field input,.pd-field select{width:100%;padding:11px 12px;font-family:var(--mono);font-size:.9375rem;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);outline:none;transition:border-color .15s ease,box-shadow .15s ease}
 .pd-field input:focus,.pd-field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
 .pd-field .unit-hint{font-family:var(--mono);font-size:.625rem;color:var(--muted);text-transform:none;letter-spacing:0}
+
+/* ===== Wrong-password error state ===== */
+.pd-field.pd-field-error input{
+  border-color:var(--red);
+  box-shadow:0 0 0 3px rgba(176,35,58,.12);
+  animation:pd-shake .5s cubic-bezier(.36,.07,.19,.97) both;
+}
+.pd-field.pd-field-error label{color:var(--red)}
+.pd-field.pd-field-error input::placeholder{color:rgba(176,35,58,.5)}
+.pd-field.pd-field-error-keep input{
+  border-color:var(--red);
+  box-shadow:0 0 0 3px rgba(176,35,58,.12);
+}
+.pd-field.pd-field-error-keep label{color:var(--red)}
+@keyframes pd-shake{
+  0%,100%{transform:translateX(0);}
+  10%,30%,50%,70%,90%{transform:translateX(-7px);}
+  20%,40%,60%,80%{transform:translateX(7px);}
+}
+.pd-error-msg{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  margin-top:8px;
+  padding:10px 12px;
+  background:rgba(176,35,58,.06);
+  border:1px solid rgba(176,35,58,.3);
+  border-left:3px solid var(--red);
+  border-radius:var(--radius);
+  font-family:var(--mono);
+  font-size:.75rem;
+  color:var(--red);
+  line-height:1.5;
+  animation:pd-fadeSlide .32s cubic-bezier(.4,0,.2,1) both;
+}
+.pd-error-msg svg{flex:none;width:16px;height:16px;margin-top:1px;color:var(--red)}
+.pd-error-msg strong{color:var(--red);font-weight:700}
+@keyframes pd-fadeSlide{
+  from{opacity:0;transform:translateY(-6px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.pd-error-msg.pd-error-leaving{animation:pd-fadeOut .25s ease forwards}
+@keyframes pd-fadeOut{to{opacity:0;transform:translateY(-4px);}}
+
+.pd-card.pd-card-error{animation:pd-cardPulse .9s ease}
+@keyframes pd-cardPulse{
+  0%{box-shadow:0 0 0 0 rgba(176,35,58,0);}
+  25%{box-shadow:0 0 0 4px rgba(176,35,58,.18);}
+  100%{box-shadow:0 0 0 0 rgba(176,35,58,0);}
+}
 
 .pd-note{margin:0 0 14px;padding:12px 14px;background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius);font-family:var(--mono);font-size:.75rem;color:var(--muted);line-height:1.6;width:100%}
 .pd-note strong{color:var(--ink);font-weight:600}
@@ -255,10 +306,11 @@ footer a:hover{color:var(--blue)}
 <strong>Only use this on PDFs you own or have permission to modify.</strong> This tool does not crack, guess or brute-force passwords. It removes protection from files where you already know the password.
 </div>
 
-<div class="pd-field">
+<div class="pd-field" id="passwordField">
 <label for="pdfPassword">Password (leave blank if the PDF opens freely)</label>
 <input type="password" id="pdfPassword" placeholder="Enter the password if the PDF asks for one to open" autocomplete="off" spellcheck="false">
 <span class="unit-hint">If the PDF opens without asking but blocks copying or printing, leave this blank.</span>
+<div id="passwordError" hidden></div>
 </div>
 
 <div class="pd-note good">
@@ -460,7 +512,7 @@ footer a:hover{color:var(--blue)}
       <details><summary>Are my PDFs uploaded?</summary><p>No. Everything happens in your browser. Your PDF never leaves your device.</p></details>
       <details><summary>Is this legal?</summary><p>Removing a password from a document you own or have permission to modify is legal in most jurisdictions. Using it on someone else's document without permission is not. Only use this on files you have the right to modify.</p></details>
       <details><summary>Does it work on iPhone and Android?</summary><p>Yes. Tap the drop zone to select a PDF from Files or Downloads, enter the password if needed, and download the unlocked file directly to your device.</p></details>
-      <details><summary>What happens if I enter the wrong password?</summary><p>The tool shows an incorrect password message and does not produce an output file.</p></details>
+      <details><summary>What happens if I enter the wrong password?</summary><p>The password field shakes and an error message appears explaining that the password was incorrect. The tool does not produce an output file until the correct password is entered.</p></details>
       <details><summary>Does it work offline?</summary><p>Yes. After the page loads once, the tool works entirely offline.</p></details>
       <details><summary>What if the lossless engine fails on my PDF?</summary><p>The tool falls back to a rasterise mode that renders every page as a high-resolution image. This handles almost every unusual PDF but produces a larger output file and loses selectable text.</p></details>
       <details><summary>What format does the unlocked PDF have?</summary><p>A standard unencrypted PDF that opens in any reader without a password. Text stays selectable, links keep working, form fields stay editable.</p></details>
@@ -557,23 +609,72 @@ function fmtSize(bytes){
 }
 
 /* ============================================================
-   Load qpdf-wasm from the local bundle.
+   Wrong-password error UI
+   ============================================================ */
+function showPasswordError(message){
+  var field=$("passwordField");
+  var box=$("passwordError");
+  var input=$("pdfPassword");
 
-   The package @neslinesli93/qpdf-wasm ships as a UMD module
-   (dist/qpdf.js). Loading it with a <script> tag attaches a
-   factory function to window. We probe a range of possible
-   attachment names because different Emscripten builds use
-   different conventions.
+  /* Reset any prior state so animations can re-fire */
+  field.classList.remove("pd-field-error");
+  field.classList.remove("pd-field-error-keep");
+  void field.offsetWidth;
+
+  box.hidden=false;
+  box.className="pd-error-msg";
+  box.innerHTML=
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'+
+    '<circle cx="12" cy="12" r="10"/>'+
+    '<path d="M12 8v5M12 16h.01"/>'+
+    '</svg>'+
+    '<span>'+message+'</span>';
+
+  field.classList.add("pd-field-error");
+  var card=input.closest(".pd-card");
+  if(card){
+    card.classList.remove("pd-card-error");
+    void card.offsetWidth;
+    card.classList.add("pd-card-error");
+  }
+
+  input.focus();
+  try{ input.select(); }catch(e){}
+
+  setTimeout(function(){
+    field.classList.remove("pd-field-error");
+    field.classList.add("pd-field-error-keep");
+  },520);
+}
+
+function clearPasswordError(){
+  var field=$("passwordField");
+  var box=$("passwordError");
+  if(!field||!box)return;
+  if(box.hidden)return;
+
+  field.classList.remove("pd-field-error");
+  field.classList.remove("pd-field-error-keep");
+  box.classList.add("pd-error-leaving");
+  setTimeout(function(){
+    box.hidden=true;
+    box.className="";
+    box.innerHTML="";
+  },240);
+}
+
+/* ============================================================
+   Load qpdf-wasm from the local bundle.
    ============================================================ */
 var qpdfInstance=null;
 var qpdfLoadPromise=null;
+var lastQpdfStderr="";
 
 function loadQpdf(){
   if(qpdfInstance)return Promise.resolve(qpdfInstance);
   if(qpdfLoadPromise)return qpdfLoadPromise;
 
   qpdfLoadPromise=new Promise(function(resolve){
-    /* If the script tag already loaded (e.g. cached), don't re-inject it */
     var existing=document.querySelector('script[data-qpdf-bundle]');
     if(!existing){
       var s=document.createElement("script");
@@ -595,7 +696,6 @@ function loadQpdf(){
 }
 
 function findAndInit(resolve){
-  /* Probe the common Emscripten attachment names. */
   var candidates=[
     ["qpdf", window.qpdf],
     ["qpdfWasm", window.qpdfWasm],
@@ -608,7 +708,6 @@ function findAndInit(resolve){
     ["_qpdf", window._qpdf]
   ];
 
-  /* If nothing obvious, scan every window key that contains "qpdf". */
   var found=null;
   for(var i=0;i<candidates.length;i++){
     if(typeof candidates[i][1]==="function"){
@@ -629,21 +728,24 @@ function findAndInit(resolve){
 
   if(!found){
     console.warn("[pdf-unlock] qpdf.js loaded but no factory function found on window.");
-    console.warn("[pdf-unlock] Inspect window after loading to see the actual export name.");
     resolve(null);
     return;
   }
 
   console.log("[pdf-unlock] Using factory: window."+found.name);
 
-  /* Emscripten factories accept a Module config object.
-     The locateFile callback tells the runtime where to fetch the .wasm sidecar. */
   var result;
   try{
     result=found.factory({
       locateFile:function(path){
-        /* Serve the .wasm from the same folder as qpdf.js */
         return "/assets/wasm/qpdf/"+path;
+      },
+      printErr:function(text){
+        lastQpdfStderr += text + "\n";
+        console.warn("[qpdf stderr]", text);
+      },
+      print:function(text){
+        console.log("[qpdf stdout]", text);
       }
     });
   }catch(e){
@@ -652,7 +754,6 @@ function findAndInit(resolve){
     return;
   }
 
-  /* The factory returns either the Module object directly or a promise that resolves to it. */
   Promise.resolve(result).then(function(mod){
     qpdfInstance=mod;
     resolve(mod);
@@ -664,9 +765,6 @@ function findAndInit(resolve){
 
 /* ============================================================
    LOSSLESS UNLOCK via qpdf-wasm
-
-   The package exposes a Node-style API: qpdf(input, options) -> Uint8Array
-   OR a lower-level Emscripten FS interface. We try the high-level API first.
    ============================================================ */
 async function unlockLossless(password,myToken){
   var qpdf=await loadQpdf();
@@ -676,17 +774,18 @@ async function unlockLossless(password,myToken){
   say("Running lossless decryption…");
   $("progressBar").style.width="40%";
 
+  /* Reset stderr capture for this attempt */
+  lastQpdfStderr="";
+
   var inputBytes=new Uint8Array(sourceBytes);
   var outputBytes=null;
 
-  /* -------- Path A: High-level wrapper API --------
-     Some versions of @neslinesli93/qpdf-wasm export a callable that takes
-     { input, args } and returns the output bytes (or a promise for them). */
+  /* -------- Path A: High-level wrapper API -------- */
   if(typeof qpdf==="function"){
     try{
       var args=["--decrypt"];
       if(password)args.push("--password="+password);
-      var result=await qpdf({input:inputBytes, args:args});
+      var result=await qpdf({input:inputBytes,args:args});
       if(result){
         if(result instanceof Uint8Array){ outputBytes=result; }
         else if(result.output instanceof Uint8Array){ outputBytes=result.output; }
@@ -694,9 +793,7 @@ async function unlockLossless(password,myToken){
       }
     }catch(e){
       var msg1=e&&e.message?e.message:"";
-      if(/password|invalid/i.test(msg1)){
-        throw new Error("WRONG_PASSWORD");
-      }
+      if(/password/i.test(msg1))throw new Error("WRONG_PASSWORD");
       /* Fall through to Path B */
     }
   }
@@ -712,8 +809,9 @@ async function unlockLossless(password,myToken){
 
     FS.writeFile("/work/input.pdf",inputBytes);
 
-    /* qpdf CLI arguments. callMain expects argv WITHOUT the program name
-       for most Emscripten builds, but some require it. We pass without. */
+    /* Remove any stale output file from a previous attempt */
+    try{ FS.unlink("/work/output.pdf"); }catch(e){}
+
     var cliArgs=["/work/input.pdf","--decrypt"];
     if(password)cliArgs.splice(1,0,"--password="+password);
     cliArgs.push("/work/output.pdf");
@@ -721,25 +819,40 @@ async function unlockLossless(password,myToken){
     try{
       qpdf.callMain(cliArgs);
     }catch(e){
-      /* Emscripten's callMain throws an ExitStatus object.
-         It also has a .status number in some builds. */
-      var status=e&&(e.status!==undefined?e.status:e);
-      var msg2=e&&e.message?e.message:"";
-      if(/password|invalid/i.test(msg2)){
-        throw new Error("WRONG_PASSWORD");
-      }
-      if(status&&status!==0&&!/exit/i.test(msg2)){
-        throw new Error("QPDF_FAILED:"+msg2);
-      }
-      /* Status 0 or "exit" without message means success. */
+      /* Emscripten's exit() throws an object. Fall through to the output-file check. */
     }
 
     if(myToken!==currentToken)return null;
 
+    /* Check whether qpdf actually produced output */
+    var outputExists=false;
+    try{
+      var stat=FS.stat("/work/output.pdf");
+      outputExists=stat&&stat.size>0;
+    }catch(e){ outputExists=false; }
+
+    if(!outputExists){
+      try{ FS.unlink("/work/input.pdf"); }catch(e){}
+
+      var stderrText=(lastQpdfStderr||"").toLowerCase();
+      if(stderrText.indexOf("invalid password")!==-1 ||
+         stderrText.indexOf("incorrect password")!==-1 ||
+         stderrText.indexOf("password is required")!==-1){
+        throw new Error("WRONG_PASSWORD");
+      }
+      if(stderrText.indexOf("password")!==-1){
+        throw new Error("WRONG_PASSWORD");
+      }
+      if(password){
+        throw new Error("WRONG_PASSWORD");
+      }
+      throw new Error("SAVE_FAILED:"+(lastQpdfStderr||"qpdf produced no output"));
+    }
+
     try{
       outputBytes=FS.readFile("/work/output.pdf");
     }catch(e){
-      throw new Error("SAVE_FAILED:no output");
+      throw new Error("SAVE_FAILED:could not read qpdf output");
     }
 
     try{ FS.unlink("/work/input.pdf"); }catch(e){}
@@ -756,7 +869,7 @@ async function unlockLossless(password,myToken){
 }
 
 /* ============================================================
-   FALLBACK RASTERIZER (unchanged)
+   FALLBACK RASTERIZER
    ============================================================ */
 var isMobile=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 var MAX_PIXELS=isMobile?12e6:25e6;
@@ -865,6 +978,7 @@ function resetState(){
   $("resultCard").hidden=true;
   $("progressWrap").hidden=true;
   $("progressBar").style.width="0";
+  clearPasswordError();
   say("");
 }
 
@@ -913,8 +1027,19 @@ function probePdf(){
   });
 }
 
+/* Clear the error state whenever the user edits the password field */
+$("pdfPassword").addEventListener("input",function(){
+  clearPasswordError();
+});
+$("pdfPassword").addEventListener("keydown",function(e){
+  if(e.key==="Enter" && !$("unlockBtn").disabled){
+    e.preventDefault();
+    $("unlockBtn").click();
+  }
+});
+
 /* ============================================================
-   UNLOCK — try lossless first, fall back to rasterizer
+   UNLOCK button
    ============================================================ */
 $("unlockBtn").addEventListener("click",async function(){
   if(!sourceBytes)return flash("Load a PDF first");
@@ -1011,15 +1136,27 @@ $("unlockBtn").addEventListener("click",async function(){
   }catch(e){
     var msg=e&&e.message?e.message:"Could not unlock the PDF.";
     var name=e&&e.name?e.name:"";
-    if(name==="PasswordException" || /password/i.test(msg)){
-      if(/incorrect|invalid|wrong|WRONG_PASSWORD/i.test(msg)){
-        msg="Incorrect password. Check for typos, capital letters and leading/trailing spaces.";
-      } else if(/PASSWORD_REQUIRED/i.test(msg) || !password){
-        msg="This PDF requires a password to open. Type it in the password field and try again.";
-      } else {
-        msg="The password was rejected. Check for typos, capital letters and leading/trailing spaces.";
-      }
-    } else if(msg==="MUPRESS_UNAVAILABLE"){
+
+    /* -------- Wrong password: show shake + specific message -------- */
+    if(msg==="WRONG_PASSWORD" ||
+       (name==="PasswordException" && /incorrect|invalid|wrong/i.test(msg))){
+      showPasswordError("Incorrect password. Check for typos, capital letters, and leading or trailing spaces. Bank-issued PDFs sometimes use your date of birth in a specific format.");
+      say("Incorrect password.", "err");
+      flash("Wrong password");
+      return;
+    }
+
+    /* -------- Password was required but the field was empty -------- */
+    if(msg==="PASSWORD_REQUIRED" ||
+       (name==="PasswordException" && !$("pdfPassword").value)){
+      showPasswordError("This PDF requires a password to open. Type the password in the field above and try again.");
+      say("Password required.", "err");
+      flash("Password required");
+      return;
+    }
+
+    /* -------- Everything else -------- */
+    if(msg==="MUPRESS_UNAVAILABLE"){
       msg="The unlock engine couldn't load. Check your connection and refresh the page.";
     }
     say(msg, "err");
