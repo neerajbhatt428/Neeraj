@@ -217,6 +217,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+  <loc>https://localtools.co.in/tools/pdf/pdf-protect.html</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+</url>
+  <url>
     <loc>https://localtools.co.in/tools/pdf/pdf-split.html</loc>
     <lastmod>2026-10-12</lastmod>
     <changefreq>monthly</changefreq>
