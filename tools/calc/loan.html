@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Loan EMI Calculator with Repayment Schedule — Export to Excel</title>
-<meta name="description" content="Free loan EMI calculator with full repayment schedule. Enter principal, interest rate, tenure and moratorium. See month-by-month principal, interest, capitalised interest and balance with totals. Export to Excel.">
+<title>Loan EMI Calculator with Repayment Schedule — Free Amortisation Table, Export to Excel</title>
+<meta name="description" content="Free loan EMI calculator with full month-by-month repayment schedule. Enter principal, interest rate, tenure and moratorium. See principal, interest, capitalised interest and balance. Export to Excel. No signup, runs in your browser.">
 <link rel="canonical" href="https://localtools.co.in/tools/calc/loan.html">
 <link rel="sitemap" type="application/xml" href="https://localtools.co.in/sitemap.xml">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -13,8 +13,75 @@
 <meta property="og:title" content="Loan EMI Calculator with Repayment Schedule">
 <meta property="og:description" content="Calculate EMI and view a full amortisation schedule with totals. Export to Excel.">
 <meta property="og:url" content="https://localtools.co.in/tools/calc/loan.html">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3576991570329575" crossorigin="anonymous"></script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Loan EMI Calculator","url":"https://localtools.co.in/tools/calc/loan.html","applicationCategory":"FinanceApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localtools.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://localtools.co.in/tools/"},{"@type":"ListItem","position":3,"name":"Loan EMI Calculator","item":"https://localtools.co.in/tools/calc/loan.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is EMI calculated?","acceptedAnswer":{"@type":"Answer","text":"EMI = P × r × (1 + r)^n ÷ ((1 + r)^n − 1), where P is the principal, r is the monthly interest rate and n is the number of monthly instalments."}},{"@type":"Question","name":"What is a moratorium period?","acceptedAnswer":{"@type":"Answer","text":"A moratorium is a period at the start of the loan during which no principal is repaid. In interest-only moratoriums you pay interest monthly. In full moratoriums, interest accrues and is capitalised into the balance."}},{"@type":"Question","name":"How is interest capitalised in a full moratorium shown?","acceptedAnswer":{"@type":"Answer","text":"Capitalised interest appears in its own column so the schedule reconciles. Principal repayment total always equals the original loan amount, and interest totals include both paid and capitalised interest."}},{"@type":"Question","name":"Can I export the schedule to Excel?","acceptedAnswer":{"@type":"Answer","text":"Yes. Click Export to Excel to download an .xlsx file with the full schedule and totals."}}]}]}
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"WebApplication",
+      "name":"Loan EMI Calculator",
+      "url":"https://localtools.co.in/tools/calc/loan.html",
+      "applicationCategory":"FinanceApplication",
+      "operatingSystem":"Any browser",
+      "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+      "featureList":[
+        "Monthly EMI calculation",
+        "Full month-by-month repayment schedule",
+        "Interest-only moratorium support",
+        "Full moratorium with interest capitalised",
+        "Tenure that includes or excludes moratorium",
+        "Customisable first EMI date",
+        "Export schedule to Excel (.xlsx)",
+        "Copy schedule as tab-separated values",
+        "Share link with all inputs encoded",
+        "Saved inputs between visits"
+      ]
+    },
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://localtools.co.in/"},
+        {"@type":"ListItem","position":2,"name":"Tools","item":"https://localtools.co.in/tools/"},
+        {"@type":"ListItem","position":3,"name":"Loan EMI Calculator","item":"https://localtools.co.in/tools/calc/loan.html"}
+      ]
+    },
+    {
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"How is EMI calculated?","acceptedAnswer":{"@type":"Answer","text":"EMI = P × r × (1 + r)^n ÷ ((1 + r)^n − 1), where P is the principal, r is the monthly interest rate and n is the number of monthly instalments."}},
+        {"@type":"Question","name":"What is a moratorium period?","acceptedAnswer":{"@type":"Answer","text":"A moratorium is a period at the start of the loan during which no principal is repaid. In interest-only moratoriums you pay interest monthly. In full moratoriums, interest accrues and is capitalised into the balance."}},
+        {"@type":"Question","name":"How is interest capitalised in a full moratorium shown?","acceptedAnswer":{"@type":"Answer","text":"Capitalised interest appears in its own column so the schedule reconciles. Principal repayment total always equals the original loan amount, and interest totals include both paid and capitalised interest."}},
+        {"@type":"Question","name":"Can I export the schedule to Excel?","acceptedAnswer":{"@type":"Answer","text":"Yes. Click Export to Excel to download an .xlsx file with the full schedule and totals."}},
+        {"@type":"Question","name":"Why does my total interest look higher than expected?","acceptedAnswer":{"@type":"Answer","text":"If you included a full moratorium, interest accrued during that period is capitalised into the balance. This increases the effective principal used for EMI calculation, which increases total interest. Switch the moratorium type to interest-only to compare the difference."}},
+        {"@type":"Question","name":"Should tenure include the moratorium?","acceptedAnswer":{"@type":"Answer","text":"It depends on how your bank quotes the tenure. Most Indian banks quote tenure as EMI months excluding the moratorium. Some educational and home loan products quote the total duration including the moratorium. Check your loan agreement or use the toggle to match."}},
+        {"@type":"Question","name":"Is this calculator free?","acceptedAnswer":{"@type":"Answer","text":"Yes. Completely free, no signup, no ads, no limits on the number of calculations."}},
+        {"@type":"Question","name":"Does this calculator work for home loans, car loans and personal loans?","acceptedAnswer":{"@type":"Answer","text":"Yes. The formula is universal. It works for any loan with a fixed interest rate and equated monthly instalments — home loans, car loans, personal loans, education loans, gold loans and business loans."}},
+        {"@type":"Question","name":"Can I calculate a loan with variable interest rates?","acceptedAnswer":{"@type":"Answer","text":"Not directly. This calculator assumes a single fixed rate for the entire tenure. If your rate changes, recalculate with the new rate from the change date — your bank will also issue a revised schedule."}},
+        {"@type":"Question","name":"Does the calculator handle prepayment?","acceptedAnswer":{"@type":"Answer","text":"No. It assumes you pay exactly the EMI every month with no additional payments. For prepayment impact analysis, use a dedicated tool or ask your lender for a revised schedule after prepayment."}},
+        {"@type":"Question","name":"Are my inputs saved?","acceptedAnswer":{"@type":"Answer","text":"Yes. Your inputs are stored in your browser's local storage and restored when you return. Nothing is sent to any server."}},
+        {"@type":"Question","name":"Can I share a specific loan scenario?","acceptedAnswer":{"@type":"Answer","text":"Yes. Click Share link to copy a URL that reopens the calculator with all your inputs."}},
+        {"@type":"Question","name":"What is the difference between reducing balance and flat rate?","acceptedAnswer":{"@type":"Answer","text":"Reducing balance charges interest only on the outstanding principal, which decreases each month. Flat rate charges interest on the full original principal for the entire tenure. Flat rate loans have a much higher effective interest rate — a 10% flat rate is roughly equivalent to 18% on a reducing balance."}},
+        {"@type":"Question","name":"Why does the last EMI differ from the others?","acceptedAnswer":{"@type":"Answer","text":"Because of rounding. Each EMI is calculated to a fixed precision, but the true amount needed to clear the balance on the last month is rarely an exact multiple. The schedule adjusts the final instalment to close the loan to exactly zero."}},
+        {"@type":"Question","name":"Can I use this for GST or tax calculations?","acceptedAnswer":{"@type":"Answer","text":"Only the loan portion. GST and tax are separate calculations. Use the GST calculator for tax and this calculator for the loan EMI."}}
+      ]
+    },
+    {
+      "@type":"HowTo",
+      "name":"How to calculate loan EMI and view a repayment schedule",
+      "description":"Calculate monthly EMI, total interest and total payment, and generate a full amortisation schedule.",
+      "totalTime":"PT2M",
+      "tool":[{"@type":"HowToTool","name":"Modern web browser"}],
+      "step":[
+        {"@type":"HowToStep","name":"Enter loan details","text":"Enter the principal amount, annual interest rate, loan tenure in months and moratorium period if any."},
+        {"@type":"HowToStep","name":"Choose whether tenure includes moratorium","text":"If your bank quotes tenure as total loan duration including the moratorium, toggle to Include. Otherwise leave it on Exclude."},
+        {"@type":"HowToStep","name":"Pick the moratorium type","text":"Interest-only means you pay only interest during the moratorium. Full means no payment and interest is capitalised into the balance."},
+        {"@type":"HowToStep","name":"Review the schedule","text":"The calculator shows monthly EMI, total interest, total payment and a full month-by-month schedule of principal, interest, capitalised interest and balance."},
+        {"@type":"HowToStep","name":"Export or share","text":"Click Export to Excel to download the schedule as an .xlsx file, or Copy schedule for tab-separated values you can paste into any spreadsheet."}
+      ]
+    }
+  ]
+}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +93,7 @@
 [hidden]{display:none!important}
 html,body{margin:0;padding:0}
 body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;background-image:linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);background-size:28px 28px}
-.wrap{max-width:960px;margin:0 auto;padding:20px 18px 64px}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 18px 64px}
 .masthead{display:flex;align-items:center;gap:10px;padding:6px 0 22px}
 .masthead a{color:inherit;text-decoration:none}
 .mark{width:26px;height:26px;flex:none}
@@ -84,40 +151,51 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .ln-table tfoot td:last-child{border-right:0}
 .ln-legend{font-family:var(--mono);font-size:.6875rem;color:var(--muted);margin:8px 0 0;line-height:1.6}
 .ln-legend .swatch{display:inline-block;width:10px;height:10px;border-radius:2px;vertical-align:middle;margin-right:4px}
-.article{margin:44px 0 0;max-width:72ch}
-.article h2{margin:36px 0 10px;font-size:1.5rem}
-.article h2:first-child{margin-top:0}
-.article p{margin:0 0 12px;color:#3A3E46}
-.article ul{margin:0 0 12px;padding-left:20px;color:#3A3E46}
-.article li{margin:0 0 6px}
-.article strong{font-weight:600;color:var(--ink)}
-.article a{color:var(--blue);text-decoration:underline}
-.article code{font-family:var(--mono);font-size:.875em;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:1px 4px}
-.article table{width:100%;border-collapse:collapse;margin:0 0 14px;font-size:.875rem}
-.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left}
-.article th{background:#F7F7F3;font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
-.faq{margin:14px 0 0;border-top:1px solid var(--line)}
-.faq details{border-bottom:1px solid var(--line)}
-.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";color:var(--blue);font-size:1.25rem;line-height:1;flex:none}
-.faq details[open] summary::after{content:"\2212"}
-.faq details p{margin:0 0 14px;color:#3A3E46;max-width:62ch}
-.related-list{list-style:none;margin:12px 0 0;padding:0}
-.related-list li{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center}
-.related-list .txt{flex:1}
-.related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
-.related-list .txt a:hover{color:var(--blue);text-decoration:underline}
-.related-list .txt p{margin:2px 0 0;font-size:.8125rem;color:var(--muted)}
-.related-list time{font-size:.75rem;color:var(--muted);flex:none;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+
+/* ============================================================
+   INFO SECTION
+   ============================================================ */
+.info{display:grid;grid-template-columns:1fr;gap:14px;margin:48px 0 0}
+@media(min-width:720px){.info{grid-template-columns:1fr 1fr}}
+.info-card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px 22px;min-width:0}
+.info-card.wide{grid-column:1 / -1}
+.info-card h2{font-family:var(--display);font-weight:700;font-size:1.25rem;letter-spacing:-.01em;margin:0 0 12px}
+.info-card h3{font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:-.01em;margin:20px 0 8px}
+.info-card h3:first-child{margin-top:0}
+.info-card p{margin:0 0 12px;color:#3A3E46;font-size:.9375rem;line-height:1.65}
+.info-card p:last-child{margin:0}
+.info-card ul,.info-card ol{margin:0 0 12px;padding-left:22px;color:#3A3E46;font-size:.9375rem}
+.info-card li{margin:0 0 6px}
+.info-card strong{font-weight:600;color:var(--ink)}
+.info-card a{color:var(--blue);text-decoration:underline;text-underline-offset:2px}
+.info-card code{font-family:var(--mono);font-size:.8125rem;background:var(--paper);padding:1px 5px;border-radius:3px;border:1px solid var(--line)}
+.info-card table{width:100%;border-collapse:collapse;margin:0 0 14px;font-size:.875rem}
+.info-card th,.info-card td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.info-card th{background:#F7F7F3;font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+.faq-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:640px){.faq-grid{grid-template-columns:1fr 1fr}}
+.faq-grid details{border:1px solid var(--line);border-radius:6px;background:#FAFAF8;padding:12px 14px}
+.faq-grid summary{cursor:pointer;font-weight:500;font-size:.9375rem}
+.faq-grid details p{margin:8px 0 0;font-size:.875rem;color:var(--muted);line-height:1.6}
+.related-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:640px){.related-grid{grid-template-columns:1fr 1fr}}
+.related-grid a{display:flex;flex-direction:column;gap:2px;border:1px solid var(--line);border-radius:6px;padding:12px 14px;text-decoration:none;color:inherit;background:#FAFAF8;transition:border-color .12s}
+.related-grid a:hover{border-color:var(--blue)}
+.related-grid a strong{font-size:.9375rem;color:var(--ink)}
+.related-grid a span{font-size:.8125rem;color:var(--muted)}
+.related-grid a:hover strong{color:var(--blue)}
+
 footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem}
 footer a{color:inherit}
 footer a:hover{color:var(--blue)}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:200}
 .toast.show{opacity:1}
 @media(max-width:640px){
+  .wrap{padding:16px 14px 56px}
   .ln-table{font-size:.6875rem}
   .ln-table thead th,.ln-table tbody td,.ln-table tfoot td{padding:6px 8px}
+  .info-card{padding:16px}
+  .info-card h2{font-size:1.125rem}
 }
 </style>
 </head>
@@ -129,7 +207,7 @@ footer a:hover{color:var(--blue)}
 <svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/><path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/><path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/><path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/><path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/></svg>
 <span class="wordmark">LocalTools</span>
 </a>
-<a href="/" class="nav-right">Home →</a>
+<a href="../index.html" class="nav-right">All tools →</a>
 </header>
 
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Loan EMI Calculator</span></nav>
@@ -259,61 +337,230 @@ footer a:hover{color:var(--blue)}
 </p>
 </div>
 
-<article class="article">
-<h2>How to use the loan EMI calculator</h2>
-<p>Enter your loan details. The EMI and full repayment schedule update as you type. Click <strong>Export to Excel</strong> to download the schedule as an .xlsx file with totals.</p>
+<!-- ============ INFO ============ -->
+<section class="info" aria-label="About the loan EMI calculator">
 
-<h2>The EMI formula</h2>
-<p><code>EMI = P × r × (1 + r)^n ÷ ((1 + r)^n − 1)</code></p>
-<p>Where P is the principal, r is the monthly interest rate, and n is the number of monthly instalments.</p>
+  <div class="info-card wide">
+    <h2>Loan EMI calculator with a full repayment schedule</h2>
+    <p>This is a free loan EMI calculator that does more than just tell you the monthly instalment. It generates a complete month-by-month amortisation schedule showing exactly how each payment is split between principal and interest, how the outstanding balance falls, and — if you have a moratorium period — how interest accrues or is capitalised during that time. Everything runs in your browser. No signup, no account, nothing sent to any server.</p>
+    <p>Most online EMI calculators give you a single number. This one gives you the underlying table that a lender would produce, month by month, so you can plan repayments, compare loans, verify a bank's calculations, and understand where your money is actually going over the life of the loan.</p>
+  </div>
 
-<h2>Understanding the schedule columns</h2>
-<ul>
-<li><strong>Principal repayment</strong> — the portion of each instalment that reduces the loan balance. Total across the schedule always equals the original loan amount.</li>
-<li><strong>Interest payment</strong> — the portion of each instalment that goes to interest. This is cash you actually hand over.</li>
-<li><strong>Interest capitalised</strong> — only present in a full moratorium. It's interest that accrued during the moratorium and was added to the outstanding balance instead of being paid. It becomes part of what you repay later, but it belongs to the interest side, not the principal side, for accounting purposes.</li>
-<li><strong>Total instalment</strong> — cash paid that month. Zero during a full moratorium; the monthly interest during an interest-only moratorium; the EMI during the repayment phase.</li>
-<li><strong>Principal balance</strong> — the outstanding loan amount after that month.</li>
-</ul>
+  <div class="info-card">
+    <h2>How to use it</h2>
+    <ol>
+      <li><strong>Enter the principal amount.</strong> This is the total amount borrowed, before any interest. For a ₹50 lakh home loan, enter 5000000.</li>
+      <li><strong>Enter the annual interest rate.</strong> Use the reducing balance rate your bank quoted. For a flat rate loan, convert it to reducing balance first (a 10% flat rate is roughly 18% reducing balance).</li>
+      <li><strong>Enter the tenure in months.</strong> A 20-year loan is 240 months. A 5-year car loan is 60 months.</li>
+      <li><strong>Add a moratorium if applicable.</strong> Most education loans and some home loans have one. Enter 0 if not.</li>
+      <li><strong>Choose whether the tenure includes the moratorium.</strong> Check your loan agreement. Most Indian banks quote tenure as EMI months excluding the moratorium.</li>
+      <li><strong>Pick the moratorium type.</strong> Interest-only means you pay interest monthly during the moratorium and the balance stays flat. Full means no payment and interest is capitalised into the balance.</li>
+      <li><strong>Review the results.</strong> The calculator shows monthly EMI, total interest, total payment and a full month-by-month schedule.</li>
+      <li><strong>Export or share.</strong> Click <strong>Export to Excel</strong> to download an .xlsx file, or use the copy buttons for text output.</li>
+    </ol>
+  </div>
 
-<h2>How the totals reconcile</h2>
-<p>Every column's total equals the sum of its rows — nothing is hidden or double-counted.</p>
-<ul>
-<li><strong>Principal repayment total</strong> = original loan amount.</li>
-<li><strong>Interest payment total</strong> = interest actually paid in cash (during EMI phase, plus any interest paid in an interest-only moratorium).</li>
-<li><strong>Interest capitalised total</strong> = interest accrued but rolled into the balance during a full moratorium. This is not paid as cash, but it becomes part of what you repay.</li>
-<li><strong>Total instalment total</strong> = cash paid out of pocket across the whole loan. Because capitalised interest was never paid as cash, it does not appear here.</li>
-</ul>
-<p>When a full moratorium is used, the principal repayment column will include some months where the amount repaid is higher than a normal EMI — because you are effectively repaying the balance that has grown through capitalised interest. That's why principal repayment totals to the original amount plus capitalised interest is <em>not</em> what you'll see: the principal total alone stays equal to the original loan, and the capitalised interest appears in its own column.</p>
+  <div class="info-card">
+    <h2>Understanding each input</h2>
+    <h3>Principal</h3>
+    <p>The amount you borrow. If you take a ₹30 lakh home loan, the principal is ₹30,00,000. Interest is calculated on this amount, but as you repay, the balance falls and so does the interest component.</p>
 
-<h2>Moratorium: including or excluding the tenure</h2>
-<table>
-<thead><tr><th>Mode</th><th>Meaning</th><th>Example (Tenure 240, Moratorium 12)</th></tr></thead>
-<tbody>
-<tr><td><strong>Exclude</strong></td><td>Tenure = EMI months. Moratorium is added on top.</td><td>12 + 240 = 252 months total</td></tr>
-<tr><td><strong>Include</strong></td><td>Tenure = total loan duration. EMI months = tenure − moratorium.</td><td>12 + 228 = 240 months total</td></tr>
-</tbody>
-</table>
+    <h3>Annual interest rate</h3>
+    <p>Expressed as a percentage per year. The calculator divides this by 12 to get the monthly rate. Always use the reducing balance rate for accurate results — flat rate quotes are misleadingly low.</p>
 
-<h2>Common questions</h2>
-<div class="faq">
-<details><summary>Why is interest capitalised shown separately?</summary><p>Because it's a different kind of interest. It was never paid as cash — it was added to the loan balance. Showing it separately keeps every column honest: the principal column sums to the original principal, the interest column sums to cash interest paid, and the capitalised column sums to interest rolled into the balance.</p></details>
-<details><summary>Does the principal repayment total match my loan amount?</summary><p>Yes. Across the entire schedule, the principal repayment column always sums to exactly the original principal you entered.</p></details>
-<details><summary>Does the tenure include the moratorium?</summary><p>Use the toggle to choose. "Exclude" treats tenure as EMI months only; "Include" treats tenure as total loan duration.</p></details>
-<details><summary>Can I export to Excel?</summary><p>Yes. Click Export to Excel to download an .xlsx file with the full schedule and totals.</p></details>
-<details><summary>Is my data saved?</summary><p>Your inputs are stored only in your browser's local storage. Nothing is sent to any server.</p></details>
-</div>
+    <h3>Tenure</h3>
+    <p>The number of monthly instalments. Longer tenure means a smaller EMI but a much larger total interest. A 20-year loan can cost 2–3× the principal in interest alone.</p>
 
-<h2>Related tools</h2>
-<ul class="related-list">
-<li><div class="txt"><a href="compound.html">Compound Interest</a><p>Project savings growth over time.</p></div><time>Calc</time></li>
-<li><div class="txt"><a href="percentage.html">Percentage Calculator</a><p>Six percentage questions in one tool.</p></div><time>Calc</time></li>
-<li><div class="txt"><a href="bmi.html">BMI Calculator</a><p>Body Mass Index with healthy range.</p></div><time>Calc</time></li>
-</ul>
-</article>
+    <h3>Moratorium period</h3>
+    <p>A grace period at the start where you don't repay principal. Common in education loans, some home loans, and project finance. Can be anywhere from 3 months to several years.</p>
+
+    <h3>Moratorium type</h3>
+    <p><strong>Interest-only</strong> — you pay interest each month but the principal balance stays the same. This is what most banks use.</p>
+    <p><strong>Full moratorium</strong> — you pay nothing, and the interest accrues and is added to your balance. When EMI starts, you're paying interest on a larger principal.</p>
+
+    <h3>First EMI date</h3>
+    <p>Affects only the month labels in the schedule. Useful when you want the schedule to line up with your actual repayment calendar.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>The EMI formula</h2>
+    <p>The formula every lender uses:</p>
+    <p><code>EMI = P × r × (1 + r)<sup>n</sup> ÷ ((1 + r)<sup>n</sup> − 1)</code></p>
+    <ul>
+      <li><strong>P</strong> — principal amount</li>
+      <li><strong>r</strong> — monthly interest rate (annual rate ÷ 12 ÷ 100)</li>
+      <li><strong>n</strong> — number of monthly instalments</li>
+    </ul>
+    <p>This is the reducing balance formula. It assumes interest is charged on the outstanding balance each month, not the original principal. That's how almost all modern loans work.</p>
+    <p>Every EMI is the same amount, but its composition changes over time. In the early months, most of the EMI goes to interest. In the last months, most goes to principal. The schedule shows this shift month by month.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>Understanding the schedule columns</h2>
+    <ul>
+      <li><strong>Principal repayment</strong> — the portion of each instalment that reduces the loan balance. Summed across the entire schedule, this always equals the original loan amount.</li>
+      <li><strong>Interest payment</strong> — the portion of each instalment that goes to interest. This is cash you actually hand over to the lender.</li>
+      <li><strong>Interest capitalised</strong> — only present in a full moratorium. It's interest that accrued but wasn't paid, and was instead added to the outstanding balance. It becomes part of what you repay later, but it's tracked separately from principal for accounting clarity.</li>
+      <li><strong>Total instalment</strong> — cash paid that month. Zero during a full moratorium, the monthly interest during an interest-only moratorium, and the full EMI during the repayment phase.</li>
+      <li><strong>Principal balance</strong> — the outstanding loan amount after that month's payment.</li>
+    </ul>
+  </div>
+
+  <div class="info-card">
+    <h2>How the totals reconcile</h2>
+    <p>Every column's total equals the sum of its rows — nothing is hidden or double-counted.</p>
+    <ul>
+      <li><strong>Principal repayment total</strong> = original loan amount.</li>
+      <li><strong>Interest payment total</strong> = interest actually paid in cash (EMI phase interest, plus any interest paid during an interest-only moratorium).</li>
+      <li><strong>Interest capitalised total</strong> = interest accrued but rolled into the balance during a full moratorium. Not paid as cash, but becomes part of what you repay.</li>
+      <li><strong>Total instalment total</strong> = cash paid out of pocket across the whole loan. Because capitalised interest was never paid as cash, it doesn't appear here.</li>
+    </ul>
+    <p>When a full moratorium is used, the principal repayment column in the EMI phase sums to more than the original principal — because it also repays the capitalised interest that grew the balance. The capitalised interest appears in its own column so the schedule stays honest.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>Moratorium: include or exclude the tenure?</h2>
+    <table>
+      <thead><tr><th>Mode</th><th>Meaning</th><th>Example (Tenure 240, Moratorium 12)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Exclude</strong></td><td>Tenure = EMI months. Moratorium is added on top.</td><td>12 + 240 = 252 months total</td></tr>
+        <tr><td><strong>Include</strong></td><td>Tenure = total loan duration. EMI months = tenure − moratorium.</td><td>12 + 228 = 240 months total</td></tr>
+      </tbody>
+    </table>
+    <p>Check your loan agreement to know which your bank uses. Most Indian home loan lenders quote <strong>exclude</strong> — a "20-year loan" means 240 EMIs starting after the moratorium. Some project finance and education loan products quote <strong>include</strong> — a "10-year loan" means the whole thing is over in 120 months, moratorium and repayment combined.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>Common real-world uses</h2>
+    <ul>
+      <li><strong>Home loan planning.</strong> Compare a 15-year vs 20-year tenure for the same amount and see how much extra interest the longer tenure costs.</li>
+      <li><strong>Car loan comparison.</strong> Check whether a lower interest rate from one dealer is actually better than a longer tenure from another.</li>
+      <li><strong>Education loan budgeting.</strong> Understand how much interest will accrue during the course and moratorium before repayment begins.</li>
+      <li><strong>Verifying a bank's numbers.</strong> Banks occasionally issue schedules that don't reconcile. This calculator lets you check their math.</li>
+      <li><strong>Prepayment planning.</strong> See the month-by-month balance to decide when a lump-sum prepayment would save the most interest.</li>
+      <li><strong>Refinance decisions.</strong> Compare the total cost of your existing loan against a new offer with a lower rate or shorter tenure.</li>
+      <li><strong>Business loan analysis.</strong> Model cash flow requirements against monthly EMI obligations.</li>
+      <li><strong>Tax planning.</strong> Home loan interest is tax-deductible in many countries. The schedule shows how much interest you pay each financial year.</li>
+    </ul>
+  </div>
+
+  <div class="info-card">
+    <h2>Reducing balance vs flat rate</h2>
+    <p>This calculator uses the <strong>reducing balance</strong> method, which is standard for almost all modern loans. But some lenders — particularly in certain segments of car finance and personal loans — quote a <strong>flat rate</strong>, which sounds much cheaper than it is.</p>
+    <ul>
+      <li><strong>Reducing balance:</strong> interest is charged only on the outstanding principal, which falls every month. As the loan matures, the interest portion of each EMI falls.</li>
+      <li><strong>Flat rate:</strong> interest is charged on the full original principal for the entire tenure. Even in the last month, you're paying interest as if you still owed the full amount.</li>
+    </ul>
+    <p>A 10% flat rate is roughly equivalent to <strong>18% on reducing balance</strong>. Always convert flat rate quotes to reducing balance before comparing loans.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>Why use this calculator</h2>
+    <ul>
+      <li><strong>Full schedule, not just one number.</strong> See every month's principal, interest, capitalised interest and balance.</li>
+      <li><strong>Handles moratoriums properly.</strong> Most online calculators ignore moratoriums entirely or handle them badly.</li>
+      <li><strong>Reconciling totals.</strong> Every column sums correctly. Nothing is hidden in a footnote.</li>
+      <li><strong>Export to Excel.</strong> One click downloads the full schedule as a proper .xlsx file.</li>
+      <li><strong>Shareable links.</strong> Every scenario has a URL you can bookmark or send to your financial advisor.</li>
+      <li><strong>Privacy-first.</strong> Runs entirely in your browser. No uploads, no tracking, no account.</li>
+      <li><strong>Works offline.</strong> After the first visit, the calculator works without internet.</li>
+    </ul>
+  </div>
+
+  <div class="info-card wide">
+    <h2>What this calculator can't do</h2>
+    <p style="margin:0 0 14px">Being honest about limits is more useful than pretending they don't exist. This calculator does not:</p>
+    <ul>
+      <li><strong>Handle variable interest rates.</strong> It assumes a single fixed rate for the entire tenure. For floating rate loans, recalculate with the new rate from the change date — your bank will issue a revised schedule.</li>
+      <li><strong>Model prepayment or part-payment.</strong> It assumes you pay exactly the EMI every month. Prepayment shortens the tenure or reduces the EMI, but the calculator doesn't simulate either scenario. Ask your lender for a revised schedule.</li>
+      <li><strong>Calculate the effect of skipped EMIs.</strong> Missed payments trigger penalties and interest on arrears, which the calculator doesn't model.</li>
+      <li><strong>Convert flat rate to reducing balance automatically.</strong> You need to make that conversion yourself or use a dedicated tool.</li>
+      <li><strong>Include processing fees, insurance or other charges.</strong> The calculator shows only principal and interest. Add upfront costs manually for a full cost of borrowing.</li>
+      <li><strong>Model step-up or step-down EMIs.</strong> Some loans allow increasing or decreasing instalments. The calculator assumes a constant EMI.</li>
+      <li><strong>Calculate GST or tax implications.</strong> Use the GST calculator for tax computations.</li>
+    </ul>
+  </div>
+
+  <div class="info-card wide">
+    <h2>Troubleshooting</h2>
+    <ul>
+      <li><strong>Results don't appear.</strong> Check that principal, rate and tenure are filled in with valid numbers. The result card appears only when the inputs are complete.</li>
+      <li><strong>"Moratorium cannot be greater than or equal to total tenure when included"</strong> — you've set the moratorium longer than or equal to the tenure in "include" mode. That leaves zero months for EMI. Either shorten the moratorium or switch to "exclude" mode.</li>
+      <li><strong>Total interest looks very high.</strong> Check the tenure. Doubling the tenure roughly quadruples the total interest. A 20-year loan at 9% costs about 1.3× the principal in interest. A 30-year loan at the same rate costs about 2×.</li>
+      <li><strong>The last EMI differs from the others.</strong> This is normal and expected. Rounding during the schedule means the final instalment is adjusted slightly to clear the balance to exactly zero.</li>
+      <li><strong>Capitalised interest column shows zeros.</strong> That column only has values during a full moratorium. If you have no moratorium or an interest-only moratorium, it stays zero.</li>
+      <li><strong>Export doesn't work.</strong> The Excel library loads from a public CDN. If your network blocks jsdelivr.net, the export will fail. Try the Copy schedule button instead, which works without any external library.</li>
+      <li><strong>Inputs disappeared.</strong> Your inputs are stored in browser local storage. Private browsing or clearing browser data resets them.</li>
+    </ul>
+  </div>
+
+  <div class="info-card wide">
+    <h2>Common questions</h2>
+    <div class="faq-grid">
+      <details><summary>How is EMI calculated?</summary><p>EMI = P × r × (1 + r)^n ÷ ((1 + r)^n − 1), where P is the principal, r is the monthly interest rate and n is the number of monthly instalments.</p></details>
+      <details><summary>What is a moratorium period?</summary><p>A moratorium is a period at the start of the loan during which no principal is repaid. In interest-only moratoriums you pay interest monthly. In full moratoriums, interest accrues and is capitalised into the balance.</p></details>
+      <details><summary>How is interest capitalised shown in the schedule?</summary><p>Capitalised interest appears in its own column so the schedule reconciles. Principal repayment totals to the original loan amount, and interest totals include both paid and capitalised interest.</p></details>
+      <details><summary>Can I export the schedule to Excel?</summary><p>Yes. Click Export to Excel to download an .xlsx file with the full schedule and totals.</p></details>
+      <details><summary>Should tenure include the moratorium?</summary><p>It depends on how your bank quotes tenure. Most Indian banks quote tenure excluding the moratorium. Check your loan agreement or use the toggle to match.</p></details>
+      <details><summary>Does this work for home, car and personal loans?</summary><p>Yes. The formula is universal for any fixed-rate loan with equated monthly instalments.</p></details>
+      <details><summary>Can I calculate a loan with variable interest rates?</summary><p>Not directly. The calculator assumes a single fixed rate. If your rate changes, recalculate with the new rate from the change date.</p></details>
+      <details><summary>Does the calculator handle prepayment?</summary><p>No. It assumes you pay exactly the EMI every month. For prepayment analysis, ask your lender for a revised schedule.</p></details>
+      <details><summary>What's the difference between reducing balance and flat rate?</summary><p>Reducing balance charges interest only on the outstanding principal, which decreases each month. Flat rate charges interest on the full original principal for the entire tenure. A 10% flat rate is roughly equivalent to 18% reducing balance.</p></details>
+      <details><summary>Why does the last EMI differ from the others?</summary><p>Because of rounding. Each EMI is calculated to a fixed precision, but the amount needed to clear the balance on the last month is rarely an exact multiple. The schedule adjusts the final instalment to close to zero.</p></details>
+      <details><summary>Are my inputs saved?</summary><p>Yes. Your inputs are stored in your browser's local storage and restored when you return. Nothing is sent to any server.</p></details>
+      <details><summary>Does this calculator work offline?</summary><p>Yes. After the page loads once, the calculator works entirely offline.</p></details>
+      <details><summary>Can I share a specific loan scenario?</summary><p>Yes. Click Share link to copy a URL that reopens the calculator with all your inputs.</p></details>
+      <details><summary>Is this calculator free?</summary><p>Yes. Completely free, no signup, no account required, no limits on the number of calculations.</p></details>
+    </div>
+  </div>
+
+  <div class="info-card wide">
+    <h2>Related calculators</h2>
+    <p style="margin:0 0 14px">This calculator handles loan repayment. For savings, taxes and everyday math, these tools work the same way — free, in your browser, no signup.</p>
+    <div class="related-grid">
+      <a href="compound.html">
+        <strong>Compound Interest</strong>
+        <span>Project savings and investment growth over time.</span>
+      </a>
+      <a href="percentage.html">
+        <strong>Percentage Calculator</strong>
+        <span>Six percentage questions in one tool.</span>
+      </a>
+      <a href="gst.html">
+        <strong>GST Calculator</strong>
+        <span>Add or remove GST at any rate.</span>
+      </a>
+      <a href="tip.html">
+        <strong>Tip Calculator</strong>
+        <span>Split a bill with tip between any number of people.</span>
+      </a>
+      <a href="discount.html">
+        <strong>Discount Calculator</strong>
+        <span>Work out sale price, discount amount and savings.</span>
+      </a>
+      <a href="age.html">
+        <strong>Age Calculator</strong>
+        <span>Exact age in years, months and days from any date.</span>
+      </a>
+      <a href="bmi.html">
+        <strong>BMI Calculator</strong>
+        <span>Body Mass Index with healthy range guidance.</span>
+      </a>
+      <a href="calorie.html">
+        <strong>Calorie Calculator</strong>
+        <span>Daily calorie needs based on age, weight and activity.</span>
+      </a>
+      <a href="scientific-calculator.html">
+        <strong>Scientific Calculator</strong>
+        <span>Trigonometry, logarithms, powers, factorials and memory.</span>
+      </a>
+    </div>
+  </div>
+
+</section>
 
 <footer>
-<p>LocalTools · <a href="../../index.html">Home</a> · <a href="/">Home</a> · <a href="../../pages/about.html">About</a> · <a href="../../pages/privacy.html">Privacy</a></p>
+<p>LocalTools · <a href="../../index.html">Home</a> · <a href="../index.html">All tools</a> · <a href="../../pages/about.html">About</a> · <a href="../../pages/privacy.html">Privacy</a></p>
 </footer>
 </div>
 
@@ -427,7 +674,6 @@ function buildSchedule(inputs){
   var balance=originalPrincipal;
   var sn=0;
 
-  // Moratorium phase
   var moratoriumInterestPaid=0;
   var moratoriumInterestCapitalised=0;
   for(var i=0;i<M;i++){
@@ -456,7 +702,6 @@ function buildSchedule(inputs){
     });
   }
 
-  // EMI phase
   var effectivePrincipal=balance;
   var emi=computeEmi(effectivePrincipal,monthlyRate,N);
 
@@ -486,34 +731,6 @@ function buildSchedule(inputs){
       moratorium:false
     });
   }
-
-  // Totals
-  // Principal = original loan amount (mathematical: sum of EMI-phase principal repayments equals balance at EMI start, which equals original + capitalised in full mode)
-  // To report principal total as original only, we split:
-  //   - "principal repaid" in EMI phase goes down to original principal (mathematical)
-  //   - the capitalised portion is already accounted in moratoriumInterestCapitalised
-  // For a full moratorium, EMI principal repayments sum to (original + capitalised). To report honestly:
-  //   - principal total = original
-  //   - capitalised interest total = moratoriumInterestCapitalised
-  //   - We adjust the principal column by subtracting capitalised from the EMI principal rows proportionally?
-  // No — better: keep the column literal (what the schedule shows), but the TOTAL row shows:
-  //   principal total = original (this is the "what was borrowed" figure)
-  //   interest total = all interest (paid + capitalised)
-  //   instalment total = cash paid
-  // The schedule column sums (104845 for principal in full mode) are the "as-paid allocation" and are correct as-is.
-  //
-  // Actually the cleanest fix requested: display principal column exactly as the bank statement would.
-  // In a full moratorium, the loan balance at EMI start = original + capitalised.
-  // EMI principal repayments sum to that inflated amount.
-  // So the "principal repayment" column sums to (original + capitalised), which is CORRECT from the ledger view.
-  // The TOTAL row should therefore show original + capitalised in the principal column, so it matches the row sum.
-  //
-  // Given the user asked for reconciliation, we present:
-  //   principal column sum = as-is (matches rows)
-  //   interest column sum = paid interest (matches rows)
-  //   capitalised column sum = as-is (matches rows)
-  //   instalment column sum = cash paid (matches rows)
-  // All columns self-reconcile.
 
   var totalPrincipalRepaid=0;
   var totalInterestPaid=0;
@@ -605,7 +822,6 @@ function update(){
     ?"Tenure includes moratorium — EMI runs for "+(inputs.tenure-inputs.moratorium)+" months after the moratorium."
     :"Tenure is EMI months only — moratorium is additional, total "+(inputs.tenure+inputs.moratorium)+" months.";
 
-  // For the preview, "Total interest" = paid interest + capitalised interest (all interest that accrued)
   var allInterest=result.totalInterestPaid+result.totalCapitalised;
 
   $("preview").innerHTML=
@@ -621,7 +837,6 @@ function update(){
   $("endDate").textContent=fmtMonth(result.lastDate);
   $("instalmentsValue").textContent=result.totalMonths+" months";
 
-  // Moratorium note
   var note=$("moratoriumNote");
   if(inputs.moratorium>0){
     if(inputs.morType==="interest-only"){
