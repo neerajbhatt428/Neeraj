@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website PDF Password Tool</title>
+    
+    <!-- PDF processing engines -->
+    <script src="https://jsdelivr.net"></script>
+    
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .tool-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        h2 { margin-top: 0; color: #0f172a; }
+        .input-group { margin-bottom: 15px; text-align: left; }
+        label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 13px; color: #475569; }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            background-color: #10b981;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover { background-color: #059669; }
+        #status-bar {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            background-color: #f1f5f9;
+        }
+        .error { background-color: #fee2e2; color: #b91c1c; }
+        .success { background-color: #dcfce7; color: #15803d; }
+    </style>
+</head>
+<body>
+
+<div class="tool-card">
+    <h2>PDF Password Remover</h2>
+    <div class="input-group">
+        <label for="pdfFile">Upload Encrypted PDF</label>
+        <input type="file" id="pdfFile" accept=".pdf">
+    </div>
+    <div class="input-group">
+        <label for="pdfPassword">File Password</label>
+        <input type="password" id="pdfPassword" placeholder="Type current password...">
+    </div>
+    <button id="processBtn">Remove Encryption</button>
+    <div id="status-bar">System Status: Awaiting File...</div>
+</div>
+
+<script>
+    document.getElementById('processBtn').addEventListener('click', async () => {
+        const fileInput = document.getElementById('pdfFile');
+        const passwordInput = document.getElementById('pdfPassword');
+        const statusBar = document.getElementById('status-bar');
+        
+        if (!fileInput.files.length) {
+            statusBar.innerText = "Error: Please select a PDF file.";
+            statusBar.className = "error";
+            return;
+        }
+
+        try {
+            statusBar.innerText = "Processing file layers safely...";
+            statusBar.className = "";
+            
+            const file = fileInput.files[0];
+            const arrayBuffer = await file.arrayBuffer();
+            
+            // Decrypt stream
+            const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer, { 
+                password: passwordInput.value 
+            });
+            
+            // Rebuild plain structure
+            const cleanPdfDoc = await PDFLib.PDFDocument.create();
+            const copiedPages = await cleanPdfDoc.copyPages(pdfDoc, pdfDoc.getPageIndices());
+            copiedPages.forEach(page => cleanPdfDoc.addPage(page));
+            
+            const cleanPdfBytes = await cleanPdfDoc.save();
+            const blob = new Blob([cleanPdfBytes], { type: 'application/pdf' });
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = file.name.replace('.pdf', '_unlocked.pdf');
+            link.click();
+            
+            statusBar.innerText = "Success! Password stripped.";
+            statusBar.className = "success";
+        } catch (err) {
+            statusBar.innerText = "Processing Failed: Invalid password or strict encryption.";
+            statusBar.className = "error";
+        }
+    });
+</script>
+
+</body>
+</html>
