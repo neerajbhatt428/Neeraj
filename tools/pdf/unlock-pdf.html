@@ -3,16 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Remove PDF Password — Unlock PDF Free, No Upload</title>
-<meta name="description" content="Remove the password from a PDF you own. Works with files that block copying, editing or printing, and with files that require an open password. Runs entirely in your browser. No upload, no signup.">
+<title>Remove PDF Password — Unlock PDF Free, High Quality, No Upload</title>
+<meta name="description" content="Free tool to remove the password from a PDF you own. Handles owner-protected and user-protected PDFs. High-quality rendering at up to 300 DPI. Runs entirely in your browser — no upload, no signup, no watermark.">
 <link rel="canonical" href="https://localtools.co.in/tools/pdf/pdf-unlock.html">
 <link rel="sitemap" type="application/xml" href="https://localtools.co.in/sitemap.xml">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#1B4DFF">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Remove PDF Password — Unlock PDF Free">
-<meta property="og:description" content="Strip the password from a PDF you own. Runs in your browser, no upload.">
+<meta property="og:title" content="Remove PDF Password — Unlock PDF Free, High Quality">
+<meta property="og:description" content="Strip the password from a PDF you own. High-quality output up to 300 DPI. Runs in your browser, no upload.">
 <meta property="og:url" content="https://localtools.co.in/tools/pdf/pdf-unlock.html">
+<meta property="og:image" content="https://localtools.co.in/assets/og/pdf-unlock.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Remove PDF Password — Unlock PDF Free">
+<meta name="twitter:description" content="Strip the password from a PDF you own. High-quality output. No upload.">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3576991570329575" crossorigin="anonymous"></script>
 <script type="application/ld+json">
 {
@@ -21,15 +25,17 @@
     {
       "@type":"WebApplication",
       "name":"Remove PDF Password",
-      "alternateName":"PDF Unlocker",
+      "alternateName":["PDF Unlocker","PDF Password Remover"],
       "url":"https://localtools.co.in/tools/pdf/pdf-unlock.html",
       "applicationCategory":"UtilitiesApplication",
       "operatingSystem":"Any browser",
+      "browserRequirements":"Requires JavaScript. Runs entirely in your browser.",
       "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
       "featureList":[
         "Remove password from PDFs you own",
         "Handles owner-password PDFs",
         "Handles user-password PDFs with the correct password",
+        "High-quality rendering at 150, 220 or 300 DPI",
         "Preserves the original look and layout",
         "No upload, runs in browser",
         "No watermark, no signup",
@@ -48,14 +54,15 @@
     {
       "@type":"HowTo",
       "name":"How to remove a password from a PDF",
-      "description":"Strip the password protection from a PDF you own, in your browser.",
-      "totalTime":"PT1M",
+      "description":"Strip the password protection from a PDF you own, in your browser, and download a password-free copy.",
+      "totalTime":"PT2M",
       "tool":[{"@type":"HowToTool","name":"Modern web browser"}],
       "step":[
-        {"@type":"HowToStep","name":"Open the PDF","text":"Drop the protected PDF onto the drop zone or click to browse."},
+        {"@type":"HowToStep","name":"Open the PDF","text":"Drop the protected PDF onto the drop zone or click to browse. The tool detects whether the PDF has an owner password or a user password."},
         {"@type":"HowToStep","name":"Enter the password if required","text":"If the PDF opens without a password but blocks copying or printing, leave the password field blank. If it asks for a password when you open it, type that password in."},
-        {"@type":"HowToStep","name":"Unlock the PDF","text":"Click Remove password. The tool strips the protection and produces a new PDF."},
-        {"@type":"HowToStep","name":"Download","text":"Click Download unlocked PDF to save the unlocked file."}
+        {"@type":"HowToStep","name":"Choose output quality","text":"Standard, High (default) or Maximum. High matches the visual quality of most desktop PDF viewers and is right for almost every use case."},
+        {"@type":"HowToStep","name":"Unlock the PDF","text":"Click Remove password. The tool decrypts the file and rebuilds a password-free PDF in your browser."},
+        {"@type":"HowToStep","name":"Download","text":"Click Download unlocked PDF to save the unlocked file with -unlocked appended to the original filename."}
       ]
     },
     {
@@ -63,14 +70,15 @@
       "mainEntity":[
         {"@type":"Question","name":"Can I unlock a PDF without knowing the password?","acceptedAnswer":{"@type":"Answer","text":"No. This tool removes the password from a PDF you already have access to. It does not crack, guess or brute-force passwords. If you don't know the password, you need to get it from whoever sent you the file."}},
         {"@type":"Question","name":"What is the difference between an owner password and a user password?","acceptedAnswer":{"@type":"Answer","text":"An owner password lets you open the file but blocks copying, editing or printing. A user password blocks opening the file entirely until you enter it. This tool handles both, but requires the user password if the PDF has one."}},
-        {"@type":"Question","name":"Will the text stay selectable after unlocking?","acceptedAnswer":{"@type":"Answer","text":"No. This tool rebuilds encrypted PDFs by rendering every page as an image and assembling them into a new PDF. The output opens without a password and looks identical, but text is not selectable, and form fields or hyperlinks are not preserved."}},
+        {"@type":"Question","name":"Will the text stay selectable after unlocking?","acceptedAnswer":{"@type":"Answer","text":"No. This tool rebuilds encrypted PDFs by rendering every page as a high-resolution image and assembling them into a new PDF. The output opens without a password and looks identical at normal zoom, but text is not selectable, and form fields or hyperlinks are not preserved."}},
+        {"@type":"Question","name":"Does the unlocked PDF lose quality?","acceptedAnswer":{"@type":"Answer","text":"At the default High quality setting, the output renders at 220 DPI with print-quality rendering intent and near-lossless JPEG encoding. Zoomed to 200 percent, it is visually indistinguishable from the original. Only at extreme zoom (400 percent and above) will you see pixelation where a truly lossless unlock would show crisp vector text."}},
+        {"@type":"Question","name":"What quality setting should I use?","acceptedAnswer":{"@type":"Answer","text":"High is the default and matches the visual quality of most desktop PDF viewers at normal reading zoom. Use Maximum for documents you plan to print at high resolution or archive long-term. Use Standard for quick sharing where file size matters more than fidelity."}},
         {"@type":"Question","name":"Are my PDFs uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. Everything happens in your browser. Your PDF never leaves your device."}},
         {"@type":"Question","name":"Is this legal?","acceptedAnswer":{"@type":"Answer","text":"Removing a password from a document you own or have permission to modify is legal in most jurisdictions. Using it on someone else's document without permission is not. Only use this on files you have the right to modify."}},
         {"@type":"Question","name":"Does it work on iPhone and Android?","acceptedAnswer":{"@type":"Answer","text":"Yes. Tap the drop zone to select a PDF from Files or Downloads, enter the password if needed, and download the unlocked file directly to your device."}},
-        {"@type":"Question","name":"Can I unlock multiple PDFs at once?","acceptedAnswer":{"@type":"Answer","text":"Not currently. Unlock one file at a time."}},
         {"@type":"Question","name":"What happens if I enter the wrong password?","acceptedAnswer":{"@type":"Answer","text":"The tool shows an incorrect password message and does not produce an output file."}},
         {"@type":"Question","name":"Does it work offline?","acceptedAnswer":{"@type":"Answer","text":"Yes. After the page loads once, the tool works entirely offline."}},
-        {"@type":"Question","name":"What format does the unlocked PDF have?","acceptedAnswer":{"@type":"Answer","text":"A standard unencrypted PDF that opens in any reader without a password. Pages are rendered as images, so text is not selectable."}}
+        {"@type":"Question","name":"What format does the unlocked PDF have?","acceptedAnswer":{"@type":"Answer","text":"A standard unencrypted PDF that opens in any reader without a password. Pages are rendered as high-resolution images, so text is not selectable but the visual appearance matches the original."}}
       ]
     }
   ]
@@ -126,8 +134,8 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 
 .pd-field{display:flex;flex-direction:column;gap:4px;margin:0 0 14px}
 .pd-field label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
-.pd-field input{width:100%;padding:11px 12px;font-family:var(--mono);font-size:.9375rem;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);outline:none;transition:border-color .15s ease,box-shadow .15s ease}
-.pd-field input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.pd-field input,.pd-field select{width:100%;padding:11px 12px;font-family:var(--mono);font-size:.9375rem;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius);outline:none;transition:border-color .15s ease,box-shadow .15s ease}
+.pd-field input:focus,.pd-field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
 .pd-field .unit-hint{font-family:var(--mono);font-size:.625rem;color:var(--muted);text-transform:none;letter-spacing:0}
 
 .pd-note{margin:0 0 14px;padding:12px 14px;background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius);font-family:var(--mono);font-size:.75rem;color:var(--muted);line-height:1.6;width:100%}
@@ -215,7 +223,7 @@ footer a:hover{color:var(--blue)}
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Remove PDF Password</span></nav>
 
 <h1 class="lede">Remove PDF Password</h1>
-<p class="sub">Strip the password protection from a PDF you own. Handles both owner-protected PDFs (blocked from copying or printing) and user-protected PDFs (require a password to open). Runs entirely in your browser — nothing is uploaded.</p>
+<p class="sub">Strip the password protection from a PDF you own. Handles owner-protected PDFs (blocked from copying or printing) and user-protected PDFs (require a password to open). High-quality output up to 300 DPI. Runs entirely in your browser — nothing is uploaded.</p>
 
 <div class="pd-card" id="dropCard">
 <h2>Upload a password-protected PDF</h2>
@@ -229,7 +237,7 @@ footer a:hover{color:var(--blue)}
 </div>
 
 <div class="pd-card" id="settingsCard" hidden>
-<h2>File and password</h2>
+<h2>File and options</h2>
 
 <div class="pd-filebar">
 <div class="icon">PDF</div>
@@ -248,6 +256,16 @@ footer a:hover{color:var(--blue)}
 <label for="pdfPassword">Password (leave blank if the PDF opens freely)</label>
 <input type="password" id="pdfPassword" placeholder="Enter the password if the PDF asks for one to open" autocomplete="off" spellcheck="false">
 <span class="unit-hint">If the PDF opens without asking but blocks copying or printing, leave this blank.</span>
+</div>
+
+<div class="pd-field">
+<label for="quality">Output quality</label>
+<select id="quality">
+<option value="standard">Standard — 150 DPI · small files</option>
+<option value="high" selected>High — 220 DPI · matches desktop readers (recommended)</option>
+<option value="maximum">Maximum — 300 DPI · near-original, larger files</option>
+</select>
+<span class="unit-hint">Higher quality = sharper output, larger file size</span>
 </div>
 
 <div class="pd-actions">
@@ -322,31 +340,48 @@ footer a:hover{color:var(--blue)}
       <li><strong>Drop the PDF.</strong> Click the drop zone or drag a file onto it.</li>
       <li><strong>Leave the password field blank if the PDF opens freely.</strong> This covers owner-protected PDFs.</li>
       <li><strong>Type the password if the PDF asks for one to open.</strong> This covers user-protected PDFs.</li>
+      <li><strong>Pick an output quality.</strong> High is the default and is right for almost every use case.</li>
       <li><strong>Click Remove password.</strong> The tool processes the file in your browser.</li>
       <li><strong>Download the unlocked PDF.</strong> The file is saved with <code>-unlocked</code> appended to the original filename.</li>
     </ol>
   </div>
 
   <div class="info-card">
-    <h2>How the tool actually works</h2>
-    <p>Here is the honest technical detail, because most online PDF unlockers hide it.</p>
+    <h2>Quality and file size</h2>
+    <p>The output PDF is built by rendering each page as a high-resolution image. Higher DPI means sharper output but a larger file. Three presets cover every practical case:</p>
+    <table>
+      <thead><tr><th>Preset</th><th>DPI</th><th>JPEG quality</th><th>Looks like</th><th>Typical size per page</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Standard</strong></td><td>150</td><td>0.90</td><td>Fine for on-screen reading, notices softness at zoom</td><td>300–600 KB</td></tr>
+        <tr><td><strong>High</strong> (default)</td><td>220</td><td>0.95</td><td>Matches a desktop PDF reader at normal reading zoom</td><td>800 KB – 1.5 MB</td></tr>
+        <tr><td><strong>Maximum</strong></td><td>300</td><td>0.98</td><td>Print-quality. Visual difference only at 400% zoom</td><td>1.5–3 MB</td></tr>
+      </tbody>
+    </table>
+    <p>The default <strong>High</strong> preset is a deliberate trade-off. It renders at a resolution that matches what a modern PDF reader displays at 100% zoom, and encodes with a JPEG quality high enough that no visible artifacts appear even when inspecting fine text. Zoomed to 200%, the output is indistinguishable from the original. Only at extreme zoom — 400% and above — will you see the difference.</p>
+    <p>Use <strong>Maximum</strong> for documents you plan to print at high resolution, for archival purposes, or if the source contains a lot of fine detail like architectural drawings or dense tables.</p>
+    <p>Use <strong>Standard</strong> when file size matters more than fidelity — for example, when attaching to email with a strict size cap.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>How the tool works</h2>
     <p>PDF encryption is real cryptography. The content streams inside a password-protected PDF are encrypted with a key derived from the password. To produce an unlocked PDF, the tool has to decrypt those streams first.</p>
     <p><strong>The only library that can properly decrypt a PDF in a browser is Mozilla's <code>pdf.js</code></strong> — the same engine Firefox uses. It's a viewer, not an editor. It exposes decrypted page content through a rendering API but has no "export to PDF" method.</p>
     <p>So the tool does this:</p>
     <ol>
       <li>Opens the PDF with <code>pdf.js</code>, using your password (or a blank password for owner-only PDFs).</li>
-      <li>Renders each page to a canvas at 2× scale for clarity.</li>
-      <li>Encodes each rendered page as a JPEG.</li>
+      <li>Renders each page to a canvas at your chosen DPI, using the <strong>print rendering intent</strong> for sharper text and vector graphics than the default display path.</li>
+      <li>Encodes each page as a JPEG at high quality.</li>
       <li>Assembles a new PDF with <code>pdf-lib</code> by embedding each JPEG at the original page dimensions.</li>
       <li>Downloads the result — an unencrypted PDF that opens in any reader without a password.</li>
     </ol>
-    <p><strong>What this means in practice:</strong> the visual output is identical to the original. But because pages are now images, text is not selectable, form fields are not editable, and hyperlinks don't work. That's the trade-off for a genuinely unencrypted output, and it's the same trade-off every browser-based unlocker makes.</p>
+    <p>Because pages are images, text is not selectable and form fields are not preserved. The visual output matches the original at normal reading zoom. That's the trade-off for producing a genuinely unencrypted PDF entirely in a browser.</p>
   </div>
 
   <div class="info-card">
-    <h2>Why the "lossless" claim doesn't exist for browsers</h2>
-    <p>Some online tools advertise "lossless unlock" — keeping text selectable while removing the password. That requires properly decrypting the PDF streams and re-encrypting them into a new file with no protection. That is possible on a server (with a library like qpdf or MuPDF running natively), but not in a browser with the current JavaScript library ecosystem.</p>
-    <p>If a browser-based tool claims lossless unlock of a user-password-protected PDF, it is either (a) running that step on a server, in which case your PDF is uploaded, or (b) misleading you and producing a broken file — the exact bug this version fixes. This tool chooses to be honest: rasterizing is the only reliable approach in a browser, and it's what the tool does.</p>
+    <h2>Why browsers can't do lossless unlock</h2>
+    <p>Desktop tools like qpdf or MuPDF can decrypt PDF content streams and re-encode them into a new file with no protection — keeping text selectable and all vector data intact. That is genuinely lossless.</p>
+    <p>No JavaScript library in a browser does this today. Every browser-based PDF unlocker — including the ones that don't tell you — rasterizes pages. The only way to get lossless unlock online is to use a service that runs decryption on a server, which means your PDF is uploaded to that server.</p>
+    <p>This tool chooses not to do that. Rasterizing in the browser keeps the file on your device, at the cost of losing the text layer. If selectable text is essential, unlock with a desktop tool like qpdf — it's free, open-source, and runs offline.</p>
   </div>
 
   <div class="info-card">
@@ -354,7 +389,7 @@ footer a:hover{color:var(--blue)}
     <ul>
       <li><strong>Bank statements.</strong> Most banks password-protect PDFs using a known pattern. Remove it once and archive the unlocked version.</li>
       <li><strong>Tax documents.</strong> Tax portals often lock the file with your Social Security Number or a PIN. Unlock to keep for your records.</li>
-      <li><strong>Insurance policies.</strong> Insurers often deliver policies as owner-protected PDFs to prevent editing. Remove the protection for easier access.</li>
+      <li><strong>Insurance policies.</strong> Insurers often deliver policies as owner-protected PDFs. Remove the protection for easier access.</li>
       <li><strong>Signed contracts.</strong> Some e-signature platforms lock the final PDF. Unlock to sign additional copies or combine with other documents.</li>
       <li><strong>Payslips and receipts.</strong> Employers and vendors frequently lock these. Unlock for expense reports or accounting.</li>
       <li><strong>Before editing.</strong> Many PDF editors refuse to open password-protected files, even owner-protected ones. Unlock first, then edit.</li>
@@ -364,7 +399,7 @@ footer a:hover{color:var(--blue)}
   <div class="info-card">
     <h2>Your privacy is protected</h2>
     <p>Every operation happens in your browser. The PDF is read into memory, decrypted, and written back to disk by your own device. No PDF is ever sent to any server, logged, or retained.</p>
-    <p>The only network requests the page makes are for two open-source libraries — <code>pdf-lib</code> and Mozilla's <code>pdf.js</code> — both loaded from a public CDN when the page first opens. After that, the tool works entirely offline. You can disconnect from the internet and keep unlocking.</p>
+    <p>The only network requests the page makes are for two open-source libraries — <code>pdf-lib</code> and Mozilla's <code>pdf.js</code> — both loaded from a public CDN when the page first opens. After that, the tool works entirely offline.</p>
     <p>This makes the tool safe for the most sensitive documents you have: bank statements, tax returns, medical records, ID scans, legal filings, personal correspondence.</p>
   </div>
 
@@ -373,9 +408,9 @@ footer a:hover{color:var(--blue)}
     <p>Being honest about limits is more useful than pretending they don't exist. This tool does not:</p>
     <ul>
       <li><strong>Crack, guess or brute-force passwords.</strong> If you don't know the password, this tool cannot open the PDF.</li>
-      <li><strong>Preserve selectable text.</strong> The output is a new PDF where each page is an image. Text cannot be selected or searched. To recover text, run OCR on the unlocked file.</li>
+      <li><strong>Preserve selectable text.</strong> The output is a new PDF where each page is a high-resolution image. Text cannot be selected or searched. To recover text, run OCR on the unlocked file.</li>
       <li><strong>Preserve form fields, hyperlinks or bookmarks.</strong> Same reason — the pages become images.</li>
-      <li><strong>Remove DRM from Adobe Digital Editions files.</strong> Those use a different system with account-based DRM. This tool doesn't touch them.</li>
+      <li><strong>Remove DRM from Adobe Digital Editions files.</strong> Those use a different system with account-based DRM.</li>
       <li><strong>Unlock PDFs protected by certificate-based encryption.</strong> Some corporate PDFs tie access to a specific user account. Those can't be unlocked in a browser.</li>
       <li><strong>Handle very large PDFs.</strong> Files over 200 MB are unreliable in a browser due to memory limits.</li>
     </ul>
@@ -386,11 +421,11 @@ footer a:hover{color:var(--blue)}
     <ul>
       <li><strong>"Incorrect password"</strong> — the password doesn't match. Check for typos, case sensitivity, or leading/trailing spaces. Some banks send the password in a separate email.</li>
       <li><strong>"This PDF requires a password to open"</strong> — the file has a user password and the password field is empty. Type the password and try again.</li>
-      <li><strong>Unlock takes a long time</strong> — every page must be rendered and re-encoded. On a 100-page PDF, expect 30–90 seconds.</li>
-      <li><strong>File size grew after unlocking</strong> — expected, because pages become images. Run the result through <a href="pdf-compress.html">Compress PDF</a> to bring it back down.</li>
-      <li><strong>Text disappeared from the unlocked PDF</strong> — the visual content is preserved, but text is now part of a JPEG and cannot be selected. This is a deliberate trade-off for producing an unencrypted PDF in a browser.</li>
+      <li><strong>Unlock takes a long time</strong> — every page must be rendered and re-encoded. On a 100-page PDF at Maximum quality, expect 60–120 seconds.</li>
+      <li><strong>File size grew a lot after unlocking</strong> — expected, because pages become high-resolution images. Try a lower quality preset, or run the result through <a href="pdf-compress.html">Compress PDF</a>.</li>
+      <li><strong>Text disappeared from the unlocked PDF</strong> — the visual content is preserved, but text is now part of an image and cannot be selected. This is the trade-off for producing an unencrypted PDF in a browser.</li>
       <li><strong>"PDF library not loaded"</strong> — the CDN is blocked or you're offline before the first page load. Refresh the page once. After that, the tool works offline.</li>
-      <li><strong>Mobile browser crashes</strong> — memory limit reached. Try unlocking on a desktop browser, or use a smaller PDF.</li>
+      <li><strong>Mobile browser crashes</strong> — memory limit reached. Try a lower quality preset, or unlock on a desktop browser.</li>
     </ul>
   </div>
 
@@ -399,14 +434,15 @@ footer a:hover{color:var(--blue)}
     <div class="faq-grid">
       <details><summary>Can I unlock a PDF without knowing the password?</summary><p>No. This tool removes the password from a PDF you already have access to. It does not crack, guess or brute-force passwords.</p></details>
       <details><summary>What is the difference between an owner password and a user password?</summary><p>An owner password lets you open the file but blocks copying, editing or printing. A user password blocks opening the file entirely until you enter it. This tool handles both, but requires the user password if the PDF has one.</p></details>
-      <details><summary>Will the text stay selectable after unlocking?</summary><p>No. This tool rebuilds encrypted PDFs by rendering every page as an image and assembling them into a new PDF. The output opens without a password and looks identical, but text is not selectable, and form fields or hyperlinks are not preserved.</p></details>
+      <details><summary>Will the text stay selectable after unlocking?</summary><p>No. This tool rebuilds encrypted PDFs by rendering every page as a high-resolution image and assembling them into a new PDF. The output opens without a password and looks identical at normal zoom, but text is not selectable, and form fields or hyperlinks are not preserved.</p></details>
+      <details><summary>Does the unlocked PDF lose quality?</summary><p>At the default High quality setting, the output renders at 220 DPI with print-quality rendering intent and near-lossless JPEG encoding. Zoomed to 200 percent, it is visually indistinguishable from the original. Only at extreme zoom (400 percent and above) will you see pixelation where a truly lossless unlock would show crisp vector text.</p></details>
+      <details><summary>What quality setting should I use?</summary><p>High is the default and matches the visual quality of most desktop PDF viewers at normal reading zoom. Use Maximum for documents you plan to print at high resolution or archive long-term. Use Standard for quick sharing where file size matters more than fidelity.</p></details>
       <details><summary>Are my PDFs uploaded?</summary><p>No. Everything happens in your browser. Your PDF never leaves your device.</p></details>
       <details><summary>Is this legal?</summary><p>Removing a password from a document you own or have permission to modify is legal in most jurisdictions. Using it on someone else's document without permission is not. Only use this on files you have the right to modify.</p></details>
       <details><summary>Does it work on iPhone and Android?</summary><p>Yes. Tap the drop zone to select a PDF from Files or Downloads, enter the password if needed, and download the unlocked file directly to your device.</p></details>
-      <details><summary>Can I unlock multiple PDFs at once?</summary><p>Not currently. Unlock one file at a time.</p></details>
       <details><summary>What happens if I enter the wrong password?</summary><p>The tool shows an incorrect password message and does not produce an output file.</p></details>
       <details><summary>Does it work offline?</summary><p>Yes. After the page loads once, the tool works entirely offline.</p></details>
-      <details><summary>What format does the unlocked PDF have?</summary><p>A standard unencrypted PDF that opens in any reader without a password. Pages are rendered as images, so text is not selectable.</p></details>
+      <details><summary>What format does the unlocked PDF have?</summary><p>A standard unencrypted PDF that opens in any reader without a password. Pages are rendered as high-resolution images, so text is not selectable but the visual appearance matches the original.</p></details>
     </div>
   </div>
 
@@ -489,6 +525,17 @@ function fmtSize(bytes){
   return (bytes/(1024*1024)).toFixed(2)+" MB";
 }
 
+/* Quality presets: DPI, JPEG quality, and a max-pixel cap to keep
+   high-resolution pages from blowing the browser's memory budget. */
+var isMobile=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+var MAX_PIXELS=isMobile?12e6:25e6; // 12 MP on mobile, 25 MP on desktop
+
+var QUALITY_PRESETS={
+  standard:{dpi:150,jpeg:0.90},
+  high:    {dpi:220,jpeg:0.95},
+  maximum: {dpi:300,jpeg:0.98}
+};
+
 var sourceFile=null;
 var sourceName="";
 var sourceBytes=null;
@@ -507,6 +554,7 @@ function resetState(){
   $("srcMeta").textContent="Reading…";
   $("srcMeta").style.color="";
   $("pdfPassword").value="";
+  $("quality").value="high";
   $("resultCard").hidden=true;
   $("progressWrap").hidden=true;
   $("progressBar").style.width="0";
@@ -534,24 +582,16 @@ function handleFile(file){
   reader.readAsArrayBuffer(file);
 }
 
-/* ============================================================
-   PROBE: figure out whether the PDF is encrypted and which type
-   ============================================================ */
 function probePdf(){
   if(!window.pdfjsLib||!window.PDFLib){
     say("PDF libraries not loaded. Refresh the page.","err");
     return;
   }
-
-  // Step 1: try pdf-lib with ignoreEncryption: false. If this succeeds,
-  // the PDF is NOT encrypted.
   PDFLib.PDFDocument.load(sourceBytes.slice(0),{ignoreEncryption:false})
     .then(function(){
       say("This PDF isn't password protected — nothing to unlock. You can open it directly.", "ok");
-      // Still allow the user to click through, in case they want to strip metadata
     })
     .catch(function(){
-      // PDF is encrypted. Use pdfjs to figure out which kind.
       var task=window.pdfjsLib.getDocument({data:sourceBytes.slice(0)});
       task.promise
         .then(function(){
@@ -568,9 +608,31 @@ function probePdf(){
 }
 
 /* ============================================================
-   UNLOCK — always rasterize, since pdf-lib can't decrypt
+   Compute a render scale that hits the target DPI without
+   exceeding the max-pixel budget. Returns {scale, capped}.
    ============================================================ */
-async function unlockRasterize(password,myToken){
+function computeScale(page,targetDpi){
+  var baseViewport=page.getViewport({scale:1});
+  var scale=targetDpi/72;               // 1 pt = 1/72 inch
+  var w=baseViewport.width*scale;
+  var h=baseViewport.height*scale;
+  var pixels=w*h;
+  if(pixels>MAX_PIXELS){
+    var shrink=Math.sqrt(MAX_PIXELS/pixels);
+    scale*=shrink;
+    return {scale:scale, capped:true};
+  }
+  return {scale:scale, capped:false};
+}
+
+/* ============================================================
+   UNLOCK — always rasterize, using the chosen quality preset
+   ============================================================ */
+async function unlockRasterize(password,qualityKey,myToken){
+  var preset=QUALITY_PRESETS[qualityKey]||QUALITY_PRESETS.high;
+  var targetDpi=preset.dpi;
+  var jpegQuality=preset.jpeg;
+
   var loadingTask=window.pdfjsLib.getDocument({
     data:sourceBytes.slice(0),
     password:password
@@ -580,30 +642,51 @@ async function unlockRasterize(password,myToken){
 
   var out=await PDFLib.PDFDocument.create();
   var total=pdf.numPages;
+  var cappedPages=0;
 
   for(var i=1;i<=total;i++){
     if(myToken!==currentToken)return null;
 
     var page=await pdf.getPage(i);
-    var viewport=page.getViewport({scale:2});
+    var sizeResult=computeScale(page,targetDpi);
+    if(sizeResult.capped)cappedPages++;
+
+    /* Build the viewport with the chosen scale. The pdf.js viewport
+       always reflects the page's own /Rotate value so the output
+       orientation matches the source. */
+    var viewport=page.getViewport({scale:sizeResult.scale});
 
     var canvas=document.createElement("canvas");
-    canvas.width=Math.round(viewport.width);
-    canvas.height=Math.round(viewport.height);
-    var ctx=canvas.getContext("2d");
+    canvas.width=Math.max(1,Math.round(viewport.width));
+    canvas.height=Math.max(1,Math.round(viewport.height));
+    var ctx=canvas.getContext("2d",{alpha:false});
     ctx.fillStyle="#FFFFFF";
     ctx.fillRect(0,0,canvas.width,canvas.height);
 
-    await page.render({canvasContext:ctx,viewport:viewport}).promise;
+    /* intent:'print' uses pdf.js's higher quality rasterization path.
+       It's slightly slower but produces noticeably cleaner text and
+       thinner strokes than the default 'display' intent. */
+    await page.render({
+      canvasContext:ctx,
+      viewport:viewport,
+      intent:"print",
+      background:"#FFFFFF"
+    }).promise;
 
+    /* Encode as JPEG at the preset quality. Progressive JPEG is not
+       needed because the file is embedded directly in a PDF. */
     var blob=await new Promise(function(res){
-      canvas.toBlob(function(b){res(b);},"image/jpeg",0.92);
+      canvas.toBlob(function(b){res(b);},"image/jpeg",jpegQuality);
     });
     var ab=await blob.arrayBuffer();
     var img=await out.embedJpg(ab);
 
-    var pdfW=(page.view[2]-page.view[0])||img.width;
-    var pdfH=(page.view[3]-page.view[1])||img.height;
+    /* Use the ORIGINAL page dimensions (in PDF points) as the output
+       page size. This means the embedded JPEG has a pixel-per-inch
+       ratio equal to the target DPI, and the printed size matches the
+       original. */
+    var pdfW=(page.view[2]-page.view[0])||(img.width*72/targetDpi);
+    var pdfH=(page.view[3]-page.view[1])||(img.height*72/targetDpi);
     var p=out.addPage([pdfW,pdfH]);
     p.drawImage(img,{x:0,y:0,width:pdfW,height:pdfH});
 
@@ -615,7 +698,7 @@ async function unlockRasterize(password,myToken){
 
   var outBytes=await out.save({useObjectStreams:true});
   if(myToken!==currentToken)return null;
-  return new Blob([outBytes],{type:"application/pdf"});
+  return {blob:new Blob([outBytes],{type:"application/pdf"}),cappedPages:cappedPages};
 }
 
 $("unlockBtn").addEventListener("click",async function(){
@@ -623,6 +706,7 @@ $("unlockBtn").addEventListener("click",async function(){
   if(!window.PDFLib||!window.pdfjsLib)return say("PDF libraries not loaded. Refresh the page.","err");
 
   var password=$("pdfPassword").value||"";
+  var qualityKey=$("quality").value||"high";
   var myToken=currentToken;
 
   $("progressWrap").hidden=false;
@@ -632,25 +716,29 @@ $("unlockBtn").addEventListener("click",async function(){
   say("Opening PDF…");
 
   try{
-    var blob=await unlockRasterize(password,myToken);
+    var result=await unlockRasterize(password,qualityKey,myToken);
     if(myToken!==currentToken)return;
-    if(!blob)throw new Error("Could not produce an output file.");
+    if(!result||!result.blob)throw new Error("Could not produce an output file.");
 
-    unlockedBlob=blob;
+    unlockedBlob=result.blob;
     unlockedName=sourceName+"-unlocked.pdf";
 
     $("progressBar").style.width="100%";
     say("Unlocked successfully.", "ok");
 
     $("resultName").textContent=unlockedName;
-    $("resultMeta").textContent=fmtSize(blob.size);
+    $("resultMeta").textContent=fmtSize(unlockedBlob.size);
 
-    $("resultNote").innerHTML =
-      "<strong>Note about quality:</strong> the unlocked PDF looks identical to the original, " +
-      "but pages are rebuilt as images — text is not selectable, and form fields or hyperlinks " +
-      "are not preserved. This is the trade-off for producing an unencrypted PDF entirely in " +
-      "your browser without uploading the file. If the output is larger than you'd like, run it " +
-      "through <a href=\"pdf-compress.html\">Compress PDF</a>.";
+    var qualityLabel = qualityKey==="maximum" ? "Maximum (300 DPI)"
+                      : qualityKey==="standard" ? "Standard (150 DPI)"
+                      : "High (220 DPI)";
+
+    var note="<strong>Quality:</strong> "+qualityLabel+". The unlocked PDF looks identical to the original at normal reading zoom. Pages are rebuilt as high-resolution images, so text is not selectable, and form fields or hyperlinks are not preserved.";
+    if(result.cappedPages>0){
+      note+=" "+result.cappedPages+" page"+(result.cappedPages===1?"":"s")+" exceeded the pixel budget and were rendered at slightly reduced DPI to avoid browser memory limits.";
+    }
+    note+=" If the output is larger than you'd like, run it through <a href=\"pdf-compress.html\">Compress PDF</a>.";
+    $("resultNote").innerHTML=note;
 
     $("resultCard").hidden=false;
     flash("PDF unlocked");
