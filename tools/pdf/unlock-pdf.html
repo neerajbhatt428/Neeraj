@@ -3,53 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instant PDF Password Remover</title>
+    <title>Enterprise PDF Password Buster</title>
     
-    <!-- Using the high-speed distribution version of pdf-lib -->
+    <!-- Load the high-performance C++ QPDF engine compiled to WebAssembly -->
     <script src="https://jsdelivr.net"></script>
     
     <style>
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f1f5f9;
-            color: #1e293b;
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
         }
-        .app-container {
-            background: #ffffff;
-            padding: 30px;
+        .app-card {
+            background: #1e293b;
+            padding: 35px;
             border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
             width: 100%;
             max-width: 420px;
             text-align: center;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #334155;
         }
-        h2 { margin-top: 0; color: #0f172a; font-size: 24px; font-weight: 700; }
-        p { color: #64748b; font-size: 14px; margin-bottom: 24px; line-height: 1.5; }
-        .input-group {
-            margin-bottom: 18px;
-            text-align: left;
-        }
-        label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 13px; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; }
+        h2 { margin-top: 0; color: #f1f5f9; font-size: 24px; font-weight: 700; }
+        p { color: #94a3b8; font-size: 14px; margin-bottom: 24px; line-height: 1.5; }
+        .input-group { margin-bottom: 20px; text-align: left; }
+        label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 12px; color: #cbd5e1; text-transform: uppercase; letter-spacing: 0.5px; }
         input[type="file"], input[type="password"] {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #cbd5e1;
+            padding: 12px 14px;
+            border: 1px solid #475569;
             border-radius: 8px;
             box-sizing: border-box;
             font-size: 14px;
-            background-color: #f8fafc;
+            background-color: #0f172a;
+            color: #fff;
             transition: all 0.2s;
         }
-        input:focus { outline: none; border-color: #2563eb; background-color: #ffffff; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); }
+        input:focus { outline: none; border-color: #3b82f6; background-color: #0f172a; }
         button {
             width: 100%;
-            background-color: #2563eb;
+            background-color: #3b82f6;
             color: #ffffff;
             border: none;
             padding: 14px;
@@ -57,100 +55,113 @@
             font-weight: 600;
             border-radius: 8px;
             cursor: pointer;
-            margin-top: 8px;
+            margin-top: 5px;
             transition: background 0.2s;
         }
-        button:hover { background-color: #1d4ed8; }
-        button:disabled { background-color: #93c5fd; cursor: not-allowed; }
+        button:hover { background-color: #2563eb; }
+        button:disabled { background-color: #475569; color: #94a3b8; cursor: not-allowed; }
         #status-display {
             margin-top: 20px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             padding: 12px;
             border-radius: 8px;
             line-height: 1.4;
-            background-color: #f8fafc;
-            border: 1px solid #e2e8f0;
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            color: #94a3b8;
         }
-        .error { background-color: #fee2e2 !important; color: #b91c1c !important; border-color: #fca5a5 !important; }
-        .success { background-color: #dcfce7 !important; color: #15803d !important; border-color: #86efac !important; }
-        .processing { background-color: #e0f2fe !important; color: #0369a1 !important; border-color: #7dd3fc !important; }
+        .error { background-color: #451a03 !important; color: #f87171 !important; border-color: #991b1b !important; }
+        .success { background-color: #064e3b !important; color: #34d399 !important; border-color: #065f46 !important; }
+        .processing { background-color: #1e3a8a !important; color: #60a5fa !important; border-color: #1e40af !important; }
     </style>
 </head>
 <body>
 
-<div class="app-container">
-    <h2>Instant PDF Unlocker</h2>
-    <p>High-speed, client-side cryptographic decryption module for professional deployment.</p>
+<div class="app-card">
+    <h2>AES-256 PDF Decryptor</h2>
+    <p>Professional front-end utility utilizing WebAssembly to strip Adobe security profiles completely offline.</p>
     
     <div class="input-group">
-        <label for="pdfFile">Select Protected File</label>
+        <label for="pdfFile">Select Encrypted File</label>
         <input type="file" id="pdfFile" accept=".pdf">
     </div>
     
     <div class="input-group">
         <label for="pdfPassword">File Password</label>
-        <input type="password" id="pdfPassword" placeholder="Enter password to unlock...">
+        <input type="password" id="pdfPassword" placeholder="Provide password to scrub keys...">
     </div>
     
-    <button id="submitBtn">Remove Password Instantly</button>
+    <button id="processBtn">Strip Security Profile</button>
     
-    <div id="status-display">System Status: Awaiting Action...</div>
+    <div id="status-display">System Matrix: Ready.</div>
 </div>
 
 <script>
-    document.getElementById('submitBtn').addEventListener('click', async () => {
+    document.getElementById('processBtn').addEventListener('click', async () => {
         const fileInput = document.getElementById('pdfFile');
         const passwordInput = document.getElementById('pdfPassword');
         const statusDisplay = document.getElementById('status-display');
-        const submitBtn = document.getElementById('submitBtn');
+        const processBtn = document.getElementById('processBtn');
         
         if (!fileInput.files.length) {
-            updateStatus("Please select a valid PDF file first.", "error");
+            updateStatus("Error: Selection vector empty.", "error");
             return;
         }
 
-        updateStatus("Decrypting cryptographic keys...", "processing");
-        submitBtn.disabled = true;
+        updateStatus("Mounting WebAssembly binary engine...", "processing");
+        processBtn.disabled = true;
 
         try {
             const file = fileInput.files[0];
             const fileBuffer = await file.arrayBuffer();
+            const uint8Array = new Uint8Array(fileBuffer);
+
+            // Initialize the embedded QPDF WASM framework package
+            updateStatus("Spinning up C++ translation matrix...", "processing");
+            const qpdf = await window.qpdfWasm();
+
+            // Write your source file directly into the sandbox virtual runtime system memory
+            qpdf.FS.writeFile("input.pdf", uint8Array);
+
+            updateStatus("Breaking AES-256 bit encryption keys...", "processing");
+
+            // Execute raw native compilation arrays
+            const args = [
+                `--password=${passwordInput.value}`,
+                "--decrypt",
+                "input.pdf",
+                "output.pdf"
+            ];
             
-            // OPTIMIZATION: Load the PDF structure directly into binary registers
-            // By passing 'ignoreEncryption: false', pdf-lib handles internal structural parsing immediately
-            const pdfDoc = await PDFLib.PDFDocument.load(fileBuffer, { 
-                password: passwordInput.value,
-                ignoreEncryption: false
-            });
-            
-            updateStatus("Stripping security parameters...", "processing");
-            
-            // OPTIMIZATION: Create an entirely flat memory buffer clone 
-            // Instead of rendering to images, we clone array elements directly, omitting the encryption dictionaries.
-            const decoupledDoc = await PDFLib.PDFDocument.create();
-            const indices = pdfDoc.getPageIndices();
-            const clonedPages = await decoupledDoc.copyPages(pdfDoc, indices);
-            clonedPages.forEach(page => decoupledDoc.addPage(page));
-            
-            // Save out the structural array bytes natively
-            const rawBytes = await decoupledDoc.save();
-            
-            // Stream raw bytes directly to browser client pipeline
-            const dataBlob = new Blob([rawBytes], { type: 'application/pdf' });
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.href = URL.createObjectURL(dataBlob);
-            downloadAnchor.download = file.name.replace('.pdf', '_unlocked.pdf');
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            document.body.removeChild(downloadAnchor);
-            
-            updateStatus("Success! Encryption keys dropped completely.", "success");
+            const exitCode = qpdf.callMain(args);
+
+            if (exitCode !== 0) {
+                throw new Error("WASM Decryption processing rejected. Verify password integrity.");
+            }
+
+            // Extract the freshly wiped data buffer array directly from the system container
+            const outputData = qpdf.FS.readFile("output.pdf");
+
+            // Build data blob and dispatch downstream anchor element
+            const finishedBlob = new Blob([outputData], { type: 'application/pdf' });
+            const anchor = document.createElement('a');
+            anchor.href = URL.createObjectURL(finishedBlob);
+            anchor.download = file.name.replace('.pdf', '_unlocked.pdf');
+            document.body.appendChild(anchor);
+            anchor.click();
+            document.body.removeChild(anchor);
+
+            // Housekeeping: drop items from virtual file system cache to free active device memory
+            qpdf.FS.unlink("input.pdf");
+            qpdf.FS.unlink("output.pdf");
+
+            updateStatus("Success! Security variables completely dropped.", "success");
         } catch (err) {
             console.error(err);
-            updateStatus("Decryption Failed. Verify your password or confirm if this file uses unsupported custom security wrappers.", "error");
+            updateStatus("Decryption Interrupted: Invalid password or incompatible document signature structure.", "error");
         } finally {
-            submitBtn.disabled = false;
+            processBtn.disabled = false;
         }
     });
 
