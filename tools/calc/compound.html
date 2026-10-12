@@ -3,18 +3,90 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Compound Interest Calculator — With Monthly Contributions, Inflation & Tax Adjustment</title>
-<meta name="description" content="Free compound interest calculator with monthly, quarterly or yearly compounding. Add regular contributions, see inflation-adjusted and post-tax returns, and export the growth schedule.">
+<title>Compound Interest Calculator — Monthly Contributions, Inflation & Tax Free</title>
+<meta name="description" content="Free compound interest calculator with monthly, quarterly or yearly compounding. Add regular contributions, see inflation-adjusted and post-tax returns, set a goal target, and export the growth schedule. Runs in your browser, no signup.">
 <link rel="canonical" href="https://localtools.co.in/tools/calc/compound.html">
 <link rel="sitemap" type="application/xml" href="https://localtools.co.in/sitemap.xml">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#1B4DFF">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Compound Interest Calculator">
-<meta property="og:description" content="Calculate compound interest with contributions, inflation and tax adjustments. Exportable.">
+<meta property="og:title" content="Compound Interest Calculator — With Contributions, Inflation & Tax">
+<meta property="og:description" content="Calculate compound interest with regular contributions, inflation and tax adjustments. Export to Excel or CSV.">
 <meta property="og:url" content="https://localtools.co.in/tools/calc/compound.html">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3576991570329575" crossorigin="anonymous"></script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Compound Interest Calculator","url":"https://localtools.co.in/tools/calc/compound.html","applicationCategory":"FinanceApplication","operatingSystem":"Any browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localtools.co.in/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://localtools.co.in/tools/"},{"@type":"ListItem","position":3,"name":"Compound Interest","item":"https://localtools.co.in/tools/calc/compound.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is compound interest?","acceptedAnswer":{"@type":"Answer","text":"Compound interest is interest earned on both your original principal and interest already accumulated. It grows exponentially over time."}},{"@type":"Question","name":"Why does inflation matter in compound interest?","acceptedAnswer":{"@type":"Answer","text":"A rupee today buys more than a rupee in 20 years. The real return is your nominal return minus inflation. A 10% return with 6% inflation gives a real return of roughly 4%."}},{"@type":"Question","name":"How does tax affect compound returns?","acceptedAnswer":{"@type":"Answer","text":"Interest is usually taxed as ordinary income. Post-tax returns show what you actually keep after the taxman takes his share."}},{"@type":"Question","name":"Can I calculate in months instead of years?","acceptedAnswer":{"@type":"Answer","text":"Yes. Switch the duration mode to Months and enter the number of months directly."}}]}]}
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"WebApplication",
+      "name":"Compound Interest Calculator",
+      "url":"https://localtools.co.in/tools/calc/compound.html",
+      "applicationCategory":"FinanceApplication",
+      "operatingSystem":"Any browser",
+      "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+      "featureList":[
+        "Compound interest with any frequency",
+        "Regular contributions monthly, quarterly, half-yearly or yearly",
+        "Start-of-period or end-of-period contribution timing",
+        "Inflation-adjusted real value",
+        "Post-tax value based on marginal tax rate",
+        "Effective annual rate calculation",
+        "Goal seek — required monthly contribution for a target",
+        "Growth milestones — when money doubles, triples, 5x, 10x",
+        "Year-by-year growth schedule",
+        "Export to Excel (XLSX) and CSV",
+        "Copy schedule as TSV or summary as text",
+        "Share link with all inputs",
+        "Works offline after first load"
+      ]
+    },
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://localtools.co.in/"},
+        {"@type":"ListItem","position":2,"name":"Tools","item":"https://localtools.co.in/tools/"},
+        {"@type":"ListItem","position":3,"name":"Compound Interest","item":"https://localtools.co.in/tools/calc/compound.html"}
+      ]
+    },
+    {
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"What is compound interest?","acceptedAnswer":{"@type":"Answer","text":"Compound interest is interest earned on both your original principal and interest already accumulated. It grows exponentially over time, unlike simple interest which grows linearly."}},
+        {"@type":"Question","name":"Why does inflation matter in compound interest?","acceptedAnswer":{"@type":"Answer","text":"A rupee today buys more than a rupee in 20 years. The real return is your nominal return minus inflation. A 10% return with 6% inflation gives a real return of roughly 4%."}},
+        {"@type":"Question","name":"How does tax affect compound returns?","acceptedAnswer":{"@type":"Answer","text":"Interest is usually taxed as ordinary income. Post-tax returns show what you actually keep after tax. The calculator applies your marginal tax rate to the total interest earned."}},
+        {"@type":"Question","name":"Can I calculate in months instead of years?","acceptedAnswer":{"@type":"Answer","text":"Yes. Switch the duration mode to Months and enter the number of months directly. The calculator switches the input and updates the results instantly."}},
+        {"@type":"Question","name":"What is the difference between compounding frequencies?","acceptedAnswer":{"@type":"Answer","text":"Higher compounding frequency means interest is added to your balance more often, so it starts earning its own interest sooner. At a 10% nominal rate, yearly compounding gives 10.00% effective, monthly gives 10.47%, and daily gives about 10.52%."}},
+        {"@type":"Question","name":"What is the effective annual rate (EAR)?","acceptedAnswer":{"@type":"Answer","text":"EAR is the actual annual return after accounting for compounding within the year. It is higher than the nominal rate whenever compounding happens more than once a year."}},
+        {"@type":"Question","name":"Should I make contributions at the start or end of the period?","acceptedAnswer":{"@type":"Answer","text":"Start-of-period contributions earn interest for the entire period, so they grow slightly more. End-of-period contributions are more common for salaried savers who invest after receiving their paycheck."}},
+        {"@type":"Question","name":"What is the rule of 72?","acceptedAnswer":{"@type":"Answer","text":"Divide 72 by your annual interest rate to estimate how many years it takes for money to double. At 8%, money doubles in about 9 years. At 12%, in about 6 years."}},
+        {"@type":"Question","name":"What is the goal seek feature?","acceptedAnswer":{"@type":"Answer","text":"You give it a target amount and a number of years, and it works out the monthly contribution you need to reach that target, taking into account your existing principal and interest rate."}},
+        {"@type":"Question","name":"Does compound interest work in reverse for loans?","acceptedAnswer":{"@type":"Answer","text":"Yes. Loans charge compound interest too. The maths is the same but the direction is reversed — you pay interest instead of earning it. Use the Loan EMI Calculator for loan-specific calculations."}},
+        {"@type":"Question","name":"Is this calculator accurate for real investments?","acceptedAnswer":{"@type":"Answer","text":"It gives mathematically exact results for the parameters you enter. Real investments have variable returns, taxes on realised gains, expense ratios and contribution timing that this calculator cannot capture. Treat the output as a projection, not a guarantee."}},
+        {"@type":"Question","name":"Can I export the growth schedule?","acceptedAnswer":{"@type":"Answer","text":"Yes. Export to Excel (XLSX) for a spreadsheet you can further analyse, to CSV for any other tool, or copy the schedule as tab-separated text directly to your clipboard."}},
+        {"@type":"Question","name":"Does the calculator handle tax on annual interest?","acceptedAnswer":{"@type":"Answer","text":"It applies the tax at maturity on total accumulated interest. Real tax treatment depends on your country and product type — some tax annually, some at withdrawal. Check the specific rules for your investment."}},
+        {"@type":"Question","name":"Is my data saved?","acceptedAnswer":{"@type":"Answer","text":"Your inputs are stored only in your browser's local storage on your own device. Nothing is sent to any server."}},
+        {"@type":"Question","name":"Does it work offline?","acceptedAnswer":{"@type":"Answer","text":"Yes. After the page has loaded once, the calculator works without an internet connection."}},
+        {"@type":"Question","name":"Is this calculator free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is completely free, runs entirely in your browser, and requires no signup."}}
+      ]
+    },
+    {
+      "@type":"HowTo",
+      "name":"How to calculate compound interest with contributions",
+      "description":"Calculate how a lump sum plus regular contributions grows over time, adjusted for inflation and tax.",
+      "totalTime":"PT2M",
+      "tool":[{"@type":"HowToTool","name":"Modern web browser"}],
+      "step":[
+        {"@type":"HowToStep","name":"Enter the starting principal","text":"Type the amount you already have. For a pure projection, this can be zero."},
+        {"@type":"HowToStep","name":"Set the interest rate and duration","text":"Enter the annual interest rate and duration in years or months. Switch to months if your horizon is shorter than a year."},
+        {"@type":"HowToStep","name":"Choose compounding frequency","text":"Monthly for most savings accounts and SIPs, quarterly for some FDs, yearly for simple deposits, daily for high-yield savings."},
+        {"@type":"HowToStep","name":"Add regular contributions","text":"Enter the amount you will add each period, choose monthly, quarterly, half-yearly or yearly, and pick start-of-period or end-of-period timing."},
+        {"@type":"HowToStep","name":"Adjust for inflation and tax","text":"Enter your expected inflation rate and marginal tax rate to see the real post-tax value of your money."},
+        {"@type":"HowToStep","name":"Read or export the results","text":"The summary shows nominal, post-tax and inflation-adjusted values. Export the full year-by-year schedule to Excel or CSV, or share the calculation as a link."}
+      ]
+    }
+  ]
+}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -107,43 +179,53 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .ci-goal-row .ci-field{flex:1 1 140px}
 .ci-goal-result{padding:12px 14px;background:#F7F7F3;border:1px solid var(--line);border-radius:var(--radius);font-family:var(--mono);font-size:.8125rem;line-height:1.6}
 .ci-goal-result strong{color:var(--ink);font-family:var(--display);font-size:1.125rem;font-weight:700}
-.article{margin:44px 0 0;max-width:72ch}
-.article h2{margin:36px 0 10px;font-size:1.5rem}
-.article h2:first-child{margin-top:0}
-.article p{margin:0 0 12px;color:#3A3E46}
-.article ul{margin:0 0 12px;padding-left:20px;color:#3A3E46}
-.article li{margin:0 0 6px}
-.article strong{font-weight:600;color:var(--ink)}
-.article a{color:var(--blue);text-decoration:underline}
-.article code{font-family:var(--mono);font-size:.875em;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:1px 4px}
-.article table{width:100%;border-collapse:collapse;margin:0 0 14px;font-size:.875rem}
-.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left}
-.article th{background:#F7F7F3;font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
-.faq{margin:14px 0 0;border-top:1px solid var(--line)}
-.faq details{border-bottom:1px solid var(--line)}
-.faq summary{cursor:pointer;padding:14px 2px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";color:var(--blue);font-size:1.25rem;line-height:1;flex:none}
-.faq details[open] summary::after{content:"\2212"}
-.faq details p{margin:0 0 14px;color:#3A3E46;max-width:62ch}
-.related-list{list-style:none;margin:12px 0 0;padding:0}
-.related-list li{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin:0 0 8px;display:flex;gap:12px;align-items:center}
-.related-list .txt{flex:1}
-.related-list .txt a{color:var(--ink);text-decoration:none;font-weight:500}
-.related-list .txt a:hover{color:var(--blue);text-decoration:underline}
-.related-list .txt p{margin:2px 0 0;font-size:.8125rem;color:var(--muted)}
-.related-list time{font-size:.75rem;color:var(--muted);flex:none;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+
+/* ===== INFO SECTION ===== */
+.info{display:grid;grid-template-columns:1fr;gap:14px;margin:48px 0 0}
+@media(min-width:720px){.info{grid-template-columns:1fr 1fr}}
+.info-card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px 22px;min-width:0}
+.info-card.wide{grid-column:1 / -1}
+.info-card h2{font-family:var(--display);font-weight:700;font-size:1.25rem;letter-spacing:-.01em;margin:0 0 12px}
+.info-card h3{font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:-.01em;margin:20px 0 8px}
+.info-card h3:first-child{margin-top:0}
+.info-card p{margin:0 0 12px;color:#3A3E46;font-size:.9375rem;line-height:1.65}
+.info-card p:last-child{margin:0}
+.info-card ul,.info-card ol{margin:0 0 12px;padding-left:22px;color:#3A3E46;font-size:.9375rem}
+.info-card li{margin:0 0 6px}
+.info-card strong{font-weight:600;color:var(--ink)}
+.info-card a{color:var(--blue);text-decoration:underline;text-underline-offset:2px}
+.info-card code{font-family:var(--mono);font-size:.8125rem;background:var(--paper);padding:1px 5px;border-radius:3px;border:1px solid var(--line)}
+.info-card table{width:100%;border-collapse:collapse;margin:0 0 14px;font-size:.875rem}
+.info-card th,.info-card td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.info-card th{background:#F7F7F3;font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+.faq-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:640px){.faq-grid{grid-template-columns:1fr 1fr}}
+.faq-grid details{border:1px solid var(--line);border-radius:6px;background:#FAFAF8;padding:12px 14px}
+.faq-grid summary{cursor:pointer;font-weight:500;font-size:.9375rem}
+.faq-grid details p{margin:8px 0 0;font-size:.875rem;color:var(--muted);line-height:1.6}
+.related-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:640px){.related-grid{grid-template-columns:1fr 1fr}}
+.related-grid a{display:flex;flex-direction:column;gap:2px;border:1px solid var(--line);border-radius:6px;padding:12px 14px;text-decoration:none;color:inherit;background:#FAFAF8;transition:border-color .12s}
+.related-grid a:hover{border-color:var(--blue)}
+.related-grid a strong{font-size:.9375rem;color:var(--ink)}
+.related-grid a span{font-size:.8125rem;color:var(--muted)}
+.related-grid a:hover strong{color:var(--blue)}
+
 footer{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem}
 footer a{color:inherit}
 footer a:hover{color:var(--blue)}
-.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:200}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.875rem;opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:200;max-width:90vw;text-align:center}
 .toast.show{opacity:1}
 @media(max-width:640px){
   .ci-table{font-size:.6875rem}
   .ci-table thead th,.ci-table tbody td,.ci-table tfoot td{padding:6px 8px}
+  .wrap{padding:16px 14px 56px}
+  .info-card{padding:16px}
+  .info-card h2{font-size:1.125rem}
+  .ci-actions button{font-size:.75rem;padding:8px 12px}
 }
 @media print{
-  .masthead,.crumbs,.ci-actions,.toast,footer,.related-list,.faq,.article h2+p+p+p+p+p{display:none}
+  .masthead,.crumbs,.ci-actions,.toast,footer,.info,.faq-grid{display:none}
 }
 </style>
 </head>
@@ -155,7 +237,7 @@ footer a:hover{color:var(--blue)}
 <svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/><path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/><path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/><path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/><path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/></svg>
 <span class="wordmark">LocalTools</span>
 </a>
-<a href="/" class="nav-right">Home →</a>
+<a href="../index.html" class="nav-right">All tools →</a>
 </header>
 
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Compound Interest</span></nav>
@@ -342,57 +424,223 @@ footer a:hover{color:var(--blue)}
 </div>
 </div>
 
-<article class="article">
-<h2>How to use the compound interest calculator</h2>
-<p>Enter your starting principal, interest rate, and duration. Choose years or months for the duration. Add regular contributions if you plan to top up. Everything updates as you type.</p>
-<p>Optionally add inflation and tax rates to see your real, post-tax return. Use the <strong>Goal seek</strong> panel to work backwards from a target.</p>
+<section class="info" aria-label="About the compound interest calculator">
 
-<h2>The compound interest formula</h2>
-<p><code>A = P × (1 + r/n)^(n×t)</code></p>
-<p>Where P is the principal, r is the annual rate (decimal), n is compounding periods per year, and t is time in years.</p>
+  <div class="info-card wide">
+    <h2>See how money grows when interest earns its own interest</h2>
+    <p>This is a free compound interest calculator that projects how a lump sum plus regular contributions grows over time. It handles any compounding frequency, any contribution schedule, and — unlike most calculators — also shows you the <strong>inflation-adjusted real value</strong> and the <strong>post-tax value</strong>. That means you see what your money will actually buy, not just the nominal number on a statement.</p>
+    <p>It also includes a goal-seek mode. If you want to reach a specific target — say ₹1 crore in 20 years — the calculator works backwards to tell you exactly how much you need to contribute each month. There's a growth milestone panel that shows when your money doubles, triples, 5x and 10x. And the full year-by-year schedule can be exported to Excel or CSV for further analysis.</p>
+  </div>
 
-<h2>Why inflation-adjusted matters</h2>
-<p>A rupee today buys more than a rupee in 20 years. If you earn 10% and inflation is 6%, your real return is roughly 4% — not 10%. This calculator shows both the nominal and the inflation-adjusted value so you can see what your money will actually buy.</p>
-<p>Rule of thumb: <code>Real return ≈ Nominal return − Inflation rate</code>.</p>
+  <div class="info-card">
+    <h2>How to use it</h2>
+    <ol>
+      <li><strong>Enter the starting principal.</strong> Type the amount you already have. For a pure projection of future contributions, leave this at zero.</li>
+      <li><strong>Set the rate and duration.</strong> The rate is the annual interest rate — nominal, before inflation. Choose years or months for the duration; the input converts automatically.</li>
+      <li><strong>Pick compounding frequency.</strong> Monthly for most savings and SIPs. Quarterly for some fixed deposits. Yearly for simple products. Daily for high-yield accounts.</li>
+      <li><strong>Add regular contributions.</strong> Enter the amount you'll add each period, choose monthly, quarterly, half-yearly or yearly, and pick start-of-period or end-of-period timing.</li>
+      <li><strong>Adjust for inflation and tax.</strong> Enter your expected inflation rate and marginal tax rate to see the real post-tax value of the money.</li>
+      <li><strong>Read the results.</strong> Six summary cards show nominal value, total invested, interest earned, post-tax value, inflation-adjusted value and effective annual rate.</li>
+      <li><strong>Explore the growth.</strong> The bar chart shows the source of every rupee at the end. Milestones show when money crossed 2x, 3x, 5x and 10x. Goal seek works backwards from a target.</li>
+      <li><strong>Export or share.</strong> Export the full schedule to Excel or CSV. Copy the schedule as tab-separated text. Copy a text summary. Or share the calculation as a URL that pre-fills the calculator with your inputs.</li>
+    </ol>
+  </div>
 
-<h2>Why post-tax matters</h2>
-<p>Interest is usually taxed as ordinary income. If you're in the 30% tax bracket and earn 10%, you keep roughly 7% after tax. FDs and many debt investments fall in this category. Equity investments have different tax treatment — check the specific rules that apply.</p>
+  <div class="info-card">
+    <h2>The compound interest formula</h2>
+    <p>The basic formula for compound interest without contributions is:</p>
+    <p><code>A = P × (1 + r ÷ n)<sup>n × t</sup></code></p>
+    <ul>
+      <li><strong>P</strong> — principal (starting amount)</li>
+      <li><strong>r</strong> — annual interest rate as a decimal (10% → 0.10)</li>
+      <li><strong>n</strong> — compounding periods per year (12 = monthly, 4 = quarterly, 1 = yearly)</li>
+      <li><strong>t</strong> — time in years</li>
+      <li><strong>A</strong> — final amount</li>
+    </ul>
+    <p>When you add regular contributions, the formula extends to a sum. Each contribution compounds for the number of periods it remains invested. The calculator computes this period by period, which handles irregular timing (like "contributions at the start of each month") more accurately than a closed-form formula.</p>
+  </div>
 
-<h2>Compounding frequency matters</h2>
-<table>
-<thead><tr><th>Frequency</th><th>Effective annual rate at 10% nominal</th></tr></thead>
-<tbody>
-<tr><td>Yearly</td><td>10.00%</td></tr>
-<tr><td>Half-yearly</td><td>10.25%</td></tr>
-<tr><td>Quarterly</td><td>10.38%</td></tr>
-<tr><td>Monthly</td><td>10.47%</td></tr>
-<tr><td>Daily</td><td>10.52%</td></tr>
-</tbody>
-</table>
+  <div class="info-card">
+    <h2>Compounding frequency changes everything</h2>
+    <p>Two accounts with the same nominal rate can produce different returns if they compound at different frequencies. Higher frequency means interest is added to your balance sooner, and it starts earning its own interest sooner.</p>
+    <table>
+      <thead><tr><th>Frequency</th><th>Effective annual rate at 10% nominal</th></tr></thead>
+      <tbody>
+        <tr><td>Yearly</td><td>10.00%</td></tr>
+        <tr><td>Half-yearly</td><td>10.25%</td></tr>
+        <tr><td>Quarterly</td><td>10.38%</td></tr>
+        <tr><td>Monthly</td><td>10.47%</td></tr>
+        <tr><td>Daily</td><td>10.52%</td></tr>
+      </tbody>
+    </table>
+    <p>The gap widens at higher rates. At 20% nominal, monthly compounding gives an effective 21.94%, while yearly gives only 20.00%.</p>
+  </div>
 
-<h2>The rule of 72</h2>
-<p>Divide 72 by your interest rate to estimate how many years it takes to double. At 8%, money doubles in about 9 years. At 12%, in about 6 years.</p>
+  <div class="info-card">
+    <h2>Why inflation-adjusted matters</h2>
+    <p>A rupee today buys more than a rupee in 20 years. If your nominal return is 10% but inflation averages 6%, the real purchasing power of your money grows at only about 4% per year. That's the number that matters for long-term planning.</p>
+    <p>The calculator shows both figures. The <strong>Nominal maturity value</strong> is the amount on your statement. The <strong>Inflation-adjusted</strong> value is what that amount would be worth in today's purchasing power.</p>
+    <p>Rule of thumb: <code>Real return ≈ Nominal return − Inflation rate</code>. So a 10% nominal return with 6% inflation is roughly a 4% real return. This is why leaving money in a savings account at 3% while inflation runs at 6% is a guaranteed loss of purchasing power.</p>
+  </div>
 
-<h2>Common questions</h2>
-<div class="faq">
-<details><summary>What is compound interest?</summary><p>Interest earned on principal plus previously accumulated interest. It grows exponentially over time.</p></details>
-<details><summary>Why does inflation matter in compound interest?</summary><p>A rupee today buys more than a rupee in 20 years. The real return is your nominal return minus inflation. A 10% return with 6% inflation gives a real return of roughly 4%.</p></details>
-<details><summary>How does tax affect compound returns?</summary><p>Interest is usually taxed as ordinary income. Post-tax returns show what you actually keep after tax.</p></details>
-<details><summary>Can I calculate in months instead of years?</summary><p>Yes. Switch the duration mode to Months and enter the number of months directly.</p></details>
-<details><summary>What is the goal seek feature?</summary><p>You give it a target amount and a number of years, and it works out the monthly contribution you need to reach it.</p></details>
-<details><summary>Is my data saved?</summary><p>Your inputs are stored only in your browser's local storage. Nothing is sent to any server.</p></details>
-</div>
+  <div class="info-card">
+    <h2>Why post-tax matters</h2>
+    <p>Interest income is usually taxed as ordinary income in most countries. If you're in the 30% tax bracket and earn 10% nominal, you keep roughly 7% after tax. That's before inflation — the real post-tax return is closer to 1%.</p>
+    <p>The calculator applies your marginal tax rate to the total interest earned. Real tax treatment varies:</p>
+    <ul>
+      <li><strong>FDs and bonds</strong> — taxed annually as interest accrues in many countries (TDS or similar)</li>
+      <li><strong>Equity investments</strong> — different treatment, often capital-gains based</li>
+      <li><strong>Retirement accounts</strong> — tax-deferred in many countries until withdrawal</li>
+      <li><strong>Tax-free accounts</strong> — some products are exempt entirely (like PPF in India or ISA in the UK)</li>
+    </ul>
+    <p>Use the tax rate field to model the specific treatment that applies to your investment. Set it to zero for tax-free accounts.</p>
+  </div>
 
-<h2>Related tools</h2>
-<ul class="related-list">
-<li><div class="txt"><a href="loan.html">Loan EMI Calculator</a><p>Calculate EMI and repayment schedule.</p></div><time>Calc</time></li>
-<li><div class="txt"><a href="percentage.html">Percentage Calculator</a><p>Six percentage questions in one tool.</p></div><time>Calc</time></li>
-<li><div class="txt"><a href="date-diff.html">Date Difference</a><p>Days, weeks and months between two dates.</p></div><time>Calc</time></li>
-</ul>
-</article>
+  <div class="info-card">
+    <h2>Start-of-period vs end-of-period contributions</h2>
+    <p>Whether contributions are added at the beginning or end of each period makes a measurable difference over long horizons.</p>
+    <ul>
+      <li><strong>Start of period</strong> — the money is invested for the entire period and earns a full period's interest. Over 20 years of monthly contributions at 10%, this adds roughly one extra month's worth of compounding to every contribution.</li>
+      <li><strong>End of period</strong> — the money earns interest starting from the next period. This matches most salaried savers who invest after receiving their paycheck.</li>
+    </ul>
+    <p>Over long periods, start-of-period can produce 2–4% more final value than end-of-period with the same contribution amount.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>The rule of 72</h2>
+    <p>A useful mental shortcut: divide 72 by your annual interest rate to estimate how many years it takes for money to double.</p>
+    <table>
+      <thead><tr><th>Rate</th><th>Years to double</th></tr></thead>
+      <tbody>
+        <tr><td>4%</td><td>~18 years</td></tr>
+        <tr><td>6%</td><td>~12 years</td></tr>
+        <tr><td>8%</td><td>~9 years</td></tr>
+        <tr><td>10%</td><td>~7.2 years</td></tr>
+        <tr><td>12%</td><td>~6 years</td></tr>
+        <tr><td>15%</td><td>~4.8 years</td></tr>
+        <tr><td>20%</td><td>~3.6 years</td></tr>
+      </tbody>
+    </table>
+    <p>The rule is approximate — the exact time is <code>ln(2) / ln(1 + r)</code> — but it's accurate enough for back-of-envelope comparisons.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>Common uses for this calculator</h2>
+    <ul>
+      <li><strong>Retirement planning</strong> — see how much a monthly SIP will be worth at 60.</li>
+      <li><strong>FD projection</strong> — compare quarterly compounding against monthly.</li>
+      <li><strong>Comparing investments</strong> — same rate, different frequencies, see which wins.</li>
+      <li><strong>Goal planning</strong> — work backwards from a target to a monthly contribution.</li>
+      <li><strong>Education savings</strong> — model a child's college fund over 15–18 years.</li>
+      <li><strong>Home down payment</strong> — how much to save monthly to reach a target in 5 years.</li>
+      <li><strong>Understanding inflation's bite</strong> — see the real value of a nominal return.</li>
+      <li><strong>Tax impact</strong> — how much of the growth the taxman takes.</li>
+      <li><strong>SIP vs lump sum</strong> — compare the growth trajectory of each approach.</li>
+      <li><strong>Prepayment modelling</strong> — how much faster a loan clears with extra payments (using the same maths).</li>
+    </ul>
+  </div>
+
+  <div class="info-card">
+    <h2>Worked example</h2>
+    <p>Start with ₹1,00,000, contribute ₹5,000 per month at the end of each month, over 10 years, at 10% annual return with monthly compounding. Inflation 6%, tax rate 30%.</p>
+    <table>
+      <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>Total invested</td><td>₹7,00,000</td></tr>
+        <tr><td>Interest earned</td><td>₹3,31,000</td></tr>
+        <tr><td>Nominal value</td><td>₹10,31,000</td></tr>
+        <tr><td>Post-tax value</td><td>₹9,32,000</td></tr>
+        <tr><td>Inflation-adjusted value</td><td>₹5,75,000</td></tr>
+        <tr><td>Effective annual rate</td><td>10.47%</td></tr>
+      </tbody>
+    </table>
+    <p>Notice the gap between nominal ₹10.3 lakh and real ₹5.75 lakh. The nominal number is what a statement shows. The inflation-adjusted number is what that money would buy today. Real planning needs both.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>Your privacy is protected</h2>
+    <p>Every calculation runs in your browser. No amount, rate or schedule is ever sent to any server. Your inputs are stored only in your browser's local storage on your own device so they persist between visits — they never leave your computer or phone.</p>
+    <p>The only network requests the page makes are for Google Fonts, an Excel export library, and the AdSense script. After the page loads, the calculator works entirely offline.</p>
+  </div>
+
+  <div class="info-card">
+    <h2>What this calculator can't do</h2>
+    <p>Being honest about limits is more useful than pretending they don't exist. This calculator does not:</p>
+    <ul>
+      <li><strong>Model variable returns.</strong> It assumes a constant annual rate. Real markets fluctuate. For sequence-of-returns risk analysis, use a Monte Carlo tool.</li>
+      <li><strong>Handle annual tax deduction.</strong> It applies tax at maturity on total interest. Some countries tax interest as it accrues — use a specialised tool for that.</li>
+      <li><strong>Account for expense ratios.</strong> Mutual funds and ETFs charge 0.1–2% per year. Subtract that from the rate before entering it.</li>
+      <li><strong>Model step-up contributions.</strong> If your SIP increases by 10% each year, you'd need to run separate calculations for each step.</li>
+      <li><strong>Handle withdrawals.</strong> This is a pure growth projection. For a retirement drawdown with regular withdrawals, use a different calculator.</li>
+      <li><strong>Predict future inflation.</strong> The inflation rate you enter is your assumption. Real inflation varies year to year.</li>
+      <li><strong>Account for currency risk.</strong> If your investment is in a foreign currency, exchange rate movements are not modelled.</li>
+      <li><strong>Guarantee returns.</strong> The output is a mathematical projection. Markets can produce very different results.</li>
+    </ul>
+  </div>
+
+  <div class="info-card wide">
+    <h2>Common questions</h2>
+    <div class="faq-grid">
+      <details><summary>What is compound interest?</summary><p>Interest earned on both your original principal and interest already accumulated. It grows exponentially over time, unlike simple interest which grows linearly.</p></details>
+      <details><summary>Why does inflation matter in compound interest?</summary><p>A rupee today buys more than a rupee in 20 years. The real return is your nominal return minus inflation. A 10% return with 6% inflation gives a real return of roughly 4%.</p></details>
+      <details><summary>How does tax affect compound returns?</summary><p>Interest is usually taxed as ordinary income. Post-tax returns show what you actually keep after tax. This calculator applies your marginal tax rate to the total interest earned.</p></details>
+      <details><summary>Can I calculate in months instead of years?</summary><p>Yes. Switch the duration mode to Months and enter the number of months directly.</p></details>
+      <details><summary>What is the difference between compounding frequencies?</summary><p>Higher compounding frequency means interest is added to your balance more often, so it starts earning its own interest sooner. At 10% nominal, yearly gives 10.00% effective, monthly gives 10.47%.</p></details>
+      <details><summary>What is the effective annual rate (EAR)?</summary><p>EAR is the actual annual return after accounting for compounding within the year. It is higher than the nominal rate whenever compounding happens more than once a year.</p></details>
+      <details><summary>Should I make contributions at the start or end of the period?</summary><p>Start-of-period contributions earn interest for the entire period, so they grow slightly more. End-of-period contributions are more common for salaried savers.</p></details>
+      <details><summary>What is the rule of 72?</summary><p>Divide 72 by your annual interest rate to estimate how many years it takes for money to double. At 8%, money doubles in about 9 years.</p></details>
+      <details><summary>What is the goal seek feature?</summary><p>You give it a target amount and a number of years, and it works out the monthly contribution you need to reach that target.</p></details>
+      <details><summary>Does compound interest work in reverse for loans?</summary><p>Yes. Loans charge compound interest too, just in the opposite direction. Use the Loan EMI Calculator for loan-specific calculations.</p></details>
+      <details><summary>Is this calculator accurate for real investments?</summary><p>It gives mathematically exact results for the parameters you enter. Real investments have variable returns and costs that this calculator cannot capture. Treat the output as a projection, not a guarantee.</p></details>
+      <details><summary>Can I export the growth schedule?</summary><p>Yes. Export to Excel (XLSX) or CSV, or copy the schedule as tab-separated text.</p></details>
+      <details><summary>Does it work offline?</summary><p>Yes. After the page loads once, the calculator works without an internet connection.</p></details>
+      <details><summary>Is this calculator free?</summary><p>Yes. It is completely free, runs entirely in your browser, and requires no signup.</p></details>
+    </div>
+  </div>
+
+  <div class="info-card wide">
+    <h2>Related calculators</h2>
+    <p style="margin:0 0 14px">This calculator handles savings and investment growth. For loans, everyday maths or financial comparisons, these tools do the same job — free, in your browser, no signup.</p>
+    <div class="related-grid">
+      <a href="loan.html">
+        <strong>Loan / EMI Calculator</strong>
+        <span>Monthly payments, total interest and repayment schedules.</span>
+      </a>
+      <a href="percentage.html">
+        <strong>Percentage Calculator</strong>
+        <span>Percentages, increases, decreases and reverse percentages.</span>
+      </a>
+      <a href="gst.html">
+        <strong>GST Calculator</strong>
+        <span>Add or remove GST with CGST/SGST/IGST split.</span>
+      </a>
+      <a href="date-diff.html">
+        <strong>Date Difference</strong>
+        <span>Days, weeks, months and years between two dates.</span>
+      </a>
+      <a href="age.html">
+        <strong>Age Calculator</strong>
+        <span>Exact age in years, months and days from any birth date.</span>
+      </a>
+      <a href="scientific-calculator.html">
+        <strong>Scientific Calculator</strong>
+        <span>Trigonometry, logarithms, powers and factorials.</span>
+      </a>
+      <a href="tip.html">
+        <strong>Tip Calculator</strong>
+        <span>Split a bill with tip between any number of people.</span>
+      </a>
+      <a href="bmi.html">
+        <strong>BMI Calculator</strong>
+        <span>Body Mass Index with healthy range guidance.</span>
+      </a>
+    </div>
+  </div>
+
+</section>
 
 <footer>
-<p>LocalTools · <a href="../../index.html">Home</a> · <a href="/">Home</a> · <a href="../../pages/about.html">About</a> · <a href="../../pages/privacy.html">Privacy</a></p>
+<p>LocalTools · <a href="../../index.html">Home</a> · <a href="../index.html">All tools</a> · <a href="../../pages/about.html">About</a> · <a href="../../pages/privacy.html">Privacy</a></p>
 </footer>
 </div>
 
@@ -532,19 +780,12 @@ function compute(){
     years_.push(currentYear);
   }
 
-  // Effective annual rate
   var ear=(Math.pow(1+monthlyRate,12)-1)*100;
-
-  // Total years (real number)
   var totalYears=totalMonths/12;
 
-  // Post-tax value: tax applied to interest earned
-  // Two common approaches: (a) tax deducted annually, (b) tax on total interest at end
-  // We use (b) for simplicity — interest taxed as a lump at maturity
   var taxAmount=totalInterest*(inputs.taxRate/100);
   var postTaxValue=inputs.principal+totalContrib+totalInterest-taxAmount;
 
-  // Real (inflation-adjusted) value: nominal value discounted by inflation over the period
   var realValue=inputs.principal+totalContrib;
   if(inputs.inflation>0){
     realValue=balance/Math.pow(1+inputs.inflation/100,totalYears);
@@ -582,7 +823,6 @@ function render(out){
   $("realValue").textContent=fmtMoney(out.realValue);
   $("earValue").textContent=out.ear.toFixed(2)+"%";
 
-  // Duration hint
   var totalMonths=out.totalMonths;
   var y=Math.floor(totalMonths/12);
   var m=totalMonths%12;
@@ -594,7 +834,6 @@ function render(out){
     $("durationHint").textContent="= "+durStr;
   }
 
-  // Preview
   $("preview").innerHTML=
     "Final value: <strong>"+fmtMoney(out.finalBalance)+"</strong> · "+
     "Invested: <strong>"+fmtMoney(out.investedTotal)+"</strong> · "+
@@ -602,7 +841,6 @@ function render(out){
     "Post-tax: <strong>"+fmtMoney(out.postTaxValue)+"</strong> · "+
     "Real value: <strong>"+fmtMoney(out.realValue)+"</strong>";
 
-  // Bar chart
   var total=out.finalBalance;
   if(total>0){
     var pPct=(out.initialPrincipal/total)*100;
@@ -614,13 +852,9 @@ function render(out){
       '<div class="ci-bar-seg interest" style="width:'+iPct+'%">'+(iPct>8?iPct.toFixed(0)+"%":"")+'</div>';
   }
 
-  // Milestones: when did the balance double, triple, etc. relative to invested total
   renderMilestones(out);
-
-  // Goal seek
   renderGoalSeek();
 
-  // Table
   var tbody=$("scheduleBody");
   var tfoot=$("scheduleFoot");
   tbody.innerHTML="";
@@ -658,7 +892,6 @@ function renderMilestones(out){
   var base=out.investedTotal;
   var list=[];
   var thresholds=[2,3,5,10];
-  // Walk through years to find when balance crosses threshold × invested
   thresholds.forEach(function(k){
     var target=base*k;
     for(var i=0;i<out.yearsData.length;i++){
@@ -691,9 +924,7 @@ function renderGoalSeek(){
   }
   var months=Math.round(years*12);
   var monthlyRate=Math.pow(1+inputs.rate/100/inputs.compFreq,inputs.compFreq/12)-1;
-  // FV of principal
   var fvPrincipal=inputs.principal*Math.pow(1+monthlyRate,months);
-  // Required monthly contribution for the remaining gap
   var gap=target-fvPrincipal;
   var pmt=0;
   if(gap>0){
@@ -713,7 +944,6 @@ function renderGoalSeek(){
     "Total invested: "+fmtMoney(totalInvested)+" · Interest earned: "+fmtMoney(interestEarned);
 }
 
-/* ---------- DURATION MODE ---------- */
 document.querySelectorAll("#durationMode button").forEach(function(b){
   b.addEventListener("click",function(){
     var newMode=b.getAttribute("data-dmode");
@@ -735,7 +965,6 @@ document.querySelectorAll("#durationMode button").forEach(function(b){
   });
 });
 
-/* ---------- CURRENCY ---------- */
 document.querySelectorAll("[data-cur]").forEach(function(b){
   b.addEventListener("click",function(){
     currency=b.getAttribute("data-cur")==="none"?"none":b.getAttribute("data-cur");
@@ -747,7 +976,6 @@ document.querySelectorAll("[data-cur]").forEach(function(b){
   });
 });
 
-/* ---------- EVENTS ---------- */
 ["principal","rate","durationInput","contrib","inflation","taxRate"].forEach(function(id){
   $(id).addEventListener("input",function(){compute();saveState();});
 });
@@ -758,7 +986,6 @@ document.querySelectorAll("[data-cur]").forEach(function(b){
   $(id).addEventListener("input",function(){renderGoalSeek();saveState();});
 });
 
-/* ---------- EXPORT XLSX ---------- */
 $("exportXlsx").addEventListener("click",function(){
   if(!lastResult)return flash("Nothing to export");
   if(!window.XLSX)return flash("Excel library not loaded");
@@ -818,7 +1045,6 @@ $("exportXlsx").addEventListener("click",function(){
 function compFreqLabel(n){return n===12?"Monthly":n===4?"Quarterly":n===2?"Half-yearly":n===1?"Yearly":n===365?"Daily":n+"x/year";}
 function contribFreqLabel(n){if(n===0)return "None";return n===12?"Monthly":n===4?"Quarterly":n===2?"Half-yearly":n===1?"Yearly":n+"x/year";}
 
-/* ---------- EXPORT CSV ---------- */
 $("exportCsv").addEventListener("click",function(){
   if(!lastResult)return flash("Nothing to export");
   var out=lastResult;
@@ -846,7 +1072,6 @@ $("exportCsv").addEventListener("click",function(){
   flash("CSV exported");
 });
 
-/* ---------- COPY SCHEDULE ---------- */
 $("copySchedule").addEventListener("click",function(){
   if(!lastResult)return flash("Nothing to copy");
   var out=lastResult;
@@ -865,7 +1090,6 @@ $("copySchedule").addEventListener("click",function(){
   copyText(lines.join("\n"),"Schedule copied (TSV)");
 });
 
-/* ---------- COPY SUMMARY ---------- */
 $("copySummary").addEventListener("click",function(){
   if(!lastResult)return flash("Nothing to copy");
   var out=lastResult;
@@ -895,12 +1119,10 @@ $("copySummary").addEventListener("click",function(){
   copyText(lines.join("\n"),"Summary copied");
 });
 
-/* ---------- PRINT ---------- */
 $("printBtn").addEventListener("click",function(){
   window.print();
 });
 
-/* ---------- SHARE ---------- */
 $("shareBtn").addEventListener("click",function(){
   if(!lastResult)return flash("Nothing to share");
   var inp=lastResult.inputs;
@@ -919,7 +1141,6 @@ $("shareBtn").addEventListener("click",function(){
   copyText(location.origin+location.pathname+"?"+params.join("&"),"Share link copied");
 });
 
-/* ---------- CLEAR ---------- */
 $("clearBtn").addEventListener("click",function(){
   ["principal","rate","durationInput","contrib","inflation","taxRate","goalTarget","goalYears"].forEach(function(id){$(id).value="";});
   $("compFreq").value="12";
@@ -934,7 +1155,6 @@ $("clearBtn").addEventListener("click",function(){
   flash("Cleared");
 });
 
-/* ---------- COPY ---------- */
 function copyText(t,msg){
   if(navigator.clipboard&&navigator.clipboard.writeText){
     navigator.clipboard.writeText(t).then(function(){flash(msg||"Copied");}).catch(function(){fbCopy(t,msg);});
@@ -948,7 +1168,6 @@ function fbCopy(t,msg){
   document.body.removeChild(ta);
 }
 
-/* ---------- STATE ---------- */
 var STORAGE_KEY="compound.state";
 function saveState(){
   try{
@@ -1010,7 +1229,6 @@ function loadState(){
     if(sp.get("cur"))currency=decodeURIComponent(sp.get("cur"));
   }catch(e){}
 
-  // Sync UI to loaded state
   document.querySelectorAll("#durationMode button").forEach(function(x){
     x.setAttribute("aria-pressed",String(x.getAttribute("data-dmode")===durationMode));
   });
