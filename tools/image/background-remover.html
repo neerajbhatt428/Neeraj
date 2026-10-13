@@ -242,10 +242,6 @@ body.has-img #hero{display:none}
 #compareBar{position:absolute;top:0;bottom:0;width:0;z-index:5;pointer-events:none;display:none}
 #compareBar::before{content:'';position:absolute;top:0;bottom:0;left:-.5px;width:1px;
   background:#fff;box-shadow:-1px 0 0 rgba(0,0,0,.5),1px 0 0 rgba(0,0,0,.5)}
-
-/* ============================================================
-   Compare handle — bigger, with invisible hit area
-   ============================================================ */
 #compareHandle{
   position:absolute;top:50%;left:0;transform:translate(-50%,-50%);
   width:44px;height:44px;border-radius:50%;
@@ -263,7 +259,6 @@ body.has-img #hero{display:none}
   transform:translate(-50%,-50%) scale(0.95);
 }
 #compareHandle svg{width:22px;height:22px;stroke-width:2.6}
-/* Invisible hit area, +8px beyond the visible circle on every side */
 #compareHandle::before{
   content:'';position:absolute;inset:-8px;border-radius:50%;
 }
@@ -290,9 +285,11 @@ body.has-img #hero{display:none}
   border-radius:100px;padding:5px 10px;z-index:8;font-family:var(--mono);font-size:.75rem;
   backdrop-filter:blur(6px);box-shadow:0 4px 16px rgba(0,0,0,.4)}
 #viewbar button{background:none;border:0;color:#fff;cursor:pointer;padding:5px 9px;
-  font-family:inherit;font-size:inherit;border-radius:4px;line-height:1}
+  font-family:inherit;font-size:inherit;border-radius:4px;line-height:1;
+  display:inline-flex;align-items:center;justify-content:center}
 #viewbar button:hover{background:rgba(255,255,255,.15)}
-#viewbar .zval{min-width:44px;text-align:center;color:#fff;font-weight:500}
+#viewbar .zval{min-width:44px;text-align:center;color:#fff;font-weight:500;
+  display:inline-flex;align-items:center;justify-content:center}
 #viewbar .vsep{width:1px;height:14px;background:rgba(255,255,255,.2);margin:0 2px}
 
 #panel{background:var(--surface);border-left:1px solid var(--line);
@@ -309,12 +306,40 @@ body.has-img #hero{display:none}
 .phint{font-size:.8125rem;line-height:1.5;color:var(--muted);margin:0 0 12px}
 .phint b{color:var(--ink);font-weight:600}
 
-.seg{display:flex;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
-  height:32px;background:var(--paper-soft)}
-.seg button{flex:1 1 0;min-width:0;border:0;border-right:1px solid var(--line);background:transparent;
-  font-family:var(--mono);font-size:.6875rem;font-weight:500;letter-spacing:.04em;
-  text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all .12s;
-  padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center}
+/* ============================================================
+   Segmented controls — flexbox centers text vertically
+   ============================================================ */
+.seg{
+  display:flex;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+  height:32px;
+  background:var(--paper-soft);
+}
+.seg button{
+  flex:1 1 0;
+  min-width:0;
+  border:0;
+  border-right:1px solid var(--line);
+  background:transparent;
+  font-family:var(--mono);
+  font-size:.6875rem;
+  font-weight:500;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:var(--muted);
+  cursor:pointer;
+  transition:all .12s;
+  padding:0 6px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  line-height:1;
+}
 .seg button:last-child{border-right:0}
 .seg button:hover{color:var(--ink);background:var(--surface)}
 .seg button.active{background:var(--blue);color:#fff}
@@ -335,7 +360,10 @@ body.has-img #hero{display:none}
   letter-spacing:0;
   padding:0 3px;
   text-transform:uppercase;
-  text-align:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  line-height:1;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
@@ -351,6 +379,10 @@ body.has-img #hero{display:none}
   font-size:.6rem;
   letter-spacing:0;
   padding:0 4px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  line-height:1;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
