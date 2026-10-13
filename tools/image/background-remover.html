@@ -541,39 +541,66 @@ document.addEventListener('paste',function(e){ var f=e.clipboardData && e.clipbo
 /* ============================================================
    AI engine — @imgly/background-removal
    ============================================================ */
+/* Track which models have already been fully loaded in this session.
+   After the first successful run, the model is cached in browser storage
+   and every subsequent run should skip the download messaging entirely. */
+var loadedModels = new Set();
+
 async function auto(){
   busy = true;
   $('tools').style.opacity = .5;
   $('busy').hidden = false;
   try {
-    say('Preparing AI model (first run downloads once, cached afterwards)…');
-    pg(8);
+    var modelKey = $('q').value;
+    var alreadyLoaded = loadedModels.has(modelKey);
+
+    if (alreadyLoaded) {
+      say('Processing image…');
+      pg(15);
+    } else {
+      say('Preparing AI model (first run downloads once, cached afterwards)…');
+      pg(8);
+    }
 
     var s = Math.min(1, 1280 / Math.max(W, H));
     var c = mk(Math.round(W * s) || 1, Math.round(H * s) || 1);
     c.getContext('2d').drawImage(src, 0, 0, c.width, c.height);
     var blob = await new Promise(function(r){ c.toBlob(r, 'image/png'); });
 
-    var modelKey = $('q').value;
-    say('Running AI model…');
-
     var result = await removeBackground(blob, {
       model: modelKey,
       output: { format: 'image/png' },
       progress: function(key, current, total){
-        if (total && current) {
+        /* Ignore cached-model chatter. The library fires progress events on
+           every run even when nothing is being downloaded, and reports
+           `total: 0` when the file is already in cache. */
+        var k = String(key || '');
+        var isFetch = k.indexOf('fetch') === 0;
+        var isCompute = k.indexOf('compute') === 0;
+
+        if (isFetch) {
+          if (alreadyLoaded) return;           // cached → no download messages
+          if (!total || !current) return;      // unknown size → skip
           var pct = Math.round((current / total) * 100);
           pg(Math.max(8, Math.round(pct * 0.85)));
           var mb = (current / 1048576).toFixed(1);
           var totalMb = (total / 1048576).toFixed(1);
-          if (String(key).indexOf('fetch') === 0) {
-            say('Downloading model: ' + mb + ' / ' + totalMb + ' MB');
-          } else if (String(key).indexOf('compute') === 0) {
-            say('Running inference… ' + pct + '%');
+          say('Downloading model: ' + mb + ' / ' + totalMb + ' MB');
+        } else if (isCompute) {
+          if (total && current) {
+            var cpct = Math.round((current / total) * 100);
+            pg(Math.max(85, Math.round(85 + cpct * 0.13)));
+            say('Running inference… ' + cpct + '%');
+          } else {
+            pg(90);
+            say('Processing image…');
           }
         }
       }
     });
+
+    /* Mark this model as loaded so future runs skip download messages. */
+    loadedModels.add(modelKey);
 
     var bm = await createImageBitmap(result);
     var t = mk(W, H);
@@ -607,7 +634,6 @@ async function auto(){
   $('busy').hidden = true;
   hp();
 }
-
 /* ---------- mask pipeline ---------- */
 function bx(s,d,r,n,stp,cnt,cs){
   var k=2*r+1;
