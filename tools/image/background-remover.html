@@ -50,12 +50,7 @@
       "softwareVersion": "1.0",
       "inLanguage": "en",
       "isAccessibleForFree": true,
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock"
-      },
+      "offers": {"@type": "Offer","price": "0","priceCurrency": "USD","availability": "https://schema.org/InStock"},
       "featureList": [
         "Remove image background in browser",
         "Three AI model tiers: Fast, Balanced, Best",
@@ -235,8 +230,6 @@ body.has-img #hero{display:none}
 #viewport.grabbing,#viewport.spacepan{cursor:grabbing!important}
 #viewport[data-tool="wand"]{cursor:crosshair}
 #viewport[data-tool="erase"],#viewport[data-tool="restore"]{cursor:none}
-
-/* CRITICAL FIX: stage now has explicit width/height (set in JS) so browsers don't skip painting */
 #stage{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform;
   background:repeating-conic-gradient(#DFDACE 0% 25%,#CBC5B5 0% 50%) 0 0 / 22px 22px;
   box-shadow:0 12px 40px -8px rgba(0,0,0,.5),0 0 0 1px rgba(0,0,0,.3);border-radius:2px;
@@ -296,6 +289,7 @@ body.has-img #hero{display:none}
 .phint{font-size:.8125rem;line-height:1.5;color:var(--muted);margin:0 0 12px}
 .phint b{color:var(--ink);font-weight:600}
 
+/* ============ Segmented controls ============ */
 .seg{display:flex;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
   height:32px;background:var(--paper-soft)}
 .seg button{flex:1 1 0;min-width:0;border:0;border-right:1px solid var(--line);background:transparent;
@@ -305,12 +299,45 @@ body.has-img #hero{display:none}
 .seg button:last-child{border-right:0}
 .seg button:hover{color:var(--ink);background:var(--surface)}
 .seg button.active{background:var(--blue);color:#fff}
-.model-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px}
-.model-row .seg{height:30px;flex:1 1 auto;min-width:0}
-/* CRITICAL FIX: force equal width on all three model buttons */
-.model-row .seg button{flex:1 1 0;min-width:0;font-size:.6rem;letter-spacing:0;padding:0 4px;text-transform:uppercase}
+
+/* Model row — grid of three equal columns */
+.model-row{display:flex;align-items:center;margin-bottom:10px;gap:10px}
 .mini-label{font-family:var(--mono);font-size:.6875rem;font-weight:500;letter-spacing:.06em;
   text-transform:uppercase;color:var(--muted);flex:none}
+.model-row .seg{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  height:30px;
+  flex:1 1 auto;
+  min-width:0;
+}
+.model-row .seg button{
+  min-width:0;
+  font-size:.6rem;
+  letter-spacing:0;
+  padding:0 3px;
+  text-transform:uppercase;
+  text-align:center;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* Wand mode — grid of two equal columns, smaller font so text fits */
+#wandSeg{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  height:32px;
+}
+#wandSeg button{
+  min-width:0;
+  font-size:.6rem;
+  letter-spacing:0;
+  padding:0 4px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
 
 .ctl{margin-bottom:12px}
 .ctl label{display:flex;justify-content:space-between;align-items:baseline;
@@ -454,7 +481,8 @@ body.dragging.has-img #dropHint{display:grid}
 }
 @media(max-width:400px){
   #viewbar .vsep:nth-of-type(2){display:none}
-  .model-row .seg button{font-size:.55rem;padding:0 3px}
+  .model-row .seg button{font-size:.55rem;padding:0 2px}
+  #wandSeg button{font-size:.55rem;padding:0 3px}
 }
 @supports(padding:max(0px)){
   .wrap-wide{padding-bottom:max(56px,env(safe-area-inset-bottom))}
@@ -1005,23 +1033,13 @@ function acceptImage(src, name, meta={}){
   const sc=Math.min(1, MAX_DIM/Math.max(W,H));
   if(sc<1){ W=Math.round(W*sc); H=Math.round(H*sc); toast(`Large image — working at ${W}×${H}`); }
   S.W=W; S.H=H; S.name=name || 'image'; S.hasImage=true;
-
-  // CRITICAL: set stage size FIRST so the browser paints the canvases
   stage.style.width  = W + 'px';
   stage.style.height = H + 'px';
-
   [bgC,cutC,origC,snapC,strokeC,tmpC].forEach(c=>setCanvasSize(c,W,H));
-  // Explicit CSS size on canvases too, so they can't be optimized away
-  [bgC,cutC,origC].forEach(c=>{
-    c.style.width  = W + 'px';
-    c.style.height = H + 'px';
-  });
-
+  [bgC,cutC,origC].forEach(c=>{ c.style.width = W+'px'; c.style.height = H+'px'; });
   octx.imageSmoothingQuality='high';
   octx.drawImage(src,0,0,W,H);
-  cut.clearRect(0,0,W,H);
-  cut.drawImage(origC,0,0);
-
+  cut.clearRect(0,0,W,H); cut.drawImage(origC,0,0);
   history.length=0; future.length=0; updateHistoryUI();
   S.compare=false; setDivider(0); applyCompare();
   S.backdrop='transparent'; syncBackdropUI(); renderBG();
@@ -1031,7 +1049,6 @@ function acceptImage(src, name, meta={}){
   $('#stRemoved').textContent = 'REMOVED 0.0%';
   S.userMovedView=false;
   setTool(S.tool);
-
   requestAnimationFrame(()=>requestAnimationFrame(()=>{
     fitView();
     updateStatsSoon();
@@ -1040,7 +1057,6 @@ function acceptImage(src, name, meta={}){
 }
 
 function applyView(){
-  // CRITICAL FIX: keep the stage size in sync with the image
   if(S.W && S.H){
     stage.style.width  = S.W + 'px';
     stage.style.height = S.H + 'px';
@@ -1620,7 +1636,7 @@ on(window,'keydown',e=>{
   }
   else if(k==='escape' && S.compare) toggleCompare();
 });
-on(window,'keyup',e=>{ if(e.code==='Space'){ S.spaceHeld=false; viewport.classList.remove('viewport-spacepan'); viewport.classList.remove('spacepan'); } });
+on(window,'keyup',e=>{ if(e.code==='Space'){ S.spaceHeld=false; viewport.classList.remove('spacepan'); } });
 
 setTool('hand');
 syncBackdropUI();
