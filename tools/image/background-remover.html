@@ -242,11 +242,31 @@ body.has-img #hero{display:none}
 #compareBar{position:absolute;top:0;bottom:0;width:0;z-index:5;pointer-events:none;display:none}
 #compareBar::before{content:'';position:absolute;top:0;bottom:0;left:-.5px;width:1px;
   background:#fff;box-shadow:-1px 0 0 rgba(0,0,0,.5),1px 0 0 rgba(0,0,0,.5)}
-#compareHandle{position:absolute;top:50%;left:0;transform:translate(-50%,-50%);
-  width:28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;
-  display:grid;place-items:center;cursor:ew-resize;pointer-events:auto;
-  box-shadow:0 0 0 2px #fff,0 2px 8px rgba(0,0,0,.35)}
-#compareHandle svg{width:14px;height:14px}
+
+/* ============================================================
+   Compare handle — bigger, with invisible hit area
+   ============================================================ */
+#compareHandle{
+  position:absolute;top:50%;left:0;transform:translate(-50%,-50%);
+  width:44px;height:44px;border-radius:50%;
+  background:var(--blue);color:#fff;
+  display:grid;place-items:center;
+  cursor:ew-resize;pointer-events:auto;
+  box-shadow:0 0 0 3px #fff,0 3px 12px rgba(0,0,0,.4);
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+#compareHandle:hover{
+  transform:translate(-50%,-50%) scale(1.08);
+  box-shadow:0 0 0 3px #fff,0 4px 16px rgba(27,77,255,.5);
+}
+#compareHandle:active{
+  transform:translate(-50%,-50%) scale(0.95);
+}
+#compareHandle svg{width:22px;height:22px;stroke-width:2.6}
+/* Invisible hit area, +8px beyond the visible circle on every side */
+#compareHandle::before{
+  content:'';position:absolute;inset:-8px;border-radius:50%;
+}
 
 #scanFx{position:absolute;inset:0;z-index:6;overflow:hidden;pointer-events:none;display:none}
 #scanFx.on{display:block}
@@ -289,7 +309,6 @@ body.has-img #hero{display:none}
 .phint{font-size:.8125rem;line-height:1.5;color:var(--muted);margin:0 0 12px}
 .phint b{color:var(--ink);font-weight:600}
 
-/* ============ Segmented controls ============ */
 .seg{display:flex;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
   height:32px;background:var(--paper-soft)}
 .seg button{flex:1 1 0;min-width:0;border:0;border-right:1px solid var(--line);background:transparent;
@@ -300,7 +319,6 @@ body.has-img #hero{display:none}
 .seg button:hover{color:var(--ink);background:var(--surface)}
 .seg button.active{background:var(--blue);color:#fff}
 
-/* Model row — grid of three equal columns */
 .model-row{display:flex;align-items:center;margin-bottom:10px;gap:10px}
 .mini-label{font-family:var(--mono);font-size:.6875rem;font-weight:500;letter-spacing:.06em;
   text-transform:uppercase;color:var(--muted);flex:none}
@@ -323,7 +341,6 @@ body.has-img #hero{display:none}
   text-overflow:ellipsis;
 }
 
-/* Wand mode — grid of two equal columns, smaller font so text fits */
 #wandSeg{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -478,6 +495,8 @@ body.dragging.has-img #dropHint{display:grid}
   .psec{padding:14px 16px}
   .article h2{font-size:1.25rem}
   .article h3{font-size:1.0625rem}
+  #compareHandle{width:48px;height:48px}
+  #compareHandle svg{width:24px;height:24px}
 }
 @media(max-width:400px){
   #viewbar .vsep:nth-of-type(2){display:none}
@@ -566,7 +585,7 @@ body.dragging.has-img #dropHint{display:grid}
         <canvas id="cutCanvas"></canvas>
         <canvas id="origCanvas"></canvas>
         <div id="compareBar"><div id="compareHandle" aria-label="Compare divider">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4"/></svg>
         </div></div>
         <div id="scanFx"><div class="scanhead"><div class="scan-trail"></div><div class="scan-line"></div></div></div>
       </div>
