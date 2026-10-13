@@ -120,15 +120,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<!-- CHANGED: relative path instead of absolute -->
 <link rel="stylesheet" href="../../assets/css/base.css">
 
 <style>
-/* ============================================================
-   Inline fallback — everything the page needs if base.css fails.
-   This guarantees the page renders correctly even if the external
-   stylesheet 404s on GitHub Pages.
-   ============================================================ */
 :root{
   --paper:#EDEDE9;--paper-soft:#F4F4F0;--surface:#FFFFFF;
   --ink:#14161A;--ink-soft:#3A3E46;--muted:#6B7079;--muted-soft:#8A8E96;
@@ -170,7 +164,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
   font-size:clamp(1.75rem,3.6vw,2.4rem);line-height:1.05;letter-spacing:-.03em}
 .sub{margin:0 0 20px;color:var(--muted);max-width:70ch;font-size:.9375rem;line-height:1.55}
 
-.stage{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);
+.stage-wrapper{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);
   box-shadow:var(--shadow-md);padding:16px;margin:0}
 
 .drop-zone{display:block;border:2px dashed var(--line);border-radius:10px;padding:56px 24px;
@@ -214,9 +208,7 @@ body.has-img #hero{display:none}
 #rail,#viewport,#panel{min-height:0;min-width:0}
 
 #rail{background:var(--paper-soft);border-right:1px solid var(--line);
-  display:flex;flex-direction:column;align-items:center;padding:10px 0;gap:4px;
-  flex-shrink:0}
-/* CHANGED: explicit flex-shrink and min sizes on .tbtn */
+  display:flex;flex-direction:column;align-items:center;padding:10px 0;gap:4px;flex-shrink:0}
 .tbtn{width:40px;height:40px;flex:0 0 40px;min-width:40px;min-height:40px;
   display:grid;place-items:center;border:1px solid transparent;
   border-radius:var(--radius);background:transparent;color:var(--muted);cursor:pointer;position:relative;
@@ -232,7 +224,6 @@ body.has-img #hero{display:none}
 .tbtn:hover::after,.tbtn:focus-visible::after{opacity:1}
 .rail-sep{width:22px;height:1px;background:var(--line);margin:4px 0;flex:none}
 .rail-flex{flex:1 1 auto}
-/* CHANGED: force SVG sizing so it works even if base.css is missing */
 .tbtn svg{width:18px;height:18px;flex:none;stroke-width:1.8}
 
 #viewport{position:relative;overflow:hidden;touch-action:none;
@@ -244,10 +235,13 @@ body.has-img #hero{display:none}
 #viewport.grabbing,#viewport.spacepan{cursor:grabbing!important}
 #viewport[data-tool="wand"]{cursor:crosshair}
 #viewport[data-tool="erase"],#viewport[data-tool="restore"]{cursor:none}
+
+/* CRITICAL FIX: stage now has explicit width/height (set in JS) so browsers don't skip painting */
 #stage{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform;
   background:repeating-conic-gradient(#DFDACE 0% 25%,#CBC5B5 0% 50%) 0 0 / 22px 22px;
-  box-shadow:0 12px 40px -8px rgba(0,0,0,.5),0 0 0 1px rgba(0,0,0,.3);border-radius:2px}
-#stage canvas{position:absolute;left:0;top:0;display:block}
+  box-shadow:0 12px 40px -8px rgba(0,0,0,.5),0 0 0 1px rgba(0,0,0,.3);border-radius:2px;
+  display:block}
+#stage canvas{position:absolute;left:0;top:0;display:block;max-width:none}
 #bgCanvas{z-index:1} #cutCanvas{z-index:2}
 #origCanvas{z-index:3;pointer-events:none;display:none}
 #stage.deep canvas{image-rendering:pixelated}
@@ -304,16 +298,17 @@ body.has-img #hero{display:none}
 
 .seg{display:flex;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
   height:32px;background:var(--paper-soft)}
-.seg button{flex:1;border:0;border-right:1px solid var(--line);background:transparent;
+.seg button{flex:1 1 0;min-width:0;border:0;border-right:1px solid var(--line);background:transparent;
   font-family:var(--mono);font-size:.6875rem;font-weight:500;letter-spacing:.04em;
   text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all .12s;
-  padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center}
 .seg button:last-child{border-right:0}
 .seg button:hover{color:var(--ink);background:var(--surface)}
 .seg button.active{background:var(--blue);color:#fff}
 .model-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px}
-.model-row .seg{height:30px;flex:1}
-.model-row .seg button{font-size:.6rem;letter-spacing:0;padding:0 4px;text-transform:uppercase}
+.model-row .seg{height:30px;flex:1 1 auto;min-width:0}
+/* CRITICAL FIX: force equal width on all three model buttons */
+.model-row .seg button{flex:1 1 0;min-width:0;font-size:.6rem;letter-spacing:0;padding:0 4px;text-transform:uppercase}
 .mini-label{font-family:var(--mono);font-size:.6875rem;font-weight:500;letter-spacing:.06em;
   text-transform:uppercase;color:var(--muted);flex:none}
 
@@ -446,7 +441,7 @@ body.dragging.has-img #dropHint{display:grid}
 }
 @media(max-width:640px){
   .wrap-wide{padding:12px 14px 32px}
-  .stage{padding:12px;border-radius:10px}
+  .stage-wrapper{padding:12px;border-radius:10px}
   .drop-zone{padding:36px 18px}
   #viewport{height:50vh;min-height:240px;max-height:420px}
   #viewbar{padding:4px 8px;font-size:.6875rem;bottom:8px}
@@ -492,7 +487,7 @@ body.dragging.has-img #dropHint{display:grid}
     <h1 class="lede">Background Remover</h1>
     <p class="sub">Remove the background from any image in your browser. AI-powered, three model tiers, magic wand and brushes to fix any edge. Nothing is uploaded.</p>
 
-    <div class="stage">
+    <div class="stage-wrapper">
       <label class="drop-zone" id="dropZone" for="fileInput">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="3" width="18" height="18" rx="2"/>
@@ -657,21 +652,21 @@ body.dragging.has-img #dropHint{display:grid}
     <p>The whole process takes under a minute once the AI model has downloaded (which happens on your first run only).</p>
     <ol>
       <li><strong>Open your image.</strong> Drop a file onto the drop zone, paste with <code>Ctrl+V</code>, or click <em>Choose image</em> to pick one from your device.</li>
-      <li><strong>Pick a model tier.</strong> <strong>Fast</strong> is the default — smallest download (~11 MB) and quickest inference. Switch to <strong>Balanced</strong> (~44 MB) or <strong>Best</strong> (~88 MB) if you want sharper edges on hair or fine detail. You can change later without losing work.</li>
-      <li><strong>Click <em>Remove background</em>.</strong> The AI segments the subject on your device. First run downloads the model; every run after that starts instantly because the weights are cached by your browser.</li>
-      <li><strong>Download or fix first.</strong> If you're happy, click <em>Download PNG</em> right below the AI panel. If the cutout missed a small patch, use the <strong>Magic wand</strong> and click the offending colour. If it cut into the subject, use the <strong>Restore brush</strong> to paint the missing pixels back. The <strong>Erase brush</strong> removes leftovers.</li>
-      <li><strong>Export.</strong> Keep the checkerboard (transparent) for a PNG with an alpha channel, or pick white, ink, blurred-original or a custom colour as a backdrop. Click <em>Download PNG</em>.</li>
+      <li><strong>Pick a model tier.</strong> <strong>Fast</strong> is the default — smallest download (~11 MB) and quickest inference. Switch to <strong>Balanced</strong> (~44 MB) or <strong>Best</strong> (~88 MB) if you want sharper edges on hair or fine detail.</li>
+      <li><strong>Click <em>Remove background</em>.</strong> The AI segments the subject on your device. First run downloads the model; every run after that starts instantly.</li>
+      <li><strong>Download or fix first.</strong> If you're happy, click <em>Download PNG</em> right below the AI panel. If the cutout missed a small patch, use the <strong>Magic wand</strong> and click the offending colour. If it cut into the subject, use the <strong>Restore brush</strong> to paint the missing pixels back.</li>
+      <li><strong>Export.</strong> Keep the checkerboard (transparent) for a PNG with an alpha channel, or pick white, ink, blurred-original or a custom colour as a backdrop.</li>
     </ol>
 
     <h2>Who is this for?</h2>
     <h3>Online sellers and e-commerce</h3>
-    <p>Marketplace listings on Amazon, eBay, Etsy, and Shopify often require product photos on pure white or transparent backgrounds. Instead of reshooting on a white cyclorama or paying a retoucher per photo, you can process a whole catalogue in minutes — and every image is done locally, so nothing sensitive about an unreleased product ever touches a third-party server.</p>
+    <p>Marketplace listings on Amazon, eBay, Etsy, and Shopify often require product photos on pure white or transparent backgrounds. Instead of reshooting on a white cyclorama or paying a retoucher per photo, you can process a whole catalogue in minutes — and every image is done locally.</p>
 
     <h3>Social media and content creators</h3>
-    <p>YouTube thumbnails, Instagram posts, Twitch overlays, and TikTok edits all look better when the subject is cut cleanly from the background. You can drop the cutout on a gradient, a screenshot, or a photo backdrop without any extra software.</p>
+    <p>YouTube thumbnails, Instagram posts, Twitch overlays, and TikTok edits all look better when the subject is cut cleanly from the background.</p>
 
     <h3>Designers and developers</h3>
-    <p>Need a clean PNG of a logo, a headshot, or a UI icon? Use the AI cutout and then fine-tune edges with the erase and restore brushes before exporting. The vector-friendly workflow also lets you drop the result into Figma, Illustrator, or any canvas-based design tool.</p>
+    <p>Need a clean PNG of a logo, a headshot, or a UI icon? Use the AI cutout and then fine-tune edges with the erase and restore brushes before exporting.</p>
 
     <h3>Anyone with a photo that needs cleaning up</h3>
     <p>Profile pictures, CVs, real estate listings, greeting cards, presentations, school projects, flyers. If you've ever wanted to lift a face out of a photo and place it on something cleaner, this is the tool.</p>
@@ -681,25 +676,24 @@ body.dragging.has-img #dropHint{display:grid}
     <p>Older tools asked you to click a colour and removed every pixel that matched it. That breaks the moment the background has a gradient, a shadow, or more than one colour. The AI in this tool uses a neural network trained on millions of photos to recognise <em>what</em> is a subject — a person, a dog, a shoe — and produces a soft-edged alpha mask that hugs the outline accurately.</p>
 
     <h3>Where the model runs</h3>
-    <p>The network is compiled to WebAssembly and executes in a worker thread inside your browser tab. There is no server-side inference step. Your image is decoded locally, resized locally, processed locally, and saved locally. After the initial model download, the tool works fully offline.</p>
+    <p>The network is compiled to WebAssembly and executes in a worker thread inside your browser tab. There is no server-side inference step. Your image is decoded locally, resized locally, processed locally, and saved locally.</p>
 
     <h3>Why three models</h3>
-    <p>Different jobs need different trade-offs. <strong>Fast</strong> (<code>isnet_quint8</code>) runs an 8-bit quantized version of the network — smaller download, faster inference, occasionally less precise on edges. <strong>Balanced</strong> (<code>isnet_fp16</code>) uses half-precision floats for sharper boundaries. <strong>Best</strong> (<code>isnet</code>) uses the full-precision model, which is the slowest but produces the cleanest edge on curly hair, fur, transparent glass and other difficult subjects.</p>
+    <p>Different jobs need different trade-offs. <strong>Fast</strong> (<code>isnet_quint8</code>) runs an 8-bit quantized version — smaller download, faster inference. <strong>Balanced</strong> (<code>isnet_fp16</code>) uses half-precision floats. <strong>Best</strong> (<code>isnet</code>) uses the full-precision model, the cleanest edge on curly hair, fur and transparent glass.</p>
 
     <h2>Tips for the cleanest cutouts</h2>
     <ul>
       <li><strong>Start with a sharp photo.</strong> Blur or motion trails across the subject confuse any segmentation model.</li>
-      <li><strong>Give the subject some contrast.</strong> A person in a black coat on a black sofa is genuinely hard. If you control the shoot, put them against something different.</li>
+      <li><strong>Give the subject some contrast.</strong> A person in a black coat on a black sofa is genuinely hard.</li>
       <li><strong>Use Best for hair.</strong> If the subject has curly or wispy hair, the extra download pays for itself.</li>
-      <li><strong>Fix edges with the wand, not by hand.</strong> Clicking one pixel of a solid background colour removes the whole connected region in one action — much faster than painting.</li>
+      <li><strong>Fix edges with the wand, not by hand.</strong> Clicking one pixel of a solid background colour removes the whole connected region in one action.</li>
       <li><strong>Zoom in before brushing.</strong> The brush size scales with the image, so zooming in gives you a finer stroke.</li>
-      <li><strong>Use the compare slider.</strong> Hold <em>C</em> or click the handle to drag a vertical line that shows the original on one side and the cutout on the other. This makes it obvious where the edges are off.</li>
-      <li><strong>Check the alpha channel.</strong> If you place the cutout on a white page it may look fine, but if it's going onto a dark backdrop, small halo pixels will show. Preview on black before exporting.</li>
+      <li><strong>Use the compare slider.</strong> Drag the handle to see the original on one side and the cutout on the other.</li>
+      <li><strong>Check the alpha channel.</strong> If you place the cutout on a white page it may look fine, but on a dark backdrop, small halo pixels will show.</li>
     </ul>
 
     <h2>Privacy: your image never leaves your device</h2>
     <p>This is the main reason to prefer a browser-based tool over a typical online service. When you upload a photo to a web background remover, you are trusting their server with the file, their retention policy, and their security. This tool avoids all of that. The AI runs in your browser. The image is processed in memory and saved directly to your disk. Nothing is transmitted.</p>
-    <p>The only network activity is the initial fetch of the AI model and library code from public CDNs, and those files are cached by your browser. After the first load, you can open DevTools, set the network tab to <em>Offline</em>, and keep using the tool without interruption.</p>
 
     <h2>Frequently asked questions</h2>
     <div class="faq-grid">
@@ -1011,10 +1005,23 @@ function acceptImage(src, name, meta={}){
   const sc=Math.min(1, MAX_DIM/Math.max(W,H));
   if(sc<1){ W=Math.round(W*sc); H=Math.round(H*sc); toast(`Large image — working at ${W}×${H}`); }
   S.W=W; S.H=H; S.name=name || 'image'; S.hasImage=true;
+
+  // CRITICAL: set stage size FIRST so the browser paints the canvases
+  stage.style.width  = W + 'px';
+  stage.style.height = H + 'px';
+
   [bgC,cutC,origC,snapC,strokeC,tmpC].forEach(c=>setCanvasSize(c,W,H));
+  // Explicit CSS size on canvases too, so they can't be optimized away
+  [bgC,cutC,origC].forEach(c=>{
+    c.style.width  = W + 'px';
+    c.style.height = H + 'px';
+  });
+
   octx.imageSmoothingQuality='high';
   octx.drawImage(src,0,0,W,H);
-  cut.clearRect(0,0,W,H); cut.drawImage(origC,0,0);
+  cut.clearRect(0,0,W,H);
+  cut.drawImage(origC,0,0);
+
   history.length=0; future.length=0; updateHistoryUI();
   S.compare=false; setDivider(0); applyCompare();
   S.backdrop='transparent'; syncBackdropUI(); renderBG();
@@ -1024,19 +1031,20 @@ function acceptImage(src, name, meta={}){
   $('#stRemoved').textContent = 'REMOVED 0.0%';
   S.userMovedView=false;
   setTool(S.tool);
-  // CHANGED: explicit redraw so the canvas is guaranteed to have pixels
-  render();
-  // Double-RAF + timeout for slow layout settle, then fit
+
   requestAnimationFrame(()=>requestAnimationFrame(()=>{
     fitView();
-    render();
     updateStatsSoon();
-    // Belt-and-suspenders: one more fit after 250ms in case the grid is still settling
-    setTimeout(()=>{ if(!S.userMovedView){ fitView(); render(); } }, 250);
+    setTimeout(()=>{ if(!S.userMovedView){ fitView(); } }, 250);
   }));
 }
 
 function applyView(){
+  // CRITICAL FIX: keep the stage size in sync with the image
+  if(S.W && S.H){
+    stage.style.width  = S.W + 'px';
+    stage.style.height = S.H + 'px';
+  }
   stage.style.transform = `translate(${S.panX}px,${S.panY}px) scale(${S.zoom})`;
   $('#zoomVal').textContent = Math.round(S.zoom*100)+'%';
   stage.classList.toggle('deep', S.zoom>=3);
@@ -1044,7 +1052,7 @@ function applyView(){
 }
 function fitView(){
   const vw=viewport.clientWidth, vh=viewport.clientHeight;
-  if(!vw || !vh) return;
+  if(!vw || !vh || !S.W || !S.H) return;
   const pad = Math.min(vw, vh) < 500 ? 24 : 48;
   const s = Math.max(0.04, Math.min((vw-pad)/S.W, (vh-pad)/S.H, 1));
   S.zoom=s; S.panX=(vw-S.W*s)/2; S.panY=(vh-S.H*s)/2;
@@ -1070,7 +1078,6 @@ function ensureViewRO(){
     if(!S.hasImage) return;
     if(S.userMovedView) return;
     fitView();
-    render();
   });
   viewRO.observe(viewport);
 }
@@ -1303,14 +1310,6 @@ function sizeBrushCursor(){
 function moveBrushCursor(e){
   const r=viewport.getBoundingClientRect();
   brushCur.style.transform=`translate(${e.clientX-r.left}px,${e.clientY-r.top}px) translate(-50%,-50%)`;
-}
-
-function render(){
-  if(!S.W || !S.H) return;
-  vx_clear_and_draw();
-}
-function vx_clear_and_draw(){
-  const vx = bgC.getContext('2d'); // just placeholder — real rendering is via the layered canvases
 }
 
 function pushHistory(){
@@ -1621,13 +1620,12 @@ on(window,'keydown',e=>{
   }
   else if(k==='escape' && S.compare) toggleCompare();
 });
-on(window,'keyup',e=>{ if(e.code==='Space'){ S.spaceHeld=false; viewport.classList.remove('spacepan'); } });
+on(window,'keyup',e=>{ if(e.code==='Space'){ S.spaceHeld=false; viewport.classList.remove('viewport-spacepan'); viewport.classList.remove('spacepan'); } });
 
 setTool('hand');
 syncBackdropUI();
 updateHistoryUI();
 ensureViewRO();
-// Final safety net: run one more fit+redraw after the page fully loads
 window.addEventListener('load', ()=>{ setTimeout(()=>{ if(S.hasImage && !S.userMovedView) fitView(); }, 300); });
 </script>
 </body>
