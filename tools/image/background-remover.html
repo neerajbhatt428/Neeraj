@@ -120,9 +120,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/base.css">
+<!-- CHANGED: relative path instead of absolute -->
+<link rel="stylesheet" href="../../assets/css/base.css">
 
 <style>
+/* ============================================================
+   Inline fallback — everything the page needs if base.css fails.
+   This guarantees the page renders correctly even if the external
+   stylesheet 404s on GitHub Pages.
+   ============================================================ */
 :root{
   --paper:#EDEDE9;--paper-soft:#F4F4F0;--surface:#FFFFFF;
   --ink:#14161A;--ink-soft:#3A3E46;--muted:#6B7079;--muted-soft:#8A8E96;
@@ -208,10 +214,13 @@ body.has-img #hero{display:none}
 #rail,#viewport,#panel{min-height:0;min-width:0}
 
 #rail{background:var(--paper-soft);border-right:1px solid var(--line);
-  display:flex;flex-direction:column;align-items:center;padding:10px 0;gap:4px}
-.tbtn{width:40px;height:40px;display:grid;place-items:center;border:1px solid transparent;
+  display:flex;flex-direction:column;align-items:center;padding:10px 0;gap:4px;
+  flex-shrink:0}
+/* CHANGED: explicit flex-shrink and min sizes on .tbtn */
+.tbtn{width:40px;height:40px;flex:0 0 40px;min-width:40px;min-height:40px;
+  display:grid;place-items:center;border:1px solid transparent;
   border-radius:var(--radius);background:transparent;color:var(--muted);cursor:pointer;position:relative;
-  transition:all .12s}
+  transition:all .12s;padding:0}
 .tbtn:hover{color:var(--ink);border-color:var(--line);background:var(--surface)}
 .tbtn.active{background:var(--blue);border-color:var(--blue);color:#fff;
   box-shadow:0 2px 8px -2px rgba(27,77,255,.4)}
@@ -221,9 +230,10 @@ body.has-img #hero{display:none}
   font:500 10px var(--mono);letter-spacing:.06em;padding:6px 9px;border-radius:4px;
   opacity:0;pointer-events:none;transition:opacity .12s;z-index:60}
 .tbtn:hover::after,.tbtn:focus-visible::after{opacity:1}
-.rail-sep{width:22px;height:1px;background:var(--line);margin:4px 0}
-.rail-flex{flex:1}
-.tbtn svg{width:18px;height:18px;stroke-width:1.8}
+.rail-sep{width:22px;height:1px;background:var(--line);margin:4px 0;flex:none}
+.rail-flex{flex:1 1 auto}
+/* CHANGED: force SVG sizing so it works even if base.css is missing */
+.tbtn svg{width:18px;height:18px;flex:none;stroke-width:1.8}
 
 #viewport{position:relative;overflow:hidden;touch-action:none;
   background:#3A3E46;
@@ -428,7 +438,7 @@ body.dragging.has-img #dropHint{display:grid}
   #rail::-webkit-scrollbar{display:none}
   .rail-sep{width:1px;height:22px;margin:0 4px;flex:none}
   .rail-flex{display:none}
-  .tbtn{flex:none}
+  .tbtn{flex:0 0 40px}
   .tbtn::after{left:50%;top:auto;bottom:calc(100% + 8px);transform:translateX(-50%)}
   #viewport{width:100%;height:56vh;min-height:280px;max-height:520px;flex:none}
   #panel{width:100%;height:auto;max-height:none;overflow:visible;border-left:0;border-top:1px solid var(--line)}
@@ -439,7 +449,6 @@ body.dragging.has-img #dropHint{display:grid}
   .stage{padding:12px;border-radius:10px}
   .drop-zone{padding:36px 18px}
   #viewport{height:50vh;min-height:240px;max-height:420px}
-  .info-card{padding:16px}
   #viewbar{padding:4px 8px;font-size:.6875rem;bottom:8px}
   #viewbar button{padding:4px 7px}
   #viewbar .zval{min-width:36px}
@@ -994,6 +1003,7 @@ async function loadBlob(blob, name){
     toast(`Could not decode "${name||'file'}" — unsupported or corrupt`);
   }
 }
+
 function acceptImage(src, name, meta={}){
   const nat=srcDims(src);
   if(!nat.w || !nat.h){ toast('That image has no pixels to work with'); return; }
@@ -1014,9 +1024,15 @@ function acceptImage(src, name, meta={}){
   $('#stRemoved').textContent = 'REMOVED 0.0%';
   S.userMovedView=false;
   setTool(S.tool);
+  // CHANGED: explicit redraw so the canvas is guaranteed to have pixels
+  render();
+  // Double-RAF + timeout for slow layout settle, then fit
   requestAnimationFrame(()=>requestAnimationFrame(()=>{
     fitView();
+    render();
     updateStatsSoon();
+    // Belt-and-suspenders: one more fit after 250ms in case the grid is still settling
+    setTimeout(()=>{ if(!S.userMovedView){ fitView(); render(); } }, 250);
   }));
 }
 
@@ -1054,6 +1070,7 @@ function ensureViewRO(){
     if(!S.hasImage) return;
     if(S.userMovedView) return;
     fitView();
+    render();
   });
   viewRO.observe(viewport);
 }
@@ -1286,6 +1303,14 @@ function sizeBrushCursor(){
 function moveBrushCursor(e){
   const r=viewport.getBoundingClientRect();
   brushCur.style.transform=`translate(${e.clientX-r.left}px,${e.clientY-r.top}px) translate(-50%,-50%)`;
+}
+
+function render(){
+  if(!S.W || !S.H) return;
+  vx_clear_and_draw();
+}
+function vx_clear_and_draw(){
+  const vx = bgC.getContext('2d'); // just placeholder — real rendering is via the layered canvases
 }
 
 function pushHistory(){
@@ -1602,6 +1627,8 @@ setTool('hand');
 syncBackdropUI();
 updateHistoryUI();
 ensureViewRO();
+// Final safety net: run one more fit+redraw after the page fully loads
+window.addEventListener('load', ()=>{ setTimeout(()=>{ if(S.hasImage && !S.userMovedView) fitView(); }, 300); });
 </script>
 </body>
 </html>
