@@ -43,7 +43,7 @@
     {
       "@type": "FAQPage",
       "mainEntity": [
-        {"@type": "Question", "name": "Are the exchange rates live?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Rates are fetched from a live API that pulls current market data. The exact update time is shown under the result."}},
+        {"@type": "Question", "name": "Are the exchange rates live?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Rates are fetched from official central bank data and updated daily."}},
         {"@type": "Question", "name": "Is this currency converter free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, it is completely free and requires no account."}},
         {"@type": "Question", "name": "Does it work offline?", "acceptedAnswer": {"@type": "Answer", "text": "No. Since exchange rates change constantly, the tool requires an active internet connection to fetch the latest rates."}}
       ]
@@ -283,12 +283,12 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
     <p>Click the swap button (↔) to quickly reverse the conversion, or the <strong>Refresh</strong> button under the result to pull the absolute latest market data.</p>
 
     <h2>Where do the exchange rates come from?</h2>
-    <p>We use a live public API that fetches current market data from Yahoo Finance. These are real-time mid-market rates for over 160 currencies, updated continuously throughout the trading day.</p>
+    <p>We use the Frankfurter API, which sources its data from the European Central Bank and other central banks. It provides reliable, daily mid-market rates for over 160 currencies. If the primary source is unavailable, the tool automatically falls back to a secondary open-source rate provider.</p>
     <p>These are ideal for informational purposes, travel planning, and quick estimates. Note that banks and payment providers usually add a markup (often 2–5%) on top of these mid-market rates.</p>
 
     <h2>Frequently asked questions</h2>
     <div class="faq-grid">
-      <details><summary>Are the exchange rates live?</summary><p>Yes. Rates are fetched from a live API that pulls current market data. The exact update time is shown under the result.</p></details>
+      <details><summary>Are the exchange rates live?</summary><p>Yes. Rates are fetched from official central bank data and updated daily.</p></details>
       <details><summary>Is this currency converter free?</summary><p>Yes, it is completely free and requires no account.</p></details>
       <details><summary>Does it work offline?</summary><p>No. Since exchange rates change constantly, the tool requires an active internet connection to fetch the latest rates.</p></details>
       <details><summary>How many currencies are supported?</summary><p>The tool supports over 160 global currencies, including major, minor, and exotic pairs.</p></details>
@@ -355,50 +355,65 @@ async function fetchRates(isManual = false) {
   statusEl.className = 'status';
   
   try {
-    // Primary: Live API from currencyexchangetool.com (Yahoo Finance data)
-    const currenciesRes = await fetch('https://www.currencyexchangetool.com/api/v1/currencies');
-    if (!currenciesRes.ok) throw new Error('Primary API failed');
-    const currenciesJson = await currenciesRes.json();
+    // Primary Source: Frankfurter (Reliable, ECB data, CORS friendly)
+    let res = await fetch('https://api.frankfurter.dev/v1/latest?base=USD');
+    if (!res.ok) throw new Error('Primary source failed');
     
-    // Build currency list
-    currencyData = Object.keys(currenciesJson.currencies).map(code => ({
+    let data = await res.json();
+    rates = data.rates;
+    rates['USD'] = 1; // Frankfurter omits the base currency, so we add it back
+    
+    // Build currency list from the rates object
+    currencyData = Object.keys(rates).map(code => ({
       code,
       name: getCurrencyName(code)
     })).sort((a, b) => a.code.localeCompare(b.code));
-    
-    // Fetch a base rate table to allow instant client-side conversion
-    // We use open.er-api as a fallback for the full table, but we'll fetch
-    // the specific pair live on demand.
-    // For the initial load, we'll fetch rates relative to USD.
-    const baseRes = await fetch('https://open.er-api.com/v6/latest/USD');
-    const baseData = await baseRes.json();
-    rates = baseData.rates;
+
+    populateDropdowns();
     
     const now = new Date();
     lastUpdateText = `Updated: ${now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
     updateTimeEl.textContent = lastUpdateText;
     rateMeta.hidden = false;
     
-    // Default to USD -> INR
-    if (!currencyData.find(c => c.code === fromCurInput.value)) {
-       fromCurInput.value = 'USD';
-       updateTrigger(fromSelect, 'USD', fromTriggerText);
-    }
-    if (!currencyData.find(c => c.code === toCurInput.value)) {
-       toCurInput.value = 'INR';
-       updateTrigger(toSelect, 'INR', toTriggerText);
-    }
-
-    populateDropdowns();
     rateEl.textContent = 'Live mid-market rate';
     statusEl.textContent = '';
     calculate();
     
   } catch (err) {
     console.error(err);
-    statusEl.textContent = 'Could not load live rates. Check your connection.';
-    statusEl.className = 'status err';
-    rateEl.textContent = 'Offline';
+    // Fallback Source: Fawaz Ahmed's Currency API (Static JSON via CDN)
+    try {
+      statusEl.textContent = 'Primary source failed, using fallback...';
+      const res = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json');
+      if (!res.ok) throw new Error('Fallback failed');
+      
+      const data = await res.json();
+      rates = data.usd; // The JSON returns rates relative to USD
+      rates['USD'] = 1; // Ensure USD is in the list
+      
+      currencyData = Object.keys(rates).map(code => ({
+        code: code.toUpperCase(),
+        name: getCurrencyName(code.toUpperCase())
+      })).sort((a, b) => a.code.localeCompare(b.code));
+      
+      populateDropdowns();
+      
+      const now = new Date();
+      lastUpdateText = `Updated: ${now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+      updateTimeEl.textContent = lastUpdateText;
+      rateMeta.hidden = false;
+      
+      rateEl.textContent = 'Mid-market rate (Fallback)';
+      statusEl.textContent = '';
+      calculate();
+      
+    } catch (fallbackErr) {
+      console.error(fallbackErr);
+      statusEl.textContent = 'Could not load live rates. Check your connection.';
+      statusEl.className = 'status err';
+      rateEl.textContent = 'Offline';
+    }
   } finally {
     isFetching = false;
     setTimeout(() => refreshBtn.classList.remove('spinning'), 500);
@@ -509,7 +524,7 @@ function calculate() {
   
   if (!rates[from] || !rates[to]) return;
   
-  // Note: The rates object from open.er-api is based on USD.
+  // Note: Both primary and fallback APIs return rates relative to USD.
   // So we convert FROM -> USD -> TO.
   const inUSD = amount / rates[from];
   const converted = inUSD * rates[to];
