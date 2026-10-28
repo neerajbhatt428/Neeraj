@@ -225,7 +225,7 @@ ins.adsbygoogle,.ad-slot{display:block;min-height:100px;background:transparent}
       "@id": "https://localtools.co.in/#toollist",
       "name": "Free browser tools",
       "description": "All tools available on LocalTools, grouped by category.",
-      "numberOfItems": 40,
+      "numberOfItems": 41,
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "PDF Editor", "url": "https://localtools.co.in/tools/pdf/pdf-editor.html" },
         { "@type": "ListItem", "position": 2, "name": "Merge PDF", "url": "https://localtools.co.in/tools/pdf/pdf-merge.html" },
@@ -234,7 +234,8 @@ ins.adsbygoogle,.ad-slot{display:block;min-height:100px;background:transparent}
         { "@type": "ListItem", "position": 5, "name": "Compress Image", "url": "https://localtools.co.in/tools/image/image-compress.html" },
         { "@type": "ListItem", "position": 6, "name": "QR Code Scanner", "url": "https://localtools.co.in/tools/qrscanner/scan.html" },
         { "@type": "ListItem", "position": 7, "name": "Word Counter", "url": "https://localtools.co.in/tools/text/word-counter.html" },
-        { "@type": "ListItem", "position": 8, "name": "JSON Formatter", "url": "https://localtools.co.in/tools/dev/json-format.html" }
+        { "@type": "ListItem", "position": 8, "name": "JSON Formatter", "url": "https://localtools.co.in/tools/dev/json-format.html" },
+        { "@type": "ListItem", "position": 9, "name": "Currency Converter", "url": "https://localtools.co.in/tools/finance/currency-converter.html" }
       ]
     },
     {
@@ -291,7 +292,7 @@ ins.adsbygoogle,.ad-slot{display:block;min-height:100px;background:transparent}
     <div class="finder-results" id="heroResults" role="listbox"></div>
   </div>
   <ul class="facts">
-    <li><span id="toolCount">40</span> free tools</li>
+    <li><span id="toolCount">41</span> free tools</li>
     <li>No signup</li>
     <li>No watermarks</li>
     <li>Works offline</li>
@@ -300,7 +301,7 @@ ins.adsbygoogle,.ad-slot{display:block;min-height:100px;background:transparent}
 </section>
 
 <main id="main">
-  <div class="section-head"><h2 class="section-title">Most used tools</h2><a href="#all-tools">See all 40 tools →</a></div>
+  <div class="section-head"><h2 class="section-title">Most used tools</h2><a href="#all-tools">See all tools →</a></div>
   <div class="qt-grid featured" id="featured"></div>
 
   <div class="section-head" id="all-tools"><h2 class="section-title">All tools</h2></div>
@@ -428,6 +429,8 @@ footer nav a:hover{color:var(--blue);text-decoration:underline}
 .qt[data-cat=text]{--c:#B26A00;--cb:#FFF1D9}.qt[data-cat=calc]{--c:#7A3FD1;--cb:#F1E8FD}
 .qt[data-cat=dev]{--c:#1B4DFF;--cb:#EDF0FF}.qt[data-cat=convert]{--c:#0A7C8C;--cb:#E0F4F7}
 .qt[data-cat=security]{--c:#3A4252;--cb:#EBEDF1}.qt[data-cat=generate]{--c:#C2185B;--cb:#FDE8F1}
+.qt[data-cat=finance]{--c:#0E7A5F;--cb:#E3F5EF}
+
 .qt .qt-ico{background:var(--cb,#EDF0FF);color:var(--c,var(--blue))}
 .qt:hover{border-color:var(--c,var(--blue))}
 .qt:hover .qt-ico{background:var(--c,var(--blue));color:#fff}
@@ -465,7 +468,8 @@ footer nav a:hover{color:var(--blue);text-decoration:underline}
       dev:{name:'Developer',ico:'<path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>'},
       convert:{name:'Convert',ico:'<path d="M17 2l4 4-4 4M3 11V9a4 4 0 014-4h14M7 22l-4-4 4-4M21 13v2a4 4 0 01-4 4H3"/>'},
       security:{name:'Security',ico:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>'},
-      generate:{name:'QR & Generators',ico:'<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM20 14v7h-3"/>'}
+      generate:{name:'QR & Generators',ico:'<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM20 14v7h-3"/>'},
+      finance:{name:'Finance',ico:'<path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>'}
     };
     var TOOLS = [
       {id:'pdf-editor',name:'PDF Editor',desc:'Add text, highlights, images and signatures. Reorder and rotate pages.',cat:'pdf',path:'/tools/pdf/pdf-editor.html'},
@@ -507,6 +511,7 @@ footer nav a:hover{color:var(--blue);text-decoration:underline}
       {id:'units-converter',name:'Units Converter',desc:'Convert length, weight, temperature, volume, speed, data and more. Live results.',cat:'convert',path:'/tools/convert/units-converter.html',tags:['units','convert','length','weight','temperature','volume','metric','imperial','kg','lbs']},
       {id:'password',name:'Password Generator',desc:'Strong random passwords with custom rules.',cat:'security',path:'/tools/security/password.html'},
       {id:'qr-scanner',name:'QR Code Scanner',desc:'Scan QR codes with your camera or upload an image.',cat:'generate',path:'/tools/qrscanner/scan.html',tags:['qr','scan','camera']},
+      {id:'currency', name:'Currency Converter', desc:'Convert between 150+ currencies with live exchange rates.', cat:'finance', path:'/tools/finance/currency-converter.html', tags:['currency','exchange','money','converter','usd','eur','inr'] },
       {id:'qr-generator',name:'QR Code Generator',desc:'Create QR codes for URLs, Wi-Fi, UPI, email and contacts.',cat:'generate',path:'/tools/qrscanner/generate.html',tags:['qr','generate','create']}
     ];
     var FEATURED = ['pdf-editor','pdf-merge','pdf-compress','bg-remover','image-compress','qr-scanner','word-counter','json-format'];
@@ -526,7 +531,7 @@ footer nav a:hover{color:var(--blue);text-decoration:underline}
       document.querySelectorAll('.tab').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.cat === activeCat); });
     }
     var counts = {}; TOOLS.forEach(function(t){ counts[t.cat] = (counts[t.cat] || 0) + 1; });
-    var order = ['pdf','image','text','calc','dev','convert','security','generate'];
+    var order = ['pdf','image','text','calc','dev','convert','security','generate','finance'];
     $('tabs').innerHTML = '<button class="tab" data-cat="all">All<span class="n">' + TOOLS.length + '</span></button>' +
       order.map(function(c){ return '<button class="tab" data-cat="' + c + '">' + CATS[c].name + '<span class="n">' + (counts[c] || 0) + '</span></button>'; }).join('');
     $('tabs').addEventListener('click', function(e){
