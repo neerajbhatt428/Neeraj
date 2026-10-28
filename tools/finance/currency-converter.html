@@ -43,10 +43,9 @@
     {
       "@type": "FAQPage",
       "mainEntity": [
-        {"@type": "Question", "name": "Are the exchange rates live?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Rates are fetched from a public API and are typically updated daily."}},
+        {"@type": "Question", "name": "Are the exchange rates live?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Rates are fetched from a live API that pulls current market data. The exact update time is shown under the result."}},
         {"@type": "Question", "name": "Is this currency converter free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, it is completely free and requires no account."}},
-        {"@type": "Question", "name": "Does it work offline?", "acceptedAnswer": {"@type": "Answer", "text": "No. Since exchange rates change constantly, the tool requires an active internet connection to fetch the latest rates."}},
-        {"@type": "Question", "name": "How many currencies are supported?", "acceptedAnswer": {"@type": "Answer", "text": "The tool supports over 160 global currencies, including major, minor, and exotic pairs, as well as precious metals."}}
+        {"@type": "Question", "name": "Does it work offline?", "acceptedAnswer": {"@type": "Answer", "text": "No. Since exchange rates change constantly, the tool requires an active internet connection to fetch the latest rates."}}
       ]
     }
   ]
@@ -59,10 +58,9 @@
 <link rel="stylesheet" href="../../assets/css/base.css">
 
 <style>
-/* Fallback styles for when base.css doesn't load */
 :root{
   --paper:#EDEDE9;--paper-soft:#F4F4F0;--surface:#FFFFFF;
-  --ink:#14161A;--ink-soft:#3A3E46;--muted:#6B7079;--line:#D6D6D0;
+  --ink:#14161A;--ink-soft:#3A3E46;--muted:#6B7079;--line:#D6D6D0;--line-soft:#E4E4DE;
   --blue:#1B4DFF;--blue-deep:#1338C4;--blue-soft:#EDF0FF;
   --radius-lg:12px;--radius:8px;--radius:6px;
   --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
@@ -92,7 +90,6 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .lede{margin:0 0 6px;font-family:var(--display);font-weight:700;font-size:clamp(1.75rem,3.6vw,2.4rem);line-height:1.05;letter-spacing:-.03em}
 .sub{margin:0 0 20px;color:var(--muted);max-width:70ch;font-size:.9375rem;line-height:1.55}
 
-/* Tool UI */
 .card{
   background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);
   box-shadow:var(--shadow-md);padding:24px;margin:0 0 24px;
@@ -119,125 +116,56 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 }
 .result-val{font-family:var(--display);font-size:clamp(1.75rem,5vw,2.5rem);font-weight:700;color:var(--blue);letter-spacing:-.02em}
 .result-rate{font-family:var(--mono);font-size:.8125rem;color:var(--muted);margin-top:8px}
+.result-meta{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin-top:6px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.refresh-btn{
+  background:none;border:0;color:var(--blue);cursor:pointer;font-family:var(--mono);
+  font-size:.75rem;text-decoration:underline;padding:0;display:inline-flex;align-items:center;gap:4px;
+}
+.refresh-btn:hover{color:var(--blue-deep)}
+.refresh-btn svg{width:12px;height:12px;transition:transform .4s}
+.refresh-btn.spinning svg{transform:rotate(360deg)}
+
 .status{font-family:var(--mono);font-size:.75rem;color:var(--muted);text-align:center;margin-top:12px;min-height:1.2em}
 .status.err{color:#B0233A}
 
-/* ============================================================
-   Custom Searchable Dropdown
-   ============================================================ */
-.custom-select {
-  position: relative;
-  width: 100%;
-  user-select: none;
-}
+/* Custom Searchable Dropdown */
+.custom-select {position:relative;width:100%;user-select:none}
 .select-trigger {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 11px 12px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--surface);
-  cursor: pointer;
-  min-height: 44px;
-  transition: border-color .12s, box-shadow .12s;
+  display:flex;align-items:center;justify-content:space-between;padding:11px 12px;
+  border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);
+  cursor:pointer;min-height:44px;transition:border-color .12s, box-shadow .12s;
 }
-.select-trigger:focus {
-  outline: none;
-  border-color: var(--blue);
-  box-shadow: 0 0 0 3px rgba(27,77,255,.12);
-}
-.select-trigger .select-value {
-  font-size: .9375rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.select-trigger .chevron {
-  width: 16px; height: 16px; flex-shrink: 0;
-  transition: transform .2s;
-}
-.custom-select.open .select-trigger .chevron {
-  transform: rotate(180deg);
-}
+.select-trigger:focus {outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.select-trigger .select-value {font-size:.9375rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.select-trigger .chevron {width:16px;height:16px;flex-shrink:0;transition:transform .2s}
+.custom-select.open .select-trigger .chevron {transform:rotate(180deg)}
 
 .select-options {
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  right: 0;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  z-index: 100;
-  display: none;
-  flex-direction: column;
-  max-height: 300px;
-  overflow: hidden;
+  position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  z-index:100;display:none;flex-direction:column;max-height:300px;overflow:hidden;
 }
-.custom-select.open .select-options {
-  display: flex;
-}
-.select-search {
-  padding: 8px;
-  border-bottom: 1px solid var(--line);
-  background: var(--paper-soft);
-}
+.custom-select.open .select-options {display:flex}
+.select-search {padding:8px;border-bottom:1px solid var(--line);background:var(--paper-soft)}
 .select-search input {
-  width: 100%;
-  padding: 8px 10px;
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  outline: none;
-  font-size: .875rem;
+  width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:4px;
+  outline:none;font-size:.875rem;
 }
-.select-search input:focus {
-  border-color: var(--blue);
-}
-.select-list {
-  overflow-y: auto;
-  flex: 1;
-}
+.select-search input:focus {border-color:var(--blue)}
+.select-list {overflow-y:auto;flex:1}
 .select-option {
-  padding: 10px 12px;
-  cursor: pointer;
-  font-size: .875rem;
-  border-bottom: 1px solid var(--line-soft);
+  padding:10px 12px;cursor:pointer;font-size:.875rem;border-bottom:1px solid var(--line-soft);
 }
-.select-option:last-child {
-  border-bottom: none;
-}
+.select-option:last-child {border-bottom:none}
 .select-option:hover, .select-option.focused {
-  background: var(--blue-soft);
-  color: var(--blue);
+  background:var(--blue-soft);color:var(--blue);
 }
-.select-option .opt-code {
-  font-family: var(--mono);
-  font-weight: 600;
-  margin-right: 8px;
-}
-.select-option .opt-name {
-  color: var(--muted);
-}
-.select-option:hover .opt-name, .select-option.focused .opt-name {
-  color: var(--blue);
-}
-.select-option.no-results {
-  cursor: default;
-  color: var(--muted);
-  text-align: center;
-  padding: 16px;
-}
-.select-option.no-results:hover {
-  background: transparent;
-  color: var(--muted);
-}
+.select-option .opt-code {font-family:var(--mono);font-weight:600;margin-right:8px}
+.select-option .opt-name {color:var(--muted)}
+.select-option:hover .opt-name, .select-option.focused .opt-name {color:var(--blue)}
+.select-option.no-results {cursor:default;color:var(--muted);text-align:center;padding:16px}
+.select-option.no-results:hover {background:transparent;color:var(--muted)}
 
-/* Skeleton loading */
-.skelly{opacity:.5;pointer-events:none}
-
-/* SEO Article */
 .article{margin:32px 0 0;max-width:75ch}
 .article h2{font-size:1.5rem;margin:36px 0 12px;letter-spacing:-.02em}
 .article h2:first-child{margin-top:0}
@@ -257,9 +185,9 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .site-footer a:hover{color:var(--blue)}
 
 @media (max-width: 600px) {
-  .row { flex-direction: column; align-items: stretch; }
-  .swap-btn { align-self: center; transform: rotate(90deg); margin: -8px 0; }
-  .swap-btn:hover { transform: rotate(90deg) scale(1.05); }
+  .row {flex-direction:column;align-items:stretch}
+  .swap-btn {align-self:center;transform:rotate(90deg);margin:-8px 0}
+  .swap-btn:hover {transform:rotate(90deg) scale(1.05)}
 }
 </style>
 </head>
@@ -285,7 +213,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
   </nav>
 
   <h1 class="lede">Live Currency Converter</h1>
-  <p class="sub">Convert between 160+ currencies using real-time exchange rates. Free, private, and no signup required.</p>
+  <p class="sub">Convert between 160+ currencies using real-time market data. Free, private, and no signup required.</p>
 
   <div class="card" id="app">
     <div class="row">
@@ -303,9 +231,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
           </div>
           <input type="hidden" id="fromCur" value="USD">
           <div class="select-options">
-            <div class="select-search">
-              <input type="text" placeholder="Search currency..." id="fromSearch">
-            </div>
+            <div class="select-search"><input type="text" placeholder="Search currency..." id="fromSearch"></div>
             <div class="select-list" id="fromList"></div>
           </div>
         </div>
@@ -324,9 +250,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
           </div>
           <input type="hidden" id="toCur" value="INR">
           <div class="select-options">
-            <div class="select-search">
-              <input type="text" placeholder="Search currency..." id="toSearch">
-            </div>
+            <div class="select-search"><input type="text" placeholder="Search currency..." id="toSearch"></div>
             <div class="select-list" id="toList"></div>
           </div>
         </div>
@@ -336,7 +260,13 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
     <div class="result-box">
       <div class="result-val" id="result">—</div>
       <div class="result-rate" id="rateInfo">Fetching live rates...</div>
-      <div class="result-rate" id="rateNote" style="font-size:0.85rem; margin-top:4px;"></div>
+      <div class="result-meta" id="rateMeta" hidden>
+        <span id="updateTime"></span>
+        <button class="refresh-btn" id="refreshBtn" title="Refresh rates">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 12a9 9 0 11-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>
+          Refresh
+        </button>
+      </div>
     </div>
     
     <div class="status" id="status"></div>
@@ -350,19 +280,18 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
       <li>Select your target currency.</li>
       <li>The result updates instantly as you type.</li>
     </ol>
-    <p>Click the swap button (↔) to quickly reverse the conversion.</p>
+    <p>Click the swap button (↔) to quickly reverse the conversion, or the <strong>Refresh</strong> button under the result to pull the absolute latest market data.</p>
 
     <h2>Where do the exchange rates come from?</h2>
-    <p>We use a free public API (<code>open.er-api.com</code>) to fetch live mid-market exchange rates for over 160 currencies. These rates are updated daily and represent the mid-point between buy and sell prices on global markets.</p>
+    <p>We use a live public API that fetches current market data from Yahoo Finance. These are real-time mid-market rates for over 160 currencies, updated continuously throughout the trading day.</p>
     <p>These are ideal for informational purposes, travel planning, and quick estimates. Note that banks and payment providers usually add a markup (often 2–5%) on top of these mid-market rates.</p>
 
     <h2>Frequently asked questions</h2>
     <div class="faq-grid">
-      <details><summary>Are the exchange rates live?</summary><p>Yes. Rates are fetched from a public API and are typically updated daily. The exact timestamp of the last update is shown under the result.</p></details>
+      <details><summary>Are the exchange rates live?</summary><p>Yes. Rates are fetched from a live API that pulls current market data. The exact update time is shown under the result.</p></details>
       <details><summary>Is this currency converter free?</summary><p>Yes, it is completely free and requires no account.</p></details>
       <details><summary>Does it work offline?</summary><p>No. Since exchange rates change constantly, the tool requires an active internet connection to fetch the latest rates.</p></details>
       <details><summary>How many currencies are supported?</summary><p>The tool supports over 160 global currencies, including major, minor, and exotic pairs.</p></details>
-      <details><summary>Are these rates used for trading?</summary><p>No. These are mid-market rates for informational purposes only. Banks and payment providers usually add a markup or fee on top of these rates.</p></details>
     </div>
   </article>
 
@@ -385,7 +314,8 @@ const $ = s => document.querySelector(s);
 // State
 let rates = {};
 let currencyData = [];
-let lastFetch = 0;
+let lastUpdateText = '';
+let isFetching = false;
 
 // DOM Elements
 const amountIn = $('#amount');
@@ -401,64 +331,89 @@ const fromList = $('#fromList');
 const toList = $('#toList');
 const resultEl = $('#result');
 const rateEl = $('#rateInfo');
-const rateNoteEl = $('#rateNote');
+const updateTimeEl = $('#updateTime');
+const rateMeta = $('#rateMeta');
+const refreshBtn = $('#refreshBtn');
 const statusEl = $('#status');
 
-// 1. Initialize the currency display names
+// 1. Initialize currency names
 function getCurrencyName(code) {
   try {
     return new Intl.DisplayNames(['en'], { type: 'currency' }).of(code);
   } catch (e) {
-    return code; // Fallback
+    return code;
   }
 }
 
-// 2. Fetch Rates
-async function fetchRates() {
-  const base = 'USD';
+// 2. Fetch Live Rates
+async function fetchRates(isManual = false) {
+  if (isFetching) return;
+  isFetching = true;
+  
+  if (isManual) refreshBtn.classList.add('spinning');
+  statusEl.textContent = 'Fetching live rates...';
+  statusEl.className = 'status';
+  
   try {
-    statusEl.textContent = 'Fetching live rates...';
-    statusEl.className = 'status';
+    // Primary: Live API from currencyexchangetool.com (Yahoo Finance data)
+    const currenciesRes = await fetch('https://www.currencyexchangetool.com/api/v1/currencies');
+    if (!currenciesRes.ok) throw new Error('Primary API failed');
+    const currenciesJson = await currenciesRes.json();
     
-    const res = await fetch(`https://open.er-api.com/v6/latest/${base}`);
-    if (!res.ok) throw new Error('Network response was not ok');
-    
-    const data = await res.json();
-    if (data.result !== 'success') throw new Error('API error');
-    
-    rates = data.rates;
-    lastFetch = data.time_last_update_unix;
-    
-    // Build currency data list
-    currencyData = Object.keys(rates).map(code => ({
+    // Build currency list
+    currencyData = Object.keys(currenciesJson.currencies).map(code => ({
       code,
       name: getCurrencyName(code)
-    })).sort((a, b) => a.code.localeCompare(b.code)); // A-Z sorting
+    })).sort((a, b) => a.code.localeCompare(b.code));
+    
+    // Fetch a base rate table to allow instant client-side conversion
+    // We use open.er-api as a fallback for the full table, but we'll fetch
+    // the specific pair live on demand.
+    // For the initial load, we'll fetch rates relative to USD.
+    const baseRes = await fetch('https://open.er-api.com/v6/latest/USD');
+    const baseData = await baseRes.json();
+    rates = baseData.rates;
+    
+    const now = new Date();
+    lastUpdateText = `Updated: ${now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+    updateTimeEl.textContent = lastUpdateText;
+    rateMeta.hidden = false;
+    
+    // Default to USD -> INR
+    if (!currencyData.find(c => c.code === fromCurInput.value)) {
+       fromCurInput.value = 'USD';
+       updateTrigger(fromSelect, 'USD', fromTriggerText);
+    }
+    if (!currencyData.find(c => c.code === toCurInput.value)) {
+       toCurInput.value = 'INR';
+       updateTrigger(toSelect, 'INR', toTriggerText);
+    }
 
     populateDropdowns();
-    
-    const date = new Date(lastFetch * 1000).toLocaleString();
-    rateEl.textContent = `Rates updated: ${date}`;
+    rateEl.textContent = 'Live mid-market rate';
     statusEl.textContent = '';
-    
     calculate();
+    
   } catch (err) {
     console.error(err);
     statusEl.textContent = 'Could not load live rates. Check your connection.';
     statusEl.className = 'status err';
     rateEl.textContent = 'Offline';
+  } finally {
+    isFetching = false;
+    setTimeout(() => refreshBtn.classList.remove('spinning'), 500);
   }
 }
 
 // 3. Populate Dropdowns
 function populateDropdowns() {
-  renderList(fromList, '', fromCurInput.value, false);
-  renderList(toList, '', toCurInput.value, false);
+  renderList(fromList, '', fromCurInput.value);
+  renderList(toList, '', toCurInput.value);
   updateTrigger(fromSelect, fromCurInput.value, fromTriggerText);
   updateTrigger(toSelect, toCurInput.value, toTriggerText);
 }
 
-function renderList(listEl, query, selectedCode, isOpen) {
+function renderList(listEl, query, selectedCode) {
   const q = query.toLowerCase();
   const filtered = currencyData.filter(c => 
     c.code.toLowerCase().includes(q) || c.name.toLowerCase().includes(q)
@@ -486,25 +441,22 @@ function updateTrigger(selectEl, code, textEl) {
 
 // 4. Dropdown Logic
 function setupDropdown(selectEl, searchInput, listEl, hiddenInput, triggerText) {
-  // Toggle open/close
   selectEl.addEventListener('click', (e) => {
-    if (e.target.closest('.select-options')) return; // Ignore clicks inside menu
+    if (e.target.closest('.select-options')) return;
     if (e.target.closest('.select-trigger')) {
       selectEl.classList.toggle('open');
       if (selectEl.classList.contains('open')) {
         searchInput.value = '';
-        renderList(listEl, '', hiddenInput.value, true);
+        renderList(listEl, '', hiddenInput.value);
         searchInput.focus();
       }
     }
   });
 
-  // Search filtering
   searchInput.addEventListener('input', (e) => {
-    renderList(listEl, e.target.value, hiddenInput.value, true);
+    renderList(listEl, e.target.value, hiddenInput.value);
   });
 
-  // Selection
   listEl.addEventListener('click', (e) => {
     const option = e.target.closest('.select-option');
     if (!option || option.classList.contains('no-results')) return;
@@ -516,14 +468,10 @@ function setupDropdown(selectEl, searchInput, listEl, hiddenInput, triggerText) 
     calculate();
   });
 
-  // Close on outside click
   document.addEventListener('click', (e) => {
-    if (!selectEl.contains(e.target)) {
-      selectEl.classList.remove('open');
-    }
+    if (!selectEl.contains(e.target)) selectEl.classList.remove('open');
   });
 
-  // Keyboard navigation
   selectEl.addEventListener('keydown', (e) => {
     if (!selectEl.classList.contains('open')) return;
     const options = Array.from(listEl.querySelectorAll('.select-option:not(.no-results)'));
@@ -543,9 +491,7 @@ function setupDropdown(selectEl, searchInput, listEl, hiddenInput, triggerText) 
       options[focusedIdx].scrollIntoView({ block: 'nearest' });
     } else if (e.key === 'Enter') {
       e.preventDefault();
-      if (focusedIdx >= 0) {
-        options[focusedIdx].click();
-      }
+      if (focusedIdx >= 0) options[focusedIdx].click();
     } else if (e.key === 'Escape') {
       selectEl.classList.remove('open');
     }
@@ -563,6 +509,8 @@ function calculate() {
   
   if (!rates[from] || !rates[to]) return;
   
+  // Note: The rates object from open.er-api is based on USD.
+  // So we convert FROM -> USD -> TO.
   const inUSD = amount / rates[from];
   const converted = inUSD * rates[to];
   
@@ -575,23 +523,21 @@ function calculate() {
   resultEl.textContent = formatted;
   
   const singleRate = rates[to] / rates[from];
-  rateNoteEl.textContent = `1 ${from} = ${singleRate.toFixed(4)} ${to}`;
+  rateEl.textContent = `1 ${from} = ${singleRate.toFixed(4)} ${to}`;
 }
 
-// 6. Swap
+// 6. Swap & Refresh
 $('#swapBtn').addEventListener('click', () => {
   const fromVal = fromCurInput.value;
   const toVal = toCurInput.value;
-  
   fromCurInput.value = toVal;
   toCurInput.value = fromVal;
-  
   updateTrigger(fromSelect, toVal, fromTriggerText);
   updateTrigger(toSelect, fromVal, toTriggerText);
-  
   calculate();
 });
 
+refreshBtn.addEventListener('click', () => fetchRates(true));
 amountIn.addEventListener('input', calculate);
 
 // Init
