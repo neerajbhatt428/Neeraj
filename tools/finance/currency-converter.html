@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Currency Converter — Live Exchange Rates, Free & Private</title>
+<meta name="description" content="Free live currency converter. Convert between USD, EUR, GBP, INR, JPY and 150+ other currencies using real-time exchange rates. No signup, runs in your browser.">
+<link rel="canonical" href="https://localtools.co.in/tools/finance/currency-converter.html">
+<link rel="sitemap" type="application/xml" href="https://localtools.co.in/sitemap.xml">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#1B4DFF">
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3576991570329575" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Live Currency Converter",
+      "url": "https://localtools.co.in/tools/finance/currency-converter.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any browser",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+      "featureList": [
+        "Live exchange rates",
+        "150+ currencies supported",
+        "Historical rates not required",
+        "Runs entirely in browser",
+        "No signup required",
+        "Mobile friendly"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://localtools.co.in/"},
+        {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://localtools.co.in/tools/"},
+        {"@type": "ListItem", "position": 3, "name": "Currency Converter", "item": "https://localtools.co.in/tools/finance/currency-converter.html"}
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "Are the exchange rates live?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Rates are fetched from a public API and are typically updated daily."}},
+        {"@type": "Question", "name": "Is this currency converter free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, it is completely free and requires no account."}},
+        {"@type": "Question", "name": "Does it work offline?", "acceptedAnswer": {"@type": "Answer", "text": "No. Since exchange rates change constantly, the tool requires an active internet connection to fetch the latest rates."}}
+      ]
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/base.css">
+
+<style>
+/* Fallback styles for when base.css doesn't load */
+:root{
+  --paper:#EDEDE9;--paper-soft:#F4F4F0;--surface:#FFFFFF;
+  --ink:#14161A;--ink-soft:#3A3E46;--muted:#6B7079;--line:#D6D6D0;
+  --blue:#1B4DFF;--blue-deep:#1338C4;--blue-soft:#EDF0FF;
+  --radius-lg:12px;--radius:8px;
+  --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --display:"Bricolage Grotesque",var(--sans);
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --shadow-md:0 4px 16px -8px rgba(20,22,26,.15);
+}
+*{box-sizing:border-box}
+body{
+  background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;margin:0;padding:0;
+  background-image:linear-gradient(rgba(20,22,26,.035) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(20,22,26,.035) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+.wrap-wide{max-width:800px;margin:0 auto;padding:16px 24px 40px}
+.masthead{display:flex;align-items:center;gap:10px;padding:6px 0 12px}
+.masthead a{color:inherit;text-decoration:none}
+.mark{width:26px;height:26px;flex:none}
+.wordmark{font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.masthead .nav-right{margin-left:auto;font-size:.875rem;color:var(--blue);text-decoration:underline;white-space:nowrap}
+.crumbs{font-size:.8125rem;color:var(--muted);margin:0 0 14px;font-family:var(--mono)}
+.crumbs a{color:var(--muted);text-decoration:underline}
+.crumbs a:hover{color:var(--blue)}
+.crumbs span{color:var(--ink)}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
+.lede{margin:0 0 6px;font-family:var(--display);font-weight:700;font-size:clamp(1.75rem,3.6vw,2.4rem);line-height:1.05;letter-spacing:-.03em}
+.sub{margin:0 0 20px;color:var(--muted);max-width:70ch;font-size:.9375rem;line-height:1.55}
+
+/* Tool UI */
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-md);padding:24px;margin:0 0 24px;
+}
+.card h2{font-size:1.125rem;margin-bottom:16px}
+.row{display:flex;gap:12px;align-items:flex-end;margin-bottom:16px;flex-wrap:wrap}
+.field{flex:1;min-width:120px}
+.field label{display:block;font-family:var(--mono);font-size:.75rem;color:var(--muted);text-transform:uppercase;margin-bottom:6px;letter-spacing:.05em}
+.field input,.field select{
+  width:100%;font:inherit;border:1px solid var(--line);background:#fff;color:var(--ink);
+  border-radius:var(--radius);padding:12px;outline:none;font-size:1rem;
+}
+.field input:focus,.field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.swap-btn{
+  background:var(--blue-soft);border:1px solid transparent;color:var(--blue);
+  width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
+  margin-bottom:2px;transition:all .2s;
+}
+.swap-btn:hover{background:var(--blue);color:#fff;transform:scale(1.05)}
+.swap-btn svg{width:20px;height:20px;stroke-width:2.5}
+.result-box{
+  background:var(--paper-soft);border:1px dashed var(--line);border-radius:var(--radius);
+  padding:24px;text-align:center;margin-top:20px;
+}
+.result-val{font-family:var(--display);font-size:clamp(1.75rem,5vw,2.5rem);font-weight:700;color:var(--blue);letter-spacing:-.02em}
+.result-rate{font-family:var(--mono);font-size:.8125rem;color:var(--muted);margin-top:8px}
+.status{font-family:var(--mono);font-size:.75rem;color:var(--muted);text-align:center;margin-top:12px;min-height:1.2em}
+.status.err{color:#B0233A}
+
+/* Skeleton loading */
+.skelly{opacity:.5;pointer-events:none}
+
+/* SEO Article */
+.article{margin:32px 0 0;max-width:75ch}
+.article h2{font-size:1.5rem;margin:36px 0 12px;letter-spacing:-.02em}
+.article h2:first-child{margin-top:0}
+.article p{margin:0 0 14px;font-size:1rem;line-height:1.7;color:var(--ink-soft)}
+.article ul{margin:0 0 16px;padding-left:22px;color:var(--ink-soft)}
+.article li{margin:0 0 8px;line-height:1.65}
+.faq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;margin-bottom:24px}
+.faq-grid details{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);padding:12px 14px}
+.faq-grid summary{cursor:pointer;font-weight:500;font-size:.9375rem;list-style:none}
+.faq-grid summary::-webkit-details-marker{display:none}
+.faq-grid summary::after{content:"+";float:right;color:var(--blue);font-weight:700}
+.faq-grid details[open] summary::after{content:"−"}
+.faq-grid details p{margin:8px 0 0;font-size:.875rem;color:var(--muted)}
+
+.site-footer{margin:32px 0 0;padding:20px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem;text-align:center}
+.site-footer a{color:inherit}
+.site-footer a:hover{color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="wrap-wide">
+
+  <header class="masthead">
+    <a href="../../index.html" style="display:flex;align-items:center;gap:10px">
+      <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#14161A" d="M2 2h9v9H2V2zm2 2v5h5V4H4z"/>
+        <path fill="#14161A" d="M13 2h9v9h-9V2zm2 2v5h5V4h-5z"/>
+        <path fill="#14161A" d="M2 13h9v9H2v-9zm2 2v5h5v-5H4z"/>
+        <path fill="#1B4DFF" d="M5.5 5.5h2v2h-2zm11 0h2v2h-2zm-11 11h2v2h-2z"/>
+        <path fill="#14161A" d="M13 13h3v3h-3zm6 0h3v3h-3zm-6 6h3v3h-3zm6 0h3v3h-3zm-3-3h3v3h-3z"/>
+      </svg>
+      <span class="wordmark">LocalTools</span>
+    </a>
+    <a href="/" class="nav-right">Home →</a>
+  </header>
+
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a href="../../index.html">Home</a> › <a href="../index.html">Tools</a> › <span>Currency Converter</span>
+  </nav>
+
+  <h1 class="lede">Live Currency Converter</h1>
+  <p class="sub">Convert between 150+ currencies using real-time exchange rates. Free, private, and no signup required.</p>
+
+  <div class="card" id="app">
+    <div class="row">
+      <div class="field">
+        <label for="amount">Amount</label>
+        <input type="number" id="amount" value="1" min="0" step="any">
+      </div>
+      <div class="field">
+        <label for="fromCur">From</label>
+        <select id="fromCur"></select>
+      </div>
+      
+      <button class="swap-btn" id="swapBtn" title="Swap currencies" aria-label="Swap currencies">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4M7 4L3 8M7 4l4 4M17 8v12M17 20l4-4M17 20l-4-4"/></svg>
+      </button>
+
+      <div class="field">
+        <label for="toCur">To</label>
+        <select id="toCur"></select>
+      </div>
+    </div>
+
+    <div class="result-box">
+      <div class="result-val" id="result">—</div>
+      <div class="result-rate" id="rateInfo">Fetching live rates...</div>
+    </div>
+    
+    <div class="status" id="status"></div>
+  </div>
+
+  <article class="article">
+    <h2>How to use the currency converter</h2>
+    <ol>
+      <li>Enter the amount you want to convert.</li>
+      <li>Select the currency you are converting <strong>from</strong>.</li>
+      <li>Select the currency you are converting <strong>to</strong>.</li>
+      <li>The result updates instantly as you type.</li>
+    </ol>
+    <p>Click the swap button (↔) to quickly reverse the conversion.</p>
+
+    <h2>Where do the rates come from?</h2>
+    <p>We use a free public API to fetch live mid-market exchange rates. These rates are updated daily and represent the mid-point between buy and sell prices on global markets. They are ideal for informational purposes, travel planning, and quick estimates.</p>
+
+    <h2>Frequently asked questions</h2>
+    <div class="faq-grid">
+      <details><summary>Are the exchange rates live?</summary><p>Yes. Rates are fetched from a public API and are typically updated daily. The exact timestamp of the last update is shown under the result.</p></details>
+      <details><summary>Is this currency converter free?</summary><p>Yes, it is completely free and requires no account.</p></details>
+      <details><summary>Does it work offline?</summary><p>No. Since exchange rates change constantly, the tool requires an active internet connection to fetch the latest rates.</p></details>
+      <details><summary>Are these rates used for trading?</summary><p>No. These are mid-market rates for informational purposes only. Banks and payment providers usually add a markup or fee on top of these rates.</p></details>
+    </div>
+  </article>
+
+  <footer class="site-footer">
+    <p>
+      LocalTools ·
+      <a href="../../index.html">Home</a> ·
+      <a href="../index.html">All tools</a> ·
+      <a href="../../pages/about.html">About</a> ·
+      <a href="../../pages/privacy.html">Privacy</a>
+    </p>
+  </footer>
+</div>
+
+<script>
+'use strict';
+
+// 1. Define common currencies (we'll populate the select boxes with these)
+const CURRENCIES = {
+  USD: "US Dollar", EUR: "Euro", GBP: "British Pound", INR: "Indian Rupee",
+  AUD: "Australian Dollar", CAD: "Canadian Dollar", SGD: "Singapore Dollar",
+  CHF: "Swiss Franc", MYR: "Malaysian Ringgit", JPY: "Japanese Yen",
+  CNY: "Chinese Yuan", NZD: "New Zealand Dollar", THB: "Thai Baht",
+  ZAR: "South African Rand", AED: "UAE Dirham", SAR: "Saudi Riyal",
+  BRL: "Brazilian Real", MXN: "Mexican Peso", RUB: "Russian Ruble",
+  KRW: "South Korean Won", TRY: "Turkish Lira", IDR: "Indonesian Rupiah",
+  PHP: "Philippine Peso", VND: "Vietnamese Dong", PLN: "Polish Zloty"
+};
+
+const $ = s => document.querySelector(s);
+const amountIn = $('#amount');
+const fromSel = $('#fromCur');
+const toSel = $('#toCur');
+const resultEl = $('#result');
+const rateEl = $('#rateInfo');
+const statusEl = $('#status');
+
+let rates = {}; // Store fetched rates
+let lastFetch = 0;
+
+// 2. Populate dropdowns
+function populateSelect(select, defaultCode) {
+  select.innerHTML = Object.entries(CURRENCIES).map(([code, name]) => 
+    `<option value="${code}" ${code === defaultCode ? 'selected' : ''}>${code} — ${name}</option>`
+  ).join('');
+}
+
+// Initialize selects: default USD -> EUR
+populateSelect(fromSel, 'USD');
+populateSelect(toSel, 'EUR');
+
+// 3. Fetch rates from API
+async function fetchRates() {
+  const base = 'USD'; // Fetch rates relative to USD
+  try {
+    statusEl.textContent = 'Fetching live rates...';
+    statusEl.className = 'status';
+    
+    const res = await fetch(`https://open.er-api.com/v6/latest/${base}`);
+    if (!res.ok) throw new Error('Network response was not ok');
+    
+    const data = await res.json();
+    if (data.result !== 'success') throw new Error('API error');
+    
+    rates = data.rates;
+    lastFetch = data.time_last_update_unix;
+    
+    // Format the time
+    const date = new Date(lastFetch * 1000).toLocaleString();
+    rateEl.textContent = `Rates updated: ${date}`;
+    statusEl.textContent = '';
+    
+    calculate();
+  } catch (err) {
+    console.error(err);
+    statusEl.textContent = 'Could not load live rates. Check your connection.';
+    statusEl.className = 'status err';
+    rateEl.textContent = 'Offline';
+  }
+}
+
+// 4. Calculate and display
+function calculate() {
+  const amount = parseFloat(amountIn.value) || 0;
+  const from = fromSel.value;
+  const to = toSel.value;
+  
+  if (!rates[from] || !rates[to]) return; // Rates not loaded yet
+  
+  // Convert amount to USD, then to target currency
+  const inUSD = amount / rates[from];
+  const converted = inUSD * rates[to];
+  
+  // Format result based on target currency
+  const formatted = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: to,
+    minimumFractionDigits: to === 'JPY' || to === 'KRW' || to === 'VND' ? 0 : 2
+  }).format(converted);
+  
+  resultEl.textContent = formatted;
+  
+  // Show exchange rate line (e.g., 1 USD = 0.92 EUR)
+  const singleRate = rates[to] / rates[from];
+  const rateFormatted = singleRate.toFixed(4);
+  // Re-use rateEl but keep it clean? Actually let's use a separate line for the rate
+  // We'll append it to the result-val area or just show it below.
+  
+  // Let's create an inline rate note if it doesn't exist
+  let rateNote = document.getElementById('rateNote');
+  if (!rateNote) {
+    rateNote = document.createElement('div');
+    rateNote.id = 'rateNote';
+    rateNote.className = 'result-rate';
+    rateNote.style.marginTop = '4px';
+    rateNote.style.fontSize = '0.85rem';
+    document.querySelector('.result-box').appendChild(rateNote);
+  }
+  rateNote.textContent = `1 ${from} = ${rateFormatted} ${to}`;
+}
+
+// 5. Event Listeners
+amountIn.addEventListener('input', calculate);
+fromSel.addEventListener('change', calculate);
+toSel.addEventListener('change', calculate);
+
+$('#swapBtn').addEventListener('click', () => {
+  const fromVal = fromSel.value;
+  fromSel.value = toSel.value;
+  toSel.value = fromVal;
+  calculate();
+});
+
+// 6. Init
+fetchRates();
+</script>
+</body>
+</html>
