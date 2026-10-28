@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Currency Converter — Live Exchange Rates, Free & Private</title>
+<title>Live Currency Converter — 160+ Currencies, Real-Time Exchange Rates</title>
 <meta name="description" content="Free live currency converter. Convert between USD, EUR, GBP, INR, JPY and 150+ other currencies using real-time exchange rates. No signup, runs in your browser.">
 <link rel="canonical" href="https://localtools.co.in/tools/finance/currency-converter.html">
 <link rel="sitemap" type="application/xml" href="https://localtools.co.in/sitemap.xml">
@@ -17,7 +17,7 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "WebApplication",
+      "@type": "SoftwareApplication",
       "name": "Live Currency Converter",
       "url": "https://localtools.co.in/tools/finance/currency-converter.html",
       "applicationCategory": "FinanceApplication",
@@ -25,8 +25,8 @@
       "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
       "featureList": [
         "Live exchange rates",
-        "150+ currencies supported",
-        "Historical rates not required",
+        "160+ currencies supported",
+        "Searchable currency dropdowns",
         "Runs entirely in browser",
         "No signup required",
         "Mobile friendly"
@@ -45,7 +45,8 @@
       "mainEntity": [
         {"@type": "Question", "name": "Are the exchange rates live?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Rates are fetched from a public API and are typically updated daily."}},
         {"@type": "Question", "name": "Is this currency converter free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, it is completely free and requires no account."}},
-        {"@type": "Question", "name": "Does it work offline?", "acceptedAnswer": {"@type": "Answer", "text": "No. Since exchange rates change constantly, the tool requires an active internet connection to fetch the latest rates."}}
+        {"@type": "Question", "name": "Does it work offline?", "acceptedAnswer": {"@type": "Answer", "text": "No. Since exchange rates change constantly, the tool requires an active internet connection to fetch the latest rates."}},
+        {"@type": "Question", "name": "How many currencies are supported?", "acceptedAnswer": {"@type": "Answer", "text": "The tool supports over 160 global currencies, including major, minor, and exotic pairs, as well as precious metals."}}
       ]
     }
   ]
@@ -63,7 +64,7 @@
   --paper:#EDEDE9;--paper-soft:#F4F4F0;--surface:#FFFFFF;
   --ink:#14161A;--ink-soft:#3A3E46;--muted:#6B7079;--line:#D6D6D0;
   --blue:#1B4DFF;--blue-deep:#1338C4;--blue-soft:#EDF0FF;
-  --radius-lg:12px;--radius:8px;
+  --radius-lg:12px;--radius:8px;--radius:6px;
   --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   --display:"Bricolage Grotesque",var(--sans);
   --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
@@ -96,22 +97,22 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
   background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);
   box-shadow:var(--shadow-md);padding:24px;margin:0 0 24px;
 }
-.card h2{font-size:1.125rem;margin-bottom:16px}
 .row{display:flex;gap:12px;align-items:flex-end;margin-bottom:16px;flex-wrap:wrap}
-.field{flex:1;min-width:120px}
+.field{flex:1;min-width:140px}
 .field label{display:block;font-family:var(--mono);font-size:.75rem;color:var(--muted);text-transform:uppercase;margin-bottom:6px;letter-spacing:.05em}
-.field input,.field select{
+.field input[type="number"]{
   width:100%;font:inherit;border:1px solid var(--line);background:#fff;color:var(--ink);
   border-radius:var(--radius);padding:12px;outline:none;font-size:1rem;
 }
-.field input:focus,.field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
+.field input[type="number"]:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,77,255,.12)}
 .swap-btn{
   background:var(--blue-soft);border:1px solid transparent;color:var(--blue);
   width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
-  margin-bottom:2px;transition:all .2s;
+  margin-bottom:2px;transition:all .2s; flex-shrink:0;
 }
 .swap-btn:hover{background:var(--blue);color:#fff;transform:scale(1.05)}
 .swap-btn svg{width:20px;height:20px;stroke-width:2.5}
+
 .result-box{
   background:var(--paper-soft);border:1px dashed var(--line);border-radius:var(--radius);
   padding:24px;text-align:center;margin-top:20px;
@@ -120,6 +121,118 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .result-rate{font-family:var(--mono);font-size:.8125rem;color:var(--muted);margin-top:8px}
 .status{font-family:var(--mono);font-size:.75rem;color:var(--muted);text-align:center;margin-top:12px;min-height:1.2em}
 .status.err{color:#B0233A}
+
+/* ============================================================
+   Custom Searchable Dropdown
+   ============================================================ */
+.custom-select {
+  position: relative;
+  width: 100%;
+  user-select: none;
+}
+.select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  cursor: pointer;
+  min-height: 44px;
+  transition: border-color .12s, box-shadow .12s;
+}
+.select-trigger:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(27,77,255,.12);
+}
+.select-trigger .select-value {
+  font-size: .9375rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.select-trigger .chevron {
+  width: 16px; height: 16px; flex-shrink: 0;
+  transition: transform .2s;
+}
+.custom-select.open .select-trigger .chevron {
+  transform: rotate(180deg);
+}
+
+.select-options {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  z-index: 100;
+  display: none;
+  flex-direction: column;
+  max-height: 300px;
+  overflow: hidden;
+}
+.custom-select.open .select-options {
+  display: flex;
+}
+.select-search {
+  padding: 8px;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper-soft);
+}
+.select-search input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  outline: none;
+  font-size: .875rem;
+}
+.select-search input:focus {
+  border-color: var(--blue);
+}
+.select-list {
+  overflow-y: auto;
+  flex: 1;
+}
+.select-option {
+  padding: 10px 12px;
+  cursor: pointer;
+  font-size: .875rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+.select-option:last-child {
+  border-bottom: none;
+}
+.select-option:hover, .select-option.focused {
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+.select-option .opt-code {
+  font-family: var(--mono);
+  font-weight: 600;
+  margin-right: 8px;
+}
+.select-option .opt-name {
+  color: var(--muted);
+}
+.select-option:hover .opt-name, .select-option.focused .opt-name {
+  color: var(--blue);
+}
+.select-option.no-results {
+  cursor: default;
+  color: var(--muted);
+  text-align: center;
+  padding: 16px;
+}
+.select-option.no-results:hover {
+  background: transparent;
+  color: var(--muted);
+}
 
 /* Skeleton loading */
 .skelly{opacity:.5;pointer-events:none}
@@ -142,6 +255,12 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 .site-footer{margin:32px 0 0;padding:20px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:.8125rem;text-align:center}
 .site-footer a{color:inherit}
 .site-footer a:hover{color:var(--blue)}
+
+@media (max-width: 600px) {
+  .row { flex-direction: column; align-items: stretch; }
+  .swap-btn { align-self: center; transform: rotate(90deg); margin: -8px 0; }
+  .swap-btn:hover { transform: rotate(90deg) scale(1.05); }
+}
 </style>
 </head>
 <body>
@@ -166,7 +285,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
   </nav>
 
   <h1 class="lede">Live Currency Converter</h1>
-  <p class="sub">Convert between 150+ currencies using real-time exchange rates. Free, private, and no signup required.</p>
+  <p class="sub">Convert between 160+ currencies using real-time exchange rates. Free, private, and no signup required.</p>
 
   <div class="card" id="app">
     <div class="row">
@@ -174,9 +293,22 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
         <label for="amount">Amount</label>
         <input type="number" id="amount" value="1" min="0" step="any">
       </div>
+      
       <div class="field">
-        <label for="fromCur">From</label>
-        <select id="fromCur"></select>
+        <label>From</label>
+        <div class="custom-select" id="fromSelect" tabindex="0">
+          <div class="select-trigger">
+            <span class="select-value" id="fromTriggerText">USD — US Dollar</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <input type="hidden" id="fromCur" value="USD">
+          <div class="select-options">
+            <div class="select-search">
+              <input type="text" placeholder="Search currency..." id="fromSearch">
+            </div>
+            <div class="select-list" id="fromList"></div>
+          </div>
+        </div>
       </div>
       
       <button class="swap-btn" id="swapBtn" title="Swap currencies" aria-label="Swap currencies">
@@ -184,14 +316,27 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
       </button>
 
       <div class="field">
-        <label for="toCur">To</label>
-        <select id="toCur"></select>
+        <label>To</label>
+        <div class="custom-select" id="toSelect" tabindex="0">
+          <div class="select-trigger">
+            <span class="select-value" id="toTriggerText">INR — Indian Rupee</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <input type="hidden" id="toCur" value="INR">
+          <div class="select-options">
+            <div class="select-search">
+              <input type="text" placeholder="Search currency..." id="toSearch">
+            </div>
+            <div class="select-list" id="toList"></div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="result-box">
       <div class="result-val" id="result">—</div>
       <div class="result-rate" id="rateInfo">Fetching live rates...</div>
+      <div class="result-rate" id="rateNote" style="font-size:0.85rem; margin-top:4px;"></div>
     </div>
     
     <div class="status" id="status"></div>
@@ -201,20 +346,22 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
     <h2>How to use the currency converter</h2>
     <ol>
       <li>Enter the amount you want to convert.</li>
-      <li>Select the currency you are converting <strong>from</strong>.</li>
-      <li>Select the currency you are converting <strong>to</strong>.</li>
+      <li>Click the <strong>From</strong> or <strong>To</strong> dropdown and type to search (e.g., "Swiss" or "CHF").</li>
+      <li>Select your target currency.</li>
       <li>The result updates instantly as you type.</li>
     </ol>
     <p>Click the swap button (↔) to quickly reverse the conversion.</p>
 
-    <h2>Where do the rates come from?</h2>
-    <p>We use a free public API to fetch live mid-market exchange rates. These rates are updated daily and represent the mid-point between buy and sell prices on global markets. They are ideal for informational purposes, travel planning, and quick estimates.</p>
+    <h2>Where do the exchange rates come from?</h2>
+    <p>We use a free public API (<code>open.er-api.com</code>) to fetch live mid-market exchange rates for over 160 currencies. These rates are updated daily and represent the mid-point between buy and sell prices on global markets.</p>
+    <p>These are ideal for informational purposes, travel planning, and quick estimates. Note that banks and payment providers usually add a markup (often 2–5%) on top of these mid-market rates.</p>
 
     <h2>Frequently asked questions</h2>
     <div class="faq-grid">
       <details><summary>Are the exchange rates live?</summary><p>Yes. Rates are fetched from a public API and are typically updated daily. The exact timestamp of the last update is shown under the result.</p></details>
       <details><summary>Is this currency converter free?</summary><p>Yes, it is completely free and requires no account.</p></details>
       <details><summary>Does it work offline?</summary><p>No. Since exchange rates change constantly, the tool requires an active internet connection to fetch the latest rates.</p></details>
+      <details><summary>How many currencies are supported?</summary><p>The tool supports over 160 global currencies, including major, minor, and exotic pairs.</p></details>
       <details><summary>Are these rates used for trading?</summary><p>No. These are mid-market rates for informational purposes only. Banks and payment providers usually add a markup or fee on top of these rates.</p></details>
     </div>
   </article>
@@ -233,43 +380,42 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin
 <script>
 'use strict';
 
-// 1. Define common currencies (we'll populate the select boxes with these)
-const CURRENCIES = {
-  USD: "US Dollar", EUR: "Euro", GBP: "British Pound", INR: "Indian Rupee",
-  AUD: "Australian Dollar", CAD: "Canadian Dollar", SGD: "Singapore Dollar",
-  CHF: "Swiss Franc", MYR: "Malaysian Ringgit", JPY: "Japanese Yen",
-  CNY: "Chinese Yuan", NZD: "New Zealand Dollar", THB: "Thai Baht",
-  ZAR: "South African Rand", AED: "UAE Dirham", SAR: "Saudi Riyal",
-  BRL: "Brazilian Real", MXN: "Mexican Peso", RUB: "Russian Ruble",
-  KRW: "South Korean Won", TRY: "Turkish Lira", IDR: "Indonesian Rupiah",
-  PHP: "Philippine Peso", VND: "Vietnamese Dong", PLN: "Polish Zloty"
-};
-
 const $ = s => document.querySelector(s);
-const amountIn = $('#amount');
-const fromSel = $('#fromCur');
-const toSel = $('#toCur');
-const resultEl = $('#result');
-const rateEl = $('#rateInfo');
-const statusEl = $('#status');
 
-let rates = {}; // Store fetched rates
+// State
+let rates = {};
+let currencyData = [];
 let lastFetch = 0;
 
-// 2. Populate dropdowns
-function populateSelect(select, defaultCode) {
-  select.innerHTML = Object.entries(CURRENCIES).map(([code, name]) => 
-    `<option value="${code}" ${code === defaultCode ? 'selected' : ''}>${code} — ${name}</option>`
-  ).join('');
+// DOM Elements
+const amountIn = $('#amount');
+const fromSelect = $('#fromSelect');
+const toSelect = $('#toSelect');
+const fromCurInput = $('#fromCur');
+const toCurInput = $('#toCur');
+const fromTriggerText = $('#fromTriggerText');
+const toTriggerText = $('#toTriggerText');
+const fromSearch = $('#fromSearch');
+const toSearch = $('#toSearch');
+const fromList = $('#fromList');
+const toList = $('#toList');
+const resultEl = $('#result');
+const rateEl = $('#rateInfo');
+const rateNoteEl = $('#rateNote');
+const statusEl = $('#status');
+
+// 1. Initialize the currency display names
+function getCurrencyName(code) {
+  try {
+    return new Intl.DisplayNames(['en'], { type: 'currency' }).of(code);
+  } catch (e) {
+    return code; // Fallback
+  }
 }
 
-// Initialize selects: default USD -> EUR
-populateSelect(fromSel, 'USD');
-populateSelect(toSel, 'EUR');
-
-// 3. Fetch rates from API
+// 2. Fetch Rates
 async function fetchRates() {
-  const base = 'USD'; // Fetch rates relative to USD
+  const base = 'USD';
   try {
     statusEl.textContent = 'Fetching live rates...';
     statusEl.className = 'status';
@@ -283,7 +429,14 @@ async function fetchRates() {
     rates = data.rates;
     lastFetch = data.time_last_update_unix;
     
-    // Format the time
+    // Build currency data list
+    currencyData = Object.keys(rates).map(code => ({
+      code,
+      name: getCurrencyName(code)
+    })).sort((a, b) => a.code.localeCompare(b.code)); // A-Z sorting
+
+    populateDropdowns();
+    
     const date = new Date(lastFetch * 1000).toLocaleString();
     rateEl.textContent = `Rates updated: ${date}`;
     statusEl.textContent = '';
@@ -297,19 +450,122 @@ async function fetchRates() {
   }
 }
 
-// 4. Calculate and display
+// 3. Populate Dropdowns
+function populateDropdowns() {
+  renderList(fromList, '', fromCurInput.value, false);
+  renderList(toList, '', toCurInput.value, false);
+  updateTrigger(fromSelect, fromCurInput.value, fromTriggerText);
+  updateTrigger(toSelect, toCurInput.value, toTriggerText);
+}
+
+function renderList(listEl, query, selectedCode, isOpen) {
+  const q = query.toLowerCase();
+  const filtered = currencyData.filter(c => 
+    c.code.toLowerCase().includes(q) || c.name.toLowerCase().includes(q)
+  );
+  
+  if (filtered.length === 0) {
+    listEl.innerHTML = '<div class="select-option no-results">No currencies found</div>';
+    return;
+  }
+  
+  listEl.innerHTML = filtered.map(c => `
+    <div class="select-option ${c.code === selectedCode ? 'focused' : ''}" data-code="${c.code}">
+      <span class="opt-code">${c.code}</span> 
+      <span class="opt-name">${c.name}</span>
+    </div>
+  `).join('');
+}
+
+function updateTrigger(selectEl, code, textEl) {
+  const currency = currencyData.find(c => c.code === code);
+  if (currency) {
+    textEl.textContent = `${currency.code} — ${currency.name}`;
+  }
+}
+
+// 4. Dropdown Logic
+function setupDropdown(selectEl, searchInput, listEl, hiddenInput, triggerText) {
+  // Toggle open/close
+  selectEl.addEventListener('click', (e) => {
+    if (e.target.closest('.select-options')) return; // Ignore clicks inside menu
+    if (e.target.closest('.select-trigger')) {
+      selectEl.classList.toggle('open');
+      if (selectEl.classList.contains('open')) {
+        searchInput.value = '';
+        renderList(listEl, '', hiddenInput.value, true);
+        searchInput.focus();
+      }
+    }
+  });
+
+  // Search filtering
+  searchInput.addEventListener('input', (e) => {
+    renderList(listEl, e.target.value, hiddenInput.value, true);
+  });
+
+  // Selection
+  listEl.addEventListener('click', (e) => {
+    const option = e.target.closest('.select-option');
+    if (!option || option.classList.contains('no-results')) return;
+    
+    const code = option.dataset.code;
+    hiddenInput.value = code;
+    updateTrigger(selectEl, code, triggerText);
+    selectEl.classList.remove('open');
+    calculate();
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (!selectEl.contains(e.target)) {
+      selectEl.classList.remove('open');
+    }
+  });
+
+  // Keyboard navigation
+  selectEl.addEventListener('keydown', (e) => {
+    if (!selectEl.classList.contains('open')) return;
+    const options = Array.from(listEl.querySelectorAll('.select-option:not(.no-results)'));
+    let focusedIdx = options.findIndex(opt => opt.classList.contains('focused'));
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      focusedIdx = Math.min(focusedIdx + 1, options.length - 1);
+      options.forEach(o => o.classList.remove('focused'));
+      options[focusedIdx].classList.add('focused');
+      options[focusedIdx].scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      focusedIdx = Math.max(focusedIdx - 1, 0);
+      options.forEach(o => o.classList.remove('focused'));
+      options[focusedIdx].classList.add('focused');
+      options[focusedIdx].scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (focusedIdx >= 0) {
+        options[focusedIdx].click();
+      }
+    } else if (e.key === 'Escape') {
+      selectEl.classList.remove('open');
+    }
+  });
+}
+
+setupDropdown(fromSelect, fromSearch, fromList, fromCurInput, fromTriggerText);
+setupDropdown(toSelect, toSearch, toList, toCurInput, toTriggerText);
+
+// 5. Calculate
 function calculate() {
   const amount = parseFloat(amountIn.value) || 0;
-  const from = fromSel.value;
-  const to = toSel.value;
+  const from = fromCurInput.value;
+  const to = toCurInput.value;
   
-  if (!rates[from] || !rates[to]) return; // Rates not loaded yet
+  if (!rates[from] || !rates[to]) return;
   
-  // Convert amount to USD, then to target currency
   const inUSD = amount / rates[from];
   const converted = inUSD * rates[to];
   
-  // Format result based on target currency
   const formatted = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: to,
@@ -318,38 +574,27 @@ function calculate() {
   
   resultEl.textContent = formatted;
   
-  // Show exchange rate line (e.g., 1 USD = 0.92 EUR)
   const singleRate = rates[to] / rates[from];
-  const rateFormatted = singleRate.toFixed(4);
-  // Re-use rateEl but keep it clean? Actually let's use a separate line for the rate
-  // We'll append it to the result-val area or just show it below.
-  
-  // Let's create an inline rate note if it doesn't exist
-  let rateNote = document.getElementById('rateNote');
-  if (!rateNote) {
-    rateNote = document.createElement('div');
-    rateNote.id = 'rateNote';
-    rateNote.className = 'result-rate';
-    rateNote.style.marginTop = '4px';
-    rateNote.style.fontSize = '0.85rem';
-    document.querySelector('.result-box').appendChild(rateNote);
-  }
-  rateNote.textContent = `1 ${from} = ${rateFormatted} ${to}`;
+  rateNoteEl.textContent = `1 ${from} = ${singleRate.toFixed(4)} ${to}`;
 }
 
-// 5. Event Listeners
-amountIn.addEventListener('input', calculate);
-fromSel.addEventListener('change', calculate);
-toSel.addEventListener('change', calculate);
-
+// 6. Swap
 $('#swapBtn').addEventListener('click', () => {
-  const fromVal = fromSel.value;
-  fromSel.value = toSel.value;
-  toSel.value = fromVal;
+  const fromVal = fromCurInput.value;
+  const toVal = toCurInput.value;
+  
+  fromCurInput.value = toVal;
+  toCurInput.value = fromVal;
+  
+  updateTrigger(fromSelect, toVal, fromTriggerText);
+  updateTrigger(toSelect, fromVal, toTriggerText);
+  
   calculate();
 });
 
-// 6. Init
+amountIn.addEventListener('input', calculate);
+
+// Init
 fetchRates();
 </script>
 </body>
