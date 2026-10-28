@@ -10,15 +10,19 @@
   --paper:#EDEDE9;
   --surface:#FFFFFF;
   --ink:#14161A;
+  --ink-soft:#3A3E46;
   --muted:#6B7079;
   --line:#D6D6D0;
+  --line-soft:#E4E4DE;
   --blue:#1B4DFF;
   --blue-deep:#1338C4;
+  --blue-soft:#EDF0FF;
   --green:#0E7A5F;
   --red:#B0233A;
 
   --radius:6px;
   --radius-sm:4px;
+  --radius-md:8px;
   --radius-lg:10px;
 
   --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
@@ -54,7 +58,7 @@ html{
 html,body{
   margin:0;padding:0;
   width:100%;
-  overflow-x:hidden;                /* no accidental horizontal scroll */
+  overflow-x:hidden;
   min-height:100vh;
 }
 
@@ -78,7 +82,7 @@ img,svg,video,canvas{
 }
 
 /* ============================================================
-   3. PAGE CONTAINERS — every page uses one of these
+   3. PAGE CONTAINERS
    ============================================================ */
 .wrap,
 .wrap-wide{
@@ -91,13 +95,9 @@ img,svg,video,canvas{
   padding-right:var(--pad-x);
 }
 
-/* Narrow — reading-focused tools */
 .wrap{max-width:720px}
-
-/* Wide — tools with sidebars / grids */
 .wrap-wide{max-width:1240px}
 
-/* Respect notches on phones with rounded corners */
 @supports(padding:max(0px)){
   .wrap, .wrap-wide{
     padding-left: max(var(--pad-x), env(safe-area-inset-left));
@@ -105,17 +105,11 @@ img,svg,video,canvas{
   }
 }
 
-/* Never let a child overflow horizontally */
 .wrap > *,
 .wrap-wide > *{max-width:100%}
 
-/* Wide screens get slightly more breathing room, not more width */
-@media(min-width:1440px){
-  .wrap-wide{max-width:1280px}
-}
-@media(min-width:1800px){
-  .wrap-wide{max-width:1320px}
-}
+@media(min-width:1440px){ .wrap-wide{max-width:1280px} }
+@media(min-width:1800px){ .wrap-wide{max-width:1320px} }
 
 /* ============================================================
    4. MASTHEAD
@@ -144,6 +138,7 @@ img,svg,video,canvas{
 h1,h2,h3{
   font-family:var(--display);font-weight:700;
   letter-spacing:-.02em;margin:0;
+  text-wrap:balance;
 }
 
 .lede{
@@ -153,7 +148,6 @@ h1,h2,h3{
   line-height:1.05;
   letter-spacing:-.03em;
   max-width:20ch;
-  text-wrap:balance;
 }
 
 .sub{
@@ -165,38 +159,40 @@ h1,h2,h3{
   text-wrap:pretty;
 }
 
-p{margin:0 0 1em}
+p{margin:0 0 1em; text-wrap:pretty;}
 
 /* ============================================================
    6. BUTTONS
    ============================================================ */
-button{
+button, .btn{
   font:inherit;cursor:pointer;border-radius:var(--radius);
   border:1px solid var(--line);background:var(--surface);color:var(--ink);
-  padding:11px 16px;font-weight:500;
+  padding:10px 16px;font-weight:500;
   min-height:40px;
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  touch-action:manipulation;
-  transition:border-color .12s ease, background .12s ease;
+  touch-action:manipulation; text-decoration:none;
+  transition:border-color .12s ease, background .12s ease, box-shadow .12s ease;
 }
-button:hover{border-color:#A9A9A1}
-button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-button[disabled]{opacity:.4;cursor:not-allowed}
+button:hover, .btn:hover{border-color:#A9A9A1}
+button:focus-visible, .btn:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+button[disabled], .btn[disabled]{opacity:.4;cursor:not-allowed}
 
-/* Bigger tap target on touch devices */
 @media(hover:none){
-  button{min-height:44px}
+  button, .btn{min-height:44px}
 }
 
-.primary{
+.primary, .btn.primary{
   background:var(--blue);border-color:var(--blue);color:#fff;
   justify-content:center;
 }
-.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep)}
+.primary:hover, .btn.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep)}
+
+.btn.wide{width:100%}
+.btn.sm{padding:7px 12px;font-size:.8125rem;min-height:34px}
 
 .chip{
   border:1px solid var(--line);background:transparent;
-  border-radius:100px;padding:5px 12px;
+  border-radius:100px;padding:5px 12px;min-height:auto;
   font-size:.8125rem;color:var(--muted);
 }
 .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
@@ -211,6 +207,7 @@ input[type="url"],input[type="search"],textarea,select{
   color:var(--ink);border-radius:var(--radius);
   padding:11px 12px;outline:none;
   min-height:40px;
+  transition:border-color .12s ease, box-shadow .12s ease;
 }
 input:focus,textarea:focus,select:focus{
   border-color:var(--blue);
@@ -221,13 +218,60 @@ textarea{
   font-family:var(--mono);font-size:.9375rem;line-height:1.6;
 }
 
-/* Prevent iOS zoom on focus — inputs must be at least 16px */
+/* Range Sliders (Used in Image Editor, BG Remover, etc.) */
+input[type="range"]{
+  -webkit-appearance:none; appearance:none;
+  width:100%; height:20px; background:transparent; cursor:pointer; margin:0;
+}
+input[type="range"]::-webkit-slider-runnable-track{height:3px;background:var(--line);border-radius:2px}
+input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none; width:14px;height:14px; margin-top:-5.5px;
+  background:#fff; border:2px solid var(--blue); border-radius:50%;
+  box-shadow:0 1px 3px rgba(0,0,0,.15);
+}
+input[type="range"]::-moz-range-track{height:3px;background:var(--line);border-radius:2px}
+input[type="range"]::-moz-range-thumb{
+  width:12px;height:12px; background:#fff;
+  border:2px solid var(--blue); border-radius:50%;
+  box-shadow:0 1px 3px rgba(0,0,0,.15);
+}
+
+/* Color Pickers */
+input[type="color"]{
+  width:100%; height:40px; padding:2px;
+  border:1px solid var(--line); border-radius:var(--radius);
+  background:var(--surface); cursor:pointer;
+}
+
+/* Checkboxes & Radios */
+input[type="checkbox"], input[type="radio"]{
+  accent-color:var(--blue); cursor:pointer; width:16px; height:16px;
+}
+
 @media(max-width:640px){
-  input,textarea,select{font-size:16px}
+  input,textarea,select{font-size:16px} /* Prevent iOS zoom */
 }
 
 /* ============================================================
-   8. SURFACES
+   8. SEGMENTED CONTROLS (Used in BG Remover, Image Editor)
+   ============================================================ */
+.seg{
+  display:flex; border:1px solid var(--line); border-radius:var(--radius);
+  overflow:hidden; height:32px; background:var(--paper);
+}
+.seg button{
+  flex:1 1 0; min-width:0; border:0; border-right:1px solid var(--line);
+  background:transparent; border-radius:0; padding:0 6px; min-height:0;
+  font-family:var(--mono); font-size:.6875rem; font-weight:500; letter-spacing:.04em;
+  text-transform:uppercase; color:var(--muted); transition:all .12s;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-align:center;
+}
+.seg button:last-child{border-right:0}
+.seg button:hover{color:var(--ink); background:var(--surface)}
+.seg button.active{background:var(--blue); color:#fff}
+
+/* ============================================================
+   9. SURFACES
    ============================================================ */
 .result{
   margin:22px 0 0;
@@ -248,7 +292,7 @@ textarea{
 }
 
 /* ============================================================
-   9. STATS
+   10. STATS
    ============================================================ */
 .stats{
   display:grid;
@@ -271,12 +315,12 @@ textarea{
 }
 
 /* ============================================================
-   10. BUTTON ROWS
+   11. BUTTON ROWS
    ============================================================ */
 .btnrow{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
 
 /* ============================================================
-   11. ARTICLE
+   12. ARTICLE
    ============================================================ */
 .article{
   margin:var(--gap-xl) 0 0;
@@ -285,7 +329,6 @@ textarea{
 .article h2{
   margin:36px 0 10px;
   font-size:clamp(1.25rem, 2.2vw, 1.5rem);
-  text-wrap:balance;
 }
 .article h2:first-child{margin-top:0}
 .article h3{
@@ -293,7 +336,7 @@ textarea{
   font-size:1.0625rem;letter-spacing:-.015em;
   margin:28px 0 8px;
 }
-.article p{margin:0 0 12px;color:#3A3E46;text-wrap:pretty}
+.article p{margin:0 0 12px;color:#3A3E46;}
 .article ul,.article ol{
   margin:0 0 12px;padding-left:22px;color:#3A3E46;
 }
@@ -307,7 +350,7 @@ textarea{
 }
 
 /* ============================================================
-   12. FAQ
+   13. FAQ
    ============================================================ */
 .faq{margin:14px 0 0;border-top:1px solid var(--line)}
 .faq details{border-bottom:1px solid var(--line)}
@@ -327,7 +370,7 @@ textarea{
 .faq details p{margin:0 0 14px;color:#3A3E46;max-width:64ch}
 
 /* ============================================================
-   13. FOOTER
+   14. FOOTER
    ============================================================ */
 footer{
   margin:44px 0 0;padding:18px 0 0;
@@ -338,7 +381,7 @@ footer a{color:inherit}
 footer a:hover{color:var(--blue)}
 
 /* ============================================================
-   14. UTILITY
+   15. UTILITY
    ============================================================ */
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .notes{margin:12px 0 0;color:var(--muted);font-size:.9375rem;max-width:64ch}
@@ -348,7 +391,7 @@ footer a:hover{color:var(--blue)}
 .text-center{text-align:center}
 
 /* ============================================================
-   15. TOAST
+   16. TOAST
    ============================================================ */
 .toast{
   position:fixed;left:50%;bottom:24px;
@@ -367,7 +410,7 @@ footer a:hover{color:var(--blue)}
 .toast svg{width:15px;height:15px;color:#22E39A;flex:none}
 
 /* ============================================================
-   16. BREADCRUMBS
+   17. BREADCRUMBS
    ============================================================ */
 .crumbs{
   font-size:.8125rem;color:var(--muted);
@@ -379,7 +422,7 @@ footer a:hover{color:var(--blue)}
 .crumbs span{color:var(--ink)}
 
 /* ============================================================
-   17. RELATED TOOLS
+   18. RELATED TOOLS
    ============================================================ */
 .related-list{list-style:none;margin:12px 0 0;padding:0}
 .related-list li{
@@ -400,10 +443,9 @@ footer a:hover{color:var(--blue)}
 }
 
 /* ============================================================
-   18. RESPONSIVE FINE-TUNING
+   19. RESPONSIVE FINE-TUNING
    ============================================================ */
 
-/* ---- Small phone (iPhone SE, 320–374px) ---- */
 @media(max-width:374px){
   :root{--pad-x:14px}
   .lede{font-size:1.5rem}
@@ -413,7 +455,6 @@ footer a:hover{color:var(--blue)}
   .masthead .nav-right{font-size:.75rem}
 }
 
-/* ---- Large phone (375–640px) ---- */
 @media(max-width:640px){
   .wrap,.wrap-wide{padding-bottom:48px}
   .article{margin-top:32px}
@@ -421,43 +462,37 @@ footer a:hover{color:var(--blue)}
   .article h3{margin-top:22px}
   .section-head{margin:28px 0 10px}
   .related-list li{padding:11px 12px;gap:10px}
-  .related-list time{display:none}      /* row is too tight on phones */
+  .related-list time{display:none}
   .faq summary{padding:15px 2px;font-size:.9375rem}
   .faq details p{font-size:.875rem}
   .toast{font-size:.8125rem;padding:10px 16px}
 }
 
-/* ---- Tablet (641–1024px) ---- */
 @media(min-width:641px) and (max-width:1024px){
   :root{--pad-x:32px}
 }
 
-/* ---- Landscape phone (short height) ---- */
 @media(max-height:500px) and (orientation:landscape){
   .lede{font-size:1.75rem}
   .masthead{padding-bottom:12px}
   .wrap,.wrap-wide{padding-top:12px}
 }
 
-/* ---- Desktop — cap article width so lines don't run long ---- */
 @media(min-width:1025px){
   .article{max-width:72ch}
   .sub{max-width:62ch}
 }
 
-/* ---- Ultra-wide — give more breathing room, not more width ---- */
 @media(min-width:1800px){
   :root{--pad-x:56px}
 }
 
-/* ---- Touch devices — no hover transforms, bigger tap targets ---- */
 @media(hover:none){
-  button{min-height:44px}
+  button, .btn{min-height:44px}
   .faq summary{min-height:48px}
   .related-list li{padding:14px}
 }
 
-/* ---- Reduced motion ---- */
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{
     transition-duration:.01ms !important;
@@ -467,7 +502,6 @@ footer a:hover{color:var(--blue)}
   }
 }
 
-/* ---- Print ---- */
 @media print{
   body{background:#fff;color:#000;background-image:none}
   .masthead .nav-right,
