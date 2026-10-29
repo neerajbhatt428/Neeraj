@@ -1132,17 +1132,6 @@ footer{width:100%}
   </div>
 </div>
 
-<div class="modal-bg" id="restoreModal">
-  <div class="modal">
-    <h3>Restore your last session?</h3>
-    <p id="restoreInfo">We found unsaved work from a previous session.</p>
-    <div class="modal-actions">
-      <button class="btn" id="restoreNo">Start fresh</button>
-      <button class="btn primary" id="restoreYes" style="flex:0 0 auto">Restore</button>
-    </div>
-  </div>
-</div>
-
 <div class="tour-backdrop" id="tourBackdrop"></div>
 <div class="tour-spotlight" id="tourSpot"></div>
 <div class="tour-tip" id="tourTip">
@@ -1202,9 +1191,6 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
   var isReplaying = false;
 
   var clipboard = null;
-
-  var autosaveTimer = null;
-  var autosaveDirty = false;
 
   var activeGuides = [];
 
@@ -1405,9 +1391,6 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
     els.sigModal = $("sigModal"); els.sigPad = $("sigPad");
     els.sigClearBtn = $("sigClearBtn"); els.sigCancelBtn = $("sigCancelBtn"); els.sigConfirmBtn = $("sigConfirmBtn");
     els.helpModal = $("helpModal"); els.helpCloseBtn = $("helpCloseBtn");
-    els.restoreModal = $("restoreModal");
-    els.restoreYes = $("restoreYes"); els.restoreNo = $("restoreNo");
-    els.restoreInfo = $("restoreInfo");
     els.swatchRow = $("swatchRow");
     els.tourBackdrop = $("tourBackdrop");
     els.tourSpot = $("tourSpot");
@@ -1426,16 +1409,13 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
     bindKeyboard();
     bindContextMenu();
     bindHistory();
-    bindAutoSave();
     bindTour();
-    bindRestore();
 
     updateZoomLabel();
     updateHistoryButtons();
     bindFmt();
     updateSwatchSelection();
     maybeStartTour();
-    maybeOfferRestore();
   }
 
   function bindToolbar(){
@@ -1643,57 +1623,10 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
         updateEditList();
         say("Ready. Pick a tool.", "ok");
         markDirty();
-        if (window._pendingRestore){
-          applyRestore(window._pendingRestore);
-          window._pendingRestore = null;
-        }
       })
       .catch(function(err){
         say("Could not open PDF: " + (err.message || "unknown"), "err");
       });
-  }
-
-  function applyRestore(pageData){
-    try {
-      pageData.forEach(function(pd, pi){
-        if (!pages[pi]) return;
-        var rr = pd.scale ? pages[pi].viewport.scale / pd.scale : 1;
-        if (pd.elements){
-          pd.elements.forEach(function(el){
-            rescaleObj(el, rr); delete el.coverRef;
-            if (el.type === "image" && el.dataUrl){
-              var img = new Image();
-              img.src = el.dataUrl;
-              el.img = img;
-            }
-            pages[pi].elements.push(el);
-            renderElement(pi, el);
-          });
-        }
-        if (pd.deletedTexts){
-          pd.deletedTexts.forEach(function(d){
-            rescaleObj(d, rr);
-            pages[pi].deletedTexts.push(d);
-            addDeletedCover(pi, d);
-            pages[pi].textLayer.querySelectorAll("span").forEach(function(s){
-              if (s.dataset.hidden === "1") return;
-              var r = s.getBoundingClientRect();
-              var wrapRect = els.viewer.querySelector('.page-wrap[data-page="' + pi + '"]').getBoundingClientRect();
-              var sx = r.left - wrapRect.left;
-              var sy = r.top - wrapRect.top;
-              if (Math.abs(sx - (d.x - 0.5)) < 6 && Math.abs(sy - (d.y - parseFloat(s.dataset.fontSize) * 0.15)) < 8){
-                s.style.opacity = "0"; s.dataset.hidden = "1";
-              }
-            });
-          });
-        }
-      });
-      updateEditList();
-      pages.forEach(function(pp){ if (pp) hideCoveredIn(pp.textLayer, pp.deletedTexts); });
-      flash("Session restored");
-    } catch (err){
-      console.warn("Restore failed", err);
-    }
   }
 
   function renderPage(page, pageNum){
@@ -3124,105 +3057,8 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
     });
   }
 
-  function bindAutoSave(){
-    setInterval(function(){
-      if (autosaveDirty){ performAutoSave(); }
-    }, 5000);
-    window.addEventListener("beforeunload", function(){
-      if (autosaveDirty) performAutoSave();
-    });
-  }
   function markDirty(){
-    autosaveDirty = true;
     say("Unsaved changes", "saving");
-  }
-  function performAutoSave(){
-    if (!pdfBytes) return;
-    try {
-      var data = {
-        name: pdfName,
-        bytes: arrayBufferToBase64(pdfBytes),
-        pages: pages.map(function(p, pi){
-          var wrap = els.viewer.querySelector('.page-wrap[data-page="' + pi + '"]');
-          return {
-            elements: p.elements.map(function(el){
-              if (el.type === "image"){
-                return { id:el.id, type:el.type, x:el.x, y:el.y, w:el.w, h:el.h, rot:el.rot || 0, dataUrl: el.dataUrl };
-              }
-              return clone(el);
-            }),
-            deletedTexts: p.deletedTexts.slice(),
-            scale: p.viewport.scale,
-            rot: wrap ? parseInt(wrap.dataset.rot || "0", 10) : 0
-          };
-        }),
-        ts: Date.now()
-      };
-      localStorage.setItem("pdfeditor.autosave", JSON.stringify(data));
-      autosaveDirty = false;
-      say("Auto-saved", "ok");
-      setTimeout(function(){
-        if (!autosaveDirty && els.status.classList.contains("ok")) say("");
-      }, 1500);
-    } catch (err){
-      console.warn("Autosave failed", err);
-    }
-  }
-  function arrayBufferToBase64(buffer){
-    var binary = "";
-    var bytes = new Uint8Array(buffer);
-    var chunk = 8192;
-    for (var i = 0; i < bytes.length; i += chunk){
-      binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
-    }
-    return btoa(binary);
-  }
-  function base64ToArrayBuffer(base64){
-    var binary = atob(base64);
-    var len = binary.length;
-    var bytes = new Uint8Array(len);
-    for (var i = 0; i < len; i++) bytes[i] = binary.charCodeAt(i);
-    return bytes.buffer;
-  }
-
-  function bindRestore(){
-    els.restoreYes.addEventListener("click", function(){
-      try {
-        var raw = localStorage.getItem("pdfeditor.autosave");
-        if (!raw) { els.restoreModal.classList.remove("open"); return; }
-        var data = JSON.parse(raw);
-        els.restoreModal.classList.remove("open");
-        pdfName = data.name || "document.pdf";
-        pdfBytes = base64ToArrayBuffer(data.bytes);
-        window._pendingRestore = data.pages;
-        loadPdf();
-      } catch (err){
-        els.restoreModal.classList.remove("open");
-        flash("Could not restore");
-      }
-    });
-    els.restoreNo.addEventListener("click", function(){
-      els.restoreModal.classList.remove("open");
-      try { localStorage.removeItem("pdfeditor.autosave"); } catch (e){}
-    });
-  }
-  function maybeOfferRestore(){
-    try {
-      var raw = localStorage.getItem("pdfeditor.autosave");
-      if (!raw) return;
-      var data = JSON.parse(raw);
-      var age = (Date.now() - data.ts) / 60000;
-      if (age > 60 * 24 * 7) return;
-      els.restoreInfo.textContent = 'Found unsaved work: "' + (data.name || "document.pdf") + '" from ' + timeAgo(data.ts) + '.';
-      els.restoreModal.classList.add("open");
-    } catch (e){}
-  }
-  function timeAgo(ts){
-    var s = Math.round((Date.now() - ts) / 1000);
-    if (s < 60) return "just now";
-    if (s < 3600) return Math.floor(s/60) + " min ago";
-    if (s < 86400) return Math.floor(s/3600) + " hr ago";
-    return Math.floor(s/86400) + " days ago";
   }
 
   function bindTour(){
@@ -3570,7 +3406,6 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
 
           say("Saved.", "ok");
           flash("PDF saved");
-          autosaveDirty = false;
         } catch (err){
           console.error(err);
           say("Save failed: " + (err.message || "unknown"), "err");
@@ -3584,10 +3419,8 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
       if (!confirm("Close this file? Unsaved work will be lost.")) return;
       pdfBytes = null; pdfDoc = null; pages = []; history = []; historyIndex = -1;
       currentPage = 0; selected = null; zoomLevel = 1; fitScale = 1;
-      autosaveDirty = false;
       if (tourInterval){ clearInterval(tourInterval); tourInterval = null; }
       endTour();
-      try { localStorage.removeItem("pdfeditor.autosave"); } catch (e){}
       els.viewer.innerHTML =
         '<div class="placeholder">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' +
