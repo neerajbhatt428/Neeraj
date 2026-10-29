@@ -649,6 +649,187 @@ footer{width:100%}
   display:grid;place-items:center;font-size:.8125rem;line-height:1;
 }
 .insp-row .mini-btn:hover{color:var(--ink)}
+
+/* Professional Toolbar */
+.toolbar {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  position: sticky;
+  top: 8px;
+  z-index: 10;
+  box-shadow: 0 4px 20px -12px rgba(20, 22, 26, 0.25);
+  margin-bottom: 16px;
+  min-height: 48px;
+}
+.tool-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 2px;
+}
+.tool-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--line);
+  margin: 0 4px;
+  flex: none;
+}
+button.tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ink);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+button.tool:hover {
+  background: rgba(20, 22, 26, 0.05);
+}
+button.tool[aria-pressed="true"] {
+  background: var(--blue);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(27, 77, 255, 0.3);
+}
+button.tool svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+button.fmt-btn {
+  width: 32px;
+  padding: 0;
+  font-size: 0.875rem;
+}
+select.tool-select {
+  height: 32px;
+  padding: 0 6px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 4px;
+  font-size: 0.8125rem;
+  color: var(--ink);
+  cursor: pointer;
+  outline: none;
+}
+select.tool-select:focus, select.tool-select:hover {
+  border-color: #A9A9A1;
+}
+.tool-size { width: 56px; }
+.tool-font { width: 110px; }
+input.tool-color {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+input.tool-color::-webkit-color-swatch-wrapper { padding: 0; }
+input.tool-color::-webkit-color-swatch { border: none; border-radius: 2px; }
+.swatch-row {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 0 4px;
+}
+.swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.1s ease, border-color 0.1s ease;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1);
+}
+.swatch:hover { transform: scale(1.15); }
+.swatch.active { border-color: var(--ink); }
+.zoom-slider {
+  width: 80px;
+  accent-color: var(--blue);
+  cursor: pointer;
+}
+.zoom-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.zoom-box input {
+  width: 48px;
+  height: 32px;
+  padding: 0 4px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  text-align: right;
+  font: inherit;
+  color: var(--ink);
+  background: var(--surface);
+}
+.zoom-box input:focus {
+  outline: none;
+  border-color: var(--blue);
+}
+.bg-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  color: var(--muted);
+  padding: 0 4px;
+}
+.bg-picker input[type="color"] {
+  width: 28px;
+  height: 28px;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.bg-picker button {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.8125rem;
+  display: grid;
+  place-items: center;
+}
+.bg-picker button:hover { color: var(--ink); border-color: #A9A9A1; }
+.bg-picker button[aria-pressed="true"] { background: var(--blue); border-color: var(--blue); color: #fff; }
+@media (max-width: 1000px) {
+  button.tool span.lbl { display: none; }
+  button.tool { padding: 0 8px; }
+  .tool-group { gap: 0; }
+}
 </style>
 </head>
 <body>
@@ -1905,20 +2086,13 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
     });
     annLayer.addEventListener("mouseleave", function(){ hov.style.display = "none"; });
 
-    textLayer.addEventListener("click", function(e){
-      if (activeTool !== "edit") return;
-      var span = e.target.closest("span");
-      if (!span) return;
-      if (span.dataset.hidden === "1") return;
-      openEditInput(pageIndex, span);
-    });
-
     annLayer.addEventListener("mousedown", function(e){
       if (e.target.classList.contains("sel-handle")) return;
       currentPage = pageIndex;
       var ae = document.activeElement;
       if (ae && ae !== e.target && ae.classList && ae.classList.contains("inline-input")) ae.blur();
       if (e.target.classList && e.target.classList.contains("inline-input")) return;
+      
       var hitNode = e.target.closest(".ann-item");
       var rect = annLayer.getBoundingClientRect();
       var x = e.clientX - rect.left;
@@ -1926,6 +2100,7 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
 
       var hitEl = null;
       if (hitNode){ var hid = hitNode.dataset.elid; hitEl = p.elements.filter(function(z){ return z.id === hid; })[0] || null; }
+      
       var isNav = activeTool === "select" || activeTool === "edit";
       if (hitEl){
         var pick = isNav || e.altKey ||
@@ -1947,10 +2122,17 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
         var sp = spanAt(pageIndex, e.clientX, e.clientY);
         if (sp){
           e.preventDefault();
-          if (activeTool === "select"){
-            var pel = promoteTextSpan(pageIndex, sp, e.shiftKey);
-            if (pel) startDrag(e, pel, pageIndex);
-          } else spanPress(e, pageIndex, sp);
+          var pel = promoteTextSpan(pageIndex, sp, e.shiftKey);
+          if (pel) {
+            startDrag(e, pel, pageIndex, function(){
+              // Focus the text input in the sidebar
+              var insText = els.insText;
+              if (insText) { 
+                insText.focus(); 
+                insText.select(); 
+              }
+            });
+          }
           return;
         }
         deselect();
@@ -2037,19 +2219,6 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
       if (hit) return hit.items[0].sp;
     }
     return best && best.s;
-  }
-  function spanPress(e, pi, span){
-    var sx = e.clientX, sy = e.clientY;
-    function off(){ document.removeEventListener("mousemove", mv); document.removeEventListener("mouseup", up); }
-    function mv(ev){
-      if (Math.abs(ev.clientX - sx) + Math.abs(ev.clientY - sy) < 5) return;
-      off();
-      var el = promoteTextSpan(pi, span, e.shiftKey);
-      if (el) startDrag(e, el, pi);
-    }
-    function up(){ off(); openEditInput(pi, span, e.shiftKey); }
-    document.addEventListener("mousemove", mv);
-    document.addEventListener("mouseup", up);
   }
 
   function startDrag(mouseDownEvent, el, pageIndex, onClick){
@@ -2291,46 +2460,6 @@ if (!window.PDFLib) document.write('<script src="https://unpkg.com/pdf-lib@1.17.
     var el = { id: uid(), type: "text", x: g.x, y: g.ty, w: 0, h: g.fs * 1.2 * text.split("\n").length, text: text, color: g.color, bg: activeBg, font: g.font, bold: g.bold, italic: g.italic, size: g.fs, original: g.text };
     if (g.lr) el.lr = g.lr;
     return el;
-  }
-  function openEditInput(pageIndex, span, para){
-    var p = pages[pageIndex], g = groupInfo(pageIndex, span, para);
-    if (!g) return;
-    var multi = g.text.indexOf("\n") > -1, done = false;
-    var input = document.createElement(multi ? "textarea" : "input");
-    if (!multi) input.type = "text";
-    input.className = "inline-input";
-    input.value = g.text;
-    input.style.left = g.x + "px"; input.style.top = g.cy + "px";
-    input.style.width = Math.max(60, g.w + 40) + "px";
-    input.style.height = Math.max(16, g.ch) + "px";
-    input.style.fontSize = g.fs + "px";
-    input.style.color = g.color;
-    input.style.fontFamily = g.font;
-    input.style.fontWeight = g.bold ? "700" : "400";
-    input.style.fontStyle = g.italic ? "italic" : "normal";
-    if (multi){ input.wrap = "off"; input.style.lineHeight = String(g.lr); }
-    p.annLayer.appendChild(input);
-    input.focus(); input.select();
-    function commit(){
-      if (done || !input.parentNode) return;
-      done = true;
-      var v = input.value;
-      input.remove();
-      if (v === g.text || !v.trim()) return;
-      var cover = { x: g.cx, y: g.cy, w: g.cw, h: g.ch, color: activeBg || "#FFFFFF" };
-      var el = makeGroupEl(g, v);
-      el.coverRef = cover;
-      p.deletedTexts.push(cover); addDeletedCover(pageIndex, cover);
-      g.spans.forEach(function(sp){ sp.style.opacity = "0"; sp.dataset.hidden = "1"; });
-      p.runs = null;
-      addElement(pageIndex, el);
-      flash("Edited");
-    }
-    input.addEventListener("keydown", function(e){
-      if (e.key === "Enter" && (!multi || e.ctrlKey || e.metaKey)){ e.preventDefault(); commit(); }
-      if (e.key === "Escape"){ done = true; input.remove(); }
-    });
-    input.addEventListener("blur", commit);
   }
   function promoteTextSpan(pageIndex, span, para){
     var p = pages[pageIndex], g = groupInfo(pageIndex, span, para);
