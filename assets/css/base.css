@@ -510,3 +510,212 @@ footer a:hover{color:var(--blue)}
   .wrap,.wrap-wide{max-width:100%;padding:0}
   a{color:#000;text-decoration:underline}
 }
+
+/* ============================================================
+   20. COMPLEX EDITOR TOOLBAR (PDF Editor, Image Editor)
+   ============================================================ */
+.toolbar {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  position: sticky;
+  top: 8px;
+  z-index: 50;
+  box-shadow: 0 4px 20px -12px rgba(20, 22, 26, 0.25);
+  margin-bottom: 16px;
+  min-height: 48px;
+}
+
+.tool-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 2px;
+}
+
+.tool-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--line);
+  margin: 0 4px;
+  flex: none;
+}
+
+/* Override global button defaults specifically for the toolbar */
+button.tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  min-height: 32px;
+  padding: 0 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ink);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+button.tool:hover {
+  background: rgba(20, 22, 26, 0.05);
+  border-color: transparent;
+}
+button.tool[aria-pressed="true"] {
+  background: var(--blue);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(27, 77, 255, 0.3);
+}
+button.tool svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+button.fmt-btn {
+  width: 32px;
+  padding: 0;
+  font-size: 0.875rem;
+}
+
+/* Compact Selects & Inputs for Toolbar */
+select.tool-select,
+input.tool-input {
+  height: 32px;
+  min-height: 32px;
+  padding: 0 6px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
+  color: var(--ink);
+  cursor: pointer;
+  outline: none;
+  width: auto;
+}
+select.tool-select:focus, 
+select.tool-select:hover,
+input.tool-input:focus,
+input.tool-input:hover {
+  border-color: #A9A9A1;
+}
+.tool-size { width: 56px; }
+.tool-font { width: 110px; }
+
+/* Fix for the stretching color picker */
+input.tool-color {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  min-height: 32px;
+}
+input.tool-color::-webkit-color-swatch-wrapper { padding: 0; }
+input.tool-color::-webkit-color-swatch { border: none; border-radius: 2px; }
+
+.swatch-row {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 0 4px;
+}
+.swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.1s ease, border-color 0.1s ease;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1);
+}
+.swatch:hover { transform: scale(1.15); }
+.swatch.active { border-color: var(--ink); }
+
+.zoom-slider {
+  width: 80px;
+  cursor: pointer;
+  margin: 0 4px;
+}
+
+.zoom-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.zoom-box input {
+  width: 48px;
+  height: 32px;
+  min-height: 32px;
+  padding: 0 4px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  text-align: right;
+  font: inherit;
+  color: var(--ink);
+  background: var(--surface);
+}
+.zoom-box input:focus {
+  outline: none;
+  border-color: var(--blue);
+}
+
+.bg-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  color: var(--muted);
+  padding: 0 4px;
+}
+.bg-picker input[type="color"] {
+  width: 28px;
+  height: 28px;
+  min-height: 28px;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.bg-picker button {
+  width: 28px;
+  height: 28px;
+  min-height: 28px;
+  padding: 0;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.8125rem;
+  display: grid;
+  place-items: center;
+}
+.bg-picker button:hover { color: var(--ink); border-color: #A9A9A1; }
+.bg-picker button[aria-pressed="true"] { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+@media (max-width: 1000px) {
+  button.tool span.lbl { display: none; }
+  button.tool { padding: 0 8px; }
+  .tool-group { gap: 0; }
+}
